@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NPC Visual Novel Chat</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="scene">
+    <div class="portrait-wrap">
+      <img id="portrait" alt="NPC portrait" />
+      <div id="portraitFallback" class="portrait-fallback">이미지 없음</div>
+    </div>
+
+    <div class="controls">
+      <label>
+        <input id="comfyToggle" type="checkbox" />
+        Comfy 이미지 생성 ON
+      </label>
+      <span id="statusBadge">Comfy: off</span>
+    </div>
+
+    <div class="dialogue-box">
+      <div class="meta">
+        <span id="face">face: -</span>
+        <span id="tags">tags: -</span>
+      </div>
+      <div id="reply" class="reply">질문을 입력하면 NPC 답변이 하단에 표시됩니다.</div>
+    </div>
+
+    <form id="chatForm" class="input-row">
+      <input id="message" type="text" placeholder="질문을 입력하세요" maxlength="1000" required />
+      <button type="submit">보내기</button>
+    </form>
+  </div>
+
+  <script>
+    // When using GitHub Pages, set your backend tunnel URL here.
+    window.NPC_API_BASE_URL = "";
+  </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

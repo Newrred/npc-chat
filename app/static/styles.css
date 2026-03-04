@@ -1,0 +1,126 @@
+﻿:root {
+  --bg-a: #0e1a2b;
+  --bg-b: #2d445f;
+  --panel: rgba(12, 18, 29, 0.78);
+  --line: rgba(255, 255, 255, 0.2);
+  --text: #f3f6fa;
+  --muted: #c8d3df;
+  --accent: #ffb25b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  color: var(--text);
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 20% 10%, #415f83 0%, var(--bg-a) 50%),
+              linear-gradient(160deg, #21344c, var(--bg-b));
+}
+
+.scene {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto auto auto;
+  gap: 12px;
+  padding: 16px;
+}
+
+.portrait-wrap {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(5, 9, 16, 0.35);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#portrait {
+  width: 100%;
+  max-height: 48vh;
+  object-fit: contain;
+  display: none;
+}
+
+.portrait-fallback {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.controls,
+.dialogue-box,
+.input-row {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.dialogue-box {
+  padding: 12px 14px;
+}
+
+.meta {
+  display: flex;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.reply {
+  line-height: 1.6;
+  min-height: 48px;
+  white-space: pre-wrap;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  padding: 10px 12px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #1e1e1e;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .scene {
+    grid-template-rows: 1fr auto auto auto;
+    padding: 10px;
+  }
+
+  #portrait {
+    max-height: 40vh;
+  }
+}

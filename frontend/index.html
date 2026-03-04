@@ -1,0 +1,41 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NPC 비주얼노블 UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="screen">
+    <div class="stage">
+      <div class="portrait-wrap">
+        <img id="heroine" alt="NPC portrait" />
+        <div id="placeholder" class="placeholder">아직 이미지 없음</div>
+        <div id="faceChip" class="face-chip">face: neutral</div>
+      </div>
+    </div>
+
+    <div class="dialogue">
+      <div class="name-row">
+        <div class="name">NPC</div>
+        <label class="comfy-toggle">
+          <input id="comfyToggle" type="checkbox" />
+          Comfy ON
+        </label>
+      </div>
+
+      <div id="reply" class="reply">Type your message...</div>
+      <div id="meta" class="meta">tags: - | memo: - | comfy: off</div>
+
+      <form id="chatForm" class="input-row">
+        <input id="messageInput" type="text" placeholder="질문 입력..." autocomplete="off" maxlength="1000" />
+        <button type="submit">보내기</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
