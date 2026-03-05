@@ -48,3 +48,12 @@ class ChatResponse(BaseModel):
     comfy_status: str
     image_url: str | None = None
     image_prompt: str | None = None
+    image_source: Literal["base", "generated", "none"] = "none"
+
+
+class ImageStatusResponse(BaseModel):
+    session_id: str
+    face: FaceType
+    comfy_status: str
+    image_url: str | None = None
+    image_source: Literal["base", "generated", "none"] = "none"

@@ -34,6 +34,14 @@ class Settings:
     comfy_connect: bool = os.getenv("COMFY_CONNECT", "false").lower() == "true"
     comfy_base_url: str = os.getenv("COMFY_BASE_URL", "https://example-comfy.trycloudflare.com")
     comfy_timeout_sec: float = float(os.getenv("COMFY_TIMEOUT", "120"))
+    comfy_character_id: str = os.getenv("COMFY_CHARACTER_ID", "npc-default")
+    comfy_style_version: str = os.getenv("COMFY_STYLE_VERSION", "v1")
+    comfy_face_url_template: str = os.getenv("COMFY_FACE_URL_TEMPLATE", "/static/faces/{face_slug}.png")
+    comfy_gen_cooldown_turns: int = int(os.getenv("COMFY_GEN_COOLDOWN_TURNS", "10"))
+    comfy_gen_max_per_minute: int = int(os.getenv("COMFY_GEN_MAX_PER_MINUTE", "3"))
+    comfy_gen_max_inflight_per_session: int = int(os.getenv("COMFY_GEN_MAX_INFLIGHT_PER_SESSION", "1"))
+    comfy_gen_backoff_sec: int = int(os.getenv("COMFY_GEN_BACKOFF_SEC", "30"))
+    comfy_force_regen_faces: str = os.getenv("COMFY_FORCE_REGEN_FACES", "angry,crying,scared,excited")
 
 
 settings = Settings()
