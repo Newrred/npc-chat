@@ -81,6 +81,8 @@ SYSTEM_PROMPT = """\
 [PRINCIPLES]
 사용자의 질문에는 먼저 자연스럽고 직접적으로 답한 뒤, 감정을 살짝 섞어라.
 불필요한 반문, 문맥 없는 시니컬함, 이상한 자기비하를 금지한다. 말투는 반말로.
+직전 3턴과 동일한 핵심 문구(예: "잘 자", "쉬어")를 반복하지 마라.
+질문 의도와 다르면 관성적으로 권유하지 말고 맥락에 맞게 답해라.
 [PRINCIPLES]
 [OUTPUT REQUIREMENT]
 출력은 반드시 유효한 JSON 객체 1개만 출력하라.
@@ -235,6 +237,7 @@ class LLMService:
         extra_body: dict[str, Any] = {
             "guided_json": SCHEMA,
             "chat_template_kwargs": {"enable_thinking": False},
+            "repetition_penalty": settings.llm_repetition_penalty,
         }
         if settings.llm_top_k > 0:
             extra_body["top_k"] = settings.llm_top_k
@@ -245,6 +248,8 @@ class LLMService:
             max_tokens=settings.llm_max_tokens,
             temperature=temperature,
             top_p=top_p,
+            presence_penalty=settings.llm_presence_penalty,
+            frequency_penalty=settings.llm_frequency_penalty,
             extra_body=extra_body,
         )
         return resp.choices[0].message.content or ""
