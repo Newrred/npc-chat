@@ -19,7 +19,14 @@
 ## Frontend (GitHub Pages)
 1. In `frontend/config.js`, set:
    - `window.NPC_API_BASE_URL = "https://<your-backend-tunnel>";`
-2. Publish `frontend/` directory to GitHub Pages.
+   - `window.NPC_FACE_ASSET_BASE_URL = "./faces";`
+   - `window.NPC_FACE_EXT = "png";`
+2. Put base face images in `frontend/faces/` with these names:
+   - `neutral.png`, `happy.png`, `sad.png`, `angry.png`, `crying.png`, `smiling.png`,
+     `smirk.png`, `shy_smile.png`, `blushing.png`, `teary.png`, `surprised.png`,
+     `confused.png`, `annoyed.png`, `pouting.png`, `tired.png`, `scared.png`, `excited.png`
+3. Generated image polling uses backend endpoint `/api/image/status`, while base faces are always loaded from frontend static files.
+4. Publish `frontend/` directory to GitHub Pages.
 
 ## Notes
 - Keep `.env` out of git.
