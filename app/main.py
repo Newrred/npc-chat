@@ -1,4 +1,7 @@
-﻿from fastapi import FastAPI
+﻿from dataclasses import dataclass, field
+import uuid
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
@@ -6,7 +9,16 @@ from app.models import ChatRequest, ChatResponse
 from app.services.comfy_service import ComfyService
 from app.services.llm_service import LLMService
 
-app = FastAPI(title="NPC Backend API", version="0.2.0")
+
+@dataclass
+class SessionState:
+    affection_total: int = 0
+    flags: set[str] = field(default_factory=set)
+    memory_1line: str = ""
+    history: list[dict[str, str]] = field(default_factory=list)
+
+
+app = FastAPI(title="NPC Backend API", version="0.3.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,6 +30,18 @@ app.add_middleware(
 
 llm_service = LLMService()
 comfy_service = ComfyService()
+session_store: dict[str, SessionState] = {}
+
+
+def _get_or_create_session(session_id: str | None) -> tuple[str, SessionState]:
+    sid = (session_id or "").strip()
+    if sid and sid in session_store:
+        return sid, session_store[sid]
+
+    sid = uuid.uuid4().hex
+    state = SessionState()
+    session_store[sid] = state
+    return sid, state
 
 
 @app.get("/api/health")
@@ -27,18 +51,53 @@ def health() -> dict[str, str]:
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest) -> ChatResponse:
-    history_payload = [{"role": t.role, "content": t.content} for t in req.history]
-    npc = llm_service.chat(req.message, history_payload)
+    session_id, state = _get_or_create_session(req.session_id)
+
+    # First request can bootstrap from client history if session is empty.
+    if not state.history and req.history:
+        state.history = [{"role": t.role, "content": t.content} for t in req.history]
+
+    npc = llm_service.chat(
+        message=req.message,
+        history=state.history,
+        affection_total=state.affection_total,
+        flags=sorted(state.flags),
+        memory_1line=state.memory_1line,
+    )
+
+    delta = int(npc.get("affection_delta", 0))
+    delta = max(-10, min(10, delta))
+    state.affection_total += delta
+    state.flags.update(npc.get("flags_set") or [])
+    state.memory_1line = npc.get("memory_1line") or state.memory_1line
+
+    reply = npc.get("reply") or ""
+    state.history.extend(
+        [
+            {"role": "user", "content": req.message},
+            {"role": "assistant", "content": reply},
+        ]
+    )
+    if len(state.history) > 20:
+        state.history = state.history[-20:]
 
     comfy = await comfy_service.maybe_generate(
         comfy_on=req.comfy_on,
         face=npc["face"],
         tags=npc["tags"],
-        reply=npc["reply"],
+        reply=reply,
     )
 
     return ChatResponse(
-        **npc,
+        session_id=session_id,
+        reply=reply,
+        face=npc["face"],
+        affection_delta=delta,
+        affection_total=state.affection_total,
+        tags=npc["tags"],
+        flags_set=npc.get("flags_set") or [],
+        flags=sorted(state.flags),
+        memory_1line=state.memory_1line,
         comfy_status=comfy["comfy_status"],
         image_url=comfy["image_url"],
         image_prompt=comfy["image_prompt"],

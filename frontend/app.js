@@ -1,4 +1,6 @@
-﻿const form = document.getElementById("chatForm");
+﻿let sessionId = localStorage.getItem("npc_session_id") || "";
+
+const form = document.getElementById("chatForm");
 const input = document.getElementById("messageInput");
 const replyEl = document.getElementById("reply");
 const metaEl = document.getElementById("meta");
@@ -24,10 +26,12 @@ function showImage(url) {
 }
 
 function setMeta(data) {
+  const aff = Number.isFinite(Number(data.affection_total)) ? data.affection_total : 0;
   const tags = (data.tags || []).join(", ") || "-";
+  const flags = (data.flags || []).join(", ") || "-";
   const memo = data.memory_1line || "-";
   const comfy = data.comfy_status || (comfyToggle.checked ? "on" : "off");
-  metaEl.textContent = `tags: ${tags} | memo: ${memo} | comfy: ${comfy}`;
+  metaEl.textContent = `호감도: ${aff} | tags: ${tags} | flags: ${flags} | memo: ${memo} | comfy: ${comfy}`;
 }
 
 if (!CHAT_API_URL) {
@@ -53,6 +57,7 @@ form.addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        session_id: sessionId || null,
         message,
         history,
         comfy_on: comfyToggle.checked,
@@ -60,10 +65,16 @@ form.addEventListener("submit", async (e) => {
     });
 
     if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
+      const errText = await res.text();
+      throw new Error(`HTTP ${res.status} ${errText}`.trim());
     }
 
     const data = await res.json();
+    if (data.session_id) {
+      sessionId = data.session_id;
+      localStorage.setItem("npc_session_id", sessionId);
+    }
+
     replyEl.textContent = data.reply || "(빈 응답)";
     faceChip.textContent = `face: ${data.face || "neutral"}`;
     setMeta(data);
