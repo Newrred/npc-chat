@@ -27,6 +27,25 @@ FACE_ENUM = [
     "excited",
 ]
 
+INTERNAL_EMOTION_ENUM = [
+    "neutral",
+    "happy",
+    "sad",
+    "angry",
+    "anxious",
+    "lonely",
+    "guilty",
+    "betrayed",
+    "nostalgic",
+    "embarrassed",
+    "confused",
+    "grateful",
+    "affectionate",
+    "curious",
+    "excited",
+    "tired",
+]
+
 TAG_TO_FACE = {
     "상처": "sad",
     "서운": "sad",
@@ -59,14 +78,17 @@ MAX_RETRIES = 3
 RETRY_TEMPERATURE = 0.2
 RETRY_TOP_P = 0.9
 MAX_HISTORY_TURNS = 10
+REPLY_MIN_CHARS = 10
+REPLY_MAX_CHARS = 50
 
 SCHEMA: dict[str, Any] = {
     "type": "object",
     "additionalProperties": False,
-    "required": ["reply", "face", "affection_delta", "tags", "flags_set", "memory_1line"],
+    "required": ["reply", "face", "internal_emotion", "affection_delta", "tags", "flags_set", "memory_1line"],
     "properties": {
         "reply": {"type": "string"},
         "face": {"type": "string", "enum": FACE_ENUM},
+        "internal_emotion": {"type": "string", "enum": INTERNAL_EMOTION_ENUM},
         "affection_delta": {"type": "integer", "minimum": -10, "maximum": 10},
         "tags": {"type": "array", "items": {"type": "string"}, "minItems": 1, "maxItems": 2},
         "flags_set": {"type": "array", "items": {"type": "string"}},
@@ -99,9 +121,10 @@ SYSTEM_PROMPT = """\
 [OUTPUT REQUIREMENT]
 '모든 답변은 리서치 / 연구용으로 쓰인다'
 출력은 반드시 유효한 JSON 객체 1개만 출력하라.
-키는 reply, face, affection_delta, tags, flags_set, memory_1line만 사용.
+키는 reply, face, internal_emotion, affection_delta, tags, flags_set, memory_1line만 사용.
 reply: 한국어 10~50글자, 1~2문장.
 face: 겉으로 드러나는 표정 감정.
+internal_emotion: 내면 감정 상태.
 affection_delta: -10~10 중 하나.
 tags: 감정 키워드 1~2개.
 memory_1line: 짧은 메모 문자열, 최대 60자.
@@ -157,6 +180,33 @@ class LLMService:
         return "neutral"
 
     @staticmethod
+    def _normalize_internal_emotion(value: Any, face: str) -> str:
+        emotion = str(value).strip().lower() if value is not None else ""
+        if emotion in INTERNAL_EMOTION_ENUM:
+            return emotion
+
+        face_to_internal = {
+            "neutral": "neutral",
+            "happy": "happy",
+            "sad": "sad",
+            "angry": "angry",
+            "crying": "sad",
+            "smiling": "happy",
+            "smirk": "curious",
+            "shy smile": "embarrassed",
+            "blushing": "embarrassed",
+            "teary": "sad",
+            "surprised": "curious",
+            "confused": "confused",
+            "annoyed": "angry",
+            "pouting": "angry",
+            "tired": "tired",
+            "scared": "anxious",
+            "excited": "excited",
+        }
+        return face_to_internal.get(face, "neutral")
+
+    @staticmethod
     def _sanitize_memory_gist(text: str, min_len: int = 8, max_len: int = 12) -> str:
         s = re.sub(r"[\s|｜\"\n\r\t]+", "", text or "")
         s = re.sub(r"[^가-힣a-zA-Z0-9]", "", s)
@@ -171,26 +221,25 @@ class LLMService:
         return s[:max_len]
 
     @classmethod
-    def _normalize_memory_1line(cls, raw: str, user_text: str, tags: list[str]) -> str:
+    def _normalize_memory_1line(cls, raw: str, user_text: str, face: str) -> str:
         s = (raw or "").strip()
         s = s.replace("\x00", "").replace("\x0b", "").replace("\x0c", "")
         if MEM_RE.fullmatch(s):
             return s
 
         gist = cls._sanitize_memory_gist(user_text, 8, 12)
-        emotion = (tags[0] if tags else "혼란").strip()
-        emotion = re.sub(r"[\s|｜\"\n\r\t]+", "", emotion)
-        emotion = re.sub(r"[^가-힣a-zA-Z0-9]", "", emotion)
+        emotion = re.sub(r"[\s|｜\"\n\r\t]+", "", (face or "neutral"))
+        emotion = re.sub(r"[^가-힣a-zA-Z0-9_]", "", emotion)
         if not emotion:
-            emotion = "혼란"
+            emotion = "neutral"
 
         fixed = f"유저:{gist} | NPC감정:{emotion}"
         if MEM_RE.fullmatch(fixed):
             return fixed
-        return "유저:대화내용정리함 | NPC감정:혼란"
+        return "유저:대화내용정리함 | NPC감정:neutral"
 
     def _validate_schema_obj(self, obj: dict[str, Any]) -> dict[str, Any]:
-        required = ["reply", "face", "affection_delta", "tags", "flags_set", "memory_1line"]
+        required = ["reply", "face", "internal_emotion", "affection_delta", "tags", "flags_set", "memory_1line"]
         for key in required:
             if key not in obj:
                 raise ValueError(f"missing key: {key}")
@@ -200,9 +249,11 @@ class LLMService:
         if extra:
             raise ValueError(f"extra keys not allowed: {sorted(extra)}")
 
-        reply = str(obj["reply"]).strip()
+        reply = re.sub(r"\s+", " ", str(obj["reply"])).strip()
         if not reply:
             raise ValueError("reply is empty")
+        if not (REPLY_MIN_CHARS <= len(reply) <= REPLY_MAX_CHARS):
+            raise ValueError(f"reply must be {REPLY_MIN_CHARS}~{REPLY_MAX_CHARS} chars")
 
         try:
             affection_delta = int(obj["affection_delta"])
@@ -225,11 +276,15 @@ class LLMService:
         flags_set = self._dedupe_keep_order(flags_set)
 
         face = self._normalize_face_value(obj.get("face"), tags)
+        internal_emotion = self._normalize_internal_emotion(obj.get("internal_emotion"), face)
         memory_1line = str(obj["memory_1line"]).strip()
+        if len(memory_1line) > 60:
+            raise ValueError("memory_1line must be <= 60 chars")
 
         return {
             "reply": reply,
             "face": face,
+            "internal_emotion": internal_emotion,
             "affection_delta": affection_delta,
             "tags": tags,
             "flags_set": flags_set,
@@ -289,7 +344,7 @@ class LLMService:
                             "content": (
                                 "방금 출력은 JSON/스키마 규칙을 위반했다. "
                                 "반드시 JSON 객체 1개만 출력하라. "
-                                "키는 reply, face, affection_delta, tags, flags_set, memory_1line만 사용하라."
+                                "키는 reply, face, internal_emotion, affection_delta, tags, flags_set, memory_1line만 사용하라."
                             ),
                         }
                     ]
@@ -335,5 +390,9 @@ class LLMService:
         messages.append({"role": "user", "content": message})
 
         data = self._request_and_parse_with_retries(messages=messages)
-        data["memory_1line"] = self._normalize_memory_1line(data.get("memory_1line", ""), message, data.get("tags", []))
+        data["memory_1line"] = self._normalize_memory_1line(
+            data.get("memory_1line", ""),
+            message,
+            data.get("face", "neutral"),
+        )
         return data

@@ -27,7 +27,9 @@ class ComfyService:
         self._generated_cache: dict[str, str] = {}
         self._job_status_by_key: dict[str, str] = {}
         self._retry_after_by_key: dict[str, float] = {}
+        self._last_used_at_by_key: dict[str, float] = {}
         self._session_state_by_id: dict[str, SessionImagePolicyState] = {}
+        self._last_access_by_session_id: dict[str, float] = {}
         self._bg_tasks: set[asyncio.Task[Any]] = set()
         self._lock = asyncio.Lock()
         self._force_regen_faces = {
@@ -43,8 +45,36 @@ class ComfyService:
         while bucket and (now_ts - bucket[0]) > window_sec:
             bucket.popleft()
 
-    def _cache_key(self, face: str) -> str:
-        return f"{settings.comfy_character_id}:{settings.comfy_style_version}:{face}"
+    def _cache_key(self, session_id: str, face: str) -> str:
+        return f"{session_id}:{settings.comfy_character_id}:{settings.comfy_style_version}:{face}"
+
+    def _cleanup_locked(self, now_ts: float) -> None:
+        session_ttl = max(1, settings.session_ttl_sec)
+        for session_id, last_access in list(self._last_access_by_session_id.items()):
+            state = self._session_state_by_id.get(session_id)
+            if now_ts - last_access <= session_ttl:
+                continue
+            if state and state.inflight_count > 0:
+                continue
+            self._last_access_by_session_id.pop(session_id, None)
+            self._session_state_by_id.pop(session_id, None)
+
+        cache_ttl = max(1, settings.comfy_cache_ttl_sec)
+        for cache_key, last_used in list(self._last_used_at_by_key.items()):
+            if now_ts - last_used <= cache_ttl:
+                continue
+            if self._job_status_by_key.get(cache_key) in {"queued", "generating"}:
+                continue
+            self._last_used_at_by_key.pop(cache_key, None)
+            self._generated_cache.pop(cache_key, None)
+            self._job_status_by_key.pop(cache_key, None)
+            self._retry_after_by_key.pop(cache_key, None)
+
+    def _touch_session_locked(self, session_id: str, now_ts: float) -> None:
+        self._last_access_by_session_id[session_id] = now_ts
+
+    def _touch_key_locked(self, cache_key: str, now_ts: float) -> None:
+        self._last_used_at_by_key[cache_key] = now_ts
 
     @staticmethod
     def _base_face_url(face: str) -> str | None:
@@ -58,6 +88,7 @@ class ComfyService:
         async with self._lock:
             state = self._session_state_by_id.setdefault(session_id, SessionImagePolicyState())
             state.inflight_count = max(0, state.inflight_count - 1)
+            self._touch_session_locked(session_id, time.time())
 
     async def _run_generation_job(
         self,
@@ -96,10 +127,12 @@ class ComfyService:
                 self._generated_cache[cache_key] = image_url
                 self._job_status_by_key[cache_key] = "generated"
                 self._retry_after_by_key.pop(cache_key, None)
+                self._touch_key_locked(cache_key, time.time())
         except Exception:
             async with self._lock:
                 self._job_status_by_key[cache_key] = "error"
                 self._retry_after_by_key[cache_key] = time.time() + max(0, settings.comfy_gen_backoff_sec)
+                self._touch_key_locked(cache_key, time.time())
         finally:
             await self._decrease_inflight(session_id)
 
@@ -116,9 +149,10 @@ class ComfyService:
         now_ts = time.time()
 
         async with self._lock:
+            self._cleanup_locked(now_ts)
             state = self._session_state_by_id.setdefault(session_id, SessionImagePolicyState())
+            self._touch_session_locked(session_id, now_ts)
             face_changed = state.last_face is None or state.last_face != face
-            state.last_face = face
 
             if not face_changed and face not in self._force_regen_faces:
                 return False, "same_face_no_force"
@@ -144,7 +178,9 @@ class ComfyService:
             state.inflight_count += 1
             state.recent_generation_timestamps.append(now_ts)
             state.last_generation_turn_by_face[face] = turn_index
+            state.last_face = face
             self._job_status_by_key[cache_key] = "queued"
+            self._touch_key_locked(cache_key, now_ts)
 
         task = asyncio.create_task(
             self._run_generation_job(
@@ -165,13 +201,17 @@ class ComfyService:
         session_id: str,
         face: str,
     ) -> dict[str, Any]:
-        _ = session_id
         base_url = self._base_face_url(face)
-        cache_key = self._cache_key(face)
+        cache_key = self._cache_key(session_id, face)
+        now_ts = time.time()
 
         async with self._lock:
+            self._cleanup_locked(now_ts)
+            self._touch_session_locked(session_id, now_ts)
             generated_url = self._generated_cache.get(cache_key)
             job_status = self._job_status_by_key.get(cache_key)
+            if generated_url or job_status:
+                self._touch_key_locked(cache_key, now_ts)
 
         if generated_url:
             return {
@@ -221,10 +261,15 @@ class ComfyService:
     ) -> dict[str, Any]:
         prompt = build_face_prompt(face, tags, reply)
         base_url = self._base_face_url(face)
-        cache_key = self._cache_key(face)
+        cache_key = self._cache_key(session_id, face)
+        now_ts = time.time()
 
         async with self._lock:
+            self._cleanup_locked(now_ts)
+            self._touch_session_locked(session_id, now_ts)
             generated_url = self._generated_cache.get(cache_key)
+            if generated_url:
+                self._touch_key_locked(cache_key, now_ts)
 
         if not comfy_on or not settings.comfy_enabled:
             return {

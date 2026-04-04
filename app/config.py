@@ -28,6 +28,7 @@ class Settings:
 
     # Browser access control
     cors_origins: list[str] = field(default_factory=lambda: _parse_cors_origins(os.getenv("CORS_ORIGINS", "*")))
+    session_ttl_sec: int = int(os.getenv("SESSION_TTL_SEC", "3600"))
 
     # ComfyUI switch
     comfy_enabled: bool = os.getenv("COMFY_ENABLED", "false").lower() == "true"
@@ -42,6 +43,7 @@ class Settings:
     comfy_gen_max_inflight_per_session: int = int(os.getenv("COMFY_GEN_MAX_INFLIGHT_PER_SESSION", "1"))
     comfy_gen_backoff_sec: int = int(os.getenv("COMFY_GEN_BACKOFF_SEC", "30"))
     comfy_force_regen_faces: str = os.getenv("COMFY_FORCE_REGEN_FACES", "angry,crying,scared,excited")
+    comfy_cache_ttl_sec: int = int(os.getenv("COMFY_CACHE_TTL_SEC", "1800"))
 
 
 settings = Settings()

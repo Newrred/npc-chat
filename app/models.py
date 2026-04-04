@@ -39,6 +39,7 @@ class ChatResponse(BaseModel):
     session_id: str
     reply: str
     face: FaceType
+    internal_emotion: str
     affection_delta: int
     affection_total: int
     tags: list[str]
