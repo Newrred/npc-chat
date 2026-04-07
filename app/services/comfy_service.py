@@ -76,14 +76,6 @@ class ComfyService:
     def _touch_key_locked(self, cache_key: str, now_ts: float) -> None:
         self._last_used_at_by_key[cache_key] = now_ts
 
-    @staticmethod
-    def _base_face_url(face: str) -> str | None:
-        tmpl = (settings.comfy_face_url_template or "").strip()
-        if not tmpl:
-            return None
-        face_slug = face.strip().lower().replace(" ", "_")
-        return tmpl.format(face=face, face_slug=face_slug)
-
     async def _decrease_inflight(self, session_id: str) -> None:
         async with self._lock:
             state = self._session_state_by_id.setdefault(session_id, SessionImagePolicyState())
@@ -201,7 +193,6 @@ class ComfyService:
         session_id: str,
         face: str,
     ) -> dict[str, Any]:
-        base_url = self._base_face_url(face)
         cache_key = self._cache_key(session_id, face)
         now_ts = time.time()
 
@@ -222,31 +213,31 @@ class ComfyService:
         if job_status in {"queued", "generating"}:
             return {
                 "comfy_status": "queued",
-                "image_url": base_url,
-                "image_source": "base" if base_url else "none",
+                "image_url": None,
+                "image_source": "none",
             }
         if job_status == "error":
             return {
                 "comfy_status": "error",
-                "image_url": base_url,
-                "image_source": "base" if base_url else "none",
+                "image_url": None,
+                "image_source": "none",
             }
         if not settings.comfy_enabled:
             return {
                 "comfy_status": "disabled",
-                "image_url": base_url,
-                "image_source": "base" if base_url else "none",
+                "image_url": None,
+                "image_source": "none",
             }
         if not settings.comfy_connect:
             return {
                 "comfy_status": "stubbed",
-                "image_url": base_url,
-                "image_source": "base" if base_url else "none",
+                "image_url": None,
+                "image_source": "none",
             }
         return {
             "comfy_status": "base",
-            "image_url": base_url,
-            "image_source": "base" if base_url else "none",
+            "image_url": None,
+            "image_source": "none",
         }
 
     async def maybe_generate(
@@ -260,7 +251,6 @@ class ComfyService:
         reply: str,
     ) -> dict[str, Any]:
         prompt = build_face_prompt(face, tags, reply)
-        base_url = self._base_face_url(face)
         cache_key = self._cache_key(session_id, face)
         now_ts = time.time()
 
@@ -274,18 +264,18 @@ class ComfyService:
         if not comfy_on or not settings.comfy_enabled:
             return {
                 "comfy_status": "disabled",
-                "image_url": base_url,
+                "image_url": None,
                 "image_prompt": prompt,
-                "image_source": "base" if base_url else "none",
+                "image_source": "none",
             }
 
         # Toggle is on but remote connection is intentionally disabled.
         if not settings.comfy_connect:
             return {
                 "comfy_status": "stubbed",
-                "image_url": generated_url or base_url,
+                "image_url": generated_url,
                 "image_prompt": prompt,
-                "image_source": "generated" if generated_url else ("base" if base_url else "none"),
+                "image_source": "generated" if generated_url else "none",
             }
 
         if generated_url:
@@ -307,9 +297,9 @@ class ComfyService:
         if enqueued:
             return {
                 "comfy_status": "queued",
-                "image_url": base_url,
+                "image_url": None,
                 "image_prompt": prompt,
-                "image_source": "base" if base_url else "none",
+                "image_source": "none",
             }
 
         status = await self.get_face_image_status(session_id=session_id, face=face)

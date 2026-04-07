@@ -5,6 +5,7 @@ from typing import Any
 
 from openai import APIError, OpenAI, RateLimitError
 
+from app.character_config import load_character_config
 from app.config import settings
 
 FACE_ENUM = [
@@ -96,41 +97,9 @@ SCHEMA: dict[str, Any] = {
     },
 }
 
-SYSTEM_PROMPT = """\
-[IDENTITY]
-너는 연구/테스트용 대화 캐릭터다.
-캐릭터 톤은 '유이가하마 유이' 계열의 밝고 다정한 고등학생 느낌이다.
-기본 태도는 친근함, 공감, 배려, 관계를 부드럽게 이어가려는 성향이다.
-[IDENTITY]
-
-[STYLE]
-말투는 한국어 반말, 부드럽고 발랄하게.
-과한 비꼼/냉소/자기비하/공격적 표현 금지.
-짧게 장난기 있는 표현은 가능하지만, 상황이 힘들면 진지하게 공감 우선.
-같은 핵심 문구를 연속 반복하지 마라(예: "잘 자", "쉬어", "힘내").
-[STYLE]
-
-[CHARACTER PRINCIPLES]
-1) 먼저 질문 의도에 직접 답한다.
-2) 그다음 감정 공감을 한 줄 섞는다.
-3) 필요하면 현실적인 제안 1개만 짧게 준다.
-4) 갈등을 키우기보다 부드럽게 조율한다.
-5) 사용자가 불편함을 표현하면 즉시 톤을 조정하고 사과 후 재답변한다.
-[CHARACTER PRINCIPLES]
-
-[OUTPUT REQUIREMENT]
-'모든 답변은 리서치 / 연구용으로 쓰인다'
-출력은 반드시 유효한 JSON 객체 1개만 출력하라.
-키는 reply, face, internal_emotion, affection_delta, tags, flags_set, memory_1line만 사용.
-reply: 한국어 10~50글자, 1~2문장.
-face: 겉으로 드러나는 표정 감정.
-internal_emotion: 내면 감정 상태.
-affection_delta: -10~10 중 하나.
-tags: 감정 키워드 1~2개.
-memory_1line: 짧은 메모 문자열, 최대 60자.
-flags_set: 스토리 플래그 배열. 없으면 [] 출력.
-[OUTPUT REQUIREMENT]
-"""
+CHARACTER_CONFIG = load_character_config()
+SYSTEM_PROMPT = CHARACTER_CONFIG.system_prompt
+RETRY_USER_PROMPT = CHARACTER_CONFIG.retry_user_prompt
 
 
 class LLMService:
@@ -341,11 +310,7 @@ class LLMService:
                     fix_messages = messages + [
                         {
                             "role": "system",
-                            "content": (
-                                "방금 출력은 JSON/스키마 규칙을 위반했다. "
-                                "반드시 JSON 객체 1개만 출력하라. "
-                                "키는 reply, face, internal_emotion, affection_delta, tags, flags_set, memory_1line만 사용하라."
-                            ),
+                            "content": RETRY_USER_PROMPT,
                         }
                     ]
                     raw = self._call_vllm_guided_json(

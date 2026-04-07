@@ -14,6 +14,8 @@ def _parse_cors_origins(raw: str) -> list[str]:
 @dataclass
 class Settings:
     # vLLM/OpenAI-compatible endpoint
+    character_id: str = os.getenv("NPC_CHARACTER_ID", "default")
+    llm_backend: str = os.getenv("NPC_LLM_BACKEND", "vllm")
     llm_base_url: str = os.getenv("NPC_BASE_URL", "http://localhost:8000/v1")
     llm_api_key: str = os.getenv("NPC_API_KEY", "my-local-key")
     llm_model: str = os.getenv("NPC_MODEL", "Qwen/Qwen3-8B-AWQ")
@@ -29,6 +31,10 @@ class Settings:
     # Browser access control
     cors_origins: list[str] = field(default_factory=lambda: _parse_cors_origins(os.getenv("CORS_ORIGINS", "*")))
     session_ttl_sec: int = int(os.getenv("SESSION_TTL_SEC", "3600"))
+    redis_url: str = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
+    redis_key_prefix: str = os.getenv("REDIS_KEY_PREFIX", "npc")
+    redis_lock_timeout_sec: int = int(os.getenv("REDIS_LOCK_TIMEOUT_SEC", "30"))
+    redis_lock_blocking_timeout_sec: int = int(os.getenv("REDIS_LOCK_BLOCKING_TIMEOUT_SEC", "10"))
 
     # ComfyUI switch
     comfy_enabled: bool = os.getenv("COMFY_ENABLED", "false").lower() == "true"
@@ -37,7 +43,6 @@ class Settings:
     comfy_timeout_sec: float = float(os.getenv("COMFY_TIMEOUT", "120"))
     comfy_character_id: str = os.getenv("COMFY_CHARACTER_ID", "npc-default")
     comfy_style_version: str = os.getenv("COMFY_STYLE_VERSION", "v1")
-    comfy_face_url_template: str = os.getenv("COMFY_FACE_URL_TEMPLATE", "/static/faces/{face_slug}.png")
     comfy_gen_cooldown_turns: int = int(os.getenv("COMFY_GEN_COOLDOWN_TURNS", "10"))
     comfy_gen_max_per_minute: int = int(os.getenv("COMFY_GEN_MAX_PER_MINUTE", "3"))
     comfy_gen_max_inflight_per_session: int = int(os.getenv("COMFY_GEN_MAX_INFLIGHT_PER_SESSION", "1"))

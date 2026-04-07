@@ -1,34 +1,18 @@
-import asyncio
-from dataclasses import dataclass, field
 from functools import partial
-from pathlib import Path
 import time
-import uuid
 
 from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.models import ChatRequest, ChatResponse, FaceType, ImageStatusResponse
 from app.services.comfy_service import ComfyService
-from app.services.llm_service import LLMService
+from app.services.llm_service_factory import create_llm_service
+from app.session_store import RedisSessionStore
 
 
-@dataclass
-class SessionState:
-    affection_total: int = 0
-    flags: set[str] = field(default_factory=set)
-    memory_1line: str = ""
-    history: list[dict[str, str]] = field(default_factory=list)
-    last_access_ts: float = field(default_factory=time.time)
-
-
-app = FastAPI(title="NPC Backend API", version="0.3.0")
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-APP_STATIC_DIR = PROJECT_ROOT / "app" / "static"
-FRONTEND_FACES_DIR = PROJECT_ROOT / "frontend" / "faces"
+app = FastAPI(title="NPC Backend API", version="0.4.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,46 +22,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-llm_service = LLMService()
+llm_service = create_llm_service()
 comfy_service = ComfyService()
-session_store: dict[str, SessionState] = {}
-session_locks: dict[str, asyncio.Lock] = {}
-
-if FRONTEND_FACES_DIR.is_dir():
-    app.mount("/static/faces", StaticFiles(directory=str(FRONTEND_FACES_DIR)), name="static-faces")
-if APP_STATIC_DIR.is_dir():
-    app.mount("/static", StaticFiles(directory=str(APP_STATIC_DIR)), name="static")
+session_store = RedisSessionStore()
 
 
-def _cleanup_stale_sessions(now_ts: float) -> None:
-    ttl_sec = max(1, settings.session_ttl_sec)
-    for sid, state in list(session_store.items()):
-        if (now_ts - state.last_access_ts) <= ttl_sec:
-            continue
-        lock = session_locks.get(sid)
-        if lock and lock.locked():
-            continue
-        session_store.pop(sid, None)
-        session_locks.pop(sid, None)
+@app.on_event("startup")
+async def startup() -> None:
+    await session_store.ping()
 
 
-def _get_session_lock(session_id: str) -> asyncio.Lock:
-    return session_locks.setdefault(session_id, asyncio.Lock())
-
-
-def _get_or_create_session(session_id: str | None) -> tuple[str, SessionState]:
-    now_ts = time.time()
-    _cleanup_stale_sessions(now_ts)
-
-    sid = (session_id or "").strip()
-    if sid and sid in session_store:
-        session_store[sid].last_access_ts = now_ts
-        return sid, session_store[sid]
-
-    sid = uuid.uuid4().hex
-    state = SessionState(last_access_ts=now_ts)
-    session_store[sid] = state
-    return sid, state
+@app.on_event("shutdown")
+async def shutdown() -> None:
+    await session_store.close()
 
 
 @app.get("/api/health")
@@ -87,14 +44,13 @@ def health() -> dict[str, str]:
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest) -> ChatResponse:
-    session_id, _ = _get_or_create_session(req.session_id)
+    session_id, _ = await session_store.get_or_create(req.session_id)
 
-    async with _get_session_lock(session_id):
-        session_id, state = _get_or_create_session(session_id)
+    async with session_store.session_lock(session_id):
+        session_id, state = await session_store.get_or_create(session_id)
 
-        # First request can bootstrap from client history if session is empty.
         if not state.history and req.history:
-            state.history = [{"role": t.role, "content": t.content} for t in req.history]
+            state.history = [{"role": turn.role, "content": turn.content} for turn in req.history]
 
         npc = await run_in_threadpool(
             partial(
@@ -110,7 +66,10 @@ async def chat(req: ChatRequest) -> ChatResponse:
         delta = int(npc.get("affection_delta", 0))
         delta = max(-10, min(10, delta))
         state.affection_total += delta
-        state.flags.update(npc.get("flags_set") or [])
+
+        flags = set(state.flags)
+        flags.update(npc.get("flags_set") or [])
+        state.flags = sorted(flags)
         state.memory_1line = npc.get("memory_1line") or state.memory_1line
 
         reply = npc.get("reply") or ""
@@ -133,7 +92,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
             tags=npc["tags"],
             reply=reply,
         )
-        state.last_access_ts = time.time()
+        await session_store.save(session_id, state)
 
         return ChatResponse(
             session_id=session_id,
@@ -144,7 +103,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
             affection_total=state.affection_total,
             tags=npc["tags"],
             flags_set=npc.get("flags_set") or [],
-            flags=sorted(state.flags),
+            flags=state.flags,
             memory_1line=state.memory_1line,
             comfy_status=comfy["comfy_status"],
             image_url=comfy["image_url"],

@@ -3,19 +3,22 @@
 This project runs an NPC chat app as a split setup:
 - `frontend/` is a static web UI
 - `app/` is a FastAPI backend
-- vLLM runs as an OpenAI-compatible LLM endpoint
+- Character prompt/rules are loaded from `app/characters/*.json`
+- Redis stores per-session chat state
+- vLLM or llama.cpp can run as an OpenAI-compatible LLM endpoint
 - ComfyUI is optional for portrait generation
 
 ## Architecture
 - Browser opens the static frontend
 - Frontend calls the backend at `/api/chat`, `/api/image/status`, and `/api/health`
-- Backend calls vLLM for structured JSON responses
+- Backend loads character config, restores session state from Redis, and calls the configured LLM backend
 - Backend optionally calls ComfyUI for generated portraits
-- Frontend always shows a base face first, then overlays a generated image when ready
+- Frontend always shows a local base face first, then overlays a generated image when ready
 
 ## Project Layout
 ```text
 app/
+  characters/
   main.py
   config.py
   models.py
@@ -39,16 +42,23 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 3. Configure the LLM settings
+- `NPC_CHARACTER_ID` example: `default`
+- `NPC_LLM_BACKEND` example: `vllm` or `llama_cpp`
 - `NPC_BASE_URL` example: `http://127.0.0.1:8001/v1`
 - `NPC_API_KEY`
 - `NPC_MODEL`
 4. Configure browser access
 - `CORS_ORIGINS` should be your frontend origin, comma-separated when needed
-5. Configure optional image generation
+5. Configure Redis session storage
+- `REDIS_URL`
+- `REDIS_KEY_PREFIX`
+- `SESSION_TTL_SEC`
+- `REDIS_LOCK_TIMEOUT_SEC`
+- `REDIS_LOCK_BLOCKING_TIMEOUT_SEC`
+6. Configure optional image generation
 - `COMFY_ENABLED`
 - `COMFY_CONNECT`
 - `COMFY_BASE_URL`
-- `COMFY_FACE_URL_TEMPLATE`
 - `COMFY_GEN_COOLDOWN_TURNS`
 - `COMFY_GEN_MAX_PER_MINUTE`
 - `COMFY_GEN_MAX_INFLIGHT_PER_SESSION`
@@ -86,6 +96,7 @@ Deploy only `frontend/` when using a static host such as GitHub Pages.
 Base path rule:
 - `./faces/{face_slug}.png`
 - `face_slug` is lowercase with spaces replaced by `_`
+- Frontend serves these assets directly; the backend no longer exposes `/static/faces`
 
 Expected face names:
 - `neutral`
@@ -110,10 +121,10 @@ Expected face names:
 State flow:
 - `disabled`: comfy off, base image only
 - `stubbed`: comfy toggle on but remote connect off
-- `base`: return base image immediately
+- `base`: frontend keeps showing its local base image
 - `queued`: background generation scheduled
 - `generated`: cached generated image available
-- `error`: keep base image and wait for retry backoff
+- `error`: keep local base image and wait for retry backoff
 
 Runtime rules:
 - Trigger generation on face change

@@ -1,6 +1,6 @@
-// Backend API base URL (no trailing slash)
+﻿// Backend API base URL (no trailing slash)
 // Example: https://abcd-1234.trycloudflare.com
-window.NPC_API_BASE_URL = "https://prep-bald-treasures-household.trycloudflare.com";
+window.NPC_API_BASE_URL = "https://excessive-convinced-skilled-hampshire.trycloudflare.com";
 
 // Frontend static face asset base (relative path recommended for GitHub Pages)
 // Example: "./faces"
