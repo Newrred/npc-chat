@@ -27,6 +27,10 @@ def test_single_active_queue_full_cancellation_and_cleanup():
             await gate.submit(second)
         assert exc.value.code == "QUEUE_FULL"
         active.cancel()
+        done, _ = await asyncio.wait([active], timeout=1)
+        if not done:
+            release.set()
+        assert done, "Cancellation must finish even when the start event completes concurrently"
         with pytest.raises(asyncio.CancelledError):
             await active
         assert not committed

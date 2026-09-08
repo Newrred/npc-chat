@@ -1,5 +1,11 @@
 # Project Status
 
+## 2026-09-08 main 병합 전 Python 3.11 취소 경합 수정
+
+원격 main과 작업 브랜치의 차이는 공유한 3개 커밋이며 별도 main 변경은 없었다. GitHub 3.12 검사는 통과했으나 3.11에서 queue 취소 테스트가 멈췄다. 로컬 Python 3.11 표준 라이브러리 재현에서도 시작 이벤트 완료와 외부 취소가 겹칠 때 취소한 요청이 2초 뒤에도 완료되지 않았다. asyncio.wait_for 대신 asyncio.timeout 범위 안에서 직접 이벤트를 기다리도록 수정했다. 기존 회귀 테스트에 유한 대기 검증을 추가해 같은 문제가 CI를 무한 대기시키지 않도록 했다. DB/배포 설정 변경은 없다.
+
+수정 후 로컬 Python 3.11 재현 통과, `./venv/Scripts/python.exe -m pytest -q` 435 passed (9.79s), `./venv/Scripts/python.exe -m ruff check app tests scripts`, `./venv/Scripts/python.exe -m compileall -q app` 통과. 멈춘 이전 CI는 취소하고 새 커밋으로 두 Python 버전 검사를 다시 수행한다.
+
 ## 2026-09-08 GitHub 공유 체크포인트
 
 사용자 요청으로 누적 구현을 현재 `codex/p0-baseline-stabilization` 브랜치에 서버/운영, 프런트, 문서/검증 설정으로 나눠 커밋하여 원격에 공유한다. main 병합이나 실행 환경 변경은 이번 범위에 포함하지 않는다. 실제 .env, .runtime, 대화 DB, 모델 가중치와 임시 공개 URL은 제외한다. 평가 자료는 기존 합성 사례 기반 자료만 포함한다.

@@ -38,7 +38,10 @@ class TurnCoordinator:
             raise ChatError("QUEUE_FULL", "대기 중인 대화가 많습니다. 잠시 후 다시 시도해 주세요.", 429, True) from None
         try:
             try:
-                await asyncio.wait_for(job.started.wait(), self.wait_seconds)
+                # Keep cancellation on this task: 3.11 wait_for can swallow an
+                # external cancellation when its inner event completes concurrently.
+                async with asyncio.timeout(self.wait_seconds):
+                    await job.started.wait()
             except TimeoutError:
                 job.cancelled = True
                 raise ChatError("QUEUE_TIMEOUT", "대화 대기 시간이 초과됐습니다.", 503, True) from None
