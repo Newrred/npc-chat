@@ -1,0 +1,7 @@
+{
+  "counted_tokens": 1460,
+  "actual_prompt_tokens": 1460,
+  "budget": 1728,
+  "context_trimmed": true,
+  "success": true
+}

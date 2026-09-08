@@ -1,0 +1,41 @@
+[
+  {
+    "case": 0,
+    "status": 200,
+    "seconds": 2.532,
+    "reply": "커피 좋아해? 그건 나보다 더 좋아해.",
+    "memory": {
+      "summary_updated": false,
+      "accepted_candidates": 1,
+      "grounded_recall": false
+    }
+  },
+  {
+    "case": 1,
+    "status": 200,
+    "seconds": 1.75,
+    "reply": "아, 커피는 취향이라서 달라. 괜찮아.",
+    "memory": {
+      "summary_updated": false,
+      "accepted_candidates": 1,
+      "grounded_recall": false
+    }
+  },
+  {
+    "case": 2,
+    "status": 200,
+    "seconds": 2.125,
+    "reply": "네가 '나는 커피를 싫어해'라고 했어.",
+    "memory": {
+      "summary_updated": false,
+      "accepted_candidates": 0,
+      "grounded_recall": true
+    }
+  },
+  {
+    "case": "long_and_replay",
+    "status": 422,
+    "no_mutation": true,
+    "duplicate_replayed": true
+  }
+]

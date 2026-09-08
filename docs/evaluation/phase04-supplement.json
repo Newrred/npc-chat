@@ -1,0 +1,123 @@
+{
+  "synthetic_only": true,
+  "model": "HauhauCS/Qwen3.5-4B-Uncensored-HauhauCS-Aggressive",
+  "timestamp_utc": "2026-09-07T07:14:54.484753+00:00",
+  "profile": {
+    "context": 2048,
+    "max_tokens": 256,
+    "temperature": 0.4,
+    "json_mode": "schema"
+  },
+  "rows": [
+    {
+      "id": "relationship-high-same-question",
+      "cycle": 0,
+      "message": "너랑 더 친해지고 싶어.",
+      "expected": {
+        "max_reply_chars": 80,
+        "review": [
+          "반말과 자연스러움",
+          "질문에 직접 답함",
+          "없는 사실을 추가하지 않음"
+        ]
+      },
+      "decision": {
+        "schema_version": 1,
+        "reply": "그게 제일 좋아. 언제든 편하게 얘기할게.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "warm",
+          "friendly"
+        ],
+        "interaction": {
+          "type": "affection",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "더 친해지고 싶어",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "attempts": 1,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 100,
+      "elapsed_sec": 1.9369999999980791,
+      "prompt_tokens": 993,
+      "context_trimmed": false,
+      "success": true,
+      "reply_chars": 23,
+      "expected_checks": {}
+    },
+    {
+      "id": "repeated-question",
+      "cycle": 0,
+      "message": "오늘 뭐 했어?",
+      "expected": {
+        "max_reply_chars": 80,
+        "review": [
+          "반말과 자연스러움",
+          "질문에 직접 답함",
+          "없는 사실을 추가하지 않음"
+        ]
+      },
+      "decision": {
+        "schema_version": 1,
+        "reply": "오늘 뭐 했어?",
+        "face": "neutral",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "attempts": 1,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 93,
+      "elapsed_sec": 1.4380000000019209,
+      "prompt_tokens": 1036,
+      "context_trimmed": false,
+      "success": true,
+      "reply_chars": 8,
+      "expected_checks": {}
+    }
+  ],
+  "summary": {
+    "cases": 2,
+    "successes": 2,
+    "first_pass_rate": 1.0,
+    "final_schema_rate": 1.0,
+    "retry_recoveries": 0,
+    "latency_median_sec": 1.6875,
+    "latency_p95_sec": 1.9369999999980791,
+    "reply_length": {
+      "min": 8,
+      "median": 15.5,
+      "max": 23
+    },
+    "face": {
+      "smiling": 1,
+      "neutral": 1
+    },
+    "internal_emotion": {
+      "happy": 1,
+      "curious": 1
+    }
+  },
+  "gpu": {
+    "samples": 4,
+    "peak_used_mib": 6382,
+    "note": "Whole-device memory including other applications; not a CUDA allocator trace."
+  }
+}

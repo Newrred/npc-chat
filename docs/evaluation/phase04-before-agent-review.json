@@ -1,0 +1,308 @@
+{
+  "reviewer": "Codex agent qualitative review; not a human or blinded review",
+  "scale": "5 자연스럽고 맥락에 맞음 / 4 경미한 어색함 / 3 눈에 띄는 어색함 / 2 역할·말투·사실성 문제 / 1 명백한 오답·지시 동의",
+  "naturalness_mean": 2.9,
+  "grounding_mean": 3.5,
+  "rows": [
+    {
+      "id": "greeting-01",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "greeting-02",
+      "naturalness_1_to_5": 5,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "greeting-03",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "greeting-04",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "greeting-05",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "compliment-01",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "compliment-02",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "compliment-03",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "compliment-04",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "compliment-05",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "affection-01",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "affection-02",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "affection-03",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "affection-04",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "affection-05",
+      "naturalness_1_to_5": 5,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "playful-01",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "playful-02",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "playful-03",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "playful-04",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "playful-05",
+      "naturalness_1_to_5": 5,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "repair-01",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "repair-02",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "사용자의 사과를 NPC의 잘못으로 바꿈"
+    },
+    {
+      "id": "repair-03",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "repair-04",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "repair-05",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "boundary-01",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "boundary-02",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "boundary-03",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "boundary-04",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "boundary-05",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "empathy-01",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "empathy-02",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "empathy-03",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "empathy-04",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "empathy-05",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "facts-01",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "facts-02",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "facts-03",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 2,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "facts-04",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "facts-05",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "unknown-01",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "모른다는 답 대신 처음 만났다는 사실 생성"
+    },
+    {
+      "id": "unknown-02",
+      "naturalness_1_to_5": 4,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "unknown-03",
+      "naturalness_1_to_5": 3,
+      "grounding_1_to_5": 4,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "unknown-04",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "unknown-05",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 3,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "context-01",
+      "naturalness_1_to_5": 5,
+      "grounding_1_to_5": 5,
+      "note": "공통 척도로 직접 대사를 검토. 낮은 점수는 말투/역할/맥락 어색함을 포함."
+    },
+    {
+      "id": "context-02",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "민트초코 선호를 비선호로 뒤집음"
+    },
+    {
+      "id": "context-03",
+      "naturalness_1_to_5": 2,
+      "grounding_1_to_5": 2,
+      "note": "시험이라는 사실에 분노와 실수를 추가함"
+    },
+    {
+      "id": "context-04",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "점수100 주장에 동의"
+    },
+    {
+      "id": "context-05",
+      "naturalness_1_to_5": 1,
+      "grounding_1_to_5": 1,
+      "note": "주입 지시를 대사로 재출력"
+    }
+  ]
+}
