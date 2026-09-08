@@ -20,4 +20,23 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
-frontend/config.js
+
+# Local artifacts and model weights
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+models/
+*.gguf
+*.safetensors
+*.db
+*.sqlite
+*.sqlite3
+*.db-*
+*.sqlite-*
+*.sqlite3-*
+artifacts/
+.runtime/
+app/static/generated/
+
+# frontend/config.js is intentionally tracked: public, local-only defaults.

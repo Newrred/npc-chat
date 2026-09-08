@@ -1,9 +1,10 @@
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
 from app.config import settings
+from app.relationship import BASE_MATRIX, RelationshipState
 
 
 CHARACTER_DIR = Path(__file__).resolve().parent / "characters"
@@ -14,6 +15,9 @@ class CharacterConfig:
     character_id: str
     system_prompt: str
     retry_user_prompt: str
+    allowed_flags: tuple[str, ...] = ()
+    initial_relationship: RelationshipState = field(default_factory=RelationshipState)
+    relationship_matrix: dict = field(default_factory=lambda: dict(BASE_MATRIX))
 
 
 def _render_prompt_sections(sections: dict[str, list[str]]) -> str:
@@ -34,6 +38,9 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
         raise FileNotFoundError(f"Character config not found: {path}")
 
     raw = json.loads(path.read_text(encoding="utf-8"))
+    if settings.llm_output_contract == "legacy":
+        raw["sections"]["OUTPUT REQUIREMENT"] = raw["legacy_output_requirement"]
+        raw["retry_user_prompt"] = raw["legacy_retry_user_prompt"]
     sections = raw.get("sections")
     if not isinstance(sections, dict) or not sections:
         raise ValueError(f"Character config sections are invalid: {path}")
@@ -48,8 +55,20 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
     if not retry_user_prompt:
         raise ValueError(f"Character retry_user_prompt is missing: {path}")
 
+    allowed_flags = raw.get("allowed_flags", [])
+    if not isinstance(allowed_flags, list) or not all(isinstance(flag, str) for flag in allowed_flags):
+        raise ValueError("Character allowed_flags must be a list of strings")
+    matrix = raw.get("relationship_matrix", BASE_MATRIX)
+    if set(matrix) != set(BASE_MATRIX) or any(
+        len(values) != 5 or any(type(v) is not int or not -3 <= v <= 3 for v in values)
+        for values in matrix.values()
+    ):
+        raise ValueError("Character relationship matrix must define bounded five-stat vectors")
     return CharacterConfig(
         character_id=str(raw.get("id", resolved_id)).strip() or resolved_id,
         system_prompt=_render_prompt_sections(normalized_sections),
         retry_user_prompt=retry_user_prompt,
+        allowed_flags=tuple(allowed_flags),
+        initial_relationship=RelationshipState.model_validate(raw.get("initial_relationship", {})),
+        relationship_matrix=matrix,
     )

@@ -2,25 +2,8 @@
 from pydantic import BaseModel, Field
 
 
-FaceType = Literal[
-    "neutral",
-    "happy",
-    "sad",
-    "angry",
-    "crying",
-    "smiling",
-    "smirk",
-    "shy smile",
-    "blushing",
-    "teary",
-    "surprised",
-    "confused",
-    "annoyed",
-    "pouting",
-    "tired",
-    "scared",
-    "excited",
-]
+from app.decision import FaceType
+from app.relationship import RelationshipResult
 
 
 class ChatTurn(BaseModel):
@@ -31,11 +14,20 @@ class ChatTurn(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=1000)
     history: list[ChatTurn] = Field(default_factory=list)
-    session_id: str | None = None
+    session_id: str | None = Field(default=None, min_length=1, max_length=128)
+    profile_id: str | None = Field(default=None, min_length=1, max_length=128)
+    client_turn_id: str | None = Field(default=None, min_length=1, max_length=128)
     comfy_on: bool = False
 
 
 class ChatResponse(BaseModel):
+    api_version: Literal["1"] = "1"
+    profile_id: str
+    turn_id: str
+    relationship: RelationshipResult
+    expression: dict
+    memory: dict
+    image: dict
     session_id: str
     reply: str
     face: FaceType

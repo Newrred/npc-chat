@@ -1,0 +1,2 @@
+# Optional legacy import/export adapter only
+redis>=5.0.0

@@ -5,20 +5,27 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+LOCAL_CORS_ORIGINS = ["http://127.0.0.1:5500", "http://localhost:5500"]
+
 
 def _parse_cors_origins(raw: str) -> list[str]:
     items = [x.strip() for x in (raw or "").split(",") if x.strip()]
-    return items or ["*"]
+    return items or list(LOCAL_CORS_ORIGINS)
 
 
 @dataclass
 class Settings:
     # vLLM/OpenAI-compatible endpoint
     character_id: str = os.getenv("NPC_CHARACTER_ID", "default")
-    llm_backend: str = os.getenv("NPC_LLM_BACKEND", "vllm")
-    llm_base_url: str = os.getenv("NPC_BASE_URL", "http://localhost:8000/v1")
+    llm_backend: str = os.getenv("NPC_LLM_BACKEND", "llama_cpp")
+    llm_output_contract: str = os.getenv("NPC_OUTPUT_CONTRACT", "canonical")
+    llm_json_mode: str = os.getenv("NPC_JSON_MODE", "schema")
+    database_path: str = os.getenv("NPC_DATABASE_PATH", ".runtime/data/npc-chat.sqlite3")
+    queue_capacity: int = int(os.getenv("NPC_QUEUE_CAPACITY", "8"))
+    queue_wait_sec: float = float(os.getenv("NPC_QUEUE_WAIT_SEC", "30"))
+    llm_base_url: str = os.getenv("NPC_BASE_URL", "http://127.0.0.1:8001/v1")
     llm_api_key: str = os.getenv("NPC_API_KEY", "my-local-key")
-    llm_model: str = os.getenv("NPC_MODEL", "Qwen/Qwen3-8B-AWQ")
+    llm_model: str = os.getenv("NPC_MODEL", "local-model")
     llm_timeout_sec: float = float(os.getenv("NPC_TIMEOUT", "120"))
     llm_temperature: float = float(os.getenv("NPC_TEMP", "0.4"))
     llm_top_p: float = float(os.getenv("NPC_TOP_P", "1.0"))
@@ -26,10 +33,13 @@ class Settings:
     llm_presence_penalty: float = float(os.getenv("NPC_PRESENCE_PENALTY", "0.5"))
     llm_frequency_penalty: float = float(os.getenv("NPC_FREQUENCY_PENALTY", "0.3"))
     llm_repetition_penalty: float = float(os.getenv("NPC_REPETITION_PENALTY", "1.08"))
-    llm_max_tokens: int = int(os.getenv("NPC_MAX_TOKENS", "1024"))
+    llm_context: int = int(os.getenv("LLAMA_CONTEXT", "2048"))
+    token_count_mode: str = os.getenv("NPC_TOKEN_COUNT_MODE", "estimate")
+    llm_max_tokens: int = int(os.getenv("NPC_MAX_TOKENS", "256"))
+    health_timeout_sec: float = float(os.getenv("HEALTH_TIMEOUT_SEC", "2"))
 
     # Browser access control
-    cors_origins: list[str] = field(default_factory=lambda: _parse_cors_origins(os.getenv("CORS_ORIGINS", "*")))
+    cors_origins: list[str] = field(default_factory=lambda: _parse_cors_origins(os.getenv("CORS_ORIGINS", "")))
     session_ttl_sec: int = int(os.getenv("SESSION_TTL_SEC", "3600"))
     redis_url: str = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
     redis_key_prefix: str = os.getenv("REDIS_KEY_PREFIX", "npc")
@@ -39,7 +49,7 @@ class Settings:
     # ComfyUI switch
     comfy_enabled: bool = os.getenv("COMFY_ENABLED", "false").lower() == "true"
     comfy_connect: bool = os.getenv("COMFY_CONNECT", "false").lower() == "true"
-    comfy_base_url: str = os.getenv("COMFY_BASE_URL", "https://example-comfy.trycloudflare.com")
+    comfy_base_url: str = os.getenv("COMFY_BASE_URL", "http://127.0.0.1:8188")
     comfy_timeout_sec: float = float(os.getenv("COMFY_TIMEOUT", "120"))
     comfy_character_id: str = os.getenv("COMFY_CHARACTER_ID", "npc-default")
     comfy_style_version: str = os.getenv("COMFY_STYLE_VERSION", "v1")

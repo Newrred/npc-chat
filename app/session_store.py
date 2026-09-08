@@ -44,7 +44,8 @@ class RedisSessionStore:
         self._redis = Redis.from_url(settings.redis_url, decode_responses=True)
         self._prefix = (settings.redis_key_prefix or "npc").strip() or "npc"
         self._session_ttl_sec = max(1, settings.session_ttl_sec)
-        self._lock_timeout_sec = max(1, settings.redis_lock_timeout_sec)
+        # Protect slow partial-offload inference through all three bounded attempts.
+        self._lock_timeout_sec = max(1, settings.redis_lock_timeout_sec, int(settings.llm_timeout_sec * 3) + 15)
         self._lock_blocking_timeout_sec = max(1, settings.redis_lock_blocking_timeout_sec)
 
     async def ping(self) -> None:

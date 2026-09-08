@@ -8,44 +8,11 @@ from openai import APIError, OpenAI, RateLimitError
 from app.character_config import load_character_config
 from app.config import settings
 
-FACE_ENUM = [
-    "neutral",
-    "happy",
-    "sad",
-    "angry",
-    "crying",
-    "smiling",
-    "smirk",
-    "shy smile",
-    "blushing",
-    "teary",
-    "surprised",
-    "confused",
-    "annoyed",
-    "pouting",
-    "tired",
-    "scared",
-    "excited",
-]
+from typing import get_args
+from app.decision import FaceType, InternalEmotion
 
-INTERNAL_EMOTION_ENUM = [
-    "neutral",
-    "happy",
-    "sad",
-    "angry",
-    "anxious",
-    "lonely",
-    "guilty",
-    "betrayed",
-    "nostalgic",
-    "embarrassed",
-    "confused",
-    "grateful",
-    "affectionate",
-    "curious",
-    "excited",
-    "tired",
-]
+FACE_ENUM = list(get_args(get_args(FaceType)[0]))
+INTERNAL_EMOTION_ENUM = list(get_args(InternalEmotion))
 
 TAG_TO_FACE = {
     "상처": "sad",
@@ -70,7 +37,7 @@ TAG_TO_FACE = {
     "설렘": "excited",
 }
 
-NORMALIZE_FACE = {"curious": "confused"}
+NORMALIZE_FACE = {"curious": "confused", "shy smile": "shy_smile"}
 
 MEM_PATTERN = r"^유저:.{8,12}\s*[|｜]\s*NPC감정:\S+\s*$"
 MEM_RE = re.compile(MEM_PATTERN)
@@ -103,6 +70,18 @@ RETRY_USER_PROMPT = CHARACTER_CONFIG.retry_user_prompt
 
 
 class LLMService:
+    def decide(self, *, message, history=None, memory_1line="", flags=None, relationship=None, memories=None):
+        # Legacy output is only a text/expression adapter; its proposed score is discarded.
+        from app.decision import LLMDecision
+        from app.services.decision_service import DecisionResult
+        values = (relationship or {}).get("values", {})
+        old = self.chat(message=message, history=history or [], affection_total=values.get("affection", 0),
+                        flags=flags or [], memory_1line=memory_1line)
+        decision = LLMDecision(schema_version=1, reply=old["reply"], face=old["face"],
+            internal_emotion=old["internal_emotion"], emotion_tags=old["tags"],
+            interaction={"type": "neutral", "intensity": 0}, memory_candidates=[], flags_set=old["flags_set"])
+        return DecisionResult(decision, 1, 0, 0, 0, 0)
+
     def __init__(self) -> None:
         self.client = OpenAI(
             base_url=settings.llm_base_url,
@@ -117,11 +96,11 @@ class LLMService:
         if not s:
             raise ValueError("empty response")
         s = s.replace("\x00", "").replace("\x0b", "").replace("\x0c", "")
-        l = s.find("{")
-        r = s.rfind("}")
-        if l == -1 or r == -1 or r <= l:
+        start = s.find("{")
+        end = s.rfind("}")
+        if start == -1 or end == -1 or end <= start:
             raise ValueError(f"no json object found: {s[:300]}")
-        return s[l:r + 1]
+        return s[start:end + 1]
 
     @staticmethod
     def _dedupe_keep_order(items: list[str]) -> list[str]:
