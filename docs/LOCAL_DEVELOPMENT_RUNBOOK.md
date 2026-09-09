@@ -59,6 +59,8 @@ NPC_JSON_MODE=schema
 
 `.runtime/processes.json`에 PID, 생성 시간, 실행 파일, 실행 인자를 기록한다. 종료할 때 전부 대조한다. 포트나 이름만 일치하는 다른 프로세스는 종료하지 않는다. OS 파일 잠금으로 실행기 중복 진입을 차단한다. 포트 충돌·준비 시간 초과·부분 기동 실패 시 해당 호출이 시작한 프로세스만 정리한다. start/stop은 반복 호출할 수 있다.
 
+Windows 가상환경 실행기는 등록된 `venv\Scripts\python.exe` 아래에 실제 시스템 Python 자식을 만들 수 있다. 종료기는 먼저 등록된 부모 신원을 검증하고, 그 시점에 확인한 자식 트리도 각각의 생성 시간·실행 파일·인자와 다시 대조한 뒤 함께 종료한다. `stop-local.ps1`은 관리자·웹·프로젝트 소유 모델을 모두 종료한다. `stop-public-test.ps1`은 외부 공개 주소만 닫기 위한 명령이라 tunnel만 종료하고 로컬 웹·모델은 유지한다. 완전히 끄려면 public stop 후 local stop을 실행한다.
+
 외부에서 시작한 모델을 쓸 때는 `start-local.ps1 --reuse-llm`을 명시한다. 모델 목록에 설정 alias가 있는지 확인하지만 이 외부 프로세스의 문맥/GPU 설정까지 검증하지는 않는다. 외부 모델은 registry에 등록하거나 종료하지 않는다. `start-llm`으로 등록한 프로젝트 모델은 `stop-local`도 종료한다. 웹앱이 실행 중이면 `stop-llm`은 순서 보호를 위해 거절하며 `stop-local`을 사용한다.
 
 기동 로그는 `.runtime/llm.log`, `.runtime/web.log`다. 모델의 상세 로그와 HTTP access log는 기본 비활성이다. 강제 종료/PC 재부팅 이후 stale PID는 다른 프로세스와 동일인으로 취급하지 않는다. 개발 실행기는 Windows 서비스/부팅 자동 시작/공개 배포용 supervisor를 대체하지 않는다.

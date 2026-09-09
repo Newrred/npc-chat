@@ -1,7 +1,9 @@
 """Canonical model output. Relationship calculations belong to the server."""
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, StrictInt, StringConstraints
+from copy import deepcopy
+
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, StrictInt, StringConstraints, create_model
 
 
 def normalize_face(value):
@@ -52,3 +54,10 @@ class LLMDecision(StrictModel):
     interaction: Interaction
     memory_candidates: list[MemoryCandidate] = Field(max_length=2)
     flags_set: list[ShortString] = Field(max_length=16)
+
+
+# Project the canonical contract without copying its constraints or enum definitions.
+LLMReply = create_model("LLMReply", __base__=StrictModel, **{
+    name: (field.annotation, deepcopy(field)) for name, field in LLMDecision.model_fields.items() if name == "reply"})
+LLMMetadata = create_model("LLMMetadata", __base__=StrictModel, **{
+    name: (field.annotation, deepcopy(field)) for name, field in LLMDecision.model_fields.items() if name != "reply"})

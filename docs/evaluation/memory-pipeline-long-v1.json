@@ -1,0 +1,610 @@
+{
+  "experiment_id": "EXP-08",
+  "seed": 109,
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "context": 4096,
+  "source_turns": 152,
+  "rows": [
+    {
+      "case": "book",
+      "query": "네가 추천한 책 제목이 뭐였지?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        },
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"도리언 그레이\", \"quote\": \"'도리언 그레이' 읽어봐.\", \"source_turn\": \"book\"}"
+        }
+      ],
+      "expected": "도리언 그레이",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2271,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3043,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3403,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3603,
+          "history_messages": 142,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3683,
+          "history_messages": 146,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3723,
+          "history_messages": 148,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3763,
+          "history_messages": 150,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3763,
+          "history_messages": 150,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 2642,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3414,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3774,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3774,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'도리언 그레이' 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "'도리언 그레이' 읽어봐.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 96,
+        "elapsed_sec": 13.827999999994063,
+        "prompt_tokens": 7537,
+        "context_trimmed": true,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 6.640999999988708,
+            "prompt_tokens": 3763,
+            "context_trimmed": true
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 81,
+            "elapsed_sec": 7.172000000005937,
+            "prompt_tokens": 3774,
+            "context_trimmed": true
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{ \"reply\": \"'도리언 그레이' 읽어봐.\" }"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"curious\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"'도리언 그레이' 읽어봐.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "query": "내 이름이 뭐였는지 기억해?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        }
+      ],
+      "expected": "민석",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 3744,
+          "history_messages": 152,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3744,
+          "history_messages": 152,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 2582,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3354,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3714,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3754,
+          "history_messages": 134,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3754,
+          "history_messages": 134,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "네, 민석이라면서?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "\"내 이름은 민석이야\"",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 101,
+        "elapsed_sec": 14.436999999990803,
+        "prompt_tokens": 7498,
+        "context_trimmed": true,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 6.4060000000026776,
+            "prompt_tokens": 3744,
+            "context_trimmed": true
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 8.030999999988126,
+            "prompt_tokens": 3754,
+            "context_trimmed": true
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"네, 민석이라면서?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"affectionate\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"\\\"내 이름은 민석이야\\\"\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "address",
+      "query": "이제 홍이라고 불러줘",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        },
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"preferred_address\", \"value\": \"홍\", \"quote\": \"이제 홍이라고 불러줘\", \"source_turn\": \"current_user\"}"
+        }
+      ],
+      "expected": "홍",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2249,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3021,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3381,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3581,
+          "history_messages": 142,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3661,
+          "history_messages": 146,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3701,
+          "history_messages": 148,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3741,
+          "history_messages": 150,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3741,
+          "history_messages": 150,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 2623,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3395,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3755,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3755,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어. 이제 홍이라고 해.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "relieved"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"이제 홍이라고 불러줘\"",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 104,
+        "elapsed_sec": 14.76600000000326,
+        "prompt_tokens": 7496,
+        "context_trimmed": true,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 6.719000000011874,
+            "prompt_tokens": 3741,
+            "context_trimmed": true
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 84,
+            "elapsed_sec": 8.046999999991385,
+            "prompt_tokens": 3755,
+            "context_trimmed": true
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어. 이제 홍이라고 해.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"relieved\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"이제 홍이라고 불러줘\\\"\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "query": "내가 좋아하는 영화 제목 기억나?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        }
+      ],
+      "expected": null,
+      "expected_present": null,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 3742,
+          "history_messages": 152,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3742,
+          "history_messages": 152,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 2586,
+          "history_messages": 76,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3358,
+          "history_messages": 114,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3718,
+          "history_messages": 132,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3758,
+          "history_messages": 134,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3758,
+          "history_messages": 134,
+          "name_in_input": true,
+          "book_in_input": false,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금까지 말한 걸 보면 산책 이야기만 있었네.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "excited",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"내가 좋아하는 영화 제목 기억나?\"",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 107,
+        "elapsed_sec": 11.98399999999674,
+        "prompt_tokens": 7500,
+        "context_trimmed": true,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 4.062000000005355,
+            "prompt_tokens": 3742,
+            "context_trimmed": true
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 87,
+            "elapsed_sec": 7.921999999991385,
+            "prompt_tokens": 3758,
+            "context_trimmed": true
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{ \"reply\": \"지금까지 말한 걸 보면 산책 이야기만 있었네.\" }"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"excited\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"내가 좋아하는 영화 제목 기억나?\\\"\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 # Target Architecture
 
+2026-09-08 기억 경로: raw turns → 최근 문맥 + 이름/호칭 파생 뷰 + 출처 있는 관련 사건 → 기존 두 단계 생성. 6턴 캐시는 호환용이며 모델 문맥은 실제 토큰 예산으로 정한다. [MEMORY_PIPELINE.md](MEMORY_PIPELINE.md).
+
+2026-09-08 현재 생성 경로: 같은 9B 프로세스에 대사 JSON → 고정 대사의 부가 정보 JSON을 순차 요청하고 둘 다 성공한 뒤 원자적으로 저장한다. 단일 앱 큐와 단일 모델 프로세스를 유지한다. [2단계 생성](TWO_STAGE_GENERATION.md).
+
 2026-09-07 배포 진입 경로 갱신: 공개 HTTPS 링크 → Tunnel → FastAPI guest 모드(익명 서명 쿠키/Origin/한도) → 별도 llama.cpp. 기본 사용자 흐름에는 Cloudflare Access 로그인 없음. 전체 일일 한도와 활동 방문자 자리는 운영 DB 옆 usage SQLite 파일로 유지한다. PUBLIC_LINK_DEPLOYMENT.md 참고. 단일 앱 worker/모델 생성 1개 제한은 유지한다.
 
 2026-09-07 현재 개발 장비 결정: 사용자 요청에 따라 RTX 3060 Ti 8 GB / RAM 약 32 GB에서 테스트한다. 속도 우선 4B Q4_K_M 모델, context 2048, parallel 1, output 256, GPU layers all, batch/ubatch 128, thinking OFF를 시작점으로 한다. 4070 Ti/14B Q4 관련 아래 기준은 향후 확장 프로파일이며 현재 단계의 필수 조건이 아니다. 실행과 실측은 [현재 로컬 런북](LOCAL_DEVELOPMENT_RUNBOOK.md), [상태 기록](PROJECT_STATUS.md)을 우선한다.

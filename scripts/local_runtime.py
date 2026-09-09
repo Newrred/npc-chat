@@ -49,13 +49,23 @@ def stop_owned(record):
     if not matches(record):
         return
     process = psutil.Process(record["pid"])
-    process.terminate()
-    try:
-        process.wait(timeout=10)
-    except psutil.TimeoutExpired:
-        if matches(record):
-            process.kill()
-            process.wait(timeout=5)
+    descendants = process.children(recursive=True)
+    snapshots = {target.pid: identity(target.pid) for target in [process, *descendants]}
+    targets = [process, *reversed(descendants)]
+    for target in targets:
+        if snapshots.get(target.pid) and identity(target.pid) == snapshots[target.pid]:
+            try:
+                target.terminate()
+            except psutil.NoSuchProcess:
+                pass
+    _, alive = psutil.wait_procs(targets, timeout=10)
+    for target in alive:
+        if snapshots.get(target.pid) and identity(target.pid) == snapshots[target.pid]:
+            try:
+                target.kill()
+            except psutil.NoSuchProcess:
+                pass
+    psutil.wait_procs(alive, timeout=5)
 
 
 def free_port(port):
@@ -189,6 +199,10 @@ class Runtime:
             self.save()
         print(name + ": stopped or already absent", flush=True)
 
+    def stop_local(self):
+        for name in ("admin", "web", "llm"):
+            self.stop(name)
+
     def start(self, args):
         local = args.action == "start-local"
         llm_record = self.state.get("llm")
@@ -273,11 +287,11 @@ def main():
                 runtime.start(args)
             else:
                 if args.action == "stop-local":
-                    runtime.stop("admin")
-                    runtime.stop("web")
-                elif matches(runtime.state.get("web")):
-                    raise RuntimeError("Managed web app is running; use stop-local to stop in order.")
-                runtime.stop("llm")
+                    runtime.stop_local()
+                else:
+                    if matches(runtime.state.get("web")):
+                        raise RuntimeError("Managed web app is running; use stop-local to stop in order.")
+                    runtime.stop("llm")
     except (RuntimeError, OSError, ValueError, psutil.Error, subprocess.SubprocessError) as exc:
         # Third-party exception strings can contain credentials; only our RuntimeErrors are printed.
         print("ERROR:", str(exc) if type(exc) is RuntimeError else type(exc).__name__, file=sys.stderr)

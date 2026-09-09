@@ -1,0 +1,7 @@
+# Task 09 — Sampling ablation and experiment lineage
+
+Completed 2026-09-08. 48 first-attempt valid generations, 4 backend setting probes; identical character prompt hash and intended penalties verified. 496 tests passed; lint/compile passed. Keep production settings: limited name benefit from repeat-off did not resolve context problems or demonstrate better repetition recovery. Next candidate: example/history contamination, not yet executed. EXPERIMENT_LINEAGE.md records this decision and earlier experiments; AGENTS.md requires future updates.
+
+Approved 2026-09-08: maintain a readable lineage of tests and perform the next repetition-penalty comparison. Preserve production prompt/model/context and private data. Baseline: 487 passing tests; previous experimental variants remain uncommitted and not deployed.
+
+Compare current repeat=1.08/presence=0.5/frequency=0.3, repeat-only off (1.0), repeat-only stronger (1.15), and all three off (1.0/0/0). The last arm is a combined diagnostic, not evidence about any one penalty independently. Use paired seeds, rotating order and the identical frozen production prompt. Include harmful repetition and desirable name/short-word repetition, context and unsupported inference. Confirm backend parameter support/window, preserve partial raw outputs, and distinguish formatting from semantics. Record parent experiment, hypothesis, fixed/changed variables, evidence, adoption decision and next step in the lineage index.

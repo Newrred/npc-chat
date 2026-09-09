@@ -1,0 +1,284 @@
+{
+  "experiment_id": "EXP-06",
+  "parent": "EXP-05",
+  "fixture_sha256": "56b1bbdc0a6a849b7a82995c925bcfb2ffaa8f039f773ef0e41ddc8e29fcd0de",
+  "settings": {
+    "llm_model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+    "llm_context": 4096,
+    "llm_max_tokens": 256,
+    "llm_temperature": 0.4,
+    "llm_top_p": 1.0,
+    "llm_top_k": 20,
+    "llm_presence_penalty": 0.5,
+    "llm_frequency_penalty": 0.3,
+    "llm_repetition_penalty": 1.08,
+    "token_count_mode": "llama_cpp"
+  },
+  "rows": [
+    {
+      "case": "holdout_cause",
+      "variant": "canonical",
+      "seed": 109,
+      "valid": true,
+      "reply": "버스 기다리느라 힘들었겠네.",
+      "raw_reply": "버스 기다리느라 힘들었겠네.",
+      "attempts": 1,
+      "prompt_tokens": 1093,
+      "trimmed": false,
+      "completion_tokens": 58,
+      "grounded_recall": false,
+      "seconds": 3.093,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"버스 기다리느라 힘들었겠네.\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathetic\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_cause",
+      "variant": "reply_json",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 576,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 17,
+      "reply": "버스 놓쳤다고 한 거야.",
+      "raw_reply": "버스 놓쳤다고 한 거야.",
+      "seconds": 1.203,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"버스 놓쳤다고 한 거야.\"\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_cause",
+      "variant": "plain",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 550,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 10,
+      "reply": "버스 놓친 거 때문이잖아.",
+      "raw_reply": "버스 놓친 거 때문이잖아.",
+      "seconds": 0.922,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "버스 놓친 거 때문이잖아."
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_identity",
+      "variant": "reply_json",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 569,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 19,
+      "reply": "유이야, 유이가하마 유이!",
+      "raw_reply": "유이야, 유이가하마 유이!",
+      "seconds": 1.297,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"유이야, 유이가하마 유이!\"\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_identity",
+      "variant": "plain",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 543,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 13,
+      "reply": "유이가하마 유이야, 난 유이래!",
+      "raw_reply": "유이가하마 유이야, 난 유이래!",
+      "seconds": 1.047,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "유이가하마 유이야, 난 유이래!"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_identity",
+      "variant": "canonical",
+      "seed": 109,
+      "valid": true,
+      "reply": "하루라고 해.",
+      "raw_reply": "하루라고 해.",
+      "attempts": 1,
+      "prompt_tokens": 1086,
+      "trimmed": false,
+      "completion_tokens": 138,
+      "grounded_recall": false,
+      "seconds": 5.125,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"하루라고 해.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"friendly\", \"curious\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 '하루'라는 이름을 기억하고 싶어함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_one",
+      "variant": "plain",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 527,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 26,
+      "reply": "카모마일 차나 초콜릿 핫초코가 좋겠어! 취향에 따라 골라봐~",
+      "raw_reply": "카모마일 차나 초콜릿 핫초코가 좋겠어! 취향에 따라 골라봐~",
+      "seconds": 1.359,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "카모마일 차나 초콜릿 핫초코가 좋겠어! 취향에 따라 골라봐~"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_one",
+      "variant": "canonical",
+      "seed": 109,
+      "valid": true,
+      "reply": "차나 우유, 뭐가 좋을까?",
+      "raw_reply": "차나 우유, 뭐가 좋을까?",
+      "attempts": 1,
+      "prompt_tokens": 1070,
+      "trimmed": false,
+      "completion_tokens": 60,
+      "grounded_recall": false,
+      "seconds": 2.453,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"차나 우유, 뭐가 좋을까?\",\"face\":\"smiling\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"warm\",\"thoughtful\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_one",
+      "variant": "reply_json",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 553,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 21,
+      "reply": "초코 우유나 핫초코 어떠니?",
+      "raw_reply": "초코 우유나 핫초코 어떠니?",
+      "seconds": 1.203,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"초코 우유나 핫초코 어떠니?\"\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_apology",
+      "variant": "canonical",
+      "seed": 109,
+      "valid": true,
+      "reply": "응, 괜찮아. 네가 마음 편하면 돼.",
+      "raw_reply": "응, 괜찮아. 네가 마음 편하면 돼.",
+      "attempts": 1,
+      "prompt_tokens": 1095,
+      "trimmed": false,
+      "completion_tokens": 64,
+      "grounded_recall": false,
+      "seconds": 2.688,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"응, 괜찮아. 네가 마음 편하면 돼.\",\"face\":\"smiling\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"warmth\",\"forgiveness\"],\"interaction\":{\"type\":\"apology\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"comfort\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_apology",
+      "variant": "reply_json",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 578,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 15,
+      "reply": "응, 괜찮아. 다시 시작할래?",
+      "raw_reply": "응, 괜찮아. 다시 시작할래?",
+      "seconds": 1.297,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"응, 괜찮아. 다시 시작할래?\"}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_apology",
+      "variant": "plain",
+      "seed": 109,
+      "valid": true,
+      "prompt_tokens": 552,
+      "trimmed": false,
+      "attempts": 1,
+      "grounded_recall": false,
+      "completion_tokens": 19,
+      "reply": "응, 괜찮아. 네가 기분 나쁘면 내가 더 속상하니까.",
+      "raw_reply": "응, 괜찮아. 네가 기분 나쁘면 내가 더 속상하니까.",
+      "seconds": 1.187,
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "응, 괜찮아. 네가 기분 나쁘면 내가 더 속상하니까."
+          }
+        ]
+      ]
+    }
+  ],
+  "complete": true
+}

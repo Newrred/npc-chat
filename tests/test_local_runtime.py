@@ -3,8 +3,10 @@ import os
 import socket
 import subprocess
 import sys
+import time
 
 import pytest
+import psutil
 
 from scripts import local_runtime as runtime
 
@@ -67,6 +69,42 @@ def test_actual_process_identity_and_repeat_stop(tmp_path):
     finally:
         unrelated.terminate()
         unrelated.wait(timeout=5)
+
+
+def test_stop_owned_terminates_verified_child_tree(tmp_path):
+    child_pid_file = tmp_path / "child.pid"
+    child_code = "import time; time.sleep(60)"
+    parent_code = (
+        "import pathlib,subprocess,sys,time; "
+        f"p=subprocess.Popen([sys.executable,'-c',{child_code!r}]); "
+        f"pathlib.Path({str(child_pid_file)!r}).write_text(str(p.pid)); "
+        "time.sleep(60)"
+    )
+    parent = subprocess.Popen([sys.executable, "-c", parent_code], creationflags=runtime.HIDDEN)
+    child_pid = None
+    try:
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline and not child_pid_file.exists():
+            time.sleep(0.05)
+        assert child_pid_file.exists()
+        child_pid = int(child_pid_file.read_text())
+        assert runtime.identity(child_pid) is not None
+        record = runtime.identity(parent.pid)
+        runtime.stop_owned(record)
+        assert runtime.identity(parent.pid) is None
+        assert runtime.identity(child_pid) is None
+    finally:
+        for pid in (child_pid, parent.pid):
+            if pid and runtime.identity(pid):
+                psutil.Process(pid).kill()
+
+
+def test_stop_local_orders_all_owned_components(monkeypatch, tmp_path):
+    manager = runtime.Runtime(tmp_path)
+    stopped = []
+    monkeypatch.setattr(manager, "stop", stopped.append)
+    manager.stop_local()
+    assert stopped == ["admin", "web", "llm"]
 
 
 def test_readiness_timeout_and_early_exit(monkeypatch):

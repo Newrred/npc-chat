@@ -16,9 +16,11 @@ def _parse_cors_origins(raw: str) -> list[str]:
 @dataclass
 class Settings:
     # vLLM/OpenAI-compatible endpoint
+    debug_trace: bool = os.getenv("NPC_DEBUG_TRACE", "0") == "1"
     character_id: str = os.getenv("NPC_CHARACTER_ID", "default")
     llm_backend: str = os.getenv("NPC_LLM_BACKEND", "llama_cpp")
     llm_output_contract: str = os.getenv("NPC_OUTPUT_CONTRACT", "canonical")
+    llm_generation_mode: str = os.getenv("NPC_GENERATION_MODE", "single_pass")
     llm_json_mode: str = os.getenv("NPC_JSON_MODE", "schema")
     database_path: str = os.getenv("NPC_DATABASE_PATH", ".runtime/data/npc-chat.sqlite3")
     queue_capacity: int = int(os.getenv("NPC_QUEUE_CAPACITY", "8"))

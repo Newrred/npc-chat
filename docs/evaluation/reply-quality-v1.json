@@ -1,0 +1,2003 @@
+{
+  "experiment_id": "EXP-13",
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "cases": [
+    "open_help",
+    "opinion",
+    "emotion",
+    "activity",
+    "ack",
+    "loop",
+    "boundary"
+  ],
+  "rows": [
+    {
+      "case": "open_help",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 바로 웃겨줄까?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 63,
+        "elapsed_sec": 4.312999999994645,
+        "prompt_tokens": 1423,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 2.547000000020489,
+            "prompt_tokens": 526,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 47,
+            "elapsed_sec": 1.75,
+            "prompt_tokens": 897,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"지금 바로 웃겨줄까?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"affectionate\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "open_help",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 바로 맛있는 거 사주면 좋아할 것 같아.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "eager",
+            "helpful"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 68,
+        "elapsed_sec": 3.0309999999881256,
+        "prompt_tokens": 1544,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 22,
+            "elapsed_sec": 1.375,
+            "prompt_tokens": 641,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 46,
+            "elapsed_sec": 1.6559999999881256,
+            "prompt_tokens": 903,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"지금 바로 맛있는 거 사주면 좋아할 것 같아.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"eager\",\"helpful\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "opinion",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "파란머리 하면 반갑고 개성 있어!",
+          "face": "surprised",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "파란 머리를 좋아해.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 108,
+        "elapsed_sec": 4.094000000011874,
+        "prompt_tokens": 1424,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 21,
+            "elapsed_sec": 1.3440000000118744,
+            "prompt_tokens": 524,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 87,
+            "elapsed_sec": 2.75,
+            "prompt_tokens": 900,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"파란머리 하면 반갑고 개성 있어!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"surprised\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"파란 머리를 좋아해.\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "opinion",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "파란머리 하면 깜짝 놀라겠어. 오늘부터 그렇게 해볼까?",
+          "face": "surprised",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "happy"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "머리를 파란색으로 염색하고 싶어 한다.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 120,
+        "elapsed_sec": 4.217999999993481,
+        "prompt_tokens": 1546,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 28,
+            "elapsed_sec": 1.6089999999967404,
+            "prompt_tokens": 639,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 92,
+            "elapsed_sec": 2.6089999999967404,
+            "prompt_tokens": 907,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"파란머리 하면 깜짝 놀라겠어. 오늘부터 그렇게 해볼까?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"surprised\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"happy\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"머리를 파란색으로 염색하고 싶어 한다.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "emotion",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "심심했나 봐? 내가 위로해 줄게.",
+          "face": "sad",
+          "internal_emotion": "affectionate",
+          "emotion_tags": [
+            "sympathetic",
+            "empathetic"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 69,
+        "elapsed_sec": 4.110000000015134,
+        "prompt_tokens": 1414,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 1.2660000000032596,
+            "prompt_tokens": 519,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 50,
+            "elapsed_sec": 2.8440000000118744,
+            "prompt_tokens": 895,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"심심했나 봐? 내가 위로해 줄게.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathetic\",\"empathetic\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "emotion",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "면접 떨어졌어? 네가 준비한 걸 생각하면 실력이야, 다음에 꼭 합격할 거야.",
+          "face": "sad",
+          "internal_emotion": "affectionate",
+          "emotion_tags": [
+            "sympathy",
+            "comfort"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 81,
+        "elapsed_sec": 8.85899999999674,
+        "prompt_tokens": 1540,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 34,
+            "elapsed_sec": 3.452999999979511,
+            "prompt_tokens": 632,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 47,
+            "elapsed_sec": 5.4060000000172295,
+            "prompt_tokens": 908,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"면접 떨어졌어? 네가 준비한 걸 생각하면 실력이야, 다음에 꼭 합격할 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"comfort\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "activity",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "그냥 집에서 쉬는 건 어때?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "유이가 이번 주말에 할 만한 거 하나를 원함.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 109,
+        "elapsed_sec": 27.73399999999674,
+        "prompt_tokens": 1417,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 6.280999999988126,
+            "prompt_tokens": 522,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 92,
+            "elapsed_sec": 21.453000000008615,
+            "prompt_tokens": 895,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"그냥 집에서 쉬는 건 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"eager\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"유이가 이번 주말에 할 만한 거 하나를 원함.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "activity",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "영화관 가서 팝콘 먹으며 영화 보는 거 어때?",
+          "face": "excited",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "영화관 가서 팝콘 먹으며 영화 보는 거 어때?",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 114,
+        "elapsed_sec": 44.844000000011874,
+        "prompt_tokens": 1539,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 22,
+            "elapsed_sec": 18.875,
+            "prompt_tokens": 640,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 92,
+            "elapsed_sec": 25.969000000011874,
+            "prompt_tokens": 899,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"영화관 가서 팝콘 먹으며 영화 보는 거 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"excited\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"영화관 가서 팝콘 먹으며 영화 보는 거 어때?\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 편하게 쉬자.",
+          "face": "smiling",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "relaxed"
+          ],
+          "interaction": {
+            "type": "affection",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 76,
+        "elapsed_sec": 8.952999999979511,
+        "prompt_tokens": 1438,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 4.530999999988126,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 59,
+            "elapsed_sec": 4.421999999991385,
+            "prompt_tokens": 905,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 편하게 쉬자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"smiling\", \"internal_emotion\": \"happy\", \"emotion_tags\": [\"relaxed\"], \"interaction\": {\"type\": \"affection\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 그럼 편하게 쉬자.",
+          "face": "smiling",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "relaxed",
+            "content"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "오늘 집에서 쉬는 것을 선호한다.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 11.375,
+        "prompt_tokens": 1541,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 5.5,
+            "prompt_tokens": 635,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 5.875,
+            "prompt_tokens": 906,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"좋아, 그럼 편하게 쉬자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"smiling\", \"internal_emotion\": \"happy\", \"emotion_tags\": [\"relaxed\", \"content\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"오늘 집에서 쉬는 것을 선호한다.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "loop",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 그럼 다시 시작하자.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "eager",
+            "friendly"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 62,
+        "elapsed_sec": 10.110000000015134,
+        "prompt_tokens": 1718,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 5.64100000000326,
+            "prompt_tokens": 673,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 46,
+            "elapsed_sec": 4.469000000011874,
+            "prompt_tokens": 1045,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 그럼 다시 시작하자.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"eager\",\"friendly\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "loop",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 내가 따라갈게.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 62,
+        "elapsed_sec": 10.014999999984866,
+        "prompt_tokens": 1760,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 5.625,
+            "prompt_tokens": 715,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 46,
+            "elapsed_sec": 4.389999999984866,
+            "prompt_tokens": 1045,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 내가 따라갈게.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "boundary",
+      "seed": 109,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "그래도 내 팔은 너를 위해 흔들리지 않아.",
+          "face": "shy_smile",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "affectionate",
+            "curious",
+            "happy"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "그래도 내 팔은 너를 위해 흔들리지 않아.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 119,
+        "elapsed_sec": 12.047000000020489,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 21,
+            "elapsed_sec": 5.235000000015134,
+            "prompt_tokens": 550,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 98,
+            "elapsed_sec": 6.812000000005355,
+            "prompt_tokens": 926,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"그래도 내 팔은 너를 위해 흔들리지 않아.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"shy_smile\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"affectionate\", \"curious\", \"happy\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"그래도 내 팔은 너를 위해 흔들리지 않아.\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "boundary",
+      "seed": 109,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "으윽! 진짜 힘차네... 좀 더 힘을 빼줄래?",
+          "face": "surprised",
+          "internal_emotion": "anxious",
+          "emotion_tags": [
+            "startled",
+            "determined"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 90,
+        "elapsed_sec": 11.327999999979511,
+        "prompt_tokens": 1598,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 25,
+            "elapsed_sec": 6.312999999994645,
+            "prompt_tokens": 668,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 65,
+            "elapsed_sec": 5.014999999984866,
+            "prompt_tokens": 930,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"으윽! 진짜 힘차네... 좀 더 힘을 빼줄래?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"surprised\", \"internal_emotion\": \"anxious\", \"emotion_tags\": [\"startled\", \"determined\"], \"interaction\": {\"type\": \"conflict\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "open_help",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 바로 웃을 수 있는 일 이야기해줘.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "나를 기쁘게 해주기 위해 뭘 해줄 수 있어?",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 113,
+        "elapsed_sec": 11.64100000000326,
+        "prompt_tokens": 1427,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 5.094000000011874,
+            "prompt_tokens": 526,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 6.546999999991385,
+            "prompt_tokens": 901,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"지금 바로 웃을 수 있는 일 이야기해줘.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"support\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"나를 기쁘게 해주기 위해 뭘 해줄 수 있어?\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "open_help",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 바로 웃을 거야. 그거면 충분해!",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "eager",
+            "helpful"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 69,
+        "elapsed_sec": 9.687000000005355,
+        "prompt_tokens": 1544,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 23,
+            "elapsed_sec": 5.9060000000172295,
+            "prompt_tokens": 641,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 46,
+            "elapsed_sec": 3.7809999999881256,
+            "prompt_tokens": 903,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"지금 바로 웃을 거야. 그거면 충분해!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"eager\",\"helpful\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "opinion",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "파란 머리면 유이랑 더 잘 어울려!",
+          "face": "surprised",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "파란 머리를 좋아해.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 11.437999999994645,
+        "prompt_tokens": 1424,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 22,
+            "elapsed_sec": 5.35899999999674,
+            "prompt_tokens": 524,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 89,
+            "elapsed_sec": 6.062999999994645,
+            "prompt_tokens": 900,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"파란 머리면 유이랑 더 잘 어울려!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"surprised\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"affectionate\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"파란 머리를 좋아해.\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "opinion",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "파란색 머리는 확실히 눈에 띄네. 오늘부터 학교에서 가장 먼저 보이는 사람이 될 거야.",
+          "face": "surprised",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "머리를 파랗게 염색하고 싶어한다.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 129,
+        "elapsed_sec": 12.48399999999674,
+        "prompt_tokens": 1552,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 35,
+            "elapsed_sec": 6.453000000008615,
+            "prompt_tokens": 639,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 94,
+            "elapsed_sec": 6.030999999988126,
+            "prompt_tokens": 913,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"파란색 머리는 확실히 눈에 띄네. 오늘부터 학교에서 가장 먼저 보이는 사람이 될 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"surprised\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"affectionate\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"머리를 파랗게 염색하고 싶어한다.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "emotion",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아... 면접 떨어졌어? 유이도 속상했겠다.",
+          "face": "sad",
+          "internal_emotion": "affectionate",
+          "emotion_tags": [
+            "sympathetic",
+            "concerned"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 75,
+        "elapsed_sec": 7.312000000005355,
+        "prompt_tokens": 1417,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 25,
+            "elapsed_sec": 3.8440000000118744,
+            "prompt_tokens": 519,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 50,
+            "elapsed_sec": 3.4679999999934807,
+            "prompt_tokens": 898,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"아... 면접 떨어졌어? 유이도 속상했겠다.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathetic\",\"concerned\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "emotion",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아... 진짜 서러울 거야. 내가 오늘 어떤 부분이 부족했는지 말해줘, 같이 고민할게.",
+          "face": "sad",
+          "internal_emotion": "affectionate",
+          "emotion_tags": [
+            "sympathetic",
+            "worried"
+          ],
+          "interaction": {
+            "type": "support",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "오늘 면접에서 떨어졌다.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 121,
+        "elapsed_sec": 12.671999999991385,
+        "prompt_tokens": 1540,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 35,
+            "elapsed_sec": 5.687999999994645,
+            "prompt_tokens": 632,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 6.98399999999674,
+            "prompt_tokens": 908,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"아... 진짜 서러울 거야. 내가 오늘 어떤 부분이 부족했는지 말해줘, 같이 고민할게.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"sad\", \"internal_emotion\": \"affectionate\", \"emotion_tags\": [\"sympathetic\", \"worried\"], \"interaction\": {\"type\": \"support\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"오늘 면접에서 떨어졌다.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "activity",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "영화관이나 카페 어때?",
+          "face": "excited",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "happy",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"영화관이나 카페 어때?\"",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 104,
+        "elapsed_sec": 6.98399999999674,
+        "prompt_tokens": 1415,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 3.7660000000032596,
+            "prompt_tokens": 522,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 88,
+            "elapsed_sec": 3.2179999999934807,
+            "prompt_tokens": 893,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"영화관이나 카페 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"excited\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"happy\", \"affectionate\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"영화관이나 카페 어때?\\\"\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "activity",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "영화관이나 카페가 좋겠어. 네 기분에 맞춰서!",
+          "face": "excited",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "eager",
+            "enthusiastic"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "영화관이나 카페가 좋겠어. 네 기분에 맞춰서!",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 121,
+        "elapsed_sec": 6.64100000000326,
+        "prompt_tokens": 1541,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 25,
+            "elapsed_sec": 3.2190000000118744,
+            "prompt_tokens": 640,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 96,
+            "elapsed_sec": 3.4219999999913853,
+            "prompt_tokens": 901,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"영화관이나 카페가 좋겠어. 네 기분에 맞춰서!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"excited\", \"internal_emotion\": \"happy\", \"emotion_tags\": [\"eager\", \"enthusiastic\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"영화관이나 카페가 좋겠어. 네 기분에 맞춰서!\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 같이 쉬자.",
+          "face": "smiling",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "relaxed",
+            "content"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 79,
+        "elapsed_sec": 5.203000000008615,
+        "prompt_tokens": 1437,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 2.7190000000118744,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 62,
+            "elapsed_sec": 2.4839999999967404,
+            "prompt_tokens": 904,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"좋아, 같이 쉬자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"smiling\", \"internal_emotion\": \"happy\", \"emotion_tags\": [\"relaxed\", \"content\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 쉬자.",
+          "face": "smiling",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "relaxed",
+            "content"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 76,
+        "elapsed_sec": 5.452999999979511,
+        "prompt_tokens": 1538,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 3.0,
+            "prompt_tokens": 635,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 61,
+            "elapsed_sec": 2.452999999979511,
+            "prompt_tokens": 903,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 쉬자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"smiling\", \"internal_emotion\": \"happy\", \"emotion_tags\": [\"relaxed\", \"content\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "loop",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 뭐부터 시작할까?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "enthusiastic",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 67,
+        "elapsed_sec": 5.9060000000172295,
+        "prompt_tokens": 1719,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 3.234000000025844,
+            "prompt_tokens": 673,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 49,
+            "elapsed_sec": 2.6719999999913853,
+            "prompt_tokens": 1046,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 뭐부터 시작할까?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"enthusiastic\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "loop",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 무슨 이야기를 하고 싶은지 구체적으로 알려줄래?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "enthusiastic",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 72,
+        "elapsed_sec": 6.187999999994645,
+        "prompt_tokens": 1766,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 23,
+            "elapsed_sec": 3.4839999999967404,
+            "prompt_tokens": 715,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 49,
+            "elapsed_sec": 2.7039999999979045,
+            "prompt_tokens": 1051,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 무슨 이야기를 하고 싶은지 구체적으로 알려줄래?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"enthusiastic\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "boundary",
+      "seed": 211,
+      "enabled": false,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "그래도 뭘 해? 그냥 내게 맡겨.",
+          "face": "annoyed",
+          "internal_emotion": "anxious",
+          "emotion_tags": [
+            "determined",
+            "clinging"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "\"그래도 뭘 해? 그냥 내게 맡겨.\" 이라는 말을 한 적이 있음.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 125,
+        "elapsed_sec": 6.717999999993481,
+        "prompt_tokens": 1477,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 23,
+            "elapsed_sec": 2.9530000000086147,
+            "prompt_tokens": 550,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 102,
+            "elapsed_sec": 3.764999999984866,
+            "prompt_tokens": 927,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"그래도 뭘 해? 그냥 내게 맡겨.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"annoyed\", \"internal_emotion\": \"anxious\", \"emotion_tags\": [\"determined\", \"clinging\"], \"interaction\": {\"type\": \"conflict\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"\\\"그래도 뭘 해? 그냥 내게 맡겨.\\\" 이라는 말을 한 적이 있음.\", \"importance\": 1}], \"flags_set\": [\"determined\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "boundary",
+      "seed": 211,
+      "enabled": true,
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "으윽... 진짜 억지야! 그래도 좀 더 힘줘?",
+          "face": "annoyed",
+          "internal_emotion": "anxious",
+          "emotion_tags": [
+            "determined",
+            "fearful"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "유이는 팔을 잡히는 것을 싫어해.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 118,
+        "elapsed_sec": 6.828000000008615,
+        "prompt_tokens": 1597,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 25,
+            "elapsed_sec": 3.360000000015134,
+            "prompt_tokens": 668,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 3.4679999999934807,
+            "prompt_tokens": 929,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"으윽... 진짜 억지야! 그래도 좀 더 힘줘?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"annoyed\", \"internal_emotion\": \"anxious\", \"emotion_tags\": [\"determined\", \"fearful\"], \"interaction\": {\"type\": \"conflict\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"유이는 팔을 잡히는 것을 싫어해.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    }
+  ]
+}

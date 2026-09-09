@@ -1,0 +1,5 @@
+# Task15 — Prompt editing and chronological inspector
+
+User requested editable character settings in the test web and a comprehensible call sequence. Baseline 552 pytest passed (11.79s); existing worktree changes preserved. Implement per-request local-only signed prompt drafts, never mutate shared character settings. Preserve guest ownership, queue, quotas, idempotency and frozen metadata reply. Explain input preparation → reply model call → metadata model call → atomic storage; current memory is a separate present-day view. Distinguish exact model messages from full transport JSON. Show prompt revision and immutable historical trace. Verify draft isolation/tampering/retry and browser workflow. No model-quality adoption experiment in this task.
+
+Completed: 555 pytest,4 UI tests, lint/compile/syntax/diff checks. Real browser edited prompt reached both model stages, frozen trace revision and final commit verified, default restored. See docs/LOCAL_INSPECTOR.md for commands, corrected test failures and runtime readiness limitation.

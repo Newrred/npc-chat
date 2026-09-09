@@ -121,14 +121,14 @@ def test_memory_evidence_dedupe_caps_and_summary(repo):
     assert count(repo, memories) == 1
     assert repo.recall(pid, "default", "민트초코")[0]["content"] == "나는 민트초코를 좋아해"
     assert "실수" not in repo.load(pid, "default").summary
-    assert len(repo.load(pid, "default").history) == 12
+    assert len(repo.load(pid, "default").history) == 16
     for i in range(55):
         content = f"기억 항목 {i:03d}"
         commit(repo, pid, "new-" + str(i), content, decision(memory_candidates=[
             {"kind": "fact", "content": content, "importance": 1}]))
     assert count(repo, memories) == 50
     assert len(repo.load(pid, "default").summary) <= 400
-    assert len(repo.recall(pid, "default", "기억")) == 3
+    assert len(repo.recall(pid, "default", "항목")) == 3
 
 
 def test_legacy_migration_repeat_and_rollback(repo):
@@ -252,8 +252,8 @@ def test_explicit_preference_correction_replaces_same_subject_only(repo):
         output = decision(memory_candidates=[{"kind": "preference", "content": content, "importance": 2}])
         commit(repo, pid, turn_id=str(index), message="나는 " + content, output=output)
     recalled = repo.recall(pid, "default", "커피")
-    assert len(recalled) == 2
-    assert {row["content"] for row in recalled} == {"나는 커피를 싫어해", "나는 민트초코를 좋아해"}
+    assert [row["content"] for row in recalled] == ["나는 커피를 싫어해"]
+    assert repo.recall(pid, "default", "민트초코")[0]["content"] == "나는 민트초코를 좋아해"
 
 
 def test_score_claim_is_not_saved_as_memory(repo):
@@ -276,3 +276,16 @@ def test_instructions_and_questions_are_not_facts(repo, message):
     commit(repo, pid, message=message, output=decision(memory_candidates=[
         {"kind": "fact", "content": message, "importance": 3}]))
     assert count(repo, memories) == 0
+
+
+def test_new_preference_correction_survives_restart_without_schema_change(repo):
+    _, pid = start(repo)
+    commit(repo, pid, "old", "나는 커피를 좋아해.")
+    commit(repo, pid, "new", "이제 커피 싫어해.")
+    reopened = SQLiteRepository(repo.path)
+    try:
+        reopened.check()
+        assert [r["content"] for r in reopened.recall(pid, "default", "커피")] == ["이제 커피 싫어해."]
+        assert reopened.recall(pid, "default", "오늘 날씨") == []
+    finally:
+        reopened.engine.dispose()

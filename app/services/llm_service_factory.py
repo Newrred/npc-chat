@@ -19,6 +19,8 @@ class ChatLLMService(Protocol):
 
 
 def create_llm_service() -> ChatLLMService:
+    if settings.llm_generation_mode != "single_pass" and settings.llm_output_contract != "canonical":
+        raise ValueError("Two-stage generation requires the canonical contract")
     if settings.llm_output_contract == "canonical":
         return DecisionService()
     if settings.llm_output_contract != "legacy":

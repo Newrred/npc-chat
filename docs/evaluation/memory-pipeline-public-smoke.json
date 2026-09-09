@@ -1,0 +1,17 @@
+[
+  {
+    "status": 200,
+    "reply": "아, 준호구나! 반가워.",
+    "elapsed_sec": 5.688
+  },
+  {
+    "status": 200,
+    "reply": "응, 알았어. 이제 누리라고 해.",
+    "elapsed_sec": 3.75
+  },
+  {
+    "status": 200,
+    "reply": "준호야, 누리로 불러.",
+    "elapsed_sec": 4.328
+  }
+]

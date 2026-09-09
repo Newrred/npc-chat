@@ -1,0 +1,7 @@
+# Task 10 — Example boundaries and reply-only generation
+
+Completed 2026-09-08. EXP-05 36, EXP-06 36 plus 12 follow-up generations valid on first attempt. Reply-only JSON showed limited improvements including causal recall and identity repair on follow-up cases; plain text drifted in voice. Preserve as candidate for a two-stage prototype, not a production replacement. 507 tests passed; lint/compile passed. No runtime/DB changes. Details: docs/EXAMPLE_AND_REPLY_ABLATION.md.
+
+Approved 2026-09-08. EXP-05 compares existing examples, explicit fictional-reference boundaries, and no examples using the canonical output. EXP-06 fixes the no-example character prompt and compares full canonical output, reply-only JSON, and plain dialogue. Same model, sampling, context/output budgets, synthetic histories and paired seeds. Preserve all existing uncommitted work and production settings.
+
+Baseline: 496 passing tests from EXP-04. Record both planned experiments in the lineage before generation. Include an actual prior exam as a positive control against suppressing all exam mentions, empty-history interview contamination, identity, reason, short confirmation and topic switch. Preserve raw outputs, first-attempt/format failures and timings; distinguish bundled instruction/schema simplification from pure output-format causality. No user DB, quota, schema migration or runtime restart. No automatic deployment of a reply-only adapter that lacks metadata. Add tests for request construction/output validation and report adoption decision with limitations.

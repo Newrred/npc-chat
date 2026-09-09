@@ -1,5 +1,11 @@
 # API and Data Contracts
 
+2026-09-09 로컬 관리자 전용 /api/test/{session,chat,reset,conversation} bridge 추가. guest 모드에서 고정 웹 API로만 연결하며 기존 소유권·한도·중복 처리를 유지한다. 공개 API 추가 없음. [로컬 검사 계약](LOCAL_INSPECTOR.md).
+
+2026-09-08 원문 기반 파생 프로필/사건을 내부 입력에 추가했다. LLM 출력 스키마/외부 API/DB 형식은 유지한다. memory.accepted_candidates는 기존 memories 저장 후보 수이며 파생 뷰 수가 아니다. reset은 원문 제거로 파생 정보도 제거한다. [기억 계약](MEMORY_PIPELINE.md).
+
+2026-09-08 두 단계 생성은 내부 변경이다. 외부 canonical 응답/DB 계약은 유지하며 UI 응답은 두 단계 성공 및 저장 이후 전달한다. 부가 정보 단계에는 reply 필드를 허용하지 않고 실패 시 부분 저장하지 않는다. [내부 계약과 복구](TWO_STAGE_GENERATION.md).
+
 ## 2026-09-07 guest 공개 링크 계약
 
 기본 배포 모드 guest에서는 Access JWT 대신 서버가 발급/검증하는 `__Host-npc_guest` Secure/HttpOnly/SameSite=Lax 쿠키를 사용한다. GET /로 바로 입장하고 별도 인증 UI가 없다. 계정 대신 브라우저 이용권에서 remote_owner를 도출하여 기존 소유권/중복 처리 경계를 재사용한다. 쿠키 없음/위조/만료 시 새 방문자로 처리하고 과거 profile/session은 접근 거절한다. 정확한 Host/Origin/JSON과 본문 제한은 유지된다. `/api/ready`는 guest에서 403이고 `/api/live`는 익명 생존 확인이다.
@@ -376,3 +382,11 @@ Migration:
 `POST /api/conversation/reset` accepts session_id/profile_id and returns closed:true after an atomic reset. It revokes old sessions and deletes this profile/character's turns and memory, restores relationship defaults and clears summary/flags. Other profiles/characters and durable quotas remain. Old-session retries fail with 403/404 and cannot reset a newly opened room. Chat checks the session again inside the serial queue before replay or quota charging. Public guest Origin and owner checks apply to both operations.
 
 The administrator runs as a separate read-only loopback app. Its /api/rooms and /api/turns routes are not public application routes. See CHAT_HISTORY_AND_ADMIN.md for contracts and lifecycle.
+
+## Task15 local prompt experiment
+
+Local GET /api/prompt-defaults returns identity/dialogue defaults. Local POST /api/test/chat accepts optional prompt_draft {identity:1..1500 chars, dialogue:1..3500 chars} within existing16KB body limit. Bridge removes this field and issues a signed, expiring, exact-turn-bound header for the fixed loopback web API. Invalid signature403, unsupported generation mode409, invalid draft422. Shared character remains unchanged. Draft participates in idempotency digest. Trace prompt_experiment contains revision/draft under existing opt-in private retention. No public prompt editor endpoint or DB schema migration. See LOCAL_INSPECTOR.md.
+
+
+## Task16 diagnostic events
+Local opt-in trace adds memory_retrieval (user_message, derived, stored query terms/method/considered choices) and memory_committed (candidate_checks, stored, evicted_keys, derived_profile_updates, derived_events) after successful transaction. Public response unchanged. Prior traces may lack both events. Same private retention. See LOCAL_INSPECTOR.md.

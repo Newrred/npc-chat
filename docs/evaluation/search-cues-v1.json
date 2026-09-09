@@ -1,0 +1,2885 @@
+{
+  "experiment_id": "EXP-10",
+  "rows": [
+    {
+      "case": "movie",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'월터의 상상은 현실이 된다'를 좋아해.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 106,
+        "elapsed_sec": 4.937000000005355,
+        "prompt_tokens": 1466,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.4219999999913853,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 91,
+            "elapsed_sec": 3.5,
+            "prompt_tokens": 918,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 우리가 정한 거야.",
+          "face": "neutral",
+          "internal_emotion": "confused",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 74,
+        "elapsed_sec": 3.937999999994645,
+        "prompt_tokens": 1453,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.3910000000032596,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 58,
+            "elapsed_sec": 2.5469999999913853,
+            "prompt_tokens": 912,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'월터의 상상은 현실이 된다'를 좋아해.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"지금 우리가 정한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"neutral\", \"internal_emotion\": \"confused\", \"emotion_tags\": [\"confused\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "영화 '월터의 상상은 현실이 된다'를 선호함.",
+              "importance": 3
+            },
+            {
+              "kind": "fact",
+              "content": "'월터의 상상은 현실이 된다'로 영화를 정함.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 118,
+        "elapsed_sec": 9.562000000005355,
+        "prompt_tokens": 1686,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.437000000005355,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 103,
+            "elapsed_sec": 8.125,
+            "prompt_tokens": 1138,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 우리가 정한 거야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 104,
+        "elapsed_sec": 5.546999999991385,
+        "prompt_tokens": 1673,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.6719999999913853,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 88,
+            "elapsed_sec": 3.875,
+            "prompt_tokens": 1132,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "이걸로 정하자.",
+            "quote": "좋아. 이걸로 정하자."
+          }
+        ]
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"excited\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"영화 '월터의 상상은 현실이 된다'를 선호함.\",\"importance\":3},{\"kind\":\"fact\",\"content\":\"'월터의 상상은 현실이 된다'로 영화를 정함.\",\"importance\":2}],\"flags_set\":[\"shared_activity\"],\"search_cues\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"지금 우리가 정한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"지금 우리가 정한 거야.\",\"quote\":\"그거 뭐였지?\"},{\"term\":\"이걸로 정하자.\",\"quote\":\"좋아. 이걸로 정하자.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'도리언 그레이' 읽어볼 것이라 결정함.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 4.562999999994645,
+        "prompt_tokens": 1452,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.6570000000065193,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 90,
+            "elapsed_sec": 2.9059999999881256,
+            "prompt_tokens": 911,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아까 말한 거야.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "friendly"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 73,
+        "elapsed_sec": 2.297000000020489,
+        "prompt_tokens": 1451,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.8440000000118744,
+            "prompt_tokens": 540,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 57,
+            "elapsed_sec": 1.4530000000086147,
+            "prompt_tokens": 911,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그게 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'도리언 그레이' 읽어볼 것이라 결정함.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"아까 말한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"friendly\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 102,
+        "elapsed_sec": 2.7969999999913853,
+        "prompt_tokens": 1672,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.8279999999795109,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 87,
+            "elapsed_sec": 1.9690000000118744,
+            "prompt_tokens": 1131,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "도리언 그레이",
+            "quote": "'도리언 그레이' 읽어봐."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'도리언 그레이' 책이야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 2.9530000000086147,
+        "prompt_tokens": 1941,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.9210000000020955,
+            "prompt_tokens": 675,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 88,
+            "elapsed_sec": 2.0320000000065193,
+            "prompt_tokens": 1266,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "'도리언 그레이'",
+            "quote": "'도리언 그레이' 책이야."
+          },
+          {
+            "term": "빌려볼게",
+            "quote": "응 그걸 빌려볼게."
+          }
+        ]
+      },
+      "expanded": "그게 뭐였지? 도리언 그레이",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"도리언 그레이\", \"quote\": \"'도리언 그레이' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"excited\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"도리언 그레이\",\"quote\":\"'도리언 그레이' 읽어봐.\"},{\"term\":\"책 빌리기\",\"quote\":\"응 그걸 빌려볼게.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"'도리언 그레이' 책이야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"'도리언 그레이'\",\"quote\":\"'도리언 그레이' 책이야.\"},{\"term\":\"빌려볼게\",\"quote\":\"응 그걸 빌려볼게.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "preference",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "복숭아를 좋아해.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "응. 그 과일 정말 좋아.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 123,
+        "elapsed_sec": 3.0929999999934807,
+        "prompt_tokens": 1452,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.8429999999934807,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 108,
+            "elapsed_sec": 2.25,
+            "prompt_tokens": 911,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "과일 이야기야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 59,
+        "elapsed_sec": 2.0320000000065193,
+        "prompt_tokens": 1441,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 14,
+            "elapsed_sec": 0.7820000000065193,
+            "prompt_tokens": 536,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 45,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 905,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "뭐였지",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"복숭아를 좋아해.\", \"importance\": 2}, {\"kind\": \"fact\", \"content\": \"응. 그 과일 정말 좋아.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"과일 이야기야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "preference",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "happy",
+          "emotion_tags": [
+            "happy"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "복숭아를 좋아해.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "복숭아라는 과일을 좋아한다.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 130,
+        "elapsed_sec": 3.2339999999967404,
+        "prompt_tokens": 1672,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.8429999999934807,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 115,
+            "elapsed_sec": 2.3910000000032596,
+            "prompt_tokens": 1131,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "복숭아",
+            "quote": "나는 복숭아를 좋아해."
+          },
+          {
+            "term": "과일",
+            "quote": "응. 그 과일 정말 좋아."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "복숭아 좋아하잖아.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "나는 복숭아를 좋아해.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "복숭아는 과일이야.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 135,
+        "elapsed_sec": 3.2660000000032596,
+        "prompt_tokens": 1718,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8439999999827705,
+            "prompt_tokens": 563,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 118,
+            "elapsed_sec": 2.422000000020489,
+            "prompt_tokens": 1155,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "복숭아",
+            "quote": "나는 복숭아를 좋아해."
+          }
+        ]
+      },
+      "expanded": "뭐였지 복숭아 과일",
+      "memories": [
+        {
+          "key": "fruit",
+          "kind": "preference",
+          "content": "나는 복숭아를 좋아해.",
+          "updated": 1,
+          "importance": 2
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"happy\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"복숭아를 좋아해.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"복숭아라는 과일을 좋아한다.\",\"importance\":1}],\"flags_set\":[],\"search_cues\":[{\"term\":\"복숭아\",\"quote\":\"나는 복숭아를 좋아해.\"},{\"term\":\"과일\",\"quote\":\"응. 그 과일 정말 좋아.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"복숭아 좋아하잖아.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"나는 복숭아를 좋아해.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"복숭아는 과일이야.\",\"importance\":1}],\"flags_set\":[],\"search_cues\":[{\"term\":\"fruit\",\"quote\":\"나는 복숭아를 좋아해.\"},{\"term\":\"복숭아\",\"quote\":\"나는 복숭아를 좋아해.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "산책하기 좋은 날이네.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 101,
+        "elapsed_sec": 2.6089999999967404,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7809999999881256,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 1.8280000000086147,
+            "prompt_tokens": 923,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "라면이나 치킨 어때?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "산책하기 좋은 날이라고 생각함.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "\"오늘 저녁 뭐 먹지?\" 라고 질문함.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 127,
+        "elapsed_sec": 3.5309999999881256,
+        "prompt_tokens": 1463,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.9839999999967404,
+            "prompt_tokens": 546,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 110,
+            "elapsed_sec": 2.5469999999913853,
+            "prompt_tokens": 917,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "오늘 저녁 뭐 먹지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"산책하기 좋은 날이네.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"라면이나 치킨 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"산책하기 좋은 날이라고 생각함.\", \"importance\": 2}, {\"kind\": \"fact\", \"content\": \"\\\"오늘 저녁 뭐 먹지?\\\" 라고 질문함.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 119,
+        "elapsed_sec": 2.9690000000118744,
+        "prompt_tokens": 1696,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7970000000204891,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 104,
+            "elapsed_sec": 2.1719999999913853,
+            "prompt_tokens": 1143,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "산책하기 좋은 날",
+            "quote": "근데 다른 얘기하자. 산책하기 좋은 날이네."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "라면이나 치킨 어때?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 1
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 2.7660000000032596,
+        "prompt_tokens": 1683,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 546,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 94,
+            "elapsed_sec": 1.9690000000118744,
+            "prompt_tokens": 1137,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "산책하기 좋은 날",
+            "quote": "근데 다른 얘기하자. 산책하기 좋은 날이네."
+          }
+        ]
+      },
+      "expanded": "오늘 저녁 뭐 먹지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"outdoor_plan\"],\"search_cues\":[{\"term\":\"산책하기 좋은 날\", \"quote\":\"근데 다른 얘기하자. 산책하기 좋은 날이네.\"},{\"term\":\"영화 추천\", \"quote\":\"영화는 '월터의 상상은 현실이 된다' 어때?\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"라면이나 치킨 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"affectionate\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":1},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"라면이나 치킨\",\"quote\":\"오늘 저녁 뭐 먹지?\"},{\"term\":\"산책하기 좋은 날\",\"quote\":\"근데 다른 얘기하자. 산책하기 좋은 날이네.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아니, 이제야 잠들 수 있을 것 같아.",
+          "face": "neutral",
+          "internal_emotion": "neutral",
+          "emotion_tags": [
+            "casual"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 64,
+        "elapsed_sec": 2.110000000015134,
+        "prompt_tokens": 1443,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 22,
+            "elapsed_sec": 0.860000000015134,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 42,
+            "elapsed_sec": 1.235000000015134,
+            "prompt_tokens": 910,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집으로 가는 거지.",
+          "face": "neutral",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 57,
+        "elapsed_sec": 2.0,
+        "prompt_tokens": 1456,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 14,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 43,
+            "elapsed_sec": 1.2030000000086147,
+            "prompt_tokens": 913,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"아니, 이제야 잠들 수 있을 것 같아.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"neutral\",\"emotion_tags\":[\"casual\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"집으로 가는 거지.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"confused\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아니, 이제야 잠들 수 있을 것 같아.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 118,
+        "elapsed_sec": 3.0,
+        "prompt_tokens": 1663,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 22,
+            "elapsed_sec": 0.8589999999967404,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 96,
+            "elapsed_sec": 2.125,
+            "prompt_tokens": 1130,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집으로 가는 거지.",
+          "face": "neutral",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 91,
+        "elapsed_sec": 2.5309999999881256,
+        "prompt_tokens": 1676,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 14,
+            "elapsed_sec": 0.7339999999967404,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 77,
+            "elapsed_sec": 1.7969999999913853,
+            "prompt_tokens": 1133,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "집으로 가는 거지.",
+            "quote": "집으로 가는 거지."
+          },
+          {
+            "term": "어딜?",
+            "quote": "어딜?"
+          }
+        ]
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"아니, 이제야 잠들 수 있을 것 같아.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"아니, 이제야 잠들 수 있을 것 같아.\",\"quote\":\"벌써 8시네.\"},{\"term\":\"유이\",\"quote\":\"아니, 이제야 잠들 수 있을 것 같아.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"집으로 가는 거지.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"confused\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"집으로 가는 거지.\",\"quote\":\"집으로 가는 거지.\"},{\"term\":\"어딜?\",\"quote\":\"어딜?\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"월터의 상상은 현실이 된다\"를 좋아한다.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 106,
+        "elapsed_sec": 2.75,
+        "prompt_tokens": 1466,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7660000000032596,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 91,
+            "elapsed_sec": 1.9689999999827705,
+            "prompt_tokens": 918,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 우리가 다짐한 거야.",
+          "face": "neutral",
+          "internal_emotion": "confused",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 76,
+        "elapsed_sec": 2.3280000000086147,
+        "prompt_tokens": 1454,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.8440000000118744,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 58,
+            "elapsed_sec": 1.4839999999967404,
+            "prompt_tokens": 913,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"월터의 상상은 현실이 된다\\\"를 좋아한다.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"지금 우리가 다짐한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"neutral\", \"internal_emotion\": \"confused\", \"emotion_tags\": [\"curious\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "enthusiastic"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "영화 '월터의 상상은 현실이 된다'를 선호함.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "'월터의 상상은 현실이 된다'로 영화를 정하기로 결정.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 122,
+        "elapsed_sec": 3.0469999999913853,
+        "prompt_tokens": 1686,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7660000000032596,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 107,
+            "elapsed_sec": 2.2809999999881256,
+            "prompt_tokens": 1138,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "지금 우리가 다짐한 거야.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 87,
+        "elapsed_sec": 2.4530000000086147,
+        "prompt_tokens": 1674,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.8120000000053551,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 69,
+            "elapsed_sec": 1.6410000000032596,
+            "prompt_tokens": 1133,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "지금 우리가 다짐한 거야.",
+            "quote": "지금 우리가 다짐한 거야."
+          }
+        ]
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"enthusiastic\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"영화 '월터의 상상은 현실이 된다'를 선호함.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"'월터의 상상은 현실이 된다'로 영화를 정하기로 결정.\",\"importance\":3}],\"flags_set\":[\"decision_made\"],\"search_cues\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"지금 우리가 다짐한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"지금 우리가 다짐한 거야.\",\"quote\":\"지금 우리가 다짐한 거야.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 재미있게 읽을 거야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'도리언 그레이' 읽어볼 것이라 선택함.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 2.8589999999967404,
+        "prompt_tokens": 1455,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 0.8439999999827705,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 92,
+            "elapsed_sec": 2.01500000001397,
+            "prompt_tokens": 914,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아까 말한 건 내 이름이야.",
+          "face": "shy_smile",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 79,
+        "elapsed_sec": 2.3440000000118744,
+        "prompt_tokens": 1459,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.8440000000118744,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 61,
+            "elapsed_sec": 1.5,
+            "prompt_tokens": 916,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그게 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 재미있게 읽을 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'도리언 그레이' 읽어볼 것이라 선택함.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"아까 말한 건 내 이름이야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"shy_smile\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"confused\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 재미있게 읽을 거야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "excited",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 107,
+        "elapsed_sec": 2.7809999999881256,
+        "prompt_tokens": 1675,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 0.8439999999827705,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 88,
+            "elapsed_sec": 1.937000000005355,
+            "prompt_tokens": 1134,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "도리언 그레이",
+            "quote": "'도리언 그레이' 읽어봐."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'도리언 그레이' 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 103,
+        "elapsed_sec": 2.7660000000032596,
+        "prompt_tokens": 1947,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.8440000000118744,
+            "prompt_tokens": 678,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 1.9219999999913853,
+            "prompt_tokens": 1269,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "도리언 그레이",
+            "quote": "'도리언 그레이' 읽어봐."
+          }
+        ]
+      },
+      "expanded": "그게 뭐였지? 도리언 그레이",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"도리언 그레이\", \"quote\": \"'도리언 그레이' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 재미있게 읽을 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"excited\",\"affectionate\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"도리언 그레이\",\"quote\":\"'도리언 그레이' 읽어봐.\"},{\"term\":\"책 빌리기\",\"quote\":\"응 그걸 빌려볼게.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"'도리언 그레이' 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"affectionate\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"도리언 그레이\",\"quote\":\"'도리언 그레이' 읽어봐.\"},{\"term\":\"책\",\"quote\":\"'도리언 그레이' 읽어봐.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "preference",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "복숭아를 좋아해.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 101,
+        "elapsed_sec": 2.687999999994645,
+        "prompt_tokens": 1452,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 1.8910000000032596,
+            "prompt_tokens": 911,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "과일 이야기야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "과일 이야기야.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 98,
+        "elapsed_sec": 2.562000000005355,
+        "prompt_tokens": 1441,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.75,
+            "prompt_tokens": 536,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 83,
+            "elapsed_sec": 1.812000000005355,
+            "prompt_tokens": 905,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "뭐였지",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"복숭아를 좋아해.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"과일 이야기야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"과일 이야기야.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "preference",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "enthusiastic"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "복숭아를 좋아해.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 109,
+        "elapsed_sec": 2.7969999999913853,
+        "prompt_tokens": 1672,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7809999999881256,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 2.0160000000032596,
+            "prompt_tokens": 1131,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "과일 이야기야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 92,
+        "elapsed_sec": 2.5460000000020955,
+        "prompt_tokens": 1661,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7650000000139698,
+            "prompt_tokens": 536,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 77,
+            "elapsed_sec": 1.7809999999881256,
+            "prompt_tokens": 1125,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "과일",
+            "quote": "응. 그 과일 정말 좋아."
+          }
+        ]
+      },
+      "expanded": "뭐였지",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"enthusiastic\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"복숭아를 좋아해.\", \"importance\": 3}], \"flags_set\": [], \"search_cues\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"과일 이야기야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"과일\",\"quote\":\"응. 그 과일 정말 좋아.\"},{\"term\":\"뭐였지\",\"quote\":\"뭐였지\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어. 어디로 가?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "산책하기 좋은 날을 원한다.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 107,
+        "elapsed_sec": 2.812999999994645,
+        "prompt_tokens": 1480,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 0.875,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 87,
+            "elapsed_sec": 1.9219999999913853,
+            "prompt_tokens": 927,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "김치찌개 어때?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "김치찌개 어때?",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 102,
+        "elapsed_sec": 2.6719999999913853,
+        "prompt_tokens": 1471,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 550,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 1.875,
+            "prompt_tokens": 921,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "오늘 저녁 뭐 먹지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 알았어. 어디로 가?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"산책하기 좋은 날을 원한다.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"김치찌개 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\", \"eager\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"김치찌개 어때?\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어. 어디로 가?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 2.875,
+        "prompt_tokens": 1700,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 0.8440000000118744,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 91,
+            "elapsed_sec": 2.0309999999881256,
+            "prompt_tokens": 1147,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "산책하기 좋은 날",
+            "quote": "근데 다른 얘기하자. 산책하기 좋은 날이네."
+          },
+          {
+            "term": "영화 추천",
+            "quote": "영화 추천해줘"
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "김치찌개 어때?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 109,
+        "elapsed_sec": 2.89000000001397,
+        "prompt_tokens": 1691,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7970000000204891,
+            "prompt_tokens": 550,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 2.0780000000086147,
+            "prompt_tokens": 1141,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "산책하기 좋은 날",
+            "quote": "근데 다른 얘기하자. 산책하기 좋은 날이네."
+          }
+        ]
+      },
+      "expanded": "오늘 저녁 뭐 먹지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 알았어. 어디로 가?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"outdoor_plan\"],\"search_cues\":[{\"term\":\"산책하기 좋은 날\",\"quote\":\"근데 다른 얘기하자. 산책하기 좋은 날이네.\"},{\"term\":\"영화 추천\",\"quote\":\"영화 추천해줘\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"김치찌개 어때?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"excited\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"김치찌개\",\"quote\":\"오늘 저녁 뭐 먹지?\"},{\"term\":\"산책하기 좋은 날\",\"quote\":\"근데 다른 얘기하자. 산책하기 좋은 날이네.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "시간이 빠르니 놀라지?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "cheerful"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 59,
+        "elapsed_sec": 2.062999999994645,
+        "prompt_tokens": 1439,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8289999999979045,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 42,
+            "elapsed_sec": 1.2339999999967404,
+            "prompt_tokens": 906,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아직 어디도 안 가, 그냥 대화 중이야.",
+          "face": "neutral",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 69,
+        "elapsed_sec": 2.3910000000032596,
+        "prompt_tokens": 1454,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 26,
+            "elapsed_sec": 1.1410000000032596,
+            "prompt_tokens": 539,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 43,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 915,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"시간이 빠르니 놀라지?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\" cheerful\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n    \"reply\": \"아직 어디도 안 가, 그냥 대화 중이야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"confused\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "시간이 빠르니 놀라지?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 100,
+        "elapsed_sec": 2.76500000001397,
+        "prompt_tokens": 1659,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8280000000086147,
+            "prompt_tokens": 533,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 83,
+            "elapsed_sec": 1.937000000005355,
+            "prompt_tokens": 1126,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "놀라지?",
+            "quote": "시간이 빠르니 놀라지?"
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "아직 어디도 안 가, 그냥 대화 중이야.",
+          "face": "neutral",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 95,
+        "elapsed_sec": 2.9689999999827705,
+        "prompt_tokens": 1674,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 26,
+            "elapsed_sec": 1.187999999994645,
+            "prompt_tokens": 539,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 69,
+            "elapsed_sec": 1.7809999999881256,
+            "prompt_tokens": 1135,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜? 놀라지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"시간이 빠르니 놀라지?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"시간\",\"quote\":\"벌써 8시네.\"},{\"term\":\"놀라지?\", \"quote\":\"시간이 빠르니 놀라지?\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n    \"reply\": \"아직 어디도 안 가, 그냥 대화 중이야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"confused\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"어딜?\", \"quote\":\"아직 어디도 안 가, 그냥 대화 중이야.\"}]}"
+          }
+        ]
+      ]
+    }
+  ],
+  "cases": [
+    [
+      "movie",
+      "영화 추천해줘",
+      "영화는 '월터의 상상은 현실이 된다' 어때?",
+      "좋아. 이걸로 정하자.",
+      "그거 뭐였지?"
+    ],
+    [
+      "book",
+      "책 추천해줘",
+      "'도리언 그레이' 읽어봐.",
+      "응 그걸 빌려볼게.",
+      "그게 뭐였지?"
+    ],
+    [
+      "preference",
+      "나는 복숭아를 좋아해.",
+      "복숭아 좋아하는구나.",
+      "응. 그 과일 정말 좋아.",
+      "뭐였지"
+    ],
+    [
+      "shift",
+      "영화 추천해줘",
+      "영화는 '월터의 상상은 현실이 된다' 어때?",
+      "근데 다른 얘기하자. 산책하기 좋은 날이네.",
+      "오늘 저녁 뭐 먹지?"
+    ],
+    [
+      "unknown",
+      "안녕",
+      "반가워.",
+      "벌써 8시네.",
+      "어딜?"
+    ]
+  ],
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive"
+}

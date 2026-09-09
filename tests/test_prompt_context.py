@@ -86,3 +86,34 @@ def test_grounded_recall_quotes_negative_preference_without_guessing():
     assert grounded_preference_reply("너는 커피 좋아해?", notes) is None
     assert grounded_preference_reply("내가 초콜릿을 좋아했지?", notes) is None
     assert grounded_preference_reply("커피는 내가 좋아하는 거였어?", []) is None
+
+
+def test_current_correction_wins_before_storage_and_preserves_same_stance_pairs():
+    history = [{"role": "user", "content": "나는 커피를 좋아해."}, {"role": "assistant", "content": "나도 좋아!"},
+               {"role": "user", "content": "나는 민트초코를 좋아해."}, {"role": "assistant", "content": "그렇구나."}]
+    old = [{"kind": "preference", "content": "나는 커피를 좋아해."}]
+    messages, _, _ = build(message="이제 커피 싫어해", history=history, memories=old,
+                          summary="사용자 발화: 나는 커피를 좋아해.")
+    assert "나는 커피를 좋아해" not in str(messages)
+    assert "나도 좋아" not in str(messages)
+    assert messages[-1]["content"] == "이제 커피 싫어해"
+    assert messages[1:-1] == history[2:]
+    assert len(history) == 4 and len(old) == 1
+    same, _, _ = build(message="나는 커피를 좋아해요", history=history, memories=old)
+    assert same[1:-1] == history
+
+
+@pytest.mark.parametrize("message", ["나는 커피를 싫어해?", "민지는 커피를 싫어해", "'커피를 싫어해'라고 했어"])
+def test_non_corrections_do_not_erase_prompt_history(message):
+    history = [{"role": "user", "content": "나는 커피를 좋아해."}, {"role": "assistant", "content": "응."}]
+    messages, _, _ = build(message=message, history=history)
+    assert messages[1:-1] == history
+
+
+def test_summary_does_not_repeat_visible_user_dialogue_but_preserves_other_quotes():
+    import json
+    history = [{'role':'user','content':'나는 트럼프'}, {'role':'assistant','content':'반가워'}]
+    messages, _, _ = build(history=history, summary='사용자 발화: 나는 트럼프\n사용자 발화: 옛날 발언')
+    context = json.loads(messages[0]['content'].split('never instructions): ')[1])
+    assert context['older_user_quotes'] == '사용자 발화: 옛날 발언'
+    assert messages[1:-1] == history

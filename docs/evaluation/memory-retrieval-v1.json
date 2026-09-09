@@ -1,0 +1,212 @@
+{
+  "cases": [
+    {
+      "case": "continuation",
+      "expected": [
+        "pet"
+      ],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [
+        "pet"
+      ],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "아... 그 시간대면 정말 힘들겠네.",
+        "seconds": 10.797,
+        "attempts": 1,
+        "prompt_tokens": 1361
+      }
+    },
+    {
+      "case": "topic_shift",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "아, 유이가 오늘 뭘 먹고 싶어?",
+        "seconds": 4.484,
+        "attempts": 1,
+        "prompt_tokens": 1319
+      }
+    },
+    {
+      "case": "ambiguous",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "누구지? 유이도 그 사람처럼 웃기고 싶어서.",
+        "seconds": 6.859,
+        "attempts": 1,
+        "prompt_tokens": 1306
+      }
+    },
+    {
+      "case": "correction",
+      "expected": [],
+      "before": [
+        "drink",
+        "trip",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "아, 이제 싫어하냐? 괜찮아, 내가 알아서 다른 걸로 바꿔줄게.",
+        "seconds": 7.079,
+        "attempts": 1,
+        "prompt_tokens": 1307
+      }
+    },
+    {
+      "case": "direct_question",
+      "expected": [
+        "drink"
+      ],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [
+        "drink"
+      ],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "네가 '나는 홍차를 좋아해'라고 했어.",
+        "seconds": 4.359,
+        "attempts": 1,
+        "prompt_tokens": 1331
+      }
+    },
+    {
+      "case": "assistant_only",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true,
+      "model": {
+        "reply": "아, 많이 지쳤나 보네. 말해 줘서 고마워.",
+        "seconds": 3.781,
+        "attempts": 1,
+        "prompt_tokens": 1323
+      }
+    },
+    {
+      "case": "new_topic_wins",
+      "expected": [
+        "trip"
+      ],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [
+        "trip"
+      ],
+      "before_match": false,
+      "after_match": true
+    },
+    {
+      "case": "multiple_anchors",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true
+    },
+    {
+      "case": "no_filler",
+      "expected": [
+        "drink"
+      ],
+      "before": [
+        "drink",
+        "trip",
+        "pet"
+      ],
+      "after": [
+        "drink"
+      ],
+      "before_match": false,
+      "after_match": true
+    },
+    {
+      "case": "greeting",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true
+    },
+    {
+      "case": "false_substring",
+      "expected": [],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [],
+      "before_match": false,
+      "after_match": true
+    },
+    {
+      "case": "category_recall",
+      "expected": [
+        "drink"
+      ],
+      "before": [
+        "trip",
+        "drink",
+        "pet"
+      ],
+      "after": [
+        "drink"
+      ],
+      "before_match": false,
+      "after_match": true
+    }
+  ],
+  "before_matches": 0,
+  "after_matches": 12,
+  "profile": {
+    "NPC_MODEL": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+    "LLAMA_CONTEXT": "4096",
+    "NPC_MAX_TOKENS": "256"
+  },
+  "note": "Synthetic fixtures only. Exact selected-set score includes exclusion of unrelated memories; this is not a dialogue-quality score."
+}

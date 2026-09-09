@@ -1,0 +1,102 @@
+[
+  {
+    "variant": "A_current",
+    "sent": {
+      "repeat_penalty": 1.08,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.3
+    },
+    "actual": {
+      "repeat_penalty": 1.0800000429153442,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.30000001192092896,
+      "repeat_last_n": 64,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ]
+    }
+  },
+  {
+    "variant": "B_repeat_off",
+    "sent": {
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.3
+    },
+    "actual": {
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.30000001192092896,
+      "repeat_last_n": 64,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ]
+    }
+  },
+  {
+    "variant": "C_repeat_high",
+    "sent": {
+      "repeat_penalty": 1.15,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.3
+    },
+    "actual": {
+      "repeat_penalty": 1.149999976158142,
+      "presence_penalty": 0.5,
+      "frequency_penalty": 0.30000001192092896,
+      "repeat_last_n": 64,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ]
+    }
+  },
+  {
+    "variant": "D_all_off",
+    "sent": {
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0
+    },
+    "actual": {
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "repeat_last_n": 64,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ]
+    }
+  }
+]

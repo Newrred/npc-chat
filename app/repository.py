@@ -13,7 +13,9 @@ from fastapi.concurrency import run_in_threadpool
 from sqlalchemy import create_engine, delete, event, insert, select, update
 from sqlalchemy.engine import URL
 
+from app.conversation_memory import source_views
 from app.decision import Interaction
+from app.debug_trace import forget
 from app.errors import ChatError, conflict
 from app.file_lease import FileLease
 from app.memory import accepted_candidates, memory_subject, retrieve, rolling_summary
@@ -37,7 +39,7 @@ class ChatRepository(Protocol):
     def load(self, profile_id, character_id) -> Snapshot: ...
     def replay(self, profile_id, character_id, turn_id, payload_hash): ...
     def commit(self, **kwargs): ...
-    def recall(self, profile_id, character_id, query): ...
+    def recall(self, profile_id, character_id, query, history=None): ...
     async def ping(self): ...
     async def close(self): ...
 
@@ -122,6 +124,7 @@ class SQLiteRepository:
                 .values(**defaults.model_dump(), flags=[], summary="", history=[], recent=[], turn_count=0,
                         version=relationships.c.version + 1))
             self.failpoint("after_reset")
+        forget(self.path, profile_id, character_id)
         return {"closed": True}
 
     def resolve(self, session_id, profile_id, character_id, defaults, *, allow_stale=False):
@@ -186,8 +189,16 @@ class SQLiteRepository:
         with self.engine.connect() as connection:
             row = connection.execute(select(relationships).where(
                 self._where(relationships, profile_id, character_id))).mappings().one()
+            committed = connection.execute(select(turns.c.user_message, turns.c.decision).where(
+                self._where(turns, profile_id, character_id)).order_by(
+                turns.c.created, turns.c.client_turn_id)).mappings().all()
+        history = [{"role": role, "content": content} for turn in committed
+                   for role, content in (("user", turn["user_message"]), ("assistant", turn["decision"]["reply"]))]
+        # Preserve any legacy-only prefix while it still exists in the compatibility cache.
+        if len(history) < len(row["history"]):
+            history = row["history"][:len(row["history"]) - len(history)] + history
         return Snapshot(RelationshipState(**{key: row[key] for key in DIMENSIONS}), row["flags"], row["summary"],
-                        row["history"], [Interaction.model_validate(value) for value in row["recent"]],
+                        history, [Interaction.model_validate(value) for value in row["recent"]],
                         row["version"], row["turn_count"])
 
     def replay(self, profile_id, character_id, turn_id, payload_hash):
@@ -200,20 +211,32 @@ class SQLiteRepository:
             return row["response"]
         return None
 
-    def recall(self, profile_id, character_id, query):
+    def recall(self, profile_id, character_id, query, history=None):
+        from app.debug_trace import current, emit
+        auditing = current.get() is not None
+        derived_audit, stored_audit = ({}, {}) if auditing else (None, None)
         with self.engine.connect() as connection:
             rows = connection.execute(select(memories).where(
                 self._where(memories, profile_id, character_id))).mappings().all()
-        return retrieve(rows, query)
+            sources = connection.execute(select(turns.c.client_turn_id, turns.c.user_message, turns.c.decision).where(
+                self._where(turns, profile_id, character_id)).order_by(
+                turns.c.created, turns.c.client_turn_id)).mappings()
+            derived = source_views(sources, query, history, audit=derived_audit)
+        retrieved = retrieve(rows, query, history, audit=stored_audit)
+        emit("memory_retrieval", user_message=query, derived=derived_audit, stored=stored_audit)
+        return derived + retrieved
 
     def commit(self, *, profile_id, character_id, turn_id, payload_hash, before, decision, result,
                message, response, flags):
         # Validate all external values before touching durable state.
         values = RelationshipState.model_validate(result.values).model_dump()
-        accepted = accepted_candidates(decision.memory_candidates, message)
+        from app.debug_trace import current, emit
+        from app.conversation_memory import profile_updates, dialogue_events
+        memory_audit = [] if current.get() is not None else None
+        accepted = accepted_candidates(decision.memory_candidates, message, audit=memory_audit)
         history = before.history + [{"role": "user", "content": message},
                                     {"role": "assistant", "content": decision.reply}]
-        summary = rolling_summary(before.summary, history[:-12])
+        summary = rolling_summary(before.summary, history[-14:-12])
         response = dict(response, memory={**response.get("memory", {}), "summary_updated": summary != before.summary,
                                          "accepted_candidates": len(accepted)}, memory_1line=summary)
         with self.engine.begin() as connection:
@@ -258,6 +281,10 @@ class SQLiteRepository:
                 decision=decision.model_dump(), user_message=message, created=time.time()))
             self.failpoint("after_turn")
         self.failpoint("after_commit")
+        emit("memory_committed", user_message=message, candidate_checks=memory_audit,
+             stored=accepted, evicted_keys=obsolete,
+             derived_profile_updates=profile_updates(message, before.history[-1]["content"] if before.history else ""),
+             derived_events=dialogue_events(message, decision.reply, turn_id))
         return response
 
     def import_legacy(self, source_id, session_id, raw, character_id, defaults):
@@ -292,6 +319,8 @@ class SQLiteRepository:
         with self.engine.begin() as connection:
             connection.execute(delete(profiles).where(profiles.c.id == profile_id))
 
+        forget(self.path, profile_id)
+
     def reset_profile(self, profile_id, character_id, defaults):
         # Rotate the identity: a delayed request cannot recreate or mutate reset state.
         new_profile, new_session = uuid.uuid4().hex, uuid.uuid4().hex
@@ -300,6 +329,7 @@ class SQLiteRepository:
             connection.execute(insert(profiles).values(id=new_profile, created=time.time()))
             self._new_relationship(connection, new_profile, character_id, defaults)
             connection.execute(insert(sessions).values(id=new_session, profile_id=new_profile, character_id=character_id))
+        forget(self.path, profile_id)
         return new_session, new_profile
 
     def backup(self, destination):

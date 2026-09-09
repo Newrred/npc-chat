@@ -1,0 +1,569 @@
+{
+  "experiment_id": "EXP-10",
+  "rows": [
+    {
+      "case": "timed",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 이제 출발해야지.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "eager",
+            "anticipatory"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 64,
+        "elapsed_sec": 2.5320000000065193,
+        "prompt_tokens": 1491,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 48,
+            "elapsed_sec": 1.2820000000065193,
+            "prompt_tokens": 931,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "학교로 가려고 해.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 58,
+        "elapsed_sec": 1.9059999999881256,
+        "prompt_tokens": 1452,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.75,
+            "prompt_tokens": 541,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 43,
+            "elapsed_sec": 1.1559999999881256,
+            "prompt_tokens": 911,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 이제 출발해야지.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"eager\",\"anticipatory\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"학교로 가려고 해.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "timed",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 이제 출발해야지.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "excited",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 118,
+        "elapsed_sec": 3.047000000020489,
+        "prompt_tokens": 1711,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7970000000204891,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 102,
+            "elapsed_sec": 2.25,
+            "prompt_tokens": 1151,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "영화",
+            "quote": "오늘 저녁 8시에 영화 보러갈까?"
+          },
+          {
+            "term": "월터의 상상은 현실이 된다",
+            "quote": "좋아. 영화는 '월터의 상상은 현실이 된다' 어때?"
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "영화관으로 가자.",
+          "face": "excited",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 104,
+        "elapsed_sec": 2.952999999979511,
+        "prompt_tokens": 1967,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.889999999984866,
+            "prompt_tokens": 689,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 89,
+            "elapsed_sec": 2.062999999994645,
+            "prompt_tokens": 1278,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "영화관",
+            "quote": "영화관으로 가자."
+          },
+          {
+            "term": "월터의 상상은 현실이 된다",
+            "quote": "'월터의 상상은 현실이 된다' 어때?"
+          }
+        ]
+      },
+      "expanded": "어딜? 영화 월터의 상상은 현실이 된다",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"movie\", \"value\": \"월터의 상상은 현실이 된다\", \"quote\": \"좋아. 영화는 '월터의 상상은 현실이 된다' 어때?\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 이제 출발해야지.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"excited\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"영화\",\"quote\":\"오늘 저녁 8시에 영화 보러갈까?\"},{\"term\":\"월터의 상상은 현실이 된다\",\"quote\":\"좋아. 영화는 '월터의 상상은 현실이 된다' 어때?\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"영화관으로 가자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"excited\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"영화관\",\"quote\":\"영화관으로 가자.\"},{\"term\":\"월터의 상상은 현실이 된다\",\"quote\":\"'월터의 상상은 현실이 된다' 어때?\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "timed",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어. 지금 바로 출발할까?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 67,
+        "elapsed_sec": 2.297000000020489,
+        "prompt_tokens": 1496,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 21,
+            "elapsed_sec": 0.9690000000118744,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 46,
+            "elapsed_sec": 1.3280000000086147,
+            "prompt_tokens": 936,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "유이랑 저녁 먹으러 갈래?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 65,
+        "elapsed_sec": 2.264999999984866,
+        "prompt_tokens": 1466,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.875,
+            "prompt_tokens": 546,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 47,
+            "elapsed_sec": 1.375,
+            "prompt_tokens": 920,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어. 지금 바로 출발할까?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"유이랑 저녁 먹으러 갈래?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "timed",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어. 지금 바로 출발할까?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "eager"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 4.719000000011874,
+        "prompt_tokens": 1716,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 21,
+            "elapsed_sec": 2.6570000000065193,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 90,
+            "elapsed_sec": 2.062000000005355,
+            "prompt_tokens": 1156,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "유이랑 저녁 먹으러 갈래?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious",
+            "excited"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 2.7339999999967404,
+        "prompt_tokens": 1686,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 0.8439999999827705,
+            "prompt_tokens": 546,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 87,
+            "elapsed_sec": 1.8900000000139698,
+            "prompt_tokens": 1140,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "저녁 먹으러 갈래?",
+            "quote": "유이랑 저녁 먹으러 갈래?"
+          },
+          {
+            "term": "어딜?",
+            "quote": "어딜?"
+          }
+        ]
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어. 지금 바로 출발할까?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"eager\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"movie\",\"quote\":\"오늘 저녁 8시에 영화 보러갈까?\"},{\"term\":\"Walter's imagination becomes a\",\"quote\":\"'월터의 상상은 현실이 된다'\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\":\"유이랑 저녁 먹으러 갈래?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\",\"excited\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"저녁 먹으러 갈래?\",\"quote\":\"유이랑 저녁 먹으러 갈래?\"},{\"term\":\"어딜?\",\"quote\":\"어딜?\"}]}"
+          }
+        ]
+      ]
+    }
+  ],
+  "cases": [
+    [
+      "timed",
+      "오늘 저녁 8시에 영화 보러갈까?",
+      "좋아. 영화는 '월터의 상상은 현실이 된다' 어때?",
+      "어라 벌써 8시가 다 되어가네.",
+      "어딜?"
+    ]
+  ],
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive"
+}

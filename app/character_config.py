@@ -18,6 +18,8 @@ class CharacterConfig:
     allowed_flags: tuple[str, ...] = ()
     initial_relationship: RelationshipState = field(default_factory=RelationshipState)
     relationship_matrix: dict = field(default_factory=lambda: dict(BASE_MATRIX))
+    dialogue_prompt: str | None = None
+    identity_prompt: str | None = None
 
 
 def _render_prompt_sections(sections: dict[str, list[str]]) -> str:
@@ -71,4 +73,8 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
         allowed_flags=tuple(allowed_flags),
         initial_relationship=RelationshipState.model_validate(raw.get("initial_relationship", {})),
         relationship_matrix=matrix,
+        dialogue_prompt=_render_prompt_sections({key: value for key, value in normalized_sections.items()
+            if key not in {"EXAMPLES", "JSON", "OUTPUT REQUIREMENT"}}),
+        identity_prompt=_render_prompt_sections({key: value for key, value in normalized_sections.items()
+            if key == "IDENTITY"}),
     )

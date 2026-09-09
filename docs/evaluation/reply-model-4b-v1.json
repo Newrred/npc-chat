@@ -1,0 +1,469 @@
+{
+  "experiment_id": "EXP-16",
+  "label": "4b-aggressive-q4",
+  "model_alias": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "rows": [
+    {
+      "case": "open_help",
+      "seed": 109,
+      "reply": "그냥 오늘 하루도 웃으며 보내는 게 최고야.",
+      "score": {
+        "chars": 24,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 18,
+          "elapsed_sec": 1.3280000000086147,
+          "prompt_tokens": 526,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"그냥 오늘 하루도 웃으며 보내는 게 최고야.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 1.3280000000086147
+    },
+    {
+      "case": "activity",
+      "seed": 109,
+      "reply": "영화나 카페는 어때?",
+      "score": {
+        "chars": 11,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 12,
+          "elapsed_sec": 0.48399999999674037,
+          "prompt_tokens": 522,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"영화나 카페는 어때?\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.48399999999674037
+    },
+    {
+      "case": "emotion",
+      "seed": 109,
+      "reply": "면접 떨어지는 건 정말 아파요. 준비도 많이 했을 텐데, 오늘 하루만은 너무 힘들었겠어요.",
+      "score": {
+        "chars": 50,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 33,
+          "elapsed_sec": 0.7190000000118744,
+          "prompt_tokens": 529,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"면접 떨어지는 건 정말 아파요. 준비도 많이 했을 텐데, 오늘 하루만은 너무 힘들었겠어요.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.7190000000118744
+    },
+    {
+      "case": "reason",
+      "seed": 109,
+      "reply": "새벽까지 깬 거 보면 몸도 마음도 많이 지쳤을 테니까.",
+      "score": {
+        "chars": 30,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 23,
+          "elapsed_sec": 0.625,
+          "prompt_tokens": 540,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"새벽까지 깬 거 보면 몸도 마음도 많이 지쳤을 테니까.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.625
+    },
+    {
+      "case": "context_choice",
+      "seed": 109,
+      "reply": "집 근처 공원으로 가자.",
+      "score": {
+        "chars": 13,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 12,
+          "elapsed_sec": 0.5309999999881256,
+          "prompt_tokens": 553,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"집 근처 공원으로 가자.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.5309999999881256
+    },
+    {
+      "case": "opinion",
+      "seed": 109,
+      "reply": "파란머라니? 너무 과할 수 있어. 하지만 너의 취향대로 해봐도 괜찮아~",
+      "score": {
+        "chars": 39,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 29,
+          "elapsed_sec": 0.7039999999979045,
+          "prompt_tokens": 531,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"파란머라니? 너무 과할 수 있어. 하지만 너의 취향대로 해봐도 괜찮아~\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.7039999999979045
+    },
+    {
+      "case": "boundary",
+      "seed": 109,
+      "reply": "네가 싫다고 말하면 내가 먼저 놓아줄게.",
+      "score": {
+        "chars": 22,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 18,
+          "elapsed_sec": 0.5620000000053551,
+          "prompt_tokens": 552,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"네가 싫다고 말하면 내가 먼저 놓아줄게.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.5620000000053551
+    },
+    {
+      "case": "open_help",
+      "seed": 211,
+      "reply": "이제 웃을래요?",
+      "score": {
+        "chars": 8,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 12,
+          "elapsed_sec": 0.46899999998277053,
+          "prompt_tokens": 526,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"이제 웃을래요?\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.46899999998277053
+    },
+    {
+      "case": "activity",
+      "seed": 211,
+      "reply": "공원에 가자? 꽃이 피고 바람도 쐬면 기분 좋아질 것 같아.",
+      "score": {
+        "chars": 33,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 27,
+          "elapsed_sec": 0.6720000000204891,
+          "prompt_tokens": 522,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"공원에 가자? 꽃이 피고 바람도 쐬면 기분 좋아질 것 같아.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.6720000000204891
+    },
+    {
+      "case": "emotion",
+      "seed": 211,
+      "reply": "아쉽지만 괜찮아. 준비 부족일 수도 있고, 그냥 운이 안 좋았을지도 몰라. 다음엔 더 잘할 수 있어.",
+      "score": {
+        "chars": 56,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 36,
+          "elapsed_sec": 0.7809999999881256,
+          "prompt_tokens": 529,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"아쉽지만 괜찮아. 준비 부족일 수도 있고, 그냥 운이 안 좋았을지도 몰라. 다음엔 더 잘할 수 있어.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.7809999999881256
+    },
+    {
+      "case": "reason",
+      "seed": 211,
+      "reply": "눈이 잘 안 뜨고, 입도 마른 것 같아.",
+      "score": {
+        "chars": 22,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": false,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 20,
+          "elapsed_sec": 0.6089999999967404,
+          "prompt_tokens": 540,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"눈이 잘 안 뜨고, 입도 마른 것 같아.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.6089999999967404
+    },
+    {
+      "case": "context_choice",
+      "seed": 211,
+      "reply": "공원에 가는 건 어때?",
+      "score": {
+        "chars": 12,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 12,
+          "elapsed_sec": 0.5310000000172295,
+          "prompt_tokens": 553,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"공원에 가는 건 어때?\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.5310000000172295
+    },
+    {
+      "case": "opinion",
+      "seed": 211,
+      "reply": "파란 머리라니 정말 예뻐보일 거야! 너무 튀면 오히려 부담스러울 수도 있어.",
+      "score": {
+        "chars": 42,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": true,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 33,
+          "elapsed_sec": 0.75,
+          "prompt_tokens": 531,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"파란 머리라니 정말 예뻐보일 거야! 너무 튀면 오히려 부담스러울 수도 있어.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.75
+    },
+    {
+      "case": "boundary",
+      "seed": 211,
+      "reply": "팔이 너무 세지 않게 조심할게.",
+      "score": {
+        "chars": 17,
+        "starts_ack": false,
+        "question_only": false,
+        "has_concrete": false,
+        "has_forbidden": false
+      },
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 0.5309999999881256,
+          "prompt_tokens": 552,
+          "context_trimmed": false
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"팔이 너무 세지 않게 조심할게.\"}"
+          }
+        ]
+      ],
+      "elapsed_sec": 0.5309999999881256
+    }
+  ]
+}

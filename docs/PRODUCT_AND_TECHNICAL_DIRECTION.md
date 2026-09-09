@@ -1,5 +1,7 @@
 # Product and Technical Direction
 
+2026-09-08 사용자 결정: 당분간 동일 모델에 대사와 부가 정보를 두 번 순차 처리한다. 현재 9B 시험에 적용했으며 두 번째 모델은 추가하지 않는다. 화면은 두 단계 완료 후 응답한다. [현재 구현과 품질 한계](TWO_STAGE_GENERATION.md).
+
 2026-09-07 공개 사용 결정: 사용자는 공유 링크를 열면 가입·이메일 인증 없이 즉시 대화하기를 원한다. 기본 원격 모드는 guest이며 서명된 브라우저 쿠키로 기록을 분리하고 활동 이용자 수/일일 총량을 제한한다. 이메일 Access 모드는 선택 사항이다. PUBLIC_LINK_DEPLOYMENT.md가 최신 배포 방향이다.
 
 2026-09-07 현재 개발 장비 결정: 사용자 요청에 따라 RTX 3060 Ti 8 GB / RAM 약 32 GB에서 테스트한다. 속도 우선 4B Q4_K_M 모델, context 2048, parallel 1, output 256, GPU layers all, batch/ubatch 128, thinking OFF를 시작점으로 한다. 4070 Ti/14B Q4 관련 아래 기준은 향후 확장 프로파일이며 현재 단계의 필수 조건이 아니다. 실행과 실측은 [현재 로컬 런북](LOCAL_DEVELOPMENT_RUNBOOK.md), [상태 기록](PROJECT_STATUS.md)을 우선한다.

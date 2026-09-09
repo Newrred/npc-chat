@@ -1,0 +1,2 @@
+EXP10: existing two calls only. Opt-in metadata extension for source-backed next-turn hints, bounded validation and topic-shift gating. Synthetic comparison before adoption; default runtime/DB unchanged. Record latency and failures, not only recall.
+Completed experiment, adoption deferred. 571 tests;96 successful model calls in24 two-turn runs. Partial recall benefit,small observed median overhead,unstable hints. See docs/SEARCH_CUE_EXPERIMENT.md.

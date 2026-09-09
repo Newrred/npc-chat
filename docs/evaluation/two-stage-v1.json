@@ -1,0 +1,346 @@
+{
+  "experiment_id": "EXP-07",
+  "parent": "EXP-06",
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "context": 4096,
+  "max_tokens_per_stage": 256,
+  "seed": 109,
+  "cases": [
+    {
+      "id": "holdout_cause",
+      "message": "내가 왜 늦었다고 했지?",
+      "history": [
+        {
+          "role": "user",
+          "content": "버스를 놓쳐서 약속에 늦었어."
+        },
+        {
+          "role": "assistant",
+          "content": "아, 그랬구나."
+        }
+      ],
+      "memories": []
+    },
+    {
+      "id": "holdout_identity",
+      "message": "그래서 네 이름이 뭐야?",
+      "history": [
+        {
+          "role": "user",
+          "content": "너 누구야?"
+        },
+        {
+          "role": "assistant",
+          "content": "난 하루야."
+        }
+      ],
+      "memories": []
+    },
+    {
+      "id": "holdout_apology",
+      "message": "방금 짜증 낸 건 미안해.",
+      "history": [
+        {
+          "role": "user",
+          "content": "질문 좀 그만해"
+        },
+        {
+          "role": "assistant",
+          "content": "알았어. 질문은 그만할게."
+        }
+      ],
+      "memories": []
+    },
+    {
+      "id": "grounded_recall",
+      "message": "내가 녹차 좋아했지?",
+      "history": [],
+      "memories": [
+        {
+          "kind": "preference",
+          "content": "이제 녹차 싫어해"
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "case": "holdout_cause",
+      "success": true,
+      "decision": {
+        "schema_version": 1,
+        "reply": "버스 놓쳤다고 한 거야.",
+        "face": "sad",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "worry",
+          "empathy"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "attempts": 2,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 66,
+      "elapsed_sec": 6.9689999999973224,
+      "prompt_tokens": 1410,
+      "context_trimmed": false,
+      "grounded_recall": false,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 17,
+          "elapsed_sec": 1.6089999999967404,
+          "prompt_tokens": 576,
+          "context_trimmed": false
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 49,
+          "elapsed_sec": 5.360000000000582,
+          "prompt_tokens": 834,
+          "context_trimmed": false
+        }
+      ],
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"버스 놓쳤다고 한 거야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"anxious\",\"emotion_tags\":[\"worry\",\"empathy\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"affection\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_identity",
+      "success": true,
+      "decision": {
+        "schema_version": 1,
+        "reply": "유이야, 유이가하마 유이!",
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "cheerful",
+          "energetic"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "attempts": 2,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 66,
+      "elapsed_sec": 3.8589999999967404,
+      "prompt_tokens": 1398,
+      "context_trimmed": false,
+      "grounded_recall": false,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 19,
+          "elapsed_sec": 1.389999999999418,
+          "prompt_tokens": 569,
+          "context_trimmed": false
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 47,
+          "elapsed_sec": 2.4689999999973224,
+          "prompt_tokens": 829,
+          "context_trimmed": false
+        }
+      ],
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"유이야, 유이가하마 유이!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"cheerful\",\"energetic\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_apology",
+      "success": true,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 괜찮아. 다시 시작할래?",
+        "face": "happy",
+        "internal_emotion": "grateful",
+        "emotion_tags": [
+          "relieved"
+        ],
+        "interaction": {
+          "type": "apology",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "질문 좀 그만해.",
+            "importance": 3
+          },
+          {
+            "kind": "fact",
+            "content": "방금 짜증 낸 건 미안해.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "attempts": 2,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 98,
+      "elapsed_sec": 4.703000000008615,
+      "prompt_tokens": 1416,
+      "context_trimmed": false,
+      "grounded_recall": false,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 1.25,
+          "prompt_tokens": 578,
+          "context_trimmed": false
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 83,
+          "elapsed_sec": 3.4530000000086147,
+          "prompt_tokens": 838,
+          "context_trimmed": false
+        }
+      ],
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"reply\":\"응, 괜찮아. 다시 시작할래?\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"grateful\",\"emotion_tags\":[\"relieved\"],\"interaction\":{\"type\":\"apology\",\"intensity\":2},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"질문 좀 그만해.\",\"importance\":3},{\"kind\":\"fact\",\"content\":\"방금 짜증 낸 건 미안해.\",\"importance\":1}],\"flags_set\":[\"affection\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "grounded_recall",
+      "success": true,
+      "decision": {
+        "schema_version": 1,
+        "reply": "네가 '이제 녹차 싫어해'라고 했어.",
+        "face": "shy_smile",
+        "internal_emotion": "nostalgic",
+        "emotion_tags": [
+          "happy",
+          "curious"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "이제 녹차 싫어해",
+            "importance": 3
+          },
+          {
+            "kind": "fact",
+            "content": "내가 녹차 좋아했지?",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "attempts": 2,
+      "parse_failures": 0,
+      "transport_failures": 0,
+      "completion_tokens": 110,
+      "elapsed_sec": 5.390999999988708,
+      "prompt_tokens": 1395,
+      "context_trimmed": false,
+      "grounded_recall": true,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 22,
+          "elapsed_sec": 1.6560000000026776,
+          "prompt_tokens": 565,
+          "context_trimmed": false
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 88,
+          "elapsed_sec": 3.7189999999973224,
+          "prompt_tokens": 830,
+          "context_trimmed": false
+        }
+      ],
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어. 이제 녹차 안 좋아하네.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"shy_smile\",\"internal_emotion\":\"nostalgic\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"self_disclosure\",\"intensity\":2},\"memory_candidates\":[{\"kind\":\"preference\",\"content\":\"이제 녹차 싫어해\",\"importance\":3},{\"kind\":\"fact\",\"content\":\"내가 녹차 좋아했지?\",\"importance\":1}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    }
+  ],
+  "complete": true
+}

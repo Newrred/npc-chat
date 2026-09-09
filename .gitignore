@@ -40,3 +40,6 @@ artifacts/
 app/static/generated/
 
 # frontend/config.js is intentionally tracked: public, local-only defaults.
+
+# Local inspector signing key (never commit)
+*.inspector.key

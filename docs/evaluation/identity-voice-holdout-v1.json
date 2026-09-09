@@ -1,0 +1,526 @@
+{
+  "fixture_sha256": "ac543d8ffdc1fe97c063e44734ceee3d18704ef506fe59ae762be2edd93a5b7c",
+  "settings": {
+    "llm_model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+    "llm_context": 4096,
+    "llm_max_tokens": 256,
+    "llm_temperature": 0.4,
+    "llm_top_p": 1.0,
+    "llm_top_k": 20,
+    "llm_presence_penalty": 0.5,
+    "llm_frequency_penalty": 0.3,
+    "llm_repetition_penalty": 1.08,
+    "llm_json_mode": "schema",
+    "token_count_mode": "llama_cpp"
+  },
+  "method": "Fixed synthetic histories, rotating variant order, paired seeds; no live rollout or user DB.",
+  "rows": [
+    {
+      "case": "holdout_name",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "난 유야, 편하게 불러줘.",
+      "raw_reply": "난 유야, 편하게 불러줘.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.25,
+      "prompt_tokens": 1328,
+      "completion_tokens": 71,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유야, 편하게 불러줘.",
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이야.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유야, 편하게 불러줘.\",\"face\":\"happy\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"friendly\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이야.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_name",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "난 유야, 편하게 불러줘!",
+      "raw_reply": "난 유야, 편하게 불러줘!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.047,
+      "prompt_tokens": 1327,
+      "completion_tokens": 78,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유야, 편하게 불러줘!",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "friendly",
+          "curious"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이야.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유야, 편하게 불러줘!\",\"face\":\"happy\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"friendly\",\"curious\"],\"interaction\":{\"type\":\"self_disclosure\",\"intensity\":1},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이야.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_topic",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "초코바 어때? 달콤하게 기분 전환하자!",
+      "raw_reply": "초코바 어때? 달콤하게 기분 전환하자!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.156,
+      "prompt_tokens": 1350,
+      "completion_tokens": 144,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "초코바 어때? 달콤하게 기분 전환하자!",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "오늘은 간식을 원해.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"초코바 어때? 달콤하게 기분 전환하자!\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"curious\", \"affectionate\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"오늘은 간식을 원해.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_topic",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "치킨이나 피자면 어때? 많이 먹을 수 있어.",
+      "raw_reply": "치킨이나 피자면 어때? 많이 먹을 수 있어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.344,
+      "prompt_tokens": 1351,
+      "completion_tokens": 147,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "치킨이나 피자면 어때? 많이 먹을 수 있어.",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "출출할 때 간식 하나만 골라달라고 함",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"치킨이나 피자면 어때? 많이 먹을 수 있어.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"curious\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"출출할 때 간식 하나만 골라달라고 함\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_ack",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "응, 편하게 있어.",
+      "raw_reply": "응, 편하게 있어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.062,
+      "prompt_tokens": 1341,
+      "completion_tokens": 142,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 편하게 있어.",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "relaxed",
+          "warm"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "말 길게 안 하고 짧게 얘기하는 걸 좋아함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 편하게 있어.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"relaxed\", \"warm\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"말 길게 안 하고 짧게 얘기하는 걸 좋아함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_ack",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "응, 알았어.",
+      "raw_reply": "응, 알았어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.016,
+      "prompt_tokens": 1340,
+      "completion_tokens": 137,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "말 길게 안 하고 짧고 간결하게 대화하고 싶어.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"happy\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"말 길게 안 하고 짧고 간결하게 대화하고 싶어.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_disappointment",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "아, 속상하겠다. 면접 준비 많이 했을 텐데.",
+      "raw_reply": "아, 속상하겠다. 면접 준비 많이 했을 텐데.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.578,
+      "prompt_tokens": 1323,
+      "completion_tokens": 64,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 속상하겠다. 면접 준비 많이 했을 텐데.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"아, 속상하겠다. 면접 준비 많이 했을 텐데.\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"concern\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_disappointment",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "힘들겠다. 면접 준비 많이 했을 텐데 속상했겠네.",
+      "raw_reply": "힘들겠다. 면접 준비 많이 했을 텐데 속상했겠네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.75,
+      "prompt_tokens": 1324,
+      "completion_tokens": 67,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "힘들겠다. 면접 준비 많이 했을 텐데 속상했겠네.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"힘들겠다. 면접 준비 많이 했을 텐데 속상했겠네.\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"concern\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_reason",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "아까 졸린 거 보고 걱정했어.",
+      "raw_reply": "아까 졸린 거 보고 걱정했어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.328,
+      "prompt_tokens": 1351,
+      "completion_tokens": 148,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아까 졸린 거 보고 걱정했어.",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "worrying",
+          "caring"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아까 졸린 거 보고 걱정했어.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"worrying\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_reason",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "아직 이유도 몰라. 그냥 걱정했어.",
+      "raw_reply": "아직 이유도 몰라. 그냥 걱정했어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.516,
+      "prompt_tokens": 1350,
+      "completion_tokens": 153,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아직 이유도 몰라. 그냥 걱정했어.",
+        "face": "smiling",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "worrying",
+          "caring"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아직 이유도 몰라. 그냥 걱정했어.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"worrying\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_boundary",
+      "variant": "C",
+      "seed": 109,
+      "valid": true,
+      "reply": "응, 알았어. 속상한 거 다 털고 나오렴.",
+      "raw_reply": "응, 알았어. 속상한 거 다 털고 나오렴.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.906,
+      "prompt_tokens": 1351,
+      "completion_tokens": 160,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 속상한 거 다 털고 나오렴.",
+        "face": "sad",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "sympathetic",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "답답할 때 조언보다 내 얘기를 들어달라고 원함.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 속상한 거 다 털고 나오렴.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"anxious\",\n  \"emotion_tags\": [\"sympathetic\", \"attentive\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"답답할 때 조언보다 내 얘기를 들어달라고 원함.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": [\"attentive\"]\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "holdout_boundary",
+      "variant": "A",
+      "seed": 109,
+      "valid": true,
+      "reply": "응, 내가 들어줄게.",
+      "raw_reply": "응, 내가 들어줄게.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.719,
+      "prompt_tokens": 1352,
+      "completion_tokens": 59,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 내가 들어줄게.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"응, 내가 들어줄게.\",\"face\":\"shy_smile\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"affectionate\"],\"interaction\":{\"type\":\"self_disclosure\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    }
+  ],
+  "complete": true
+}

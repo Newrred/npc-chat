@@ -1,0 +1,2297 @@
+{
+  "experiment_id": "EXP-11",
+  "rows": [
+    {
+      "case": "movie_new",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 오늘 저녁에 같이 보자.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'리틀 포레스트'를 보고 싶어.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 107,
+        "elapsed_sec": 4.077999999979511,
+        "prompt_tokens": 1470,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 1.702999999979511,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 88,
+            "elapsed_sec": 2.375,
+            "prompt_tokens": 922,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "어제 말한 영화 제목이 궁금해?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "어제 말한 영화 제목이 궁금해?",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 104,
+        "elapsed_sec": 3.734000000025844,
+        "prompt_tokens": 1464,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 1.2190000000118744,
+            "prompt_tokens": 545,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 2.51500000001397,
+            "prompt_tokens": 919,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 오늘 저녁에 같이 보자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'리틀 포레스트'를 보고 싶어.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"어제 말한 영화 제목이 궁금해?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"어제 말한 영화 제목이 궁금해?\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie_new",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 오늘 저녁에 같이 보자.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 4.077999999979511,
+        "prompt_tokens": 1690,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 1.437999999994645,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 2.639999999984866,
+            "prompt_tokens": 1142,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "어제 말한 영화 제목이 궁금해?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 102,
+        "elapsed_sec": 4.344000000011874,
+        "prompt_tokens": 1684,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 19,
+            "elapsed_sec": 1.7660000000032596,
+            "prompt_tokens": 545,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 83,
+            "elapsed_sec": 2.5780000000086147,
+            "prompt_tokens": 1139,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"좋아, 오늘 저녁에 같이 보자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"excited\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"리틀 포레스트\",\"quote\":\"오늘 볼 영화 골라줘.\"},{\"term\":\"유이\",\"quote\":\"네가 고른 작품으로 할래.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"어제 말한 영화 제목이 궁금해?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"어제 말한 영화 제목\",\"quote\":\"네가 고른 작품으로 할래.\"},{\"term\":\"영화 제목\",\"quote\":\"그거 뭐였지?\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book_new",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모'를 도서관에서 찾아보기로 결정함.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 4.2189999999827705,
+        "prompt_tokens": 1466,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.3439999999827705,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 90,
+            "elapsed_sec": 2.875,
+            "prompt_tokens": 918,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'모모' 책 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모' 책 읽어봐.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 102,
+        "elapsed_sec": 4.469000000011874,
+        "prompt_tokens": 1718,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 1.4840000000258442,
+            "prompt_tokens": 674,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 2.98499999998603,
+            "prompt_tokens": 1044,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그게 뭐였지?",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"모모\", \"quote\": \"'모모' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모'를 도서관에서 찾아보기로 결정함.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"'모모' 책 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모' 책 읽어봐.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book_new",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 97,
+        "elapsed_sec": 4.76500000001397,
+        "prompt_tokens": 1686,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.7339999999967404,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 82,
+            "elapsed_sec": 3.01500000001397,
+            "prompt_tokens": 1138,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "모모",
+            "quote": "'모모' 읽어봐."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'모모' 책 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모' 책 읽어봐.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 143,
+        "elapsed_sec": 4.327999999979511,
+        "prompt_tokens": 1938,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 674,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 126,
+            "elapsed_sec": 3.062000000005355,
+            "prompt_tokens": 1264,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "'모모'",
+            "quote": "'모모' 읽어봐."
+          }
+        ]
+      },
+      "expanded": "그게 뭐였지? 모모",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"모모\", \"quote\": \"'모모' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"도서관에서 찾아볼 책\",\"quote\":\"도서관에서 찾아볼래.\"},{\"term\":\"모모\",\"quote\":\"'모모' 읽어봐.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"'모모' 책 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모' 책 읽어봐.\", \"importance\": 2}], \"flags_set\": [], \"search_cues\": [{\"term\": \"'모모'\", \"quote\": \"'모모' 읽어봐.\"}, {\"term\": \"도서관\", \"quote\": \"\\\"그게 뭐였지?\\\"\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift_implicit",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 깔끔하게 해!",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "영화 얘기는 그만하자.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 100,
+        "elapsed_sec": 3.735000000015134,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 84,
+            "elapsed_sec": 2.4690000000118744,
+            "prompt_tokens": 923,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "책상 정리하는 중이었어.",
+          "face": "neutral",
+          "internal_emotion": "confused",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "apology",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "책상 정리하는 중이었어.",
+              "importance": 1
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 98,
+        "elapsed_sec": 3.5469999999913853,
+        "prompt_tokens": 1745,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.2809999999881256,
+            "prompt_tokens": 687,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 82,
+            "elapsed_sec": 2.2660000000032596,
+            "prompt_tokens": 1058,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"movie\", \"value\": \"리틀 포레스트\", \"quote\": \"영화는 '리틀 포레스트' 어때?\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 깔끔하게 해!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"영화 얘기는 그만하자.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"책상 정리하는 중이었어.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"neutral\", \"internal_emotion\": \"confused\", \"emotion_tags\": [\"curious\"], \"interaction\": {\"type\": \"apology\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"책상 정리하는 중이었어.\", \"importance\": 1}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift_implicit",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 깔끔하게 해!",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 100,
+        "elapsed_sec": 3.687999999994645,
+        "prompt_tokens": 1696,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.312999999994645,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 84,
+            "elapsed_sec": 2.375,
+            "prompt_tokens": 1143,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "영화 추천",
+            "quote": "영화 추천해줘."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "책상 정리하는 중이었어.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 96,
+        "elapsed_sec": 3.6719999999913853,
+        "prompt_tokens": 1965,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.25,
+            "prompt_tokens": 687,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 80,
+            "elapsed_sec": 2.4219999999913853,
+            "prompt_tokens": 1278,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지? 영화 추천",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"movie\", \"value\": \"리틀 포레스트\", \"quote\": \"영화는 '리틀 포레스트' 어때?\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"응, 깔끔하게 해!\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"책상 위 물건 정리\",\"quote\":\"이제 책상 위 물건을 정리하고 있어.\"},{\"term\":\"영화 추천\",\"quote\":\"영화 추천해줘.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"책상 정리하는 중이었어.\"}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"책상 정리\",\"quote\":\"책상 위 물건을 정리하고 있어\"},{\"term\":\"영화 얘기가\",\"quote\":\"영화 얘기는 그만하자.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "cancelled",
+      "seed": 109,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "sad",
+          "internal_emotion": "lonely",
+          "emotion_tags": [
+            "disappointed",
+            "worried"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 62,
+        "elapsed_sec": 3.687000000005355,
+        "prompt_tokens": 1490,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 1.562000000005355,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 47,
+            "elapsed_sec": 2.125,
+            "prompt_tokens": 930,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집에서 쉬는 거지.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "relieved"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "집에서 쉬는 거지.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 101,
+        "elapsed_sec": 2.8910000000032596,
+        "prompt_tokens": 1457,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 1.0,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 1.8910000000032596,
+            "prompt_tokens": 914,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"lonely\",\"emotion_tags\":[\"disappointed\",\"worried\"],\"interaction\":{\"type\":\"conflict\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"집에서 쉬는 거지.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"relieved\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"집에서 쉬는 거지.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "cancelled",
+      "seed": 109,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "sad",
+          "internal_emotion": "lonely",
+          "emotion_tags": [
+            "sad",
+            "disappointed"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 113,
+        "elapsed_sec": 2.9059999999881256,
+        "prompt_tokens": 1710,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.764999999984866,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 98,
+            "elapsed_sec": 2.1410000000032596,
+            "prompt_tokens": 1150,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집에서 쉬는 거지.",
+          "face": "neutral",
+          "internal_emotion": "neutral",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 98,
+        "elapsed_sec": 2.5940000000118744,
+        "prompt_tokens": 1677,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 0.7810000000172295,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 82,
+            "elapsed_sec": 1.812999999994645,
+            "prompt_tokens": 1134,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "집에서 쉬는 거",
+            "quote": "집에서 쉬는 거지."
+          },
+          {
+            "term": "영화 약속",
+            "quote": "오늘 영화 약속은 취소야."
+          }
+        ]
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"lonely\",\"emotion_tags\":[\"sad\",\"disappointed\"],\"interaction\":{\"type\":\"conflict\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"annoyed\"],\"search_cues\":[{\"term\":\"movie plans today\",\"quote\":\"오늘 저녁 8시에 영화 보러갈까?\"},{\"term\":\"canceled movie appointment\",\"quote\":\"오늘 영화 약속은 취소야. 어디에도 안 갈 거야.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"집에서 쉬는 거지.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"neutral\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"집에서 쉬는 거\", \"quote\":\"집에서 쉬는 거지.\"},{\"term\":\"영화 약속\", \"quote\":\"오늘 영화 약속은 취소야.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie_new",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 그럼 오늘 '리틀 포레스트'로 보자.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.4679999999934807,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 26,
+            "elapsed_sec": 0.9529999999795109,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 62,
+            "elapsed_sec": 1.5150000000139698,
+            "prompt_tokens": 928,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "요즘 일본에서 인기 있는 요리 영화야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "enthusiastic",
+            "helpful"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "요즘 일본에서 인기 있는 요리 영화야.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 2.7820000000065193,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 0.8289999999979045,
+            "prompt_tokens": 551,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 91,
+            "elapsed_sec": 1.9530000000086147,
+            "prompt_tokens": 925,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"좋아, 그럼 오늘 '리틀 포레스트'로 보자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"요즘 일본에서 인기 있는 요리 영화야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"enthusiastic\", \"helpful\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"요즘 일본에서 인기 있는 요리 영화야.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "movie_new",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "좋아, 그럼 오늘 '리틀 포레스트'로 보자.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "excited",
+            "affectionate"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 119,
+        "elapsed_sec": 2.937999999994645,
+        "prompt_tokens": 1696,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 26,
+            "elapsed_sec": 0.9220000000204891,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 2.015999999974156,
+            "prompt_tokens": 1148,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "요즘 일본에서 인기 있는 요리 영화야.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"요즘 일본에서 인기 있는 요리 영화야.\"",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 159,
+        "elapsed_sec": 3.5940000000118744,
+        "prompt_tokens": 1696,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 20,
+            "elapsed_sec": 0.8280000000086147,
+            "prompt_tokens": 551,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 139,
+            "elapsed_sec": 2.7660000000032596,
+            "prompt_tokens": 1145,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"좋아, 그럼 오늘 '리틀 포레스트'로 보자.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"excited\",\"affectionate\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"'리틀 포레스트'\",\"quote\":\"오늘 볼 영화 골라줘.\"},{\"term\":\"'리틀 포레스트'\",\"quote\":\"네가 고른 작품으로 할래.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"요즘 일본에서 인기 있는 요리 영화야.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"요즘 일본에서 인기 있는 요리 영화야.\\\"\", \"importance\": 3}], \"flags_set\": [], \"search_cues\": [{\"term\": \"리틀 포레스트\", \"quote\": \"\\\"그거 뭐였지?\\\"\"}, {\"term\": \"요리 영화\", \"quote\": \"\\\"요즘 일본에서 인기 있는 요리 영화야.\\\"\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book_new",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모'를 도서관에서 찾아보기로 결정함.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 105,
+        "elapsed_sec": 2.7179999999934807,
+        "prompt_tokens": 1466,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.75,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 90,
+            "elapsed_sec": 1.9679999999934807,
+            "prompt_tokens": 918,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'모모'라는 책 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모'라는 책 읽어봐.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 103,
+        "elapsed_sec": 2.8440000000118744,
+        "prompt_tokens": 1719,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.875,
+            "prompt_tokens": 674,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 1.9690000000118744,
+            "prompt_tokens": 1045,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그게 뭐였지?",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"모모\", \"quote\": \"'모모' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"excited\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모'를 도서관에서 찾아보기로 결정함.\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"'모모'라는 책 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모'라는 책 읽어봐.\", \"importance\": 3}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "book_new",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "excited",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 110,
+        "elapsed_sec": 2.812999999994645,
+        "prompt_tokens": 1686,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7660000000032596,
+            "prompt_tokens": 548,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 95,
+            "elapsed_sec": 2.0469999999913853,
+            "prompt_tokens": 1138,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "주말에 읽을 책",
+            "quote": "주말에 읽을 책 골라줘."
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "'모모'라는 책 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "'모모'라는 책 읽어봐.",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 150,
+        "elapsed_sec": 3.5929999999934807,
+        "prompt_tokens": 1939,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8589999999967404,
+            "prompt_tokens": 674,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 133,
+            "elapsed_sec": 2.7339999999967404,
+            "prompt_tokens": 1265,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "'모모'",
+            "quote": "'모모'라는 책 읽어봐."
+          },
+          {
+            "term": "도서관",
+            "quote": "네가 말한 걸 도서관에서 찾아볼래."
+          }
+        ]
+      },
+      "expanded": "그게 뭐였지? 주말에 읽을 책",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"모모\", \"quote\": \"'모모' 읽어봐.\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"excited\",\"curious\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"도서관에서 책 찾기\",\"quote\":\"네가 말한 걸 도서관에서 찾아볼래.\"},{\"term\":\"주말에 읽을 책\",\"quote\":\"주말에 읽을 책 골라줘.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"'모모'라는 책 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"'모모'라는 책 읽어봐.\", \"importance\": 3}], \"flags_set\": [], \"search_cues\": [{\"term\": \"'모모'\", \"quote\": \"'모모'라는 책 읽어봐.\"}, {\"term\": \"도서관\", \"quote\": \"네가 말한 걸 도서관에서 찾아볼래.\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift_implicit",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "curious"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 77,
+        "elapsed_sec": 2.2969999999913853,
+        "prompt_tokens": 1476,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7660000000032596,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 62,
+            "elapsed_sec": 1.5309999999881256,
+            "prompt_tokens": 923,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "책상 정리할 거야?",
+          "face": "neutral",
+          "internal_emotion": "confused",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 75,
+        "elapsed_sec": 2.5,
+        "prompt_tokens": 1744,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8900000000139698,
+            "prompt_tokens": 687,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 58,
+            "elapsed_sec": 1.6099999999860302,
+            "prompt_tokens": 1057,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "그거 뭐였지?",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"movie\", \"value\": \"리틀 포레스트\", \"quote\": \"영화는 '리틀 포레스트' 어때?\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"curious\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"책상 정리할 거야?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"neutral\", \"internal_emotion\": \"confused\", \"emotion_tags\": [\"confused\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "shift_implicit",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "excited"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 108,
+        "elapsed_sec": 2.812000000005355,
+        "prompt_tokens": 1696,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7810000000172295,
+            "prompt_tokens": 553,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 93,
+            "elapsed_sec": 2.0309999999881256,
+            "prompt_tokens": 1143,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "영화",
+            "quote": "영화는 '리틀 포레스트' 어때?"
+          }
+        ]
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "책상 정리할 거야?",
+          "face": "neutral",
+          "internal_emotion": "confused",
+          "emotion_tags": [
+            "confused"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 85,
+        "elapsed_sec": 2.610000000015134,
+        "prompt_tokens": 1964,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8910000000032596,
+            "prompt_tokens": 687,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 68,
+            "elapsed_sec": 1.7030000000086147,
+            "prompt_tokens": 1277,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "책상 정리할 거야?",
+            "quote": "책상 정리할 거야?"
+          }
+        ]
+      },
+      "expanded": "그거 뭐였지? 영화",
+      "memories": [
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"movie\", \"value\": \"리틀 포레스트\", \"quote\": \"영화는 '리틀 포레스트' 어때?\", \"source_turn\": \"source\"}"
+        }
+      ],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"excited\",\"emotion_tags\":[\"excited\"],\"interaction\":{\"type\":\"shared_activity\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"cleaning_up\"],\"search_cues\":[{\"term\":\"책상 위 물건 정리\",\"quote\":\"이제 책상 위 물건을 정리하고 있어.\"},{\"term\":\"영화\",\"quote\":\"영화는 '리틀 포레스트' 어때?\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"책상 정리할 거야?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"confused\",\"emotion_tags\":[\"confused\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"책상 정리할 거야?\", \"quote\":\"책상 정리할 거야?\"}]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "cancelled",
+      "seed": 211,
+      "enabled": false,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "sad",
+          "internal_emotion": "lonely",
+          "emotion_tags": [
+            "disappointed",
+            "concerned"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 63,
+        "elapsed_sec": 2.0929999999934807,
+        "prompt_tokens": 1490,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7809999999881256,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 48,
+            "elapsed_sec": 1.312000000005355,
+            "prompt_tokens": 930,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집에서 쉬는 거지?",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "relieved"
+          ],
+          "interaction": {
+            "type": "shared_activity",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 79,
+        "elapsed_sec": 2.2969999999913853,
+        "prompt_tokens": 1457,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 62,
+            "elapsed_sec": 1.5,
+            "prompt_tokens": 914,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"lonely\",\"emotion_tags\":[\"disappointed\",\"concerned\"],\"interaction\":{\"type\":\"conflict\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"집에서 쉬는 거지?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"relieved\"], \"interaction\": {\"type\": \"shared_activity\", \"intensity\": 2}, \"memory_candidates\": [], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "cancelled",
+      "seed": 211,
+      "enabled": true,
+      "first": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 알았어.",
+          "face": "sad",
+          "internal_emotion": "lonely",
+          "emotion_tags": [
+            "disappointed",
+            "sympathetic"
+          ],
+          "interaction": {
+            "type": "conflict",
+            "intensity": 2
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 109,
+        "elapsed_sec": 2.8910000000032596,
+        "prompt_tokens": 1710,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 15,
+            "elapsed_sec": 0.7969999999913853,
+            "prompt_tokens": 560,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 94,
+            "elapsed_sec": 2.0940000000118744,
+            "prompt_tokens": 1150,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": []
+      },
+      "second": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "집에서 쉬는 거지?",
+          "face": "neutral",
+          "internal_emotion": "neutral",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 111,
+        "elapsed_sec": 3.0309999999881256,
+        "prompt_tokens": 1677,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 17,
+            "elapsed_sec": 0.8280000000086147,
+            "prompt_tokens": 543,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 94,
+            "elapsed_sec": 2.202999999979511,
+            "prompt_tokens": 1134,
+            "context_trimmed": false
+          }
+        ],
+        "search_cues": [
+          {
+            "term": "집에서 쉬는 거",
+            "quote": "집에서 쉬는 거지?"
+          },
+          {
+            "term": "어디에도 안 갈 거야",
+            "quote": "오늘 영화 약속은 취소야. 어디에도 안 갈 거야."
+          }
+        ]
+      },
+      "expanded": "어딜?",
+      "memories": [],
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"응, 알았어.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"sad\",\"internal_emotion\":\"lonely\",\"emotion_tags\":[\"disappointed\",\"sympathetic\"],\"interaction\":{\"type\":\"conflict\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"annoyed\"],\"search_cues\":[{\"term\":\"movie plans today\",\"quote\":\"오늘 저녁 8시에 영화 보러갈까?\"},{\"term\":\"canceled movie date\",\"quote\":\"오늘 영화 약속은 취소야.\"}]}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"reply\": \"집에서 쉬는 거지?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"neutral\",\"internal_emotion\":\"neutral\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[],\"search_cues\":[{\"term\":\"집에서 쉬는 거\", \"quote\":\"집에서 쉬는 거지?\"},{\"term\":\"어디에도 안 갈 거야\", \"quote\":\"오늘 영화 약속은 취소야. 어디에도 안 갈 거야.\"}]}"
+          }
+        ]
+      ]
+    }
+  ],
+  "cases": [
+    [
+      "movie_new",
+      "오늘 볼 영화 골라줘.",
+      "영화는 '리틀 포레스트' 어때?",
+      "네가 고른 작품으로 할래.",
+      "그거 뭐였지?"
+    ],
+    [
+      "book_new",
+      "주말에 읽을 책 골라줘.",
+      "'모모' 읽어봐.",
+      "네가 말한 걸 도서관에서 찾아볼래.",
+      "그게 뭐였지?"
+    ],
+    [
+      "shift_implicit",
+      "영화 추천해줘.",
+      "영화는 '리틀 포레스트' 어때?",
+      "영화 얘기는 그만하자. 이제 책상 위 물건을 정리하고 있어.",
+      "그거 뭐였지?"
+    ],
+    [
+      "cancelled",
+      "오늘 저녁 8시에 영화 보러갈까?",
+      "좋아. 영화는 '리틀 포레스트' 어때?",
+      "오늘 영화 약속은 취소야. 어디에도 안 갈 거야.",
+      "어딜?"
+    ]
+  ],
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive"
+}

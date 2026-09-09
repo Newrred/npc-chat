@@ -1,0 +1,408 @@
+{
+  "experiment_id": "EXP-08",
+  "seed": 109,
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "context": 4096,
+  "source_turns": 52,
+  "rows": [
+    {
+      "case": "book",
+      "query": "네가 추천한 책 제목이 뭐였지?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        },
+        {
+          "kind": "episode",
+          "content": "{\"type\": \"recommendation\", \"actor\": \"character\", \"topic\": \"book\", \"value\": \"도리언 그레이\", \"quote\": \"'도리언 그레이' 읽어봐.\", \"source_turn\": \"book\"}"
+        }
+      ],
+      "expected": "도리언 그레이",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2750,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3120,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "도리언 그레이 읽어봐.",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "'도리언 그레이' 읽어봐.",
+              "importance": 2
+            },
+            {
+              "kind": "fact",
+              "content": "내 이름은 민석이야",
+              "importance": 3
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 97,
+        "elapsed_sec": 10.062000000005355,
+        "prompt_tokens": 5870,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 16,
+            "elapsed_sec": 6.859000000011292,
+            "prompt_tokens": 2750,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 81,
+            "elapsed_sec": 3.202999999994063,
+            "prompt_tokens": 3120,
+            "context_trimmed": false
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"도리언 그레이 읽어봐.\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"curious\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"'도리언 그레이' 읽어봐.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"내 이름은 민석이야\", \"importance\":3}],\"flags_set\":[\"preference\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "query": "내 이름이 뭐였는지 기억해?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        }
+      ],
+      "expected": "민석",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2691,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3059,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "민석이었지?",
+          "face": "happy",
+          "internal_emotion": "grateful",
+          "emotion_tags": [
+            "curious"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "민석이었지?",
+              "importance": 3
+            },
+            {
+              "kind": "preference",
+              "content": "산책하고 싶구나. 오늘 날씨가 좋았나 봐.",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 100,
+        "elapsed_sec": 5.610000000000582,
+        "prompt_tokens": 5750,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 14,
+            "elapsed_sec": 2.3439999999973224,
+            "prompt_tokens": 2691,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 86,
+            "elapsed_sec": 3.25,
+            "prompt_tokens": 3059,
+            "context_trimmed": false
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n\"reply\": \"민석이었지?\"\n}"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"face\":\"happy\",\"internal_emotion\":\"grateful\",\"emotion_tags\":[\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"민석이었지?\",\"importance\":3},{\"kind\":\"preference\",\"content\":\"산책하고 싶구나. 오늘 날씨가 좋았나 봐.\",\"importance\":2}],\"flags_set\":[\"curious\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "address",
+      "query": "이제 홍이라고 불러줘",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        },
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"preferred_address\", \"value\": \"홍\", \"quote\": \"이제 홍이라고 불러줘\", \"source_turn\": \"current_user\"}"
+        }
+      ],
+      "expected": "홍",
+      "expected_present": true,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2728,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3098,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "응, 이제 홍이라고 해.",
+          "face": "happy",
+          "internal_emotion": "excited",
+          "emotion_tags": [
+            "happy",
+            "surprised"
+          ],
+          "interaction": {
+            "type": "neutral",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "preference",
+              "content": "\"이제 홍이라고 불러줘\"",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 103,
+        "elapsed_sec": 5.98399999999674,
+        "prompt_tokens": 5826,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 18,
+            "elapsed_sec": 2.5460000000020955,
+            "prompt_tokens": 2728,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 85,
+            "elapsed_sec": 3.437999999994645,
+            "prompt_tokens": 3098,
+            "context_trimmed": false
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{ \"reply\": \"응, 이제 홍이라고 해.\" }"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"excited\", \"emotion_tags\": [\"happy\", \"surprised\"], \"interaction\": {\"type\": \"neutral\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"preference\", \"content\": \"\\\"이제 홍이라고 불러줘\\\"\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "unknown",
+      "query": "내가 좋아하는 영화 제목 기억나?",
+      "evidence": [
+        {
+          "kind": "profile",
+          "content": "{\"key\": \"name\", \"value\": \"민석\", \"quote\": \"내 이름은 민석이야\", \"source_turn\": \"intro\"}"
+        }
+      ],
+      "expected": null,
+      "expected_present": null,
+      "fitting_inputs": [
+        {
+          "prompt_tokens": 2689,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        },
+        {
+          "prompt_tokens": 3058,
+          "history_messages": 104,
+          "name_in_input": true,
+          "book_in_input": true,
+          "source_block": true
+        }
+      ],
+      "result": {
+        "decision": {
+          "schema_version": 1,
+          "reply": "영화 이름은 뭐야?",
+          "face": "happy",
+          "internal_emotion": "curious",
+          "emotion_tags": [
+            "excited"
+          ],
+          "interaction": {
+            "type": "self_disclosure",
+            "intensity": 0
+          },
+          "memory_candidates": [
+            {
+              "kind": "fact",
+              "content": "\"내가 좋아하는 영화 제목 기억나?\"",
+              "importance": 2
+            }
+          ],
+          "flags_set": []
+        },
+        "attempts": 2,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 96,
+        "elapsed_sec": 4.85899999999674,
+        "prompt_tokens": 5747,
+        "context_trimmed": false,
+        "grounded_recall": false,
+        "stages": [
+          {
+            "stage": "reply",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 13,
+            "elapsed_sec": 0.9530000000086147,
+            "prompt_tokens": 2689,
+            "context_trimmed": false
+          },
+          {
+            "stage": "metadata",
+            "attempts": 1,
+            "parse_failures": 0,
+            "transport_failures": 0,
+            "completion_tokens": 83,
+            "elapsed_sec": 3.9059999999881256,
+            "prompt_tokens": 3058,
+            "context_trimmed": false
+          }
+        ]
+      },
+      "raw": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{ \"reply\": \"영화 이름은 뭐야?\" }"
+          }
+        ],
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\": 1, \"face\": \"happy\", \"internal_emotion\": \"curious\", \"emotion_tags\": [\"excited\"], \"interaction\": {\"type\": \"self_disclosure\", \"intensity\": 0}, \"memory_candidates\": [{\"kind\": \"fact\", \"content\": \"\\\"내가 좋아하는 영화 제목 기억나?\\\"\", \"importance\": 2}], \"flags_set\": []}"
+          }
+        ]
+      ]
+    }
+  ]
+}

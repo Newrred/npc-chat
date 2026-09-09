@@ -32,10 +32,13 @@ def summarize(rows):
     total = len(rows)
     successful = [row for row in rows if row.get("success")]
     latencies = sorted(row["elapsed_sec"] for row in rows)
+    def first_pass(row):
+        stages = row.get("stages")
+        return all(stage["attempts"] == 1 for stage in stages) if stages else row["attempts"] == 1
     return {"cases": total, "successes": len(successful),
-            "first_pass_rate": sum(row["attempts"] == 1 for row in successful) / total if total else 0,
+            "first_pass_rate": sum(first_pass(row) for row in successful) / total if total else 0,
             "final_schema_rate": len(successful) / total if total else 0,
-            "retry_recoveries": sum(row["attempts"] > 1 for row in successful),
+            "retry_recoveries": sum(not first_pass(row) for row in successful),
             "latency_median_sec": statistics.median(latencies) if latencies else None,
             "latency_p95_sec": latencies[math.ceil(total * .95) - 1] if total else None}
 

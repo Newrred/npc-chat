@@ -145,10 +145,10 @@ function setState(state, message = "") {
   statusEl.dataset.state = state;
   statusEl.textContent = message;
   busy = state === "sending" || state === "waiting_for_model";
-  if (busy) roomPreview.textContent = "유이가 답변을 입력 중이에요…";
+  if (state === "waiting_for_model") roomPreview.textContent = "유이가 답변을 입력 중이에요…";
   else if (["retryable_error", "non_retryable_error", "offline"].includes(state)) roomPreview.textContent = "메시지 전송 상태를 확인해 주세요.";
-  typingIndicator.hidden = !busy;
-  if (busy) chatThread.scrollTop = chatThread.scrollHeight;
+  typingIndicator.hidden = state !== "waiting_for_model";
+  if (state === "waiting_for_model") chatThread.scrollTop = chatThread.scrollHeight;
   input.disabled = submitButton.disabled = comfyToggle.disabled = busy;
   document.getElementById("leaveRoom").disabled = busy;
   input.readOnly = Boolean(pendingTurn);
@@ -186,6 +186,7 @@ const FACE_ASSET_BASE_URL = String(window.NPC_FACE_ASSET_BASE_URL || "./faces").
 const FACE_ASSET_EXT = String(window.NPC_FACE_EXT || "png").replace(/^\./, "");
 const POLL_INTERVAL_MS = Math.max(500, Number(window.NPC_POLL_INTERVAL_MS) || 2000);
 const POLL_MAX_ATTEMPTS = Math.max(1, Number(window.NPC_POLL_MAX_ATTEMPTS) || 10);
+const TYPING_INDICATOR_DELAY_MS = 650;
 const FACE_FALLBACK_SLUGS = {
   crying: ["teary", "sad"],
   happy: ["smiling"],
@@ -351,24 +352,27 @@ async function sendTurn() {
     return;
   }
   stopImagePolling();
-  setState("sending", "메시지를 전송하고 있습니다.");
   const began = Date.now();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Math.max(1000, Number(window.NPC_REQUEST_TIMEOUT_MS) || 420000));
   let waiting;
   try {
-    await ensureSession(controller.signal);
     const recovering = Boolean(pendingTurn);
-    if (loadedSession !== sessionId) await loadHistory(false, controller.signal);
-    if (recovering && !pendingTurn) { setState("success", "저장된 답변을 복원했습니다."); return; }
     if (!pendingTurn) pendingTurn = { message, client_turn_id: crypto.randomUUID(), comfy_on: comfyToggle.checked };
-    pendingTurn.session_id ||= sessionId;
-    pendingTurn.profile_id ||= profileId;
-    // Persist complete identity and payload before inference, including across reloads.
+    // Reflect the user's action before any session/history/network wait.
     localStorage.setItem("npc_pending_turn", JSON.stringify(pendingTurn));
     appendMessage("user", pendingTurn.message, pendingTurn.client_turn_id);
-    input.readOnly = true;
-    waiting = setTimeout(() => setState("waiting_for_model", "답변을 기다리고 있습니다…"), 500);
+    input.value = "";
+    setState("sending", "메시지를 전송하고 있습니다.");
+    waiting = setTimeout(() => setState("waiting_for_model", "답변을 기다리고 있습니다…"), TYPING_INDICATOR_DELAY_MS);
+
+    await ensureSession(controller.signal);
+    if (loadedSession !== sessionId) await loadHistory(false, controller.signal);
+    if (recovering && !pendingTurn) { setState("success", "저장된 답변을 복원했습니다."); return; }
+    pendingTurn.session_id ||= sessionId;
+    pendingTurn.profile_id ||= profileId;
+    // Persist the complete identity and payload before inference, including across reloads.
+    localStorage.setItem("npc_pending_turn", JSON.stringify(pendingTurn));
     const data = await readResponse(await fetch(CHAT_API_URL, {
       method: "POST", headers: { "Content-Type": "application/json" }, signal: controller.signal,
       body: JSON.stringify(pendingTurn),

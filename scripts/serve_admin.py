@@ -17,7 +17,8 @@ def main():
         parser.error("The selected environment must contain an existing NPC_DATABASE_PATH")
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from app.admin import create_admin
-    uvicorn.run(create_admin(database), host="127.0.0.1", port=8002, access_log=False)
+    origin = values.get("NPC_PUBLIC_ORIGIN") if values.get("NPC_ACCESS_MODE") == "guest" else None
+    uvicorn.run(create_admin(database, chat_origin=origin), host="127.0.0.1", port=8002, access_log=False)
 
 
 if __name__ == "__main__":

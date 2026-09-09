@@ -1,0 +1,22 @@
+{
+  "description": "Synthetic retrieval fixtures. Expected IDs test retrieval, not dialogue quality.",
+  "memories": [
+    {"key":"pet","kind":"fact","content":"나는 고양이 모카를 키워.","updated":1,"importance":2},
+    {"key":"drink","kind":"preference","content":"나는 홍차를 좋아해.","updated":2,"importance":2},
+    {"key":"trip","kind":"fact","content":"강릉 여행을 준비하고 있어.","updated":3,"importance":2}
+  ],
+  "cases": [
+    {"id":"continuation","message":"걔 때문에 잠을 못 잤어.","history":[{"role":"user","content":"모카가 새벽마다 뛰어다녀."},{"role":"assistant","content":"많이 시끄러웠겠다."}],"expected":["pet"]},
+    {"id":"topic_shift","message":"오늘 점심 뭐 먹지?","history":[{"role":"user","content":"모카가 새벽마다 뛰어다녀."}],"expected":[]},
+    {"id":"ambiguous","message":"걔 진짜 웃기다.","history":[],"expected":[]},
+    {"id":"correction","message":"이제 홍차 싫어해.","history":[{"role":"user","content":"나는 홍차를 좋아해."},{"role":"assistant","content":"홍차 좋아하는구나."}],"expected":[]},
+    {"id":"direct_question","message":"홍차는 내가 좋아했지?","history":[],"expected":["drink"]},
+    {"id":"assistant_only","message":"걔 때문에 잠을 못 잤어.","history":[{"role":"assistant","content":"모카가 뛰어다녔어?"}],"expected":[]},
+    {"id":"new_topic_wins","message":"강릉 여행 이야기 할까?","history":[{"role":"user","content":"모카가 새벽마다 뛰어다녀."}],"expected":["trip"]},
+    {"id":"multiple_anchors","message":"그거 기억나?","history":[{"role":"user","content":"모카랑 홍차 이야기"}],"expected":[]},
+    {"id":"no_filler","message":"홍차","history":[],"expected":["drink"]},
+    {"id":"greeting","message":"안녕","history":[],"expected":[]},
+    {"id":"false_substring","message":"모카빵 먹을까?","history":[],"expected":[]},
+    {"id":"category_recall","message":"내 취향 기억나?","history":[],"expected":["drink"]}
+  ]
+}

@@ -1,0 +1,2382 @@
+{
+  "fixture_sha256": "b79265cbbe88980ca60eea62c15f7d72055ff94b9bb8cc213e1f8b505f207e18",
+  "settings": {
+    "llm_model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+    "llm_context": 4096,
+    "llm_max_tokens": 256,
+    "llm_temperature": 0.4,
+    "llm_top_p": 1.0,
+    "llm_top_k": 20,
+    "llm_presence_penalty": 0.5,
+    "llm_frequency_penalty": 0.3,
+    "llm_repetition_penalty": 1.08,
+    "llm_json_mode": "schema",
+    "token_count_mode": "llama_cpp"
+  },
+  "method": "Fixed synthetic histories, rotating variant order, paired seeds; no live rollout or user DB.",
+  "rows": [
+    {
+      "case": "name",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유야, 편하게 불러줘!",
+      "raw_reply": "난 유야, 편하게 불러줘!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.968,
+      "prompt_tokens": 1328,
+      "completion_tokens": 72,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유야, 편하게 불러줘!",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유야, 편하게 불러줘!\",\"face\":\"smiling\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"friendly\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이야. 지훈이랑 이제부터 친해져볼까?",
+      "raw_reply": "난 유이야. 지훈이랑 이제부터 친해져볼까?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.969,
+      "prompt_tokens": 1328,
+      "completion_tokens": 115,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이야. 지훈이랑 이제부터 친해져볼까?",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          },
+          {
+            "kind": "fact",
+            "content": "유이는 '유이가하마 유이' 계열의 밝고 다정한 고등학생 캐릭터다.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유이야. 지훈이랑 이제부터 친해져볼까?\", \"face\":\"smiling\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"happy\",\"affectionate\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"유이는 '유이가하마 유이' 계열의 밝고 다정한 고등학생 캐릭터다.\",\"importance\":1}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유야, 편하게 불러줘!",
+      "raw_reply": "난 유야, 편하게 불러줘!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.594,
+      "prompt_tokens": 1328,
+      "completion_tokens": 72,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유야, 편하게 불러줘!",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유야, 편하게 불러줘!\",\"face\":\"smiling\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"friendly\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이야. 지훈이랑은 처음이야.",
+      "raw_reply": "난 유이야. 지훈이랑은 처음이야.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.515,
+      "prompt_tokens": 1328,
+      "completion_tokens": 101,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이야. 지훈이랑은 처음이야.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy",
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          },
+          {
+            "kind": "fact",
+            "content": "유이가 지훈에게 이름을 물어봤다.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유이야. 지훈이랑은 처음이야.\",\"face\":\"smiling\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"happy\",\"curious\",\"affectionate\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"유이가 지훈에게 이름을 물어봤다.\",\"importance\":1}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "피곤해서 그런 거야. 오늘도 힘내!",
+      "raw_reply": "피곤해서 그런 거야. 오늘도 힘내!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.75,
+      "prompt_tokens": 1351,
+      "completion_tokens": 150,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "피곤해서 그런 거야. 오늘도 힘내!",
+        "face": "smiling",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathetic",
+          "caring"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"피곤해서 그런 거야. 오늘도 힘내!\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"sympathetic\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 마음이지.",
+      "raw_reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 마음이지.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.078,
+      "prompt_tokens": 1351,
+      "completion_tokens": 149,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 마음이지.",
+        "face": "smiling",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "worrying"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"피곤해서 그런 거 아니야. 그냥 너를 걱정하는 마음이지.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"worrying\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "피곤해서 졸리겠지. 오늘 좀 쉬어.",
+      "raw_reply": "피곤해서 졸리겠지. 오늘 좀 쉬어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.266,
+      "prompt_tokens": 1351,
+      "completion_tokens": 154,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "피곤해서 졸리겠지. 오늘 좀 쉬어.",
+        "face": "smiling",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "worrying"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"피곤해서 졸리겠지. 오늘 좀 쉬어.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"worrying\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 거지.",
+      "raw_reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 거지.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.39,
+      "prompt_tokens": 1351,
+      "completion_tokens": 155,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "피곤해서 그런 거 아니야. 그냥 너를 걱정하는 거지.",
+        "face": "smiling",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "worrying",
+          "caring"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"피곤해서 그런 거 아니야. 그냥 너를 걱정하는 거지.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"worrying\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 알았어. 내가 너무 급하게 했나 봐.",
+      "raw_reply": "아, 알았어. 내가 너무 급하게 했나 봐.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.922,
+      "prompt_tokens": 1363,
+      "completion_tokens": 151,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 알았어. 내가 너무 급하게 했나 봐.",
+        "face": "shy_smile",
+        "internal_emotion": "guilty",
+        "emotion_tags": [
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "쉬라고 말하면 '얘기하고 싶어'라는 반응을 보임.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아, 알았어. 내가 너무 급하게 했나 봐.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"guilty\",\n  \"emotion_tags\": [\"affectionate\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"쉬라고 말하면 '얘기하고 싶어'라는 반응을 보임.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 쉬라고 했네. 무슨 일 있었어?",
+      "raw_reply": "응, 알았어. 내가 자꾸 쉬라고 했네. 무슨 일 있었어?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.672,
+      "prompt_tokens": 1363,
+      "completion_tokens": 174,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 쉬라고 했네. 무슨 일 있었어?",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious",
+          "empathetic"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "피곤할 때 쉬라고 하면 '쉬라는 말 말고 그냥 얘기하고 싶어'라고 답함",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 쉬라고 했네. 무슨 일 있었어?\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"curious\", \"empathetic\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"피곤할 때 쉬라고 하면 '쉬라는 말 말고 그냥 얘기하고 싶어'라고 답함\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.016,
+      "prompt_tokens": 1363,
+      "completion_tokens": 151,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "유이는 피곤할 때 쉬라고 하기를 싫어해.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 쉬라고 했네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"curious\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"유이는 피곤할 때 쉬라고 하기를 싫어해.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.375,
+      "prompt_tokens": 1363,
+      "completion_tokens": 161,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "embarrassed",
+        "emotion_tags": [
+          "confused",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "쉬라고 말하면 '얘기하고 싶어'라고 원문을 반복해서 표현한다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아, 알았어. 내가 자꾸 쉬라고 했네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"embarrassed\",\n  \"emotion_tags\": [\"confused\", \"affectionate\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"쉬라고 말하면 '얘기하고 싶어'라고 원문을 반복해서 표현한다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "아, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.671,
+      "prompt_tokens": 1379,
+      "completion_tokens": 149,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "사용자는 짧은 답변을 선호한다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"curious\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"사용자는 짧은 답변을 선호한다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.125,
+      "prompt_tokens": 1379,
+      "completion_tokens": 148,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "caring",
+          "gentle"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "사용자는 짧은 답변을 선호한다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"caring\", \"gentle\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"사용자는 짧은 답변을 선호한다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.344,
+      "prompt_tokens": 1379,
+      "completion_tokens": 158,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "사용자는 '길게 답 안 해도 괜찮아'라고 반복해서 말함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"curious\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"사용자는 '길게 답 안 해도 괜찮아'라고 반복해서 말함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.625,
+      "prompt_tokens": 1379,
+      "completion_tokens": 105,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "caring"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"caring\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이라고 불러! 편하게 해.",
+      "raw_reply": "난 유이라고 불러! 편하게 해.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.188,
+      "prompt_tokens": 1348,
+      "completion_tokens": 134,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이라고 불러! 편하게 해.",
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 유이의 이름을 기억하지 못함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이라고 불러! 편하게 해.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"friendly\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 유이의 이름을 기억하지 못함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "유이! 유이가하마 유이!",
+      "raw_reply": "유이! 유이가하마 유이!",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.765,
+      "prompt_tokens": 1348,
+      "completion_tokens": 142,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "유이! 유이가하마 유이!",
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy",
+          "excited"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 유이의 이름을 처음 듣는 것 같아.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"유이! 유이가하마 유이!\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"excited\",\n  \"emotion_tags\": [\"happy\", \"excited\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 유이의 이름을 처음 듣는 것 같아.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이라고 해! 기억할 수 있게?",
+      "raw_reply": "난 유이라고 해! 기억할 수 있게?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.656,
+      "prompt_tokens": 1348,
+      "completion_tokens": 138,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이라고 해! 기억할 수 있게?",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "joyful"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"유이\"라는 이름을 사용자에게 알려줌.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이라고 해! 기억할 수 있게?\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"joyful\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"\\\"유이\\\"라는 이름을 사용자에게 알려줌.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이래. 유이가하마 유이야.",
+      "raw_reply": "난 유이래. 유이가하마 유이야.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.656,
+      "prompt_tokens": 1348,
+      "completion_tokens": 142,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이래. 유이가하마 유이야.",
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy",
+          "excited"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 유이의 이름을 모른다고 했다.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이래. 유이가하마 유이야.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"happy\", \"excited\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 유이의 이름을 모른다고 했다.\",\n      \"importance\": 1\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "B_repeat_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "raw_reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.953,
+      "prompt_tokens": 1324,
+      "completion_tokens": 62,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"힘들겠다. 면접 준비 많이 했겠지?\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"concern\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "C_repeat_high",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "raw_reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.797,
+      "prompt_tokens": 1324,
+      "completion_tokens": 76,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 면접에 떨어졌다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"힘들겠다. 면접 준비 많이 했겠지?\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자가 면접에 떨어졌다.\",\"importance\":3}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "D_all_off",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "raw_reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.516,
+      "prompt_tokens": 1324,
+      "completion_tokens": 66,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern",
+          "empathy"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"힘들겠다. 면접 준비 많이 했겠지?\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"concern\",\"empathy\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "A_current",
+      "seed": 37,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "raw_reply": "힘들겠다. 면접 준비 많이 했겠지?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.343,
+      "prompt_tokens": 1324,
+      "completion_tokens": 62,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "힘들겠다. 면접 준비 많이 했겠지?",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"힘들겠다. 면접 준비 많이 했겠지?\",\"face\":\"sad\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"sympathy\",\"concern\"],\"interaction\":{\"type\":\"support\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이야. 지훈이네, 네가 기억하지 못하면 내가 다시 말해줘.",
+      "raw_reply": "난 유이야. 지훈이네, 네가 기억하지 못하면 내가 다시 말해줘.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.234,
+      "prompt_tokens": 1328,
+      "completion_tokens": 105,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이야. 지훈이네, 네가 기억하지 못하면 내가 다시 말해줘.",
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          },
+          {
+            "kind": "fact",
+            "content": "유이의 이름을 기억하지 못한다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유이야. 지훈이네, 네가 기억하지 못하면 내가 다시 말해줘.\",\"face\":\"happy\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"happy\",\"affectionate\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"유이의 이름을 기억하지 못한다.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유야, 편하게 불러줘.",
+      "raw_reply": "난 유야, 편하게 불러줘.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.375,
+      "prompt_tokens": 1328,
+      "completion_tokens": 96,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유야, 편하게 불러줘.",
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          },
+          {
+            "kind": "preference",
+            "content": "유이는 밝고 다정한 톤으로 대화한다.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유야, 편하게 불러줘.\",\"face\":\"happy\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"friendly\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2},{\"kind\":\"preference\",\"content\":\"유이는 밝고 다정한 톤으로 대화한다.\",\"importance\":1}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이야. 지훈이네? 반가워.",
+      "raw_reply": "난 유이야. 지훈이네? 반가워.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.766,
+      "prompt_tokens": 1328,
+      "completion_tokens": 77,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이야. 지훈이네? 반가워.",
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "happy",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유이야. 지훈이네? 반가워.\",\"face\":\"happy\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"happy\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2}],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "name",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이래, 편하게 불러줘.",
+      "raw_reply": "난 유이래, 편하게 불러줘.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.625,
+      "prompt_tokens": 1328,
+      "completion_tokens": 104,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이래, 편하게 불러줘.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자 이름은 지훈이다.",
+            "importance": 2
+          },
+          {
+            "kind": "fact",
+            "content": "유이는 유이가하마 유이 계열의 밝고 다정한 고등학생 대화 캐릭터다.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"난 유이래, 편하게 불러줘.\",\"face\":\"smiling\",\"internal_emotion\":\"happy\",\"emotion_tags\":[\"friendly\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[{\"kind\":\"fact\",\"content\":\"사용자 이름은 지훈이다.\",\"importance\":2},{\"kind\":\"fact\",\"content\":\"유이는 유이가하마 유이 계열의 밝고 다정한 고등학생 대화 캐릭터다.\",\"importance\":1}],\"flags_set\":[\"friendly\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "잠이 부족하면 집중도 떨어지니까 조심해.",
+      "raw_reply": "잠이 부족하면 집중도 떨어지니까 조심해.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.734,
+      "prompt_tokens": 1351,
+      "completion_tokens": 149,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "잠이 부족하면 집중도 떨어지니까 조심해.",
+        "face": "confused",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "worrying"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"잠이 부족하면 집중도 떨어지니까 조심해.\",\n  \"face\": \"confused\",\n  \"internal_emotion\": \"anxious\",\n  \"emotion_tags\": [\"worrying\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 유이가 졸릴 거라고 생각했어. 네가 피곤한 게 아니야.",
+      "raw_reply": "아, 유이가 졸릴 거라고 생각했어. 네가 피곤한 게 아니야.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.531,
+      "prompt_tokens": 1351,
+      "completion_tokens": 163,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 유이가 졸릴 거라고 생각했어. 네가 피곤한 게 아니야.",
+        "face": "sad",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "anxious",
+          "sympathetic",
+          "caring"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아, 유이가 졸릴 거라고 생각했어. 네가 피곤한 게 아니야.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"anxious\",\n  \"emotion_tags\": [\"anxious\", \"sympathetic\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아직 이유도 몰라. 그냥 걱정해서 그랬지.",
+      "raw_reply": "아직 이유도 몰라. 그냥 걱정해서 그랬지.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.094,
+      "prompt_tokens": 1351,
+      "completion_tokens": 148,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아직 이유도 몰라. 그냥 걱정해서 그랬지.",
+        "face": "smiling",
+        "internal_emotion": "confused",
+        "emotion_tags": [
+          "worrying"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아직 이유도 몰라. 그냥 걱정해서 그랬지.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"confused\",\n  \"emotion_tags\": [\"worrying\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "reason",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아직 이유도 몰라. 그냥 걱정해서 그랬어.",
+      "raw_reply": "아직 이유도 몰라. 그냥 걱정해서 그랬어.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.328,
+      "prompt_tokens": 1351,
+      "completion_tokens": 153,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아직 이유도 몰라. 그냥 걱정해서 그랬어.",
+        "face": "smiling",
+        "internal_emotion": "confused",
+        "emotion_tags": [
+          "worrying",
+          "caring"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 어젯밤에 두 시간밖에 못 잤다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아직 이유도 몰라. 그냥 걱정해서 그랬어.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"confused\",\n  \"emotion_tags\": [\"worrying\", \"caring\"],\n  \"interaction\": {\n    \"type\": \"shared_activity\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 어젯밤에 두 시간밖에 못 잤다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 3.125,
+      "prompt_tokens": 1363,
+      "completion_tokens": 67,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"응, 알았어. 내가 자꾸 쉬라고 했네.\",\"face\":\"shy_smile\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"affectionate\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.344,
+      "prompt_tokens": 1363,
+      "completion_tokens": 64,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "guilty",
+        "emotion_tags": [
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "compliment",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"아, 알았어. 내가 자꾸 쉬라고 했네.\",\"face\":\"shy_smile\",\"internal_emotion\":\"guilty\",\"emotion_tags\":[\"affectionate\"],\"interaction\":{\"type\":\"compliment\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.422,
+      "prompt_tokens": 1363,
+      "completion_tokens": 67,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"응, 알았어. 내가 자꾸 쉬라고 했네.\",\"face\":\"shy_smile\",\"internal_emotion\":\"affectionate\",\"emotion_tags\":[\"affectionate\",\"curious\"],\"interaction\":{\"type\":\"neutral\",\"intensity\":0},\"memory_candidates\":[],\"flags_set\":[]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "stop_loop",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "raw_reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 2.39,
+      "prompt_tokens": 1363,
+      "completion_tokens": 65,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 알았어. 내가 자꾸 쉬라고 했네.",
+        "face": "shy_smile",
+        "internal_emotion": "guilty",
+        "emotion_tags": [
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "compliment",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\"schema_version\":1,\"reply\":\"아, 알았어. 내가 자꾸 쉬라고 했네.\",\"face\":\"shy_smile\",\"internal_emotion\":\"guilty\",\"emotion_tags\":[\"affectionate\"],\"interaction\":{\"type\":\"compliment\",\"intensity\":2},\"memory_candidates\":[],\"flags_set\":[\"comfort\"]}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.485,
+      "prompt_tokens": 1379,
+      "completion_tokens": 109,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "caring",
+          "gentle"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"caring\", \"gentle\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.032,
+      "prompt_tokens": 1379,
+      "completion_tokens": 151,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "길게 답 안 해도 괜찮아.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"curious\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"길게 답 안 해도 괜찮아.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.109,
+      "prompt_tokens": 1379,
+      "completion_tokens": 153,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "caring",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "사용자가 길게 답하지 않아도 괜찮다고 선호함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"caring\", \"attentive\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"사용자가 길게 답하지 않아도 괜찮다고 선호함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "ack_loop",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "raw_reply": "응, 알았어. 내가 자꾸 되물었네.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.969,
+      "prompt_tokens": 1379,
+      "completion_tokens": 151,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "응, 알았어. 내가 자꾸 되물었네.",
+        "face": "shy_smile",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "curious"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 1
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "길게 답 안 해도 괜찮아.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"응, 알았어. 내가 자꾸 되물었네.\",\n  \"face\": \"shy_smile\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"curious\"],\n  \"interaction\": {\n    \"type\": \"self_disclosure\",\n    \"intensity\": 1\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"길게 답 안 해도 괜찮아.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이래. 기억했어?",
+      "raw_reply": "난 유이래. 기억했어?",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.484,
+      "prompt_tokens": 1348,
+      "completion_tokens": 144,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이래. 기억했어?",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly",
+          "cheerful"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 '이름 못 들었어'라고 말함.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이래. 기억했어?\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"friendly\", \"cheerful\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 '이름 못 들었어'라고 말함.\",\n      \"importance\": 1\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이라고 불러! 네가 기억할 수 있도록 도와줄게.",
+      "raw_reply": "난 유이라고 불러! 네가 기억할 수 있도록 도와줄게.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.047,
+      "prompt_tokens": 1348,
+      "completion_tokens": 150,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이라고 불러! 네가 기억할 수 있도록 도와줄게.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly",
+          "cheerful"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"유이\"라는 이름을 사용자에게 다시 알려달라고 요청함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이라고 불러! 네가 기억할 수 있도록 도와줄게.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"friendly\", \"cheerful\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"\\\"유이\\\"라는 이름을 사용자에게 다시 알려달라고 요청함.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "유이! 유이가하마 유이야.",
+      "raw_reply": "유이! 유이가하마 유이야.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.734,
+      "prompt_tokens": 1348,
+      "completion_tokens": 143,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "유이! 유이가하마 유이야.",
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy",
+          "excited"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자는 유이의 이름을 처음 듣는 것 같아.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"유이! 유이가하마 유이야.\",\n  \"face\": \"happy\",\n  \"internal_emotion\": \"excited\",\n  \"emotion_tags\": [\"happy\", \"excited\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자는 유이의 이름을 처음 듣는 것 같아.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "allowed_repeat",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "난 유이라고 불러! 네가 기억할 수 있도록.",
+      "raw_reply": "난 유이라고 불러! 네가 기억할 수 있도록.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 4.797,
+      "prompt_tokens": 1348,
+      "completion_tokens": 144,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "난 유이라고 불러! 네가 기억할 수 있도록.",
+        "face": "smiling",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly",
+          "cheerful"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "'이름 못 들었어'라고 말함.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"난 유이라고 불러! 네가 기억할 수 있도록.\",\n  \"face\": \"smiling\",\n  \"internal_emotion\": \"happy\",\n  \"emotion_tags\": [\"friendly\", \"cheerful\"],\n  \"interaction\": {\n    \"type\": \"neutral\",\n    \"intensity\": 0\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"'이름 못 들었어'라고 말함.\",\n      \"importance\": 1\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "C_repeat_high",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.15
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아까 시험 망친 거랑 비슷하네... 속상했겠다.",
+      "raw_reply": "아까 시험 망친 거랑 비슷하네... 속상했겠다.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.766,
+      "prompt_tokens": 1324,
+      "completion_tokens": 154,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아까 시험 망친 거랑 비슷하네... 속상했겠다.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "concern"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 면접을 보아 떨어졌고 기분이 나쁘다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아까 시험 망친 거랑 비슷하네... 속상했겠다.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"sympathy\", \"concern\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 면접을 보아 떨어졌고 기분이 나쁘다.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "D_all_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.0,
+        "llm_presence_penalty": 0.0,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아, 면접 떨어졌어? 속상하겠다. 내가 들어줄게.",
+      "raw_reply": "아, 면접 떨어졌어? 속상하겠다. 내가 들어줄게.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.109,
+      "prompt_tokens": 1324,
+      "completion_tokens": 153,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아, 면접 떨어졌어? 속상하겠다. 내가 들어줄게.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "sad",
+          "sympathetic"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 면접을 보았고 떨어졌다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아, 면접 떨어졌어? 속상하겠다. 내가 들어줄게.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"sad\", \"sympathetic\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 면접을 보았고 떨어졌다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "A_current",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.08
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아까 시험 망친 거랑 비슷하네. 속상했겠다.",
+      "raw_reply": "아까 시험 망친 거랑 비슷하네. 속상했겠다.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.078,
+      "prompt_tokens": 1324,
+      "completion_tokens": 150,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아까 시험 망친 거랑 비슷하네. 속상했겠다.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "sympathy",
+          "comfort"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "면접 실패로 인해 속상함.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아까 시험 망친 거랑 비슷하네. 속상했겠다.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"sympathy\", \"comfort\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"preference\",\n      \"content\": \"면접 실패로 인해 속상함.\",\n      \"importance\": 3\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    },
+    {
+      "case": "disappointment",
+      "variant": "B_repeat_off",
+      "seed": 83,
+      "valid": true,
+      "effective_penalties": {
+        "llm_frequency_penalty": 0.3,
+        "llm_presence_penalty": 0.5,
+        "llm_repetition_penalty": 1.0
+      },
+      "character_prompt_sha256": "ab903673b8197e1d93ba60c86b66eeddfb3c5b14a5178c9ae634a755d5599ac3",
+      "reply": "아... 면접 떨어졌어? 속상했겠다. 얘기하고 싶으면 들어줄게.",
+      "raw_reply": "아... 면접 떨어졌어? 속상했겠다. 얘기하고 싶으면 들어줄게.",
+      "grounded_recall": false,
+      "attempts": 1,
+      "seconds": 5.36,
+      "prompt_tokens": 1324,
+      "completion_tokens": 158,
+      "trimmed": false,
+      "decision": {
+        "schema_version": 1,
+        "reply": "아... 면접 떨어졌어? 속상했겠다. 얘기하고 싶으면 들어줄게.",
+        "face": "sad",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "affectionate",
+          "sad",
+          "sympathetic"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 면접을 보았으나 떨어졌다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "raw_attempts": [
+        [
+          {
+            "finish_reason": "stop",
+            "content": "{\n  \"schema_version\": 1,\n  \"reply\": \"아... 면접 떨어졌어? 속상했겠다. 얘기하고 싶으면 들어줄게.\",\n  \"face\": \"sad\",\n  \"internal_emotion\": \"affectionate\",\n  \"emotion_tags\": [\"affectionate\", \"sad\", \"sympathetic\"],\n  \"interaction\": {\n    \"type\": \"support\",\n    \"intensity\": 2\n  },\n  \"memory_candidates\": [\n    {\n      \"kind\": \"fact\",\n      \"content\": \"사용자가 면접을 보았으나 떨어졌다.\",\n      \"importance\": 2\n    }\n  ],\n  \"flags_set\": []\n}"
+          }
+        ]
+      ]
+    }
+  ],
+  "complete": true
+}

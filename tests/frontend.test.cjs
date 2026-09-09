@@ -60,9 +60,11 @@ test("chat shows Korean, persists session, falls back to existing face, and prev
   ui.node("messageInput").value = "안녕";
   const pending = ui.submit();
   assert.equal(ui.node("submit").disabled, true);
-  assert.equal(ui.node("typingIndicator").hidden, false);
+  assert.equal(ui.node("messageInput").value, "");
+  assert.equal(ui.node("typingIndicator").hidden, true);
   assert.equal(ui.node("chatForm").dataset.state, "sending");
   assert.equal(ui.node("reply").textContent, "");
+  assert.equal(ui.node("chatThread").children.length, 1);
   await ui.submit();
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(requests.length, 1);
@@ -186,13 +188,17 @@ test("reload retains pending identity and skips session recreation", async () =>
   assert.deepEqual(sent, pending);
 });
 
-test("waiting state and debug reason codes are separate from dialogue", async () => {
+test("typing indicator waits for a natural pause and debug reason codes stay separate", async () => {
   let done;
   const ui = mount(() => new Promise(resolve => { done = resolve; }));
   ui.node("messageInput").value = "테스트";
   const work = ui.submit();
   await new Promise(resolve => setTimeout(resolve, 550));
+  assert.equal(ui.node("chatForm").dataset.state, "sending");
+  assert.equal(ui.node("typingIndicator").hidden, true);
+  await new Promise(resolve => setTimeout(resolve, 150));
   assert.equal(ui.node("chatForm").dataset.state, "waiting_for_model");
+  assert.equal(ui.node("typingIndicator").hidden, false);
   done({ok: true, json: async () => ({reply: "반가워", relationship: {values: {trust: 31}, delta: {trust: 1}, reason_codes: ["base:support"]}})});
   await work;
   assert.match(ui.node("meta").textContent, /base:support/);

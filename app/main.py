@@ -1,3 +1,4 @@
+from app.debug_trace import capture, emit
 from contextlib import asynccontextmanager
 from functools import partial
 import uuid
@@ -127,20 +128,39 @@ async def chat(req: ChatRequest, request: Request):
             app_state.character.initial_relationship)
     turn_id = req.client_turn_id or uuid.uuid4().hex  # Legacy clients remain one-shot only.
     digest = payload_digest(req.message, req.comfy_on)
+    service = app_state.llm_service
+    draft = None
+    token = request.headers.get("X-NPC-Local-Prompt")
+    if token:
+        from copy import copy
+        from app.inspector_prompt import verify, character_with_draft, revision
+        try:
+            draft = verify(app_state.repository.path, token, req.model_dump())
+        except ValueError:
+            raise ChatError("INVALID_PROMPT_EXPERIMENT", "유효하지 않은 로컬 실험 요청입니다.", 403)
+        if settings.llm_generation_mode != "two_stage" or not hasattr(service, "character"):
+            raise ChatError("PROMPT_EXPERIMENT_UNAVAILABLE", "프롬프트 실험은 두 단계 생성 모드에서 지원합니다.", 409)
+        service = copy(service)
+        service.prompt_experiment = True
+        service.character = character_with_draft(app_state.character, draft)
+        digest = payload_digest(req.message + "\nlocal-prompt:" + draft.model_dump_json(), req.comfy_on)
 
-    async def execute(cancelled):
+    async def execute_turn(cancelled):
         repository = app_state.repository
         # Revoke queued requests from tabs whose room was closed before execution.
         await conversation_identity(request, session_id, profile_id)
         cached = await run_in_threadpool(repository.replay, profile_id, settings.character_id, turn_id, digest)
         if cached is not None:
+            emit("replay", response=cached)
             return cached
         if app_state.guest_limits:
             await run_in_threadpool(partial(app_state.guest_limits.admit, request.state.remote_owner, charge=True))
         before = await run_in_threadpool(repository.load, profile_id, settings.character_id)
-        notes = await run_in_threadpool(repository.recall, profile_id, settings.character_id, req.message)
+        notes = await run_in_threadpool(repository.recall, profile_id, settings.character_id, req.message, before.history)
+        emit("context_selected", selected_memories=[dict(note) for note in notes], history_messages=len(before.history),
+             summary=before.summary, relationship=before.values.model_dump())
         generated = await run_in_threadpool(partial(
-            app_state.llm_service.decide, message=req.message, history=before.history,
+            service.decide, message=req.message, history=before.history,
             memory_1line=before.summary, flags=before.flags,
             relationship={"values": before.values.model_dump(), "stage": stage(before.values)},
             memories=[{"content": note["content"], "kind": note["kind"]} for note in notes],
@@ -175,6 +195,15 @@ async def chat(req: ChatRequest, request: Request):
             payload_hash=digest, before=before, decision=decision, result=result, message=req.message,
             response=response, flags=flags))
 
+    async def execute(cancelled):
+        with capture(repository_database, settings.debug_trace, profile_id, settings.character_id, turn_id):
+            if draft is not None:
+                emit("prompt_experiment", revision=revision(draft), draft=draft.model_dump())
+            result = await execute_turn(cancelled)
+            emit("completed", response=result)
+            return result
+
+    repository_database = app_state.repository.path
     return await app_state.coordinator.submit(execute)
 
 

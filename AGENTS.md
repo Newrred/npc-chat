@@ -31,6 +31,12 @@ If repository HEAD differs from the reviewed baseline:
 
 ## Confirmed technical decisions
 
+- 2026-09-09 local inspector: explicit NPC_DEBUG_TRACE=1 captures private request/output diagnostics in a separate local sidecar, 1 hour/100 executions, default OFF. Current testing explicitly enabled. Never expose inspector on public app or commit traces. See docs/LOCAL_INSPECTOR.md.
+
+- 2026-09-08 memory pipeline: recent model history comes from committed turns, not the 6-turn compatibility cache. Deterministic source-backed views derive explicit name/preferred address and attributed recommendations/proposals/cancellations; keep them separate from user memory candidates. Reserve compact evidence before old dialogue. No new model call/schema migration. Actor statements are not verified real-world completion. See docs/MEMORY_PIPELINE.md.
+
+- 2026-09-08 user approved same-model two-stage generation: reply-only JSON, then metadata analyzing the frozen final reply, then one atomic commit. Current trial and env examples use NPC_GENERATION_MODE=two_stage; absent setting or explicit single_pass preserves rollback. Keep one model process and one queue; no early reply streaming. Metadata retries must not regenerate the successful reply. See docs/TWO_STAGE_GENERATION.md.
+
 - Keep FastAPI as the backend.
 - Keep the frontend deployable as static HTML/CSS/JavaScript.
 - Default deployment target: one FastAPI web app serving both static frontend and `/api`, plus a separate model process. Keep modules separate inside the app; separate frontend hosting is optional.
@@ -99,6 +105,8 @@ Required safeguards before public exposure:
 Do not silently skip a failing test. Distinguish failures introduced by the change from pre-existing or environment-dependent failures.
 
 ## Default verification commands
+
+For dialogue-quality experiments, maintain `docs/EXPERIMENT_LINEAGE.md`: record the experiment ID and parent, hypothesis, fixed and changed variables, evidence links, failures/limitations, adoption decision, and the next question. Add the planned entry before running the experiment and update it when complete. Preserve rejected variants and synthetic results; never include private conversations or secrets. Keep format success, memory retrieval, dialogue quality, and latency separate.
 
 Discover and use the repository's actual tooling. Until a project-specific command replaces these, the expected baseline is:
 
