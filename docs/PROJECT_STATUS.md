@@ -1,5 +1,9 @@
 # Project Status
 
+## 2026-09-11 Task23 서버 원클릭 관리 — 완료
+
+기존 공개 테스트 설정과 DB를 그대로 사용해 루트 `server.ps1` 하나로 start/stop/restart/status를 제공한다. 모델·Quick Tunnel·공개 웹·관리자 순서를 내부에서 관리하며 반복 실행·부분 실패 롤백·비밀값 비출력을 검증했다. 실제 전체 stop/반복 stop/start/restart와 공개 HTTP 200을 확인했고 관련20 tests, 전체591 tests, Ruff/compile/PowerShell 구문 검사가 통과했다. Quick Tunnel 주소는 시작·재시작 시 바뀌며 대화·기억·한도 DB는 유지한다.
+
 ## 2026-09-09 Task22 Windows 종료 스크립트 — 완료
 
 등록된 venv Python 부모를 종료해도 실제 uvicorn 자식이 남는 문제를 확인했다. 생성 시간·실행 파일·인자를 검증한 등록 프로세스와 당시 자식 트리만 종료하도록 수정했다. `stop-local`은 관리자→웹→모델을 한 번씩 종료하며, `stop-public-test`는 의도대로 터널만 종료한다. 실제 종료 후 8000/8001/8002 listener, llama-server/cloudflared, 런타임 등록부가 모두 비었고 반복 stop도 성공했다. 관련15 tests, 전체586 tests, Ruff/compile/diff 검사 통과.

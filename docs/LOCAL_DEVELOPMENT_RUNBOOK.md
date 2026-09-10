@@ -22,6 +22,17 @@ VRAM 검사는 출발 조건이지 OOM 방지 보장이 아니다. 다른 앱의
 
 개발 의존성을 설치하고 `.env.example`을 참고해 로컬 `.env`에 실행 파일과 GGUF의 절대 경로를 지정한다. 모델은 저장소 밖에 둔다. 비밀값·실제 PC 경로는 Git에 올리지 않는다.
 
+현재 공개 테스트 설정이 `.runtime/public-test.env`에 준비된 PC에서는 저장소 루트의 PowerShell에서 아래 명령 하나로 전체 구성을 관리한다.
+
+```powershell
+.\server.ps1 start    # 모델 → Quick Tunnel → 공개 웹 → 관리자 검사창
+.\server.ps1 status   # 네 구성요소와 현재 공개 주소 확인
+.\server.ps1 restart  # 전체 종료 후 새 공개 주소로 다시 시작
+.\server.ps1 stop     # 관리자 → 터널 → 웹 → 모델 순서로 전체 종료
+```
+
+상태가 이미 같아도 `start`와 `stop`을 반복 실행할 수 있다. 화면에 비밀키는 출력하지 않는다. `start`가 성공하면 외부 공유용 Chat 주소와 이 PC에서만 여는 Inspector 주소를 표시한다. Quick Tunnel 주소는 시작할 때 바뀔 수 있지만 개인 설정 파일의 guest secret, SQLite 대화 DB와 usage DB는 유지한다. 일부 구성요소 시작이 실패하면 이번 명령이 새로 시작한 프로세스를 되돌린다.
+
 ```dotenv
 LLAMA_SERVER_PATH=llama-server.exe
 LLAMA_MODEL_PATH=<absolute path to existing GGUF>

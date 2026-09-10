@@ -245,3 +245,7 @@ benchmark의 `--model` 인자로 후보 alias를 명시해 기본 `.env`를 바�
 ## 2026-09-09 — Windows 종료는 검증된 자식 트리까지 처리
 
 venv Python 부모만 종료하면 uvicorn 시스템 Python 자식이 남을 수 있어 등록된 부모와 당시 자식 트리를 각 신원 정보로 재검증해 함께 종료한다. 이름이나 포트만으로 프로세스를 선택하지 않는다. `stop-local`은 관리자·웹·모델 전체 종료, `stop-public-test`는 공개 터널만 종료하는 의미를 유지한다. LOCAL_DEVELOPMENT_RUNBOOK.md 참고.
+
+## 2026-09-11 — 공개 테스트 서버는 루트 명령 하나로 관리
+
+사용자가 실행 순서를 기억하지 않아도 되도록 `server.ps1`에 `start`, `stop`, `restart`, `status`를 제공한다. 기존 `.runtime/public-test.env`와 SQLite 데이터를 재사용하고 모델·Quick Tunnel·공개 웹·로컬 관리자 검사창의 순서와 부분 실패 정리를 내부에서 처리한다. 상태 명령은 비밀값을 출력하지 않으며 기존 세부 실행기는 진단과 부분 제어용으로 유지한다. Quick Tunnel 주소는 재시작 때 바뀔 수 있다. Task23과 LOCAL_DEVELOPMENT_RUNBOOK.md 참고.

@@ -52,6 +52,17 @@ COMFY_CONNECT=false
 
 `.env`에 `LLAMA_SERVER_PATH`와 `LLAMA_MODEL_PATH`를 설정한다. SQLite 스키마는 시작 시 준비한다. 자동 설치/모델 다운로드는 없다.
 
+현재 공개 테스트 구성을 가장 간단하게 관리하려면 저장소 루트의 PowerShell에서 다음 명령만 사용한다.
+
+```powershell
+.\server.ps1 start
+.\server.ps1 status
+.\server.ps1 restart
+.\server.ps1 stop
+```
+
+`start`가 모델·임시 공개 주소·채팅 웹·로컬 검사창을 순서대로 켜고 접속 주소를 표시한다. `stop`은 네 구성요소를 모두 끈다. `start`와 `stop`은 같은 상태에서 다시 실행해도 안전하다. Quick Tunnel 주소는 새로 시작하거나 재시작할 때 바뀔 수 있지만 SQLite의 대화·기억·일일 한도 기록은 지우지 않는다. 상세 설정은 [로컬 실행 런북](docs/LOCAL_DEVELOPMENT_RUNBOOK.md)을 참고한다.
+
 ```powershell
 ./scripts/start-local.ps1
 # 브라우저: http://127.0.0.1:8000
