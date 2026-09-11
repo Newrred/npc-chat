@@ -67,3 +67,10 @@ def test_cartethyia_prompt_has_distinct_identity_and_dialogue_rules():
     assert "자연스러운 해요체" in cartethyia.dialogue_prompt
     assert "본명은 카르티시아" in cartethyia.identity_prompt
     assert "별명은 띳띠" in cartethyia.identity_prompt
+    assert "특별한 호칭 없이" in cartethyia.dialogue_prompt
+    assert "사용자가 먼저 꺼내지 않았다면" in cartethyia.dialogue_prompt
+    assert "한 가지 구체적인 선택" in cartethyia.dialogue_prompt
+    assert "배경 설정" in cartethyia.identity_prompt
+    assert "설정어·비유를 끼워 넣지 마" in cartethyia.dialogue_prompt
+    assert "검 대신" not in cartethyia.system_prompt
+    assert "기사담" not in cartethyia.system_prompt
