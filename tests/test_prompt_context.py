@@ -88,6 +88,13 @@ def test_grounded_recall_quotes_negative_preference_without_guessing():
     assert grounded_preference_reply("커피는 내가 좋아하는 거였어?", []) is None
 
 
+def test_grounded_recall_does_not_replace_mixed_recall_and_recommendation():
+    from app.memory import grounded_preference_reply
+    notes = [{"kind": "preference", "content": "나는 녹차를 좋아해."}]
+    message = "내가 녹차 좋아한다고 한 거 기억나? 그럼 마실 것 하나 추천해줘."
+    assert grounded_preference_reply(message, notes) is None
+
+
 def test_current_correction_wins_before_storage_and_preserves_same_stance_pairs():
     history = [{"role": "user", "content": "나는 커피를 좋아해."}, {"role": "assistant", "content": "나도 좋아!"},
                {"role": "user", "content": "나는 민트초코를 좋아해."}, {"role": "assistant", "content": "그렇구나."}]

@@ -73,6 +73,26 @@ def test_attributed_events_never_infer_completion_or_user_preference():
     assert dialogue_events("오늘 약속 취소할게", "알았어.", "cancel")[0]["type"] == "cancellation_statement"
 
 
+def test_cancellation_ignores_negation_questions_and_reported_quotes():
+    assert dialogue_events("약속은 취소 안 할게.", "알았어.", "negated") == []
+    assert dialogue_events("약속은 취소는 안 할게.", "알았어.", "negated-topic") == []
+    assert dialogue_events("약속을 취소하지는 않을게.", "알았어.", "negated-long") == []
+    assert dialogue_events("약속 취소할까?", "글쎄.", "question") == []
+    assert dialogue_events("친구가 '약속 취소할게'라고 말했어.", "그렇구나.", "reported") == []
+
+
+def test_targeted_cancellation_keeps_unrelated_promise_evidence():
+    rows = [raw(0, "내일 도서관에서 만나자.", "알았어."),
+            raw(1, "모레 공원에서 만나자.", "알았어."),
+            raw(2, "내일 도서관 약속만 취소할게.", "알았어.")]
+    events = [json.loads(note["content"]) for note in source_views(rows, "우리 약속 뭐였지?")
+              if note["kind"] == "episode"]
+    assert any("공원" in event["quote"] and event["type"] == "proposal_or_promise_statement"
+               for event in events)
+    assert not any("도서관" in event["quote"] and event["type"] == "proposal_or_promise_statement"
+                   for event in events)
+
+
 def test_natural_movie_suggestion_and_scheduled_meeting_are_attributed_sources():
     rows = [raw(0, "너 이름이 뭐야", "유이야. 너는?"), raw(1, "나는 트럼프"),
             raw(2, "뭐가 재밌어?", "오늘 영화는 '인터스텔라' 어때?"),

@@ -249,3 +249,7 @@ venv Python 부모만 종료하면 uvicorn 시스템 Python 자식이 남을 수
 ## 2026-09-11 — 공개 테스트 서버는 루트 명령 하나로 관리
 
 사용자가 실행 순서를 기억하지 않아도 되도록 `server.ps1`에 `start`, `stop`, `restart`, `status`를 제공한다. 기존 `.runtime/public-test.env`와 SQLite 데이터를 재사용하고 모델·Quick Tunnel·공개 웹·로컬 관리자 검사창의 순서와 부분 실패 정리를 내부에서 처리한다. 상태 명령은 비밀값을 출력하지 않으며 기존 세부 실행기는 진단과 부분 제어용으로 유지한다. Quick Tunnel 주소는 재시작 때 바뀔 수 있다. Task23과 LOCAL_DEVELOPMENT_RUNBOOK.md 참고.
+
+## 2026-09-11 — 반복 축약·취소·복합 회상의 정보 손실 방지
+
+반복 대사 축약은 중간 사용자 발화도 단순 확인 또는 중복일 때만 적용한다. 취소 사건은 부정·의문·인용을 제외하고 날짜·시간·장소 표지와 source turn으로 대상 약속만 연결한다. 출처 있는 취향의 결정적 인용은 순수 회상에서만 최종 대사를 교체하고 복합 추천 요청에는 기억을 근거로만 전달한다. 모델 호출·DB schema·API 계약은 유지하며 일반 fact 주체 검증과 evidence 길이 예산은 후속 범위다. CONTEXT_INTEGRITY_FIXES.md 참고.

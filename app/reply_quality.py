@@ -21,6 +21,10 @@ def is_short_ack(message):
     return normalize(message).strip(" .!?？~ㅋㅎ") in SHORT_ACKS
 
 
+def _utterance_key(message):
+    return re.sub(r"[^0-9a-z가-힣]", "", normalize(message))
+
+
 def reply_guidance(message):
     text = normalize(message)
     if is_short_ack(message):
@@ -54,7 +58,12 @@ def compact_repetitive_history(history, *, tail_pairs=12):
     keep = set(range(len(pairs)))
     for cluster in clusters:
         if len(cluster) >= 3:
-            keep.difference_update(cluster[1:-1])
+            user_keys = [_utterance_key(pairs[index][0]["content"]) for index in cluster]
+            for position, index in enumerate(cluster[1:-1], start=1):
+                user_message = pairs[index][0]["content"]
+                duplicated = bool(user_keys[position]) and user_keys.count(user_keys[position]) >= 2
+                if is_short_ack(user_message) or duplicated:
+                    keep.discard(index)
     result = [item for index, pair in enumerate(pairs) if index in keep for item in pair]
     return result, len(source) - len(result)
 

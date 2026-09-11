@@ -184,6 +184,12 @@ def grounded_preference_reply(query, memories):
         return None
     if not re.search(r"[?？]|뭐였|기억나|했지|였지|였어", query):
         return None
+    question = re.search(r"[?？]", query)
+    if question and query[question.end():].strip(" .!?？~"):
+        return None
+    if re.search(r"추천\s*(?:해\s*줘|해줘|해\s*줄래|해줄래|해\s*봐|해봐)|"
+                 r"(?:골라|정해|권해|선택해)\s*(?:줘|줄래|봐)", query):
+        return None
     choices = [item for item in memories or [] if memory_subject(item["kind"], item["content"])]
     named = [item for item in choices if memory_subject(item["kind"], item["content"]) in normalize(query)]
     if not named and not re.search(r"뭐|뭘|어떤|취향", query):

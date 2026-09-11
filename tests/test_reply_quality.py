@@ -3,14 +3,16 @@ from app.reply_quality import (compact_repetitive_history, is_short_ack, recent_
 from tests.test_two_stage import metadata, two_stage
 
 
-def pairs(replies):
+def pairs(replies, users=None):
     return [item for n, reply in enumerate(replies)
-            for item in ({"role": "user", "content": f"말 {n}"}, {"role": "assistant", "content": reply})]
+            for item in ({"role": "user", "content": users[n] if users else f"말 {n}"},
+                         {"role": "assistant", "content": reply})]
 
 
 def test_repetition_compaction_preserves_pairs_latest_and_source():
     history = pairs(["처음 답변", "응, 살짝만 더 해줘.", "응, 조금만 더 해줘.",
-                     "응, 살짝만 해줘.", "새로운 답변"])
+                     "응, 살짝만 해줘.", "새로운 답변"],
+                    ["처음 말", "계속해", "계속해", "계속해", "다른 얘기"])
     compacted, removed = compact_repetitive_history(history)
     assert removed == 2 and len(compacted) % 2 == 0
     assert compacted[-2:] == history[-2:]
@@ -22,6 +24,20 @@ def test_repetition_compaction_preserves_pairs_latest_and_source():
 def test_invalid_history_shape_is_not_rewritten():
     history = [{"role": "assistant", "content": "응"}]
     assert compact_repetitive_history(history) == (history, 0)
+
+
+def test_repetition_compaction_preserves_unique_user_correction():
+    history = [
+        {"role": "user", "content": "오늘 약속 장소는 강남역이야."},
+        {"role": "assistant", "content": "응, 알았어."},
+        {"role": "user", "content": "정정할게. 장소는 신촌역이야."},
+        {"role": "assistant", "content": "응, 알았어."},
+        {"role": "user", "content": "나는 지금 출발했어."},
+        {"role": "assistant", "content": "응, 알았어."},
+    ]
+    compacted, removed = compact_repetitive_history(history)
+    assert compacted == history
+    assert removed == 0
 
 
 def test_guidance_distinguishes_ack_question_request_emotion_and_default():
@@ -58,7 +74,8 @@ def test_duplicate_candidate_retries_once_and_metadata_sees_better_reply():
 
 
 def test_reply_stage_compacts_repetition_but_metadata_keeps_original_history():
-    history = pairs(["응, 살짝만 더 해줘.", "응, 조금만 더 해줘.", "응, 살짝만 해줘."])
+    history = pairs(["응, 살짝만 더 해줘.", "응, 조금만 더 해줘.", "응, 살짝만 해줘."],
+                    ["계속해", "계속해", "계속해"])
     service, calls = two_stage([{"reply": "그 얘기는 이제 그만하자."}, metadata()])
     try:
         service.decide(message="다른 얘기하자", history=history)
@@ -76,5 +93,20 @@ def test_short_ack_does_not_trigger_quality_retry():
     try:
         result = service.decide(message="응", history=pairs(["응, 알았어."]))
         assert len(calls) == 2 and [stage.stage for stage in result.stages] == ["reply", "metadata"]
+    finally:
+        service.client.close()
+
+
+def test_mixed_preference_recall_keeps_model_recommendation_reply():
+    service, calls = two_stage([{"reply": "녹차 라떼 마셔볼래? 부드러워서 잘 맞을 것 같아."}, metadata()])
+    try:
+        result = service.decide(
+            message="내가 녹차 좋아한다고 한 거 기억나? 그럼 마실 것 하나 추천해줘.",
+            history=[],
+            memories=[{"kind": "preference", "content": "나는 녹차를 좋아해."}],
+        )
+        assert result.decision.reply == "녹차 라떼 마셔볼래? 부드러워서 잘 맞을 것 같아."
+        assert not result.grounded_recall
+        assert len(calls) == 2
     finally:
         service.client.close()

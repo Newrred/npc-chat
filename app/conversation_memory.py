@@ -14,6 +14,40 @@ _REFERENTIAL_RECOMMENDATION = re.compile(
 _TOPIC_BOUNDARY = re.compile(
     r"그만(?:하자|할래|해|할게|하라고)?|다른\s*(?:얘기|이야기)(?:하자|할래|해)?|"
     r"주제(?:를)?\s*바꾸(?:자|자고|고\s*싶어|려고)?|(?:그건|그거|이건)?\s*말고")
+_CANCELLATION = re.compile(r"약속.*취소|취소.*약속")
+_CANCELLATION_NEGATION = re.compile(
+    r"안\s*취소|취소(?:는|를)?\s*(?:안|못)|취소(?:를\s*)?하지(?:는)?\s*(?:않|말)")
+_REPORTED_SPEECH = re.compile(r"['‘“\"].*['’”\"].*(?:라고|이라며)|(?:라고|이라며)\s*(?:말|했|한)")
+_GENERIC_PROMISE_TERMS = {
+    "약속", "약속만", "취소", "취소할게", "할게", "갈게", "가자", "만나자", "만나요",
+    "보러", "좋아", "그래", "알았어", "우리",
+}
+
+
+def _is_cancellation_statement(utterance):
+    return bool(_CANCELLATION.search(utterance)
+                and not re.search(r"[?？]", utterance)
+                and not _CANCELLATION_NEGATION.search(utterance)
+                and not _REPORTED_SPEECH.search(utterance))
+
+
+def _promise_markers(utterance):
+    markers = {term for term in topic_terms(utterance)
+               if term not in _GENERIC_PROMISE_TERMS
+               and not term.startswith(("약속", "취소"))}
+    markers.update(re.findall(r"오늘|내일|모레|\d+\s*시", utterance))
+    return markers
+
+
+def _apply_cancellation(events, cancellation):
+    proposals = [event for event in events if event["type"] == "proposal_or_promise_statement"]
+    markers = _promise_markers(cancellation["quote"])
+    matched_turns = {event["source_turn"] for event in proposals
+                     if markers & _promise_markers(event["quote"])}
+    if not matched_turns and not markers and proposals:
+        matched_turns = {proposals[-1]["source_turn"]}
+    return [event for event in events if not (
+        event["type"] == "proposal_or_promise_statement" and event["source_turn"] in matched_turns)]
 
 
 def _active_user_context(history):
@@ -90,10 +124,11 @@ def dialogue_events(message, reply, turn_id):
             result.append({"type": "recommendation", "actor": actor,
                 "topic": "movie" if re.search(r"영화", message + reply) else "book" if re.search(r"책|소설|읽", message + reply) else "recommendation",
                 "value": titles[0], "quote": utterance, "source_turn": turn_id})
-        elif re.search(r"약속.*취소|취소.*약속", utterance) and not re.search(r"[?？]", utterance):
+        elif _is_cancellation_statement(utterance):
             result.append({"type": "cancellation_statement", "actor": actor,
                 "topic": "promise", "quote": utterance, "source_turn": turn_id})
-        elif re.search(r"할게|갈게|줄게|가자|만나자|빌려볼까|끓여줄게", utterance) or (
+        elif (not _CANCELLATION.search(utterance) and re.search(
+                r"할게|갈게|줄게|가자|만나자|빌려볼까|끓여줄게", utterance)) or (
                 re.search(r"오늘|내일|모레|\d+\s*시", utterance)
                 and re.search(r"(?:보러\s*)?갈까|만나(?:요|자)|보러\s*가자", utterance)
                 and not re.search(r"안\s*만나|못\s*만나|취소|않", utterance)):
@@ -131,10 +166,9 @@ def source_views(rows, query, history=None, audit=None):
                 or bool(terms & topic_terms(event.get("value", ""))))
             if relevant:
                 if event["type"] == "cancellation_statement":
-                    events = [item for item in events if item["topic"] != "promise"]
-                elif event["type"] == "proposal_or_promise_statement" and any(
-                        item["type"] == "cancellation_statement" for item in events):
-                    events = [item for item in events if item["topic"] != "promise"]
+                    events = _apply_cancellation(events, event)
+                elif event["type"] == "proposal_or_promise_statement":
+                    events = [item for item in events if item["type"] != "cancellation_statement"]
                 events.append(event)
                 events = events[-3:]
         previous = reply

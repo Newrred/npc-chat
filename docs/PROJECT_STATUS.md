@@ -1,5 +1,9 @@
 # Project Status
 
+## 2026-09-11 Task24 문맥 정보 보존 P0 수정 — 완료
+
+고정 커밋 검토에서 재현된 반복 축약의 사용자 정정 손실, 취소 의미·대상 혼합, 복합 취향 질문의 답변 강제 교체를 현재 구조와 호출 수를 유지하며 수정했다. 수정 전 새 probe 4건이 예상대로 실패했고, 단계별 수정 후 새 회귀 5건을 포함한 관련67 tests와 전체596 tests, Ruff/compile 검사가 통과했다. 실제 서버 재시작 후 model/web/admin/public 200을 확인했고 사용자 DB·공개 quota는 사용하지 않았다. 긴 evidence 예산과 일반 fact 주체 보존은 남는다. CONTEXT_INTEGRITY_FIXES.md 참고.
+
 ## 2026-09-11 Task23 서버 원클릭 관리 — 완료
 
 기존 공개 테스트 설정과 DB를 그대로 사용해 루트 `server.ps1` 하나로 start/stop/restart/status를 제공한다. 모델·Quick Tunnel·공개 웹·관리자 순서를 내부에서 관리하며 반복 실행·부분 실패 롤백·비밀값 비출력을 검증했다. 실제 전체 stop/반복 stop/start/restart와 공개 HTTP 200을 확인했고 관련20 tests, 전체591 tests, Ruff/compile/PowerShell 구문 검사가 통과했다. Quick Tunnel 주소는 시작·재시작 시 바뀌며 대화·기억·한도 DB는 유지한다.
