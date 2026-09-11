@@ -20,6 +20,7 @@ class CharacterConfig:
     relationship_matrix: dict = field(default_factory=lambda: dict(BASE_MATRIX))
     dialogue_prompt: str | None = None
     identity_prompt: str | None = None
+    display_name: str = ""
 
 
 def _render_prompt_sections(sections: dict[str, list[str]]) -> str:
@@ -40,6 +41,9 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
         raise FileNotFoundError(f"Character config not found: {path}")
 
     raw = json.loads(path.read_text(encoding="utf-8"))
+    configured_id = str(raw.get("id", resolved_id)).strip() or resolved_id
+    if configured_id != resolved_id:
+        raise ValueError(f"Character id does not match filename: {path}")
     if settings.llm_output_contract == "legacy":
         raw["sections"]["OUTPUT REQUIREMENT"] = raw["legacy_output_requirement"]
         raw["retry_user_prompt"] = raw["legacy_retry_user_prompt"]
@@ -67,7 +71,8 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
     ):
         raise ValueError("Character relationship matrix must define bounded five-stat vectors")
     return CharacterConfig(
-        character_id=str(raw.get("id", resolved_id)).strip() or resolved_id,
+        character_id=configured_id,
+        display_name=str(raw.get("display_name", configured_id)).strip() or configured_id,
         system_prompt=_render_prompt_sections(normalized_sections),
         retry_user_prompt=retry_user_prompt,
         allowed_flags=tuple(allowed_flags),

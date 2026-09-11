@@ -12,30 +12,34 @@
     <section id="conversationList" class="conversation-list" aria-label="대화 목록">
       <header class="list-header"><div class="brand">사이<span class="brand-dot"></span></div><span class="brand-note">가까워지는 시간</span></header>
       <div class="list-heading"><p class="eyebrow">YOUR CONVERSATIONS</p><h1>대화</h1><p>반가운 얼굴, 이어지는 이야기.</p></div>
-      <div class="list-section-label">나의 대화 <span>01</span></div>
+      <div class="list-section-label">나의 대화 <span>02</span></div>
       <button id="openYuiRoom" class="conversation-card" type="button" aria-label="유이 대화방 열기">
         <span class="avatar-wrap"><img src="./faces/neutral.png" alt="" class="room-avatar" /><span class="avatar-mark" aria-hidden="true"></span></span>
         <span class="conversation-copy"><span class="conversation-name">유이 <span class="room-tag">캐릭터</span></span><span id="roomPreview" class="room-preview">오늘은 어떤 이야기를 나눌까?</span></span>
         <span class="conversation-trailing"><span class="room-chevron" aria-hidden="true">›</span><span id="roomUnread" class="unread-dot" hidden aria-label="새 답변 있음"></span></span>
       </button>
-      <div class="coming-section"><span class="list-section-label">다음 만남</span><div class="coming-card"><span class="coming-avatar" aria-hidden="true">＋</span><div><strong>새로운 이야기가 찾아와요</strong><p>다른 캐릭터는 준비 중이에요.</p></div><span class="coming-tag">SOON</span></div></div>
+      <button id="openCartethyiaRoom" class="conversation-card" type="button" aria-label="카르티시아 대화방 열기">
+        <span class="avatar-wrap"><img src="./characters/cartethyia/faces/neutral.png" alt="" class="room-avatar" /><span class="avatar-mark" aria-hidden="true"></span></span>
+        <span class="conversation-copy"><span class="conversation-name">카르티시아 <span class="room-tag">명조</span></span><span id="cartethyiaRoomPreview" class="room-preview">바람을 따라 이야기를 시작해요.</span></span>
+        <span class="conversation-trailing"><span class="room-chevron" aria-hidden="true">›</span><span id="cartethyiaRoomUnread" class="unread-dot" hidden aria-label="새 답변 있음"></span></span>
+      </button>
       <div class="list-footer"><span class="footer-orbit" aria-hidden="true">✳</span><p>한마디에서 시작되는<br />우리 사이.</p></div>
     </section>
-    <section id="chatRoom" class="chat-room" hidden aria-label="유이 대화방">
+    <section id="chatRoom" class="chat-room" hidden aria-label="캐릭터 대화방">
     <header class="topbar">
       <button id="backToList" class="icon-button back-button" type="button" aria-label="대화 목록으로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7" /></svg></button>
-      <img class="header-avatar" src="./faces/neutral.png" alt="" />
-      <div class="room-heading"><h1>유이</h1><span id="roomPresence">메시지로 함께해요</span></div>
+      <img id="headerAvatar" class="header-avatar" src="./faces/neutral.png" alt="" />
+      <div class="room-heading"><h1 id="roomTitle">유이</h1><span id="roomPresence">메시지로 함께해요</span></div>
       <button id="startVideo" class="icon-button video-button" type="button" aria-label="유이 캐릭터 영상 연결" aria-controls="videoStage"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="3"/><path d="m15 10 6-3v10l-6-3"/></svg></button>
     </header>
     <div id="videoInvite" class="video-invite"><span><strong>표정까지, 더 가까이</strong><span>캐릭터 화면을 열고 대화해 보세요</span></span><button id="joinVideo" type="button">영상 연결</button></div>
-    <section id="videoStage" class="stage" hidden aria-label="유이의 캐릭터 영상">
+    <section id="videoStage" class="stage" hidden aria-label="캐릭터 영상">
       <div class="portrait-wrap">
         <img id="heroine" alt="유이의 현재 표정" />
         <div id="placeholder" class="placeholder">표정을 불러오고 있어요</div>
         <div hidden id="faceChip" class="face-chip">face: neutral</div>
         <div class="video-topline"><span class="video-label"><span class="portrait-dot"></span>캐릭터 화면</span><span id="videoStatus" role="status">화면 연결 중…</span></div>
-        <div class="video-controls"><div class="video-identity"><strong>유이</strong><span>표정과 함께 나누는 대화</span></div>
+        <div class="video-controls"><div class="video-identity"><strong id="videoCharacterName">유이</strong><span>표정과 함께 나누는 대화</span></div>
           <button id="resizeVideo" class="call-control minimize-call" type="button" aria-label="영상 화면 작게 보기">↙</button>
           <button id="endVideo" class="call-control end-call" type="button" aria-label="캐릭터 영상 종료"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14c5-5 13-5 18 0l-3 3-3-2v-3M9 12v3l-3 2-3-3"/></svg></button>
         </div>
@@ -44,9 +48,9 @@
     <section class="dialogue" aria-label="채팅">
       <div class="history-controls"><span id="historyStatus" role="status"></span><button id="reloadHistory" type="button" hidden>다시 불러오기</button><button id="reconnectHistory" type="button" hidden>현재 대화로 연결</button><button id="olderHistory" type="button" hidden>이전 대화 더 보기</button></div>
       <div id="chatThread" class="chat-thread" role="log" aria-label="대화 내용" aria-live="polite" aria-relevant="additions">
-        <p class="chat-intro">유이에게 편하게 말을 걸어보세요.</p>
+        <p id="chatIntro" class="chat-intro">유이에게 편하게 말을 걸어보세요.</p>
         <div id="typingIndicator" class="message-row assistant typing-row" hidden>
-          <span class="speaker">유이</span><div class="bubble typing-bubble" role="status" aria-label="유이가 답변을 입력 중이에요"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
+          <span id="typingSpeaker" class="speaker">유이</span><div id="typingBubble" class="bubble typing-bubble" role="status" aria-label="유이가 답변을 입력 중이에요"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
         </div>
       </div>
       <div hidden id="reply"></div>
@@ -66,7 +70,7 @@
     </section>
     </section>
   </main>
-  <dialog id="leaveDialog"><h2>대화방을 나갈까요?</h2><p>유이와의 대화 기록, 기억과 관계가 초기화돼요.<br>목록으로 돌아가기만 하면 대화는 그대로 유지돼요.</p><p>사용한 일일 대화 한도는 초기화되지 않아요.</p><div class="dialog-actions"><button id="cancelLeave" type="button">취소</button><button id="confirmLeave" type="button" class="leave-room">기록 삭제하고 나가기</button></div><p id="leaveStatus" role="status"></p></dialog>
+  <dialog id="leaveDialog"><h2>대화방을 나갈까요?</h2><p id="leaveDescription">유이와의 대화 기록, 기억과 관계가 초기화돼요.<br>목록으로 돌아가기만 하면 대화는 그대로 유지돼요.</p><p>사용한 일일 대화 한도는 초기화되지 않아요.</p><div class="dialog-actions"><button id="cancelLeave" type="button">취소</button><button id="confirmLeave" type="button" class="leave-room">기록 삭제하고 나가기</button></div><p id="leaveStatus" role="status"></p></dialog>
   <script src="./config.js"></script>
   <script src="./app.js"></script>
 </body>

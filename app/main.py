@@ -1,4 +1,5 @@
 from app.debug_trace import capture, emit
+from copy import copy
 from contextlib import asynccontextmanager
 from functools import partial
 import uuid
@@ -14,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.models import ChatRequest, ChatResponse, FaceType, ImageStatusResponse
+from app.models import CharacterId, ChatRequest, ChatResponse, FaceType, ImageStatusResponse
 from app.services.comfy_service import ComfyService
 from app.services.health_service import check_dependencies, check_llm
 from app.services.decision_service import LLMOutputError, LLMTransportError
@@ -56,64 +57,86 @@ async def ready(request: Request) -> JSONResponse:
 class SessionRequest(BaseModel):
     session_id: str | None = Field(default=None, max_length=128)
     profile_id: str | None = Field(default=None, max_length=128)
+    character_id: CharacterId | None = None
 
 
 class ResetRequest(BaseModel):
     session_id: str = Field(min_length=1, max_length=128)
     profile_id: str = Field(min_length=1, max_length=128)
+    character_id: CharacterId | None = None
 
 
-async def conversation_identity(request, session_id, profile_id):
+def requested_character(character_id: str | None):
+    try:
+        return load_character_config(character_id or settings.character_id)
+    except FileNotFoundError:
+        raise ChatError("CHARACTER_NOT_FOUND", "선택한 캐릭터를 찾을 수 없습니다.", 404)
+
+
+def service_for_character(service, character):
+    if not hasattr(service, "character") or character.character_id == settings.character_id:
+        return service
+    selected = copy(service)
+    selected.character = character
+    return selected
+
+
+async def conversation_identity(request, session_id, profile_id, character):
     state = request.app.state
     owner = getattr(request.state, "remote_owner", None)
     if owner:
         return await run_in_threadpool(state.repository.resolve_owned, owner, session_id, profile_id,
-                                       settings.character_id, state.character.initial_relationship)
+                                       character.character_id, character.initial_relationship)
     return await run_in_threadpool(state.repository.resolve, session_id, profile_id,
-                                   settings.character_id, state.character.initial_relationship)
+                                   character.character_id, character.initial_relationship)
 
 
 @router.get("/api/conversation")
 async def conversation(request: Request, session_id: str = Query(min_length=1, max_length=128),
                        profile_id: str = Query(min_length=1, max_length=128),
+                       character_id: str | None = Query(default=None, pattern=r"^[a-z0-9][a-z0-9_-]{0,63}$"),
                        before: str | None = Query(default=None, max_length=128),
                        limit: int = Query(default=50, ge=1, le=100)):
-    _, profile = await conversation_identity(request, session_id, profile_id)
+    character = requested_character(character_id)
+    _, profile = await conversation_identity(request, session_id, profile_id, character)
     page = await run_in_threadpool(request.app.state.repository.history_page,
-                                  profile, settings.character_id, before, limit)
+                                  profile, character.character_id, before, limit)
     return JSONResponse(page, headers={"Cache-Control": "no-store"})
 
 
 @router.post("/api/conversation/reset")
 async def reset_conversation(req: ResetRequest, request: Request):
+    character = requested_character(req.character_id)
     async def execute(cancelled):
-        session, profile = await conversation_identity(request, req.session_id, req.profile_id)
+        session, profile = await conversation_identity(request, req.session_id, req.profile_id, character)
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499)
         return await run_in_threadpool(request.app.state.repository.reset_conversation,
-            session, profile, settings.character_id, request.app.state.character.initial_relationship)
+            session, profile, character.character_id, character.initial_relationship)
     return await request.app.state.coordinator.submit(execute)
 
 
 @router.post("/api/session")
 async def open_session(req: SessionRequest, request: Request):
     state = request.app.state
+    character = requested_character(req.character_id)
     if getattr(request.state, "remote_owner", None):
         if state.guest_limits:
             await run_in_threadpool(state.guest_limits.admit, request.state.remote_owner)
         session_id, profile_id = await run_in_threadpool(partial(
             state.repository.resolve_owned, request.state.remote_owner, req.session_id, req.profile_id,
-            settings.character_id, state.character.initial_relationship, create=True))
+            character.character_id, character.initial_relationship, create=True))
         return {"session_id": session_id, "profile_id": profile_id}
     session_id, profile_id = await run_in_threadpool(
-        partial(state.repository.resolve, req.session_id, req.profile_id, settings.character_id,
-                state.character.initial_relationship, allow_stale=True))
+        partial(state.repository.resolve, req.session_id, req.profile_id, character.character_id,
+                character.initial_relationship, allow_stale=True))
     return {"session_id": session_id, "profile_id": profile_id}
 
 
 @router.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, request: Request):
     app_state = request.app.state
+    character = requested_character(req.character_id)
     if req.client_turn_id and not (req.session_id or req.profile_id):
         raise ChatError("SESSION_REQUIRED", "먼저 대화 세션을 생성해 주세요.", 422)
     if getattr(request.state, "remote_owner", None):
@@ -121,18 +144,17 @@ async def chat(req: ChatRequest, request: Request):
             raise ChatError("TURN_ID_REQUIRED", "요청 식별자가 필요합니다.", 422)
         session_id, profile_id = await run_in_threadpool(
             app_state.repository.resolve_owned, request.state.remote_owner, req.session_id, req.profile_id,
-            settings.character_id, app_state.character.initial_relationship)
+            character.character_id, character.initial_relationship)
     else:
         session_id, profile_id = await run_in_threadpool(
-            app_state.repository.resolve, req.session_id, req.profile_id, settings.character_id,
-            app_state.character.initial_relationship)
+            app_state.repository.resolve, req.session_id, req.profile_id, character.character_id,
+            character.initial_relationship)
     turn_id = req.client_turn_id or uuid.uuid4().hex  # Legacy clients remain one-shot only.
     digest = payload_digest(req.message, req.comfy_on)
-    service = app_state.llm_service
+    service = service_for_character(app_state.llm_service, character)
     draft = None
     token = request.headers.get("X-NPC-Local-Prompt")
     if token:
-        from copy import copy
         from app.inspector_prompt import verify, character_with_draft, revision
         try:
             draft = verify(app_state.repository.path, token, req.model_dump())
@@ -142,21 +164,21 @@ async def chat(req: ChatRequest, request: Request):
             raise ChatError("PROMPT_EXPERIMENT_UNAVAILABLE", "프롬프트 실험은 두 단계 생성 모드에서 지원합니다.", 409)
         service = copy(service)
         service.prompt_experiment = True
-        service.character = character_with_draft(app_state.character, draft)
+        service.character = character_with_draft(character, draft)
         digest = payload_digest(req.message + "\nlocal-prompt:" + draft.model_dump_json(), req.comfy_on)
 
     async def execute_turn(cancelled):
         repository = app_state.repository
         # Revoke queued requests from tabs whose room was closed before execution.
-        await conversation_identity(request, session_id, profile_id)
-        cached = await run_in_threadpool(repository.replay, profile_id, settings.character_id, turn_id, digest)
+        await conversation_identity(request, session_id, profile_id, character)
+        cached = await run_in_threadpool(repository.replay, profile_id, character.character_id, turn_id, digest)
         if cached is not None:
             emit("replay", response=cached)
             return cached
         if app_state.guest_limits:
             await run_in_threadpool(partial(app_state.guest_limits.admit, request.state.remote_owner, charge=True))
-        before = await run_in_threadpool(repository.load, profile_id, settings.character_id)
-        notes = await run_in_threadpool(repository.recall, profile_id, settings.character_id, req.message, before.history)
+        before = await run_in_threadpool(repository.load, profile_id, character.character_id)
+        notes = await run_in_threadpool(repository.recall, profile_id, character.character_id, req.message, before.history)
         emit("context_selected", selected_memories=[dict(note) for note in notes], history_messages=len(before.history),
              summary=before.summary, relationship=before.values.model_dump())
         generated = await run_in_threadpool(partial(
@@ -166,8 +188,8 @@ async def chat(req: ChatRequest, request: Request):
             memories=[{"content": note["content"], "kind": note["kind"]} for note in notes],
         ))
         decision = LLMDecision.model_validate(generated.decision.model_dump())
-        decision.flags_set = [flag for flag in decision.flags_set if flag in app_state.character.allowed_flags]
-        result = calculate(before.values, decision.interaction, before.recent, app_state.character.relationship_matrix)
+        decision.flags_set = [flag for flag in decision.flags_set if flag in character.allowed_flags]
+        result = calculate(before.values, decision.interaction, before.recent, character.relationship_matrix)
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499, True)
         comfy = await app_state.comfy_service.maybe_generate(
@@ -191,12 +213,12 @@ async def chat(req: ChatRequest, request: Request):
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499, True)
         return await run_in_threadpool(partial(
-            repository.commit, profile_id=profile_id, character_id=settings.character_id, turn_id=turn_id,
+            repository.commit, profile_id=profile_id, character_id=character.character_id, turn_id=turn_id,
             payload_hash=digest, before=before, decision=decision, result=result, message=req.message,
             response=response, flags=flags))
 
     async def execute(cancelled):
-        with capture(repository_database, settings.debug_trace, profile_id, settings.character_id, turn_id):
+        with capture(repository_database, settings.debug_trace, profile_id, character.character_id, turn_id):
             if draft is not None:
                 emit("prompt_experiment", revision=revision(draft), draft=draft.model_dump())
             result = await execute_turn(cancelled)
@@ -208,11 +230,13 @@ async def chat(req: ChatRequest, request: Request):
 
 
 @router.get("/api/image/status", response_model=ImageStatusResponse)
-async def image_status(request: Request, session_id: str, face: FaceType) -> ImageStatusResponse:
+async def image_status(request: Request, session_id: str, face: FaceType,
+                       character_id: str | None = Query(default=None, pattern=r"^[a-z0-9][a-z0-9_-]{0,63}$")) -> ImageStatusResponse:
+    character = requested_character(character_id)
     if getattr(request.state, "remote_owner", None):
         await run_in_threadpool(request.app.state.repository.resolve_owned, request.state.remote_owner,
-                                session_id, None, settings.character_id,
-                                request.app.state.character.initial_relationship)
+                                session_id, None, character.character_id,
+                                character.initial_relationship)
     comfy_service = request.app.state.comfy_service
     status = await comfy_service.get_face_image_status(session_id=session_id, face=face)
     return ImageStatusResponse(

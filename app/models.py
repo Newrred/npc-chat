@@ -1,9 +1,12 @@
-﻿from typing import Literal
+﻿from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
 
 from app.decision import FaceType
 from app.relationship import RelationshipResult
+
+
+CharacterId = Annotated[str, Field(pattern=r"^[a-z0-9][a-z0-9_-]{0,63}$")]
 
 
 class ChatTurn(BaseModel):
@@ -17,6 +20,7 @@ class ChatRequest(BaseModel):
     session_id: str | None = Field(default=None, min_length=1, max_length=128)
     profile_id: str | None = Field(default=None, min_length=1, max_length=128)
     client_turn_id: str | None = Field(default=None, min_length=1, max_length=128)
+    character_id: CharacterId | None = None
     comfy_on: bool = False
 
 

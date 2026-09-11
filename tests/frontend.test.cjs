@@ -185,7 +185,7 @@ test("reload retains pending identity and skips session recreation", async () =>
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(ui.node("retryButton").hidden, false);
   await ui.node("retryButton").listeners.click();
-  assert.deepEqual(sent, pending);
+  assert.deepEqual(sent, {...pending, character_id:"default"});
 });
 
 test("typing indicator waits for a natural pause and debug reason codes stay separate", async () => {
@@ -290,6 +290,30 @@ test("room deep link opens chat and portrait failure is not shown as connected",
   ui.node("heroine").listeners.error();
   assert.equal(ui.node("videoStatus").textContent, "화면을 불러오지 못했어요");
   assert.equal(ui.node("chatRoom").hidden, false);
+});
+
+test("Cartethyia room uses its own portrait, identity, request, and browser session", async () => {
+  const requests = [];
+  const ui = mount(async (url, options) => {
+    const body = options?.body ? JSON.parse(options.body) : null;
+    requests.push({url, body});
+    if (url.endsWith("/api/session")) return {ok:true,json:async()=>({session_id:"cart-session",profile_id:"shared-profile"})};
+    return {ok:true,json:async()=>({reply:"바람이 좋은 날이네요.",face:"happy",comfy_status:"disabled"})};
+  }, true, {hash:"#chat/cartethyia", realSession:true});
+  assert.equal(ui.node("chatRoom").hidden, false);
+  assert.equal(ui.node("roomTitle").textContent, "카르티시아");
+  assert.equal(ui.node("headerAvatar").src, "./characters/cartethyia/faces/neutral.png");
+  assert.equal(ui.node("heroine").src, "./characters/cartethyia/faces/neutral.png");
+  assert.match(ui.node("messageInput").placeholder, /카르티시아/);
+  ui.node("messageInput").value = "안녕";
+  await ui.submit();
+  const sessionRequest = requests.find(item => item.url.endsWith("/api/session"));
+  const chatRequest = requests.find(item => item.url.endsWith("/api/chat"));
+  assert.equal(sessionRequest.body.character_id, "cartethyia");
+  assert.equal(chatRequest.body.character_id, "cartethyia");
+  assert.equal(ui.stored.get("npc_session_id_cartethyia"), "cart-session");
+  assert.equal(ui.stored.has("npc_session_id"), false);
+  assert.equal(ui.node("chatThread").children[1].children[0].textContent, "카르티시아");
 });
 
 test("messenger retains multiple turns as text and stops typing after each reply", async () => {

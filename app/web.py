@@ -30,3 +30,13 @@ def mount_frontend(application: FastAPI) -> None:
                 or path.suffix.lower() != ".png" or not path.is_file()):
             raise HTTPException(404)
         return FileResponse(path)
+
+    @application.get("/characters/{character_id}/faces/{filename}", include_in_schema=False)
+    def character_face_file(character_id: str, filename: str):
+        characters = (FRONTEND_DIR / "characters").resolve()
+        directory = (characters / character_id / "faces").resolve()
+        path = (directory / filename).resolve()
+        if (directory.parent.parent != characters or path.parent != directory
+                or path.suffix.lower() != ".png" or not path.is_file()):
+            raise HTTPException(404)
+        return FileResponse(path)

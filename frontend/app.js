@@ -1,20 +1,42 @@
 let storageError = false;
+const CHARACTERS = {
+  yui: {
+    id: "default", route: "yui", name: "유이", faceBase: "./faces",
+    preview: "오늘은 어떤 이야기를 나눌까?", emptyPreview: "유이에게 첫 메시지를 보내보세요.",
+  },
+  cartethyia: {
+    id: "cartethyia", route: "cartethyia", name: "카르티시아", faceBase: "./characters/cartethyia/faces",
+    preview: "바람을 따라 이야기를 시작해요.", emptyPreview: "카르티시아에게 첫 메시지를 보내보세요.",
+  },
+};
+function characterFromHash() {
+  const route = String(window.location?.hash || "").replace(/^#chat\//, "");
+  return CHARACTERS[route] || CHARACTERS.yui;
+}
+let activeCharacter = characterFromHash();
+function scopedStorageKey(base) {
+  return activeCharacter.id === "default" ? base : `${base}_${activeCharacter.id}`;
+}
 function readStored(key) {
   try { return localStorage.getItem(key) || ""; }
   catch (_) { storageError = true; return ""; }
 }
-let sessionId = readStored("npc_session_id");
+let sessionId = readStored(scopedStorageKey("npc_session_id"));
 let profileId = readStored("npc_profile_id");
 let pendingTurn = null;
-try {
-  const saved = readStored("npc_pending_turn");
-  if (saved) {
-    pendingTurn = JSON.parse(saved);
-    if (!pendingTurn || typeof pendingTurn.message !== "string" || typeof pendingTurn.client_turn_id !== "string") {
-      pendingTurn = null;
-      storageError = true;
-    }
+function loadPendingTurn() {
+  pendingTurn = null;
+  const saved = readStored(scopedStorageKey("npc_pending_turn"));
+  if (!saved) return;
+  pendingTurn = JSON.parse(saved);
+  if (!pendingTurn || typeof pendingTurn.message !== "string" || typeof pendingTurn.client_turn_id !== "string"
+      || (pendingTurn.character_id || activeCharacter.id) !== activeCharacter.id) {
+    pendingTurn = null;
+    storageError = true;
   }
+}
+try {
+  loadPendingTurn();
 } catch (_) { storageError = true; }
 let imagePollController = null;
 let currentFace = "neutral";
@@ -31,8 +53,9 @@ const renderedMessages = new Set();
 const conversationList = document.getElementById("conversationList");
 const chatRoom = document.getElementById("chatRoom");
 const openYuiRoom = document.getElementById("openYuiRoom");
-const roomPreview = document.getElementById("roomPreview");
-const roomUnread = document.getElementById("roomUnread");
+const openCartethyiaRoom = document.getElementById("openCartethyiaRoom");
+let roomPreview = document.getElementById("roomPreview");
+let roomUnread = document.getElementById("roomUnread");
 const videoStage = document.getElementById("videoStage");
 const videoInvite = document.getElementById("videoInvite");
 const videoStatus = document.getElementById("videoStatus");
@@ -69,7 +92,9 @@ function connectVideo() {
 }
 
 function renderRoute() {
-  const inRoom = window.location?.hash === "#chat/yui";
+  const selected = characterFromHash();
+  if (selected.id !== activeCharacter.id) activateCharacter(selected);
+  const inRoom = window.location?.hash === `#chat/${activeCharacter.route}`;
   conversationList.hidden = inRoom;
   chatRoom.hidden = !inRoom;
   if (inRoom) {
@@ -78,7 +103,7 @@ function renderRoute() {
     chatThread.scrollTop = chatThread.scrollHeight;
   } else {
     stopVideo();
-    openYuiRoom.focus();
+    (activeCharacter.id === "default" ? openYuiRoom : openCartethyiaRoom).focus();
   }
 }
 
@@ -86,7 +111,38 @@ function navigateRoom(hash) {
   if (window.location) window.location.hash = hash;
   renderRoute();
 }
-openYuiRoom.addEventListener("click", () => navigateRoom("#chat/yui"));
+function applyCharacterUI() {
+  roomPreview = document.getElementById(activeCharacter.id === "default" ? "roomPreview" : "cartethyiaRoomPreview");
+  roomUnread = document.getElementById(activeCharacter.id === "default" ? "roomUnread" : "cartethyiaRoomUnread");
+  document.getElementById("roomTitle").textContent = activeCharacter.name;
+  document.getElementById("videoCharacterName").textContent = activeCharacter.name;
+  document.getElementById("chatIntro").textContent = `${activeCharacter.name}에게 편하게 말을 걸어보세요.`;
+  document.getElementById("typingSpeaker").textContent = activeCharacter.name;
+  document.getElementById("typingBubble").setAttribute("aria-label", `${activeCharacter.name}가 답변을 입력 중이에요`);
+  document.getElementById("messageInput").setAttribute("placeholder", `${activeCharacter.name}에게 메시지…`);
+  document.getElementById("headerAvatar").src = `${activeCharacter.faceBase}/neutral.png`;
+  document.getElementById("heroine").setAttribute("alt", `${activeCharacter.name}의 현재 표정`);
+  document.getElementById("startVideo").setAttribute("aria-label", `${activeCharacter.name} 캐릭터 영상 연결`);
+  document.getElementById("leaveDescription").textContent = `${activeCharacter.name}와의 대화 기록, 기억과 관계가 초기화돼요.\n목록으로 돌아가기만 하면 대화는 그대로 유지돼요.`;
+  chatRoom.setAttribute("aria-label", `${activeCharacter.name} 대화방`);
+}
+function activateCharacter(character) {
+  if (character.id === activeCharacter.id) { applyCharacterUI(); return true; }
+  if (busy || historyLoading || resetLoading) return false;
+  stopVideo(); stopImagePolling();
+  activeCharacter = character;
+  sessionId = readStored(scopedStorageKey("npc_session_id"));
+  try { loadPendingTurn(); } catch (_) { storageError = true; pendingTurn = null; }
+  applyCharacterUI();
+  clearDisplayedHistory();
+  input.value = pendingTurn?.message || "";
+  setState(pendingTurn ? "retryable_error" : "idle",
+    pendingTurn ? "완료를 확인하지 못한 메시지가 있습니다. 다시 보내 주세요." : "");
+  if (sessionId && profileId && !storageError) void loadHistory().catch(() => {});
+  return true;
+}
+openYuiRoom.addEventListener("click", () => { if (activateCharacter(CHARACTERS.yui)) navigateRoom("#chat/yui"); });
+openCartethyiaRoom.addEventListener("click", () => { if (activateCharacter(CHARACTERS.cartethyia)) navigateRoom("#chat/cartethyia"); });
 document.getElementById("backToList").addEventListener("click", () => navigateRoom(""));
 window.addEventListener("hashchange", renderRoute);
 startVideo.addEventListener("click", connectVideo);
@@ -106,7 +162,7 @@ function appendMessage(role, text, turnId, anchor = typingIndicator) {
   if (role === "assistant") {
     const speaker = document.createElement("span");
     speaker.className = "speaker";
-    speaker.textContent = "유이";
+    speaker.textContent = activeCharacter.name;
     row.appendChild(speaker);
   }
   const bubble = document.createElement("div");
@@ -145,7 +201,7 @@ function setState(state, message = "") {
   statusEl.dataset.state = state;
   statusEl.textContent = message;
   busy = state === "sending" || state === "waiting_for_model";
-  if (state === "waiting_for_model") roomPreview.textContent = "유이가 답변을 입력 중이에요…";
+  if (state === "waiting_for_model") roomPreview.textContent = `${activeCharacter.name}가 답변을 입력 중이에요…`;
   else if (["retryable_error", "non_retryable_error", "offline"].includes(state)) roomPreview.textContent = "메시지 전송 상태를 확인해 주세요.";
   typingIndicator.hidden = state !== "waiting_for_model";
   if (state === "waiting_for_model") chatThread.scrollTop = chatThread.scrollHeight;
@@ -171,18 +227,22 @@ async function ensureSession(signal) {
   if (pendingTurn?.session_id && pendingTurn?.profile_id) return;
   const data = await readResponse(await fetch(`${API_BASE_URL}/api/session`, {
     method: "POST", headers: { "Content-Type": "application/json" }, signal,
-    body: JSON.stringify({ session_id: sessionId || null, profile_id: profileId || null }),
+    body: JSON.stringify({ session_id: sessionId || null, profile_id: profileId || null,
+      character_id: activeCharacter.id }),
   }));
   if (!data.session_id || !data.profile_id) throw new Error("대화 식별자를 확인하지 못했습니다.");
   sessionId = data.session_id;
   profileId = data.profile_id;
-  localStorage.setItem("npc_session_id", sessionId);
+  localStorage.setItem(scopedStorageKey("npc_session_id"), sessionId);
   localStorage.setItem("npc_profile_id", profileId);
 }
 const API_BASE_URL = String(window.NPC_API_BASE_URL || "").replace(/\/$/, "");
 const CHAT_API_URL = `${API_BASE_URL}/api/chat`;
 const IMAGE_STATUS_API_URL = `${API_BASE_URL}/api/image/status`;
-const FACE_ASSET_BASE_URL = String(window.NPC_FACE_ASSET_BASE_URL || "./faces").replace(/\/$/, "");
+function faceAssetBaseUrl() {
+  const configured = activeCharacter.id === "default" ? window.NPC_FACE_ASSET_BASE_URL : "";
+  return String(configured || activeCharacter.faceBase).replace(/\/$/, "");
+}
 const FACE_ASSET_EXT = String(window.NPC_FACE_EXT || "png").replace(/^\./, "");
 const POLL_INTERVAL_MS = Math.max(500, Number(window.NPC_POLL_INTERVAL_MS) || 2000);
 const POLL_MAX_ATTEMPTS = Math.max(1, Number(window.NPC_POLL_MAX_ATTEMPTS) || 10);
@@ -219,7 +279,7 @@ function dedupeKeepOrder(items) {
 }
 
 function getBaseFaceUrl(face) {
-  return `${FACE_ASSET_BASE_URL}/${faceToSlug(face)}.${FACE_ASSET_EXT}`;
+  return `${faceAssetBaseUrl()}/${faceToSlug(face)}.${FACE_ASSET_EXT}`;
 }
 
 function getBaseFaceCandidates(face) {
@@ -291,7 +351,7 @@ async function pollImageStatus(face) {
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
     if (controller.signal.aborted) return;
 
-    const statusUrl = `${IMAGE_STATUS_API_URL}?session_id=${encodeURIComponent(sessionId)}&face=${encodeURIComponent(face)}`;
+    const statusUrl = `${IMAGE_STATUS_API_URL}?session_id=${encodeURIComponent(sessionId)}&face=${encodeURIComponent(face)}&character_id=${encodeURIComponent(activeCharacter.id)}`;
     try {
       const response = await fetch(statusUrl, { signal: controller.signal });
       if (!response.ok) continue;
@@ -337,6 +397,7 @@ heroine.addEventListener("load", () => {
   }
 });
 
+applyCharacterUI();
 showBaseFace("neutral");
 
 async function sendTurn() {
@@ -358,9 +419,10 @@ async function sendTurn() {
   let waiting;
   try {
     const recovering = Boolean(pendingTurn);
-    if (!pendingTurn) pendingTurn = { message, client_turn_id: crypto.randomUUID(), comfy_on: comfyToggle.checked };
+    if (!pendingTurn) pendingTurn = { message, client_turn_id: crypto.randomUUID(),
+      character_id: activeCharacter.id, comfy_on: comfyToggle.checked };
     // Reflect the user's action before any session/history/network wait.
-    localStorage.setItem("npc_pending_turn", JSON.stringify(pendingTurn));
+    localStorage.setItem(scopedStorageKey("npc_pending_turn"), JSON.stringify(pendingTurn));
     appendMessage("user", pendingTurn.message, pendingTurn.client_turn_id);
     input.value = "";
     setState("sending", "메시지를 전송하고 있습니다.");
@@ -371,8 +433,9 @@ async function sendTurn() {
     if (recovering && !pendingTurn) { setState("success", "저장된 답변을 복원했습니다."); return; }
     pendingTurn.session_id ||= sessionId;
     pendingTurn.profile_id ||= profileId;
+    pendingTurn.character_id = activeCharacter.id;
     // Persist the complete identity and payload before inference, including across reloads.
-    localStorage.setItem("npc_pending_turn", JSON.stringify(pendingTurn));
+    localStorage.setItem(scopedStorageKey("npc_pending_turn"), JSON.stringify(pendingTurn));
     const data = await readResponse(await fetch(CHAT_API_URL, {
       method: "POST", headers: { "Content-Type": "application/json" }, signal: controller.signal,
       body: JSON.stringify(pendingTurn),
@@ -390,7 +453,7 @@ async function sendTurn() {
     } else if (data.comfy_status === "queued") {
       void pollImageStatus(face);
     }
-    localStorage.removeItem("npc_pending_turn");
+    localStorage.removeItem(scopedStorageKey("npc_pending_turn"));
     pendingTurn = null;
     input.value = "";
     setState("success", "답변을 받았습니다.");
@@ -419,10 +482,10 @@ retryButton.addEventListener("click", () => sendTurn());
 editButton.addEventListener("click", () => {
   if (busy) return;
   try {
-    localStorage.removeItem("npc_pending_turn");
+    localStorage.removeItem(scopedStorageKey("npc_pending_turn"));
     pendingTurn = null;
     if (missingSession) {
-      localStorage.removeItem("npc_session_id");
+      localStorage.removeItem(scopedStorageKey("npc_session_id"));
       localStorage.removeItem("npc_profile_id");
       sessionId = profileId = "";
       missingSession = false;
@@ -467,7 +530,7 @@ async function loadHistory(older = false, signal) {
   historyControls();
   historyStatus.textContent = "대화 기록을 불러오는 중…";
   try {
-    let query = `session_id=${encodeURIComponent(sessionId)}&profile_id=${encodeURIComponent(profileId)}`;
+    let query = `session_id=${encodeURIComponent(sessionId)}&profile_id=${encodeURIComponent(profileId)}&character_id=${encodeURIComponent(activeCharacter.id)}`;
     if (older && historyBefore) query += `&before=${encodeURIComponent(historyBefore)}`;
     const controller = signal ? null : new AbortController();
     const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
@@ -483,7 +546,7 @@ async function loadHistory(older = false, signal) {
       appendMessage("user", turn.user_message, turn.turn_id, anchor);
       appendMessage("assistant", turn.reply, turn.turn_id, anchor);
       if (pendingTurn?.client_turn_id === turn.turn_id) {
-        localStorage.removeItem("npc_pending_turn"); pendingTurn = null; input.value = "";
+        localStorage.removeItem(scopedStorageKey("npc_pending_turn")); pendingTurn = null; input.value = "";
       }
     }
     if (older) {
@@ -515,7 +578,7 @@ function clearDisplayedHistory() {
   loadedSession = ""; historyBefore = null; historyFailed = false;
   olderHistory.hidden = reloadHistory.hidden = reconnectHistory.hidden = true;
   historyStatus.textContent = "";
-  roomPreview.textContent = "유이에게 첫 메시지를 보내보세요.";
+  roomPreview.textContent = activeCharacter.emptyPreview;
   roomUnread.hidden = true;
   replyEl.textContent = metaEl.textContent = "";
   stopImagePolling(); showBaseFace("neutral");
@@ -525,7 +588,12 @@ olderHistory.addEventListener("click", () => { if (!busy && !historyLoading) ret
 reconnectHistory.addEventListener("click", async () => {
   if (busy || historyLoading) return;
   try {
-    for (const key of ["npc_session_id", "npc_profile_id", "npc_pending_turn"]) localStorage.removeItem(key);
+    for (const character of Object.values(CHARACTERS)) {
+      const suffix = character.id === "default" ? "" : `_${character.id}`;
+      localStorage.removeItem(`npc_session_id${suffix}`);
+      localStorage.removeItem(`npc_pending_turn${suffix}`);
+    }
+    localStorage.removeItem("npc_profile_id");
     sessionId = profileId = ""; pendingTurn = null;
     clearDisplayedHistory();
     historyLoading = true; historyControls();
@@ -552,10 +620,11 @@ confirmLeave.addEventListener("click", async () => {
   try {
     if (sessionId && profileId) await readResponse(await fetch(`${API_BASE_URL}/api/conversation/reset`, {
       method: "POST", headers: { "Content-Type": "application/json" }, signal: controller.signal,
-      body: JSON.stringify({ session_id: sessionId, profile_id: profileId }),
+      body: JSON.stringify({ session_id: sessionId, profile_id: profileId, character_id: activeCharacter.id }),
     }));
-    for (const key of ["npc_session_id", "npc_profile_id", "npc_pending_turn"]) localStorage.removeItem(key);
-    sessionId = profileId = ""; pendingTurn = null; input.value = "";
+    localStorage.removeItem(scopedStorageKey("npc_session_id"));
+    localStorage.removeItem(scopedStorageKey("npc_pending_turn"));
+    sessionId = ""; pendingTurn = null; input.value = "";
     clearDisplayedHistory(); setState("idle"); leaveDialog.close(); navigateRoom("");
   } catch (error) {
     document.getElementById("leaveStatus").textContent = "나가기 완료를 확인하지 못했어요. " + error.message + " 취소 후 새로고침해 상태를 확인해 주세요.";

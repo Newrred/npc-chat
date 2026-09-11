@@ -4,7 +4,7 @@
 
 원격 배포 준비: [운영 런북](docs/REMOTE_DEPLOYMENT_RUNBOOK.md). 현재 로컬 모드는 유지하며, 원격 모드는 추가 인증 의존성과 별도 개인 배포 설정이 필요하다. 도메인 연결/실제 외부 검증 및 보관·삭제/운영 복구 게이트 전에는 공개 배포 완료로 취급하지 않는다.
 
-캐릭터와 짧은 한국어 대화를 주고받는 로컬 우선 챗봇이다. FastAPI 백엔드, 정적 HTML/CSS/JavaScript 프런트, 별도 OpenAI-compatible LLM 프로세스로 구성한다.
+유이·카르티시아와 짧은 한국어 대화를 주고받는 로컬 우선 챗봇이다. FastAPI 백엔드, 정적 HTML/CSS/JavaScript 프런트, 별도 OpenAI-compatible LLM 프로세스로 구성한다.
 
 **`Newrred/npc-chat`이 유일한 개발 기준 저장소이며 `npc-chat/frontend`가 프런트 원본이다.** `Newrred/heroine`은 레거시 배포 복사본이다. 그 저장소에서 병행 기능 개발을 하지 않는다.
 
@@ -75,7 +75,7 @@ COMFY_CONNECT=false
 
 `frontend/config.js`는 비밀값 없는 로컬 기본 설정으로 **의도적으로 Git 추적**한다. `config.example.js`가 기준 예시다. 기본 `NPC_API_BASE_URL`은 빈 문자열로 같은 주소의 `/api`를 사용한다. 별도 호스팅 시 API 주소를 수정하고 백엔드 `CORS_ORIGINS`에 정확한 프런트 origin을 지정한다. 프런트 설정에는 API 키나 인증 정보를 넣지 않는다.
 
-`index.html`은 `config.js`와 단일 실행 파일 `app.js`를 로드한다. 이전 `app.fixed.js`는 제거했다. 정적 표정은 `frontend/faces/{slug}.png`에서 제공하고 공백을 underscore로 바꾼다. 이미지가 없으면 대체 표정과 `neutral`, 마지막으로 placeholder를 사용한다. 생성 이미지 실패도 정적 표정으로 돌아간다.
+`index.html`은 `config.js`와 단일 실행 파일 `app.js`를 로드한다. 대화 목록에서 유이와 카르티시아를 선택하며 같은 프로필에서도 대화·관계·기억은 캐릭터별로 분리된다. 유이 정적 표정은 `frontend/faces/{slug}.png`, 카르티시아는 `frontend/characters/cartethyia/faces/{slug}.png`에서 제공한다. 공백은 underscore로 바꾸며 이미지가 없으면 대체 표정과 `neutral`, 마지막으로 placeholder를 사용한다. 생성 이미지 실패도 선택한 캐릭터의 정적 표정으로 돌아간다.
 
 ## Health와 API 호환성
 

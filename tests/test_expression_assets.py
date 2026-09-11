@@ -36,3 +36,15 @@ def test_canonical_faces_have_decodable_png_fallback():
         assert zlib.decompress(compressed)
     assert normalize_face("suprised") == "surprised"
     assert normalize_face("shy smile") == "shy_smile"
+
+
+def test_cartethyia_has_one_decodable_png_for_every_canonical_face():
+    frontend = Path(__file__).resolve().parents[1] / "frontend"
+    faces = set(LLMDecision.model_json_schema()["properties"]["face"]["enum"])
+    directory = frontend / "characters" / "cartethyia" / "faces"
+    assert {path.stem for path in directory.glob("*.png")} == faces
+    for path in directory.glob("*.png"):
+        raw = path.read_bytes()
+        assert raw[:8] == b"\x89PNG\r\n\x1a\n"
+        width, height = struct.unpack(">II", raw[16:24])
+        assert (width, height) == (512, 600)

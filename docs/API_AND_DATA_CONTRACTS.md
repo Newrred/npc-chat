@@ -1,5 +1,7 @@
 # API and Data Contracts
 
+2026-09-11 다중 캐릭터 선택: session/chat/conversation/reset/image-status에 선택적 `character_id`를 추가했다. 생략하면 환경의 기본 캐릭터(`default`)를 사용한다. 값은 소문자 영숫자로 시작하는 최대 64자의 소문자 영숫자/underscore/hyphen이며 서버에 같은 이름의 캐릭터 설정이 있어야 한다. 알 수 없는 캐릭터는 404 `CHARACTER_NOT_FOUND`, 잘못된 형식은 422다. session ID는 한 캐릭터에만 속하며 다른 캐릭터로 사용하면 기존 conflict/access 오류다. 외부 응답과 SQLite schema 0001은 유지한다.
+
 2026-09-09 로컬 관리자 전용 /api/test/{session,chat,reset,conversation} bridge 추가. guest 모드에서 고정 웹 API로만 연결하며 기존 소유권·한도·중복 처리를 유지한다. 공개 API 추가 없음. [로컬 검사 계약](LOCAL_INSPECTOR.md).
 
 2026-09-08 원문 기반 파생 프로필/사건을 내부 입력에 추가했다. LLM 출력 스키마/외부 API/DB 형식은 유지한다. memory.accepted_candidates는 기존 memories 저장 후보 수이며 파생 뷰 수가 아니다. reset은 원문 제거로 파생 정보도 제거한다. [기억 계약](MEMORY_PIPELINE.md).
@@ -24,8 +26,8 @@
 
 상태: Phase 04 구현 반영 (2026-09-07). 아래 계약의 실제 구현 세부값은 다음을 우선한다.
 
-- POST /api/session: optional session_id/profile_id → 두 식별자 반환. 안정된 profile이 세션 간 상태를 소유한다.
-- POST /api/chat: 기존 message/comfy_on + optional session_id/profile_id/client_turn_id. ID가 있는 요청은 기존 세션/프로필이 필요하다. history는 받아도 무시한다. 새 프런트는 보내지 않는다.
+- POST /api/session: optional session_id/profile_id/character_id → 두 식별자 반환. 안정된 profile이 세션 간 상태를 소유한다.
+- POST /api/chat: 기존 message/comfy_on + optional session_id/profile_id/client_turn_id/character_id. ID가 있는 요청은 기존 세션/프로필이 필요하다. history는 받아도 무시한다. 새 프런트는 보내지 않는다.
 - api_version은 문자열 "1". profile_id, turn_id, relationship(values/delta/reason_codes/rule_version), expression(face/internal_emotion/tags), memory(summary_updated/accepted_candidates), image(status/source/url)와 기존 flat 필드를 함께 반환한다.
 - affection_total/delta와 flat memory/expression/image는 deprecated 호환 필드다. LLM delta는 어떤 모드에서도 권위 있는 값으로 사용하지 않는다. legacy adapter 분류는 neutral/0이다.
 - 저장소: SQLite schema 0001. 동일 프로필/캐릭터/turn ID는 고유하며 동일 message/comfy_on은 최초 응답 재사용, 다른 payload는 409 DUPLICATE_TURN_CONFLICT다.
@@ -377,9 +379,9 @@ Migration:
 
 ## 2026-09-08 Conversation history and reset
 
-`GET /api/conversation` requires session_id/profile_id, accepts limit 1–100 (default 50) and optional before turn ID. After server ownership validation, returns chronological items containing turn_id, user_message, reply, face, created, plus before for older pages. Generated prompt history limits do not limit this endpoint. Private responses are no-store.
+`GET /api/conversation` requires session_id/profile_id, accepts optional character_id, limit 1–100 (default 50) and optional before turn ID. After server ownership and character validation, returns chronological items containing turn_id, user_message, reply, face, created, plus before for older pages. Generated prompt history limits do not limit this endpoint. Private responses are no-store.
 
-`POST /api/conversation/reset` accepts session_id/profile_id and returns closed:true after an atomic reset. It revokes old sessions and deletes this profile/character's turns and memory, restores relationship defaults and clears summary/flags. Other profiles/characters and durable quotas remain. Old-session retries fail with 403/404 and cannot reset a newly opened room. Chat checks the session again inside the serial queue before replay or quota charging. Public guest Origin and owner checks apply to both operations.
+`POST /api/conversation/reset` accepts session_id/profile_id and optional character_id, then returns closed:true after an atomic reset. It revokes old sessions and deletes this profile/character's turns and memory, restores relationship defaults and clears summary/flags. Other profiles/characters and durable quotas remain. Old-session retries fail with 403/404 and cannot reset a newly opened room. Chat checks the session again inside the serial queue before replay or quota charging. Public guest Origin and owner checks apply to both operations.
 
 The administrator runs as a separate read-only loopback app. Its /api/rooms and /api/turns routes are not public application routes. See CHAT_HISTORY_AND_ADMIN.md for contracts and lifecycle.
 

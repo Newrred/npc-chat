@@ -65,6 +65,7 @@ button:focus-visible, summary:focus-visible { outline: 2px solid #624736; outlin
 .list-section-label { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .03em; color: #788593; margin-bottom: 12px; }
 .list-section-label > span { color: #a3adb5; font-size: 10px; }
 .conversation-card { display: flex; width: 100%; align-items: center; text-align: left; gap: 13px; background: white; color: #263445; padding: 19px 14px; border: 1px solid #e8edf0; border-radius: 21px; box-shadow: 0 8px 24px #304d6010; }
+.conversation-card + .conversation-card { margin-top: 12px; }
 .conversation-card:hover { border-color: #b7d7cf; }
 .avatar-wrap { position: relative; flex: none; }
 .room-avatar { width: 58px; height: 58px; border-radius: 20px; object-fit: cover; object-position: center 25%; background: #e7e2ed; display: block; }
