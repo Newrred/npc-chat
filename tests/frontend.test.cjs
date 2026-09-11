@@ -301,10 +301,10 @@ test("Cartethyia room uses its own portrait, identity, request, and browser sess
     return {ok:true,json:async()=>({reply:"바람이 좋은 날이네요.",face:"happy",comfy_status:"disabled"})};
   }, true, {hash:"#chat/cartethyia", realSession:true});
   assert.equal(ui.node("chatRoom").hidden, false);
-  assert.equal(ui.node("roomTitle").textContent, "카르티시아");
+  assert.equal(ui.node("roomTitle").textContent, "띳띠");
   assert.equal(ui.node("headerAvatar").src, "./characters/cartethyia/faces/neutral.png");
   assert.equal(ui.node("heroine").src, "./characters/cartethyia/faces/neutral.png");
-  assert.match(ui.node("messageInput").placeholder, /카르티시아/);
+  assert.match(ui.node("messageInput").placeholder, /띳띠/);
   ui.node("messageInput").value = "안녕";
   await ui.submit();
   const sessionRequest = requests.find(item => item.url.endsWith("/api/session"));
@@ -313,7 +313,7 @@ test("Cartethyia room uses its own portrait, identity, request, and browser sess
   assert.equal(chatRequest.body.character_id, "cartethyia");
   assert.equal(ui.stored.get("npc_session_id_cartethyia"), "cart-session");
   assert.equal(ui.stored.has("npc_session_id"), false);
-  assert.equal(ui.node("chatThread").children[1].children[0].textContent, "카르티시아");
+  assert.equal(ui.node("chatThread").children[1].children[0].textContent, "띳띠");
 });
 
 test("messenger retains multiple turns as text and stops typing after each reply", async () => {

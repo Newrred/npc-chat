@@ -28,12 +28,12 @@ def test_two_characters_use_separate_state_and_selected_prompt():
             "profile_id": yui["profile_id"], "character_id": "cartethyia",
         }).json()
         cartethyia_turn = {**cartethyia, "character_id": "cartethyia",
-                           "message": "카르티시아 안녕", "client_turn_id": "cartethyia-1"}
+                           "message": "띳띠 안녕", "client_turn_id": "cartethyia-1"}
         assert client.post("/api/chat", json=cartethyia_turn).status_code == 200
 
         assert llm.character_calls == ["default", "cartethyia"]
         assert store.load(yui["profile_id"], "default").history[0]["content"] == "유이 안녕"
-        assert store.load(yui["profile_id"], "cartethyia").history[0]["content"] == "카르티시아 안녕"
+        assert store.load(yui["profile_id"], "cartethyia").history[0]["content"] == "띳띠 안녕"
 
         wrong_room = client.get("/api/conversation", params={
             **yui, "character_id": "cartethyia",
@@ -61,8 +61,9 @@ def test_character_selection_rejects_unknown_and_invalid_ids():
 def test_cartethyia_prompt_has_distinct_identity_and_dialogue_rules():
     yui = load_character_config("default")
     cartethyia = load_character_config("cartethyia")
-    assert cartethyia.display_name == "카르티시아"
+    assert cartethyia.display_name == "띳띠"
     assert "리나시타" in cartethyia.system_prompt
     assert "유랑" not in yui.system_prompt
     assert "자연스러운 해요체" in cartethyia.dialogue_prompt
-    assert "네 이름은 카르티시아" in cartethyia.identity_prompt
+    assert "본명은 카르티시아" in cartethyia.identity_prompt
+    assert "별명은 띳띠" in cartethyia.identity_prompt

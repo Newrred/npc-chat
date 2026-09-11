@@ -5,8 +5,8 @@ const CHARACTERS = {
     preview: "오늘은 어떤 이야기를 나눌까?", emptyPreview: "유이에게 첫 메시지를 보내보세요.",
   },
   cartethyia: {
-    id: "cartethyia", route: "cartethyia", name: "카르티시아", faceBase: "./characters/cartethyia/faces",
-    preview: "바람을 따라 이야기를 시작해요.", emptyPreview: "카르티시아에게 첫 메시지를 보내보세요.",
+    id: "cartethyia", route: "cartethyia", name: "띳띠", faceBase: "./characters/cartethyia/faces",
+    preview: "바람을 따라 이야기를 시작해요.", emptyPreview: "띳띠에게 첫 메시지를 보내보세요.",
   },
 };
 function characterFromHash() {
