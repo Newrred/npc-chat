@@ -40,6 +40,31 @@ def test_budget_removes_old_quotes_then_memory_then_pairs():
     assert messages == baseline and count <= base_count and trimmed
 
 
+def test_last_complete_pair_is_kept_before_general_memory():
+    history = [{"role": "user", "content": "보리가 밥을 안 먹어."},
+               {"role": "assistant", "content": "언제부터 그랬어?"}]
+    memories = [{"kind": "fact", "content": "오래된 장기 기억" * 8}]
+    _, history_count, _ = build(history=history)
+    _, memory_count, _ = build(memories=memories)
+    messages, tokens, trimmed = build(history=history, memories=memories,
+                                      budget=max(history_count, memory_count))
+    assert messages[1:-1] == history
+    assert "오래된 장기 기억" not in messages[0]["content"]
+    assert tokens <= max(history_count, memory_count) and trimmed
+
+
+def test_oversized_source_evidence_is_pruned_before_short_input_fails():
+    import json
+    evidence = [{"kind": "episode", "content": json.dumps({
+        "type": "proposal_or_promise_statement", "actor": "user",
+        "quote": "긴 근거 " * 1000, "source_turn": "old",
+    }, ensure_ascii=False)}]
+    baseline, budget, _ = build()
+    messages, tokens, trimmed = build(memories=evidence, budget=budget)
+    assert messages == baseline
+    assert tokens <= budget and trimmed
+
+
 def test_overlong_input_is_never_silently_truncated():
     with pytest.raises(ChatError) as error:
         build(message="x" * 1000, budget=20)

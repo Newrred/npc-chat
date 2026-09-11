@@ -86,6 +86,18 @@ def test_model_fact_label_cannot_create_duplicate_preference():
     assert len(accepted) == 1 and accepted[0]["kind"] == "preference"
 
 
+def test_fact_candidate_cannot_drop_an_explicit_source_subject():
+    truncated = [MemoryCandidate(kind="fact", content="부산에 살아", importance=2)]
+    assert accepted_candidates(truncated, "친구는 부산에 살아.") == []
+
+    attributed = [MemoryCandidate(kind="fact", content="친구는 부산에 살아", importance=2)]
+    accepted = accepted_candidates(attributed, "친구는 부산에 살아.")
+    assert len(accepted) == 1 and accepted[0]["content"] == "친구는 부산에 살아"
+
+    implicit = [MemoryCandidate(kind="fact", content="부산에 살아", importance=2)]
+    assert len(accepted_candidates(implicit, "부산에 살아.")) == 1
+
+
 @pytest.mark.parametrize("text", ["친구는 커피를 싫어해", "나는 커피를 싫어해?", "나는 '커피를 싫어해'라고 말했어"])
 def test_copied_substring_is_not_enough_to_overwrite_user_preference(text):
     candidates = [MemoryCandidate(kind="preference", content="커피를 싫어해", importance=3)]

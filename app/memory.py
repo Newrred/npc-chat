@@ -46,6 +46,17 @@ def contradicts_preference(content, current):
     return bool(old and new and old[0] == new[0] and old[1] != new[1])
 
 
+def fact_omits_explicit_subject(content, source):
+    """Reject a copied fact span that starts after its clause's named subject."""
+    fact = normalize(content)
+    statement = normalize(source)
+    start = statement.find(fact)
+    if start <= 0:
+        return False
+    prefix = re.split(r"[.!?？。]|(?:그리고|하지만|그런데)\s+", statement[:start])[-1]
+    return bool(re.search(r"(?:^|\s)[\w가-힣]{1,30}(?:은|는|이|가)(?:\s|$)", prefix))
+
+
 def accepted_candidates(candidates, user_message, audit=None):
     source = normalize(user_message)
     accepted = {}
@@ -78,6 +89,9 @@ def accepted_candidates(candidates, user_message, audit=None):
         # Only verbatim evidence is accepted in v1; paraphrases/guesses are not durable facts.
         if len(content) < 4 or content not in source:
             record(candidate, origin, "정규화한 내용이 4자 미만이거나 현재 사용자 발언의 원문에 없음")
+            continue
+        if candidate.kind == "fact" and fact_omits_explicit_subject(content, source):
+            record(candidate, origin, "현재 사용자 발언의 명시적 주체가 fact 후보에서 생략됨")
             continue
         subject = memory_subject(candidate.kind, content)
         identity = "subject:" + subject if subject else content

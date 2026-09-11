@@ -73,6 +73,7 @@ def build_messages(*, system, message, history, summary, memories, relationship,
     evidence = [item for item in memories or [] if item["kind"] in {"profile", "episode"}][:5]
     recalled = [item for item in memories or [] if item["kind"] not in {"profile", "episode"}
                 and not contradicts_preference(item["content"], message)][:3]
+    minimum_recent = min(2, len(recent))
     trimmed = False
     while True:
         context = {"relationship": relationship, "flags": flags or [],
@@ -96,9 +97,9 @@ def build_messages(*, system, message, history, summary, memories, relationship,
         trimmed = True
         if notes:
             notes = "\n".join(notes.splitlines()[1:])
-        elif recent:
+        elif len(recent) >= minimum_recent + 2:
             # Find a fitting suffix in logarithmic tokenizer calls, not one HTTP pair per old turn.
-            low, high = 1, (len(recent) + 1) // 2
+            low, high = 1, (len(recent) - minimum_recent) // 2
             while low < high:
                 middle = (low + high) // 2
                 candidate = [messages[0], *recent[middle * 2:], messages[-1]]
@@ -109,5 +110,9 @@ def build_messages(*, system, message, history, summary, memories, relationship,
             recent = recent[low * 2:]
         elif recalled:
             recalled.pop()
+        elif evidence:
+            evidence.pop()
+        elif recent:
+            recent = []
         else:
             raise ChatError("INPUT_TOO_LONG", "문맥 한도를 넘었습니다. 메시지를 조금 줄여서 보내 주세요.", 422, False)

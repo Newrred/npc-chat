@@ -1,5 +1,9 @@
 # Project Status
 
+## 2026-09-11 Task25 기억 주체·문맥 예산 보호 — 완료
+
+fact 후보가 원문의 명시적 주체를 생략하면 저장하지 않고, 입력 예산에서 최신 완전한 대화 1쌍을 일반 기억보다 우선 보존한다. 긴 profile/episode evidence도 항목 단위로 제거해 짧은 입력의 불필요한 INPUT_TOO_LONG을 막는다. 첫 구현의 음수 반복 분기를 500턴 회귀가 발견해 수정했다. 관련110 tests, 전체599 tests, Ruff/compile 통과. 실제 llama.cpp 3776 예산에서 75 tokens·직전 pair 보존·긴 evidence 제거 및 재시작 후 model/web/admin/public 정상 확인. MEMORY_SUBJECT_AND_BUDGET.md 참고.
+
 ## 2026-09-11 Task24 문맥 정보 보존 P0 수정 — 완료
 
 고정 커밋 검토에서 재현된 반복 축약의 사용자 정정 손실, 취소 의미·대상 혼합, 복합 취향 질문의 답변 강제 교체를 현재 구조와 호출 수를 유지하며 수정했다. 수정 전 새 probe 4건이 예상대로 실패했고, 단계별 수정 후 새 회귀 5건을 포함한 관련67 tests와 전체596 tests, Ruff/compile 검사가 통과했다. 실제 서버 재시작 후 model/web/admin/public 200을 확인했고 사용자 DB·공개 quota는 사용하지 않았다. 긴 evidence 예산과 일반 fact 주체 보존은 남는다. CONTEXT_INTEGRITY_FIXES.md 참고.

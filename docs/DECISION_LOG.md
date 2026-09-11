@@ -253,3 +253,7 @@ venv Python 부모만 종료하면 uvicorn 시스템 Python 자식이 남을 수
 ## 2026-09-11 — 반복 축약·취소·복합 회상의 정보 손실 방지
 
 반복 대사 축약은 중간 사용자 발화도 단순 확인 또는 중복일 때만 적용한다. 취소 사건은 부정·의문·인용을 제외하고 날짜·시간·장소 표지와 source turn으로 대상 약속만 연결한다. 출처 있는 취향의 결정적 인용은 순수 회상에서만 최종 대사를 교체하고 복합 추천 요청에는 기억을 근거로만 전달한다. 모델 호출·DB schema·API 계약은 유지하며 일반 fact 주체 검증과 evidence 길이 예산은 후속 범위다. CONTEXT_INTEGRITY_FIXES.md 참고.
+
+## 2026-09-11 — fact 주체와 직전 대화쌍을 문맥에서 보호
+
+일반 fact 후보가 원문 앞의 명시적 주체를 생략하면 부분 문자열이어도 저장하지 않는다. 문맥 예산은 최신 완전한 대화 1쌍을 최소 영역으로 두고 일반 기억과 source-backed evidence를 항목 단위로 제거한 뒤에만 이 영역을 포기한다. evidence JSON을 잘라 쓰지 않으며 현재 입력·system·고정 reply와 최종 tokenizer 검증은 유지한다. MEMORY_SUBJECT_AND_BUDGET.md 참고.
