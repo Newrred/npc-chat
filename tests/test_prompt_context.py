@@ -93,6 +93,7 @@ def test_exact_counter_applies_template_before_tokenizing(monkeypatch):
     assert counter([{"role": "user", "content": "hi"}]) == 3
     assert calls[1][1]["content"] == "formatted"
     assert calls[0][1]["chat_template_kwargs"] == {"enable_thinking": False}
+    assert counter.request_count == 2
 
 
 def test_superseded_preference_pair_is_removed_from_prompt_only():

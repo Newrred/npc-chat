@@ -1,6 +1,7 @@
 from dataclasses import replace
 import sqlite3
 from concurrent.futures import ThreadPoolExecutor
+from types import SimpleNamespace
 
 import pytest
 from pydantic import ValidationError
@@ -8,7 +9,7 @@ from pydantic import ValidationError
 from app.character_config import load_character_config
 from app.decision import LLMDecision, LLMReply, LLMMetadata
 from app.errors import ChatError
-from app.services.decision_service import LLMOutputError, LLMTransportError
+from app.services.decision_service import DecisionService, LLMOutputError, LLMTransportError
 from tests.test_decision import service, valid
 
 
@@ -23,6 +24,16 @@ def two_stage(responses, mode='schema'):
     adapter, calls = service(responses, mode)
     adapter.config = replace(adapter.config, llm_generation_mode='two_stage', llm_context=4096)
     return adapter, calls
+
+
+def test_provider_metrics_allowlist_llama_timings_and_cached_tokens():
+    response = SimpleNamespace(
+        model_extra={"timings": {"cache_n": 12, "prompt_ms": 3.5, "private_note": "hidden"}},
+        usage=SimpleNamespace(prompt_tokens_details=SimpleNamespace(cached_tokens=9)),
+    )
+    assert DecisionService._provider_metrics(response) == {
+        "cache_n": 12, "prompt_ms": 3.5, "cached_tokens": 9,
+    }
 
 
 def test_projected_contracts_preserve_validation_and_cannot_rewrite_reply():
@@ -72,6 +83,7 @@ def test_two_requests_same_model_fixed_reply_and_metrics():
         assert [m.stage for m in result.stages] == ['reply','metadata']
         assert result.attempts == 2 and result.completion_tokens == 200
         assert result.prompt_tokens == sum(m.prompt_tokens for m in result.stages)
+        assert all(m.prepare_sec >= 0 and m.inference_sec >= 0 for m in result.stages)
     finally:
         adapter.client.close()
 
@@ -126,9 +138,10 @@ def test_metadata_retry_never_regenerates_reply_or_accepts_replacement():
 def test_failed_stage_has_bounded_calls_and_no_private_logging(responses,error,count,caplog):
     adapter, calls = two_stage(responses)
     try:
-        with pytest.raises(error):
+        with pytest.raises(error) as raised:
             adapter.decide(message='PRIVATE_SENTINEL')
         assert len(calls) == count
+        assert raised.value.stages and raised.value.stages[-1].elapsed_sec >= 0
         assert 'PRIVATE_SENTINEL' not in caplog.text
     finally:
         adapter.client.close()
@@ -253,7 +266,9 @@ def test_cancel_during_metadata_never_commits(tmp_path):
             return original(**kwargs)
         adapter.client.chat.completions.create = blocked_metadata
         repo = SQLiteRepository(tmp_path/'cancel.sqlite3')
-        application = create_app(repository=repo,llm_service=adapter)
+        metric_records = []
+        metric_sink = SimpleNamespace(emit=metric_records.append, close=lambda: None)
+        application = create_app(repository=repo,llm_service=adapter,metrics_sink=metric_sink)
         try:
             async with application.router.lifespan_context(application):
                 async with httpx.AsyncClient(transport=httpx.ASGITransport(app=application),base_url='http://test') as client:
@@ -268,6 +283,8 @@ def test_cancel_during_metadata_never_commits(tmp_path):
                     release.set()
                     await application.state.coordinator.close()
                     assert repo.load(ids['profile_id'],'default')==before
+                    turn_metric = next(row for row in metric_records if row['event'] == 'turn_complete')
+                    assert turn_metric['outcome'] == 'cancelled'
         finally:
             release.set()
             adapter.client.close()

@@ -39,6 +39,10 @@ class Settings:
     token_count_mode: str = os.getenv("NPC_TOKEN_COUNT_MODE", "estimate")
     llm_max_tokens: int = int(os.getenv("NPC_MAX_TOKENS", "256"))
     health_timeout_sec: float = float(os.getenv("HEALTH_TIMEOUT_SEC", "2"))
+    metrics_enabled: bool = os.getenv("NPC_METRICS_ENABLED", "0") == "1"
+    metrics_path: str = os.getenv("NPC_METRICS_PATH", ".runtime/metrics/requests.jsonl")
+    metrics_max_bytes: int = int(os.getenv("NPC_METRICS_MAX_BYTES", "5000000"))
+    metrics_backup_count: int = int(os.getenv("NPC_METRICS_BACKUP_COUNT", "3"))
 
     # Browser access control
     cors_origins: list[str] = field(default_factory=lambda: _parse_cors_origins(os.getenv("CORS_ORIGINS", "")))

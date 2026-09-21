@@ -1,5 +1,13 @@
 # Project Status
 
+## 2026-09-21 Task28 비개인 운영 계측·독립 평가 기준선 — 구현 및 개발 세트 완료
+
+비밀값과 대화 원문을 제외한 유효 설정 manifest, 채팅의 queue/load/recall/reply/metadata/commit/total 단계 지연, token·재시도·실패·취소·replay를 하나의 익명 schema로 기록하는 회전 JSONL과 p50/p95 오프라인 집계를 추가했다. 현재 llama.cpp가 실제 반환하는 `cache_n`, `cached_tokens`, timing만 허용 목록으로 보존하며 없는 값은 추정하지 않는다. 기본 설정은 OFF다.
+
+실제 사용자 대화를 포함하지 않은 8범주 48개 합성 세트를 development/holdout 24개씩 분리했다. development 기준선은 48 모델 호출 모두 최초 형식 유효, parse/transport 실패0, 전체 중앙2.532초·표본 p95 3.891초였다. 자동 보조검사는18/24였으나 경계3건 실패를 모두 놓쳐 사람 rubric과 분리해야 함을 재확인했다. 이름·저장 기억·긴 대화 뒤 장소·기억 부재는 대체로 작동했고 추천 이유, 취향 의미 보존, 중국어 혼입, 경계 수락, 일부 말투 문제가 남았다. holdout은 실행하지 않았다. 첫 CLI 실행 경로 실패는 모델 호출 전 발견해 회귀 테스트로 수정했다.
+
+현재 공개 시험 구성에 계측을 활성화해 재시작했다. 공개 합성 1턴과 즉시 reset이 200이었고 JSONL의 manifest+turn에는 원문·답변·사용자 식별자가 없었다. 그 1턴은 quota 1회를 사용했다. 최종 Python 623 tests, 프런트·검사창28 tests, Ruff/compileall/JavaScript/diff 검사 통과. 전체 첫 실행의 queue 테스트 대역 1건 실패는 새 시작 콜백 계약에 맞춰 수정했다. API·DB schema·모델·프롬프트·호출 수 변화는 없다. [계측/사용법](OBSERVABILITY_AND_EVALUATION.md), [기준선](DIALOGUE_SUITE_BASELINE.md), Task28 참고.
+
 ## 2026-09-21 Task27 외부 검토 정확성 회귀 수정 — 완료
 
 GPT Pro 검토가 지적한 취소 부정의 활성 화제 손실과 캐릭터 무관 취향 회상 반말을 현재 코드로 독립 재현했다. 새 회귀를 먼저 추가해 6개 예상 실패를 확인한 뒤, 취소 저장·활성 화제 경계가 공통 판정을 사용하도록 통합했다. 실제 취소 뒤 같은 발화의 새 제안은 별도 사건으로 보존한다. 근거 있는 취향 회상은 캐릭터 설정 템플릿을 사용해 유이 반말과 띳띠 해요체를 유지하며, 두 단계 metadata에는 화면에 표시할 확정 대사가 그대로 전달된다.

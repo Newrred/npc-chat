@@ -12,6 +12,8 @@
 
 저장소 링크를 외부 AI에 전달해 다음 발전 방향을 검토할 때는 [GPT Pro 프로젝트 검토 브리프](docs/GPT_PRO_PROJECT_REVIEW_BRIEF.md)를 먼저 읽게 한다. `docs/handoff-package/`는 2026-09-03 당시의 역사적 스냅샷이다.
 
+현재 실행 설정과 단계별 지연을 대화 원문 없이 확인하고 독립 합성 대화 세트를 실행하는 방법은 [운영 계측과 독립 대화 평가](docs/OBSERVABILITY_AND_EVALUATION.md)에 정리되어 있다. 운영 계측은 기본 OFF이며 로컬 시험에서 명시적으로 켠다.
+
 ## 구성과 포트
 
 | 구성 | 기본 주소 | 역할 |

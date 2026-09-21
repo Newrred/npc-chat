@@ -1,5 +1,5 @@
 """Injectable canonical adapter with explicit capability and bounded retry policy."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 import logging
 import time
@@ -20,11 +20,17 @@ logger = logging.getLogger(__name__)
 
 
 class LLMOutputError(RuntimeError):
-    pass
+    def __init__(self, message, *, stages=(), tokenizer_requests=None):
+        super().__init__(message)
+        self.stages = tuple(stages)
+        self.tokenizer_requests = tokenizer_requests
 
 
 class LLMTransportError(RuntimeError):
-    pass
+    def __init__(self, message, *, stages=(), tokenizer_requests=None):
+        super().__init__(message)
+        self.stages = tuple(stages)
+        self.tokenizer_requests = tokenizer_requests
 
 
 @dataclass(frozen=True)
@@ -37,6 +43,9 @@ class StageMetrics:
     elapsed_sec: float
     prompt_tokens: int
     context_trimmed: bool
+    prepare_sec: float = 0.0
+    inference_sec: float = 0.0
+    provider_metrics: dict = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -52,6 +61,7 @@ class DecisionResult:
     grounded_recall: bool = False
     stages: tuple[StageMetrics, ...] = ()
     search_cues: tuple[dict, ...] = ()
+    tokenizer_requests: int | None = None
 
 
 class DecisionService:
@@ -69,6 +79,7 @@ class DecisionService:
 
     def decide(self, *, message, history=None, memory_1line="", flags=None, relationship=None, memories=None):
         start = time.monotonic()
+        tokenizer_start = getattr(self.count_tokens, "request_count", None)
         context = dict(message=message, history=history, memory_1line=memory_1line, flags=flags,
                        relationship=relationship, memories=memories)
         server_rules = "\nAllowed flags: " + json.dumps(self.character.allowed_flags)
@@ -88,9 +99,13 @@ class DecisionService:
                 reply_prompt += "\n이번 답변 방식: " + reply_guidance(message)
             if removed_messages:
                 reply_prompt += f"\n최근 이력에서 반복 대사 {removed_messages // 2}쌍을 생략했다. 생략된 말투를 추측하거나 반복하지 마."
-            reply, reply_metrics = self._generate(output_model=LLMReply, stage="reply", **reply_context,
-                character_prompt=reply_prompt,
-                retry_prompt="설명 없이 reply 하나만 있는 JSON 객체로 다시 답해. reply는 1~80글자야.", deadline=deadline)
+            try:
+                reply, reply_metrics = self._generate(output_model=LLMReply, stage="reply", **reply_context,
+                    character_prompt=reply_prompt,
+                    retry_prompt="설명 없이 reply 하나만 있는 JSON 객체로 다시 답해. reply는 1~80글자야.", deadline=deadline)
+            except (LLMOutputError, LLMTransportError) as exc:
+                self._attach_failure_metrics(exc, (), tokenizer_start)
+                raise
             reply_stages = [reply_metrics]
             if quality_enabled and not grounded and not is_short_ack(message):
                 first_score = recent_reply_similarity(reply.reply, history)
@@ -126,17 +141,25 @@ class DecisionService:
                 from app.search_cues import CueMetadata, INSTRUCTION
                 metadata_model = CueMetadata
                 metadata_prompt += INSTRUCTION
-            metadata, metadata_metrics = self._generate(output_model=metadata_model, stage="metadata", **context,
-                character_prompt=metadata_prompt, assistant_reply=final_reply,
-                retry_prompt="설명 없이 제공된 부가 정보 스키마의 JSON 객체만 다시 출력해. reply를 추가하지 마.", deadline=deadline)
+            try:
+                metadata, metadata_metrics = self._generate(output_model=metadata_model, stage="metadata", **context,
+                    character_prompt=metadata_prompt, assistant_reply=final_reply,
+                    retry_prompt="설명 없이 제공된 부가 정보 스키마의 JSON 객체만 다시 출력해. reply를 추가하지 마.", deadline=deadline)
+            except (LLMOutputError, LLMTransportError) as exc:
+                self._attach_failure_metrics(exc, tuple(reply_stages), tokenizer_start)
+                raise
             if getattr(self, "search_cue_experiment", False):
                 cues = tuple(cue.model_dump() for cue in metadata.search_cues)
             decision = LLMDecision(reply=final_reply, **metadata.model_dump(exclude={'search_cues'}))
             stages = (*reply_stages, metadata_metrics)
         else:
-            decision, metrics = self._generate(output_model=LLMDecision, stage="single_pass", **context,
-                character_prompt=self.character.system_prompt + server_rules,
-                retry_prompt=self.character.retry_user_prompt)
+            try:
+                decision, metrics = self._generate(output_model=LLMDecision, stage="single_pass", **context,
+                    character_prompt=self.character.system_prompt + server_rules,
+                    retry_prompt=self.character.retry_user_prompt)
+            except (LLMOutputError, LLMTransportError) as exc:
+                self._attach_failure_metrics(exc, (), tokenizer_start)
+                raise
             if grounded:
                 decision = decision.model_copy(update={"reply": grounded})
             stages = (metrics,)
@@ -146,10 +169,19 @@ class DecisionService:
         if discarded:
             logger.warning("llm_unknown_flags", extra={"discarded_count": discarded})
         decision = decision.model_copy(update={"flags_set": filtered})
+        tokenizer_end = getattr(self.count_tokens, "request_count", None)
+        tokenizer_requests = (tokenizer_end - tokenizer_start
+                              if tokenizer_start is not None and tokenizer_end is not None else None)
         return DecisionResult(decision, sum(s.attempts for s in stages), sum(s.parse_failures for s in stages),
             sum(s.transport_failures for s in stages), sum(s.completion_tokens for s in stages),
             time.monotonic()-start, sum(s.prompt_tokens for s in stages),
-            any(s.context_trimmed for s in stages), bool(grounded), stages, cues)
+            any(s.context_trimmed for s in stages), bool(grounded), stages, cues, tokenizer_requests)
+
+    def _attach_failure_metrics(self, exc, completed, tokenizer_start):
+        exc.stages = (*completed, *getattr(exc, "stages", ()))
+        tokenizer_end = getattr(self.count_tokens, "request_count", None)
+        if tokenizer_start is not None and tokenizer_end is not None:
+            exc.tokenizer_requests = tokenizer_end - tokenizer_start
 
     def _generate(self, *, output_model, stage, character_prompt, retry_prompt, message, history,
                   memory_1line, flags, relationship, memories, assistant_reply=None, deadline=None):
@@ -163,7 +195,9 @@ class DecisionService:
                 relationship=relationship, flags=flags, count=self.count_tokens, budget=budget,
                 assistant_reply=assistant_reply)
         start = time.monotonic()
+        prepare_started = start
         messages, prompt_tokens, trimmed = prepare()
+        prepare_sec = time.monotonic() - prepare_started
         body = {"chat_template_kwargs": {"enable_thinking": False}}
         penalty_key = "repeat_penalty" if self.config.llm_backend.strip().lower() == "llama_cpp" else "repetition_penalty"
         body[penalty_key] = self.config.llm_repetition_penalty
@@ -177,12 +211,17 @@ class DecisionService:
         elif mode == "guided_json":
             body["guided_json"] = schema
         parse_failures = transport_failures = tokens = 0
+        inference_sec = 0.0
+        provider_metrics = {}
         for attempt in range(1, 4):
             timeout_option = {}
             if deadline is not None:
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
-                    raise LLMTransportError("LLM turn deadline exceeded.")
+                    failure = StageMetrics(stage, attempt - 1, parse_failures, transport_failures,
+                                           tokens, time.monotonic()-start, prompt_tokens, trimmed,
+                                           prepare_sec, inference_sec, provider_metrics)
+                    raise LLMTransportError("LLM turn deadline exceeded.", stages=(failure,))
                 timeout_option["timeout"] = min(self.config.llm_timeout_sec, remaining)
             emit("request", stage=stage, attempt=attempt, prompt_tokens=prompt_tokens,
                  context_trimmed=trimmed, budget=budget, request=dict(model=self.config.llm_model,
@@ -190,6 +229,7 @@ class DecisionService:
                  top_p=self.config.llm_top_p, extra_body=body, presence_penalty=self.config.llm_presence_penalty,
                  frequency_penalty=self.config.llm_frequency_penalty, **options, **timeout_option))
             try:
+                inference_started = time.monotonic()
                 response = self.client.chat.completions.create(
                     model=self.config.llm_model, messages=messages,
                     max_tokens=self.config.llm_max_tokens, temperature=self.config.llm_temperature,
@@ -199,16 +239,23 @@ class DecisionService:
                     **timeout_option,
                 )
             except APIError as exc:
+                inference_sec += time.monotonic() - inference_started
                 emit("transport_failure", stage=stage, attempt=attempt, status=getattr(exc, "status_code", None))
                 transport_failures += 1
                 logger.warning("llm_transport_failure", extra={"attempt": attempt, "stage": stage})
                 status = getattr(exc, "status_code", None)
                 if attempt == 3 or (status is not None and status < 500 and status not in (408, 429)):
-                    raise LLMTransportError("LLM transport failed; check endpoint and JSON capability.") from None
+                    failure = StageMetrics(stage, attempt, parse_failures, transport_failures,
+                                           tokens, time.monotonic()-start, prompt_tokens, trimmed,
+                                           prepare_sec, inference_sec, provider_metrics)
+                    raise LLMTransportError(
+                        "LLM transport failed; check endpoint and JSON capability.", stages=(failure,)) from None
             else:
+                inference_sec += time.monotonic() - inference_started
                 emit("output", stage=stage, attempt=attempt, elapsed_sec=time.monotonic()-start,
                      choices=[{"content": c.message.content, "finish_reason": c.finish_reason} for c in response.choices])
                 tokens += getattr(response.usage, "completion_tokens", 0) or 0
+                provider_metrics = self._provider_metrics(response) or provider_metrics
                 try:
                     if not response.choices or response.choices[0].finish_reason != "stop":
                         raise ValueError("Incomplete completion")
@@ -220,7 +267,8 @@ class DecisionService:
                         from app.search_cues import validated_cues, SearchCue
                         output.search_cues = [SearchCue(**cue) for cue in validated_cues(output.search_cues, messages)]
                     metrics = StageMetrics(stage, attempt, parse_failures, transport_failures,
-                                           tokens, time.monotonic()-start, prompt_tokens, trimmed)
+                                           tokens, time.monotonic()-start, prompt_tokens, trimmed,
+                                           prepare_sec, inference_sec, provider_metrics)
                     logger.info("llm_stage_complete", extra={"stage": stage, "attempts": attempt,
                         "elapsed_sec": metrics.elapsed_sec, "prompt_tokens": prompt_tokens})
                     return output, metrics
@@ -229,11 +277,34 @@ class DecisionService:
                     parse_failures += 1
                     logger.warning("llm_parse_failure", extra={"attempt": attempt, "stage": stage})
                     if attempt == 3:
-                        raise LLMOutputError("LLM output failed validation after 3 attempts.") from None
+                        failure = StageMetrics(stage, attempt, parse_failures, transport_failures,
+                                               tokens, time.monotonic()-start, prompt_tokens, trimmed,
+                                               prepare_sec, inference_sec, provider_metrics)
+                        raise LLMOutputError(
+                            "LLM output failed validation after 3 attempts.", stages=(failure,)) from None
+                    retry_prepare_started = time.monotonic()
                     messages, prompt_tokens, trimmed_retry = prepare(retry=True)
+                    prepare_sec += time.monotonic() - retry_prepare_started
                     trimmed = trimmed or trimmed_retry
             self.sleep(min(attempt, 2))
         raise AssertionError("unreachable")
+
+    @staticmethod
+    def _provider_metrics(response):
+        extra = getattr(response, "model_extra", None) or {}
+        timings = extra.get("timings") if isinstance(extra, dict) else None
+        result = {}
+        if isinstance(timings, dict):
+            allowed = ("cache_n", "prompt_n", "prompt_ms", "prompt_per_token_ms", "prompt_per_second",
+                       "predicted_n", "predicted_ms", "predicted_per_token_ms", "predicted_per_second")
+            result.update({key: timings[key] for key in allowed
+                           if isinstance(timings.get(key), (int, float))
+                           and not isinstance(timings.get(key), bool)})
+        details = getattr(getattr(response, "usage", None), "prompt_tokens_details", None)
+        cached = getattr(details, "cached_tokens", None)
+        if isinstance(cached, (int, float)) and not isinstance(cached, bool):
+            result["cached_tokens"] = cached
+        return result
 
     def chat(self, *, message, history, affection_total, flags, memory_1line):
         decision = self.decide(message=message, history=history, flags=flags, memory_1line=memory_1line).decision

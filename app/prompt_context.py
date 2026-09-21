@@ -20,6 +20,7 @@ def compact_schema(value):
 class TokenCounter:
     def __init__(self, config):
         self.config = config
+        self.request_count = 0
         if config.token_count_mode not in ("estimate", "llama_cpp"):
             raise ValueError("NPC_TOKEN_COUNT_MODE must be estimate or llama_cpp")
 
@@ -32,10 +33,12 @@ class TokenCounter:
         try:
             with httpx.Client(base_url=root + "/", timeout=5, trust_env=False,
                               headers={"Authorization": "Bearer " + self.config.llm_api_key}) as client:
+                self.request_count += 1
                 applied = client.post("apply-template", json={"messages": messages,
                     "chat_template_kwargs": {"enable_thinking": False}, "add_generation_prompt": True})
                 applied.raise_for_status()
                 prompt = applied.json()["prompt"]
+                self.request_count += 1
                 tokenized = client.post("tokenize", json={"content": prompt, "add_special": True, "parse_special": True})
                 tokenized.raise_for_status()
                 return len(tokenized.json()["tokens"])

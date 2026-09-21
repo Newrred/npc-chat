@@ -1,10 +1,12 @@
 from app.debug_trace import capture, emit
+import asyncio
 from copy import copy
 from contextlib import asynccontextmanager
 from functools import partial
 import uuid
 import logging
 import sqlite3
+import time
 
 from pydantic import BaseModel, Field
 from sqlalchemy.exc import SQLAlchemyError
@@ -22,13 +24,14 @@ from app.services.decision_service import LLMOutputError, LLMTransportError
 from app.services.llm_service_factory import create_llm_service
 from app.repository import SQLiteRepository, payload_digest
 from app.relationship import calculate, stage
-from app.character_config import load_character_config
+from app.character_config import CHARACTER_DIR, load_character_config
 from app.coordinator import TurnCoordinator
 from app.decision import LLMDecision
 from app.errors import ChatError
 from app.web import mount_frontend
 from app.remote_access import AccessVerifier, RemoteBoundary, RemoteConfig
 from app.guest_access import GuestLimits
+from app.observability import TurnMetrics, create_metrics_sink, prompt_fingerprint, runtime_manifest
 
 
 router = APIRouter()
@@ -133,22 +136,27 @@ async def open_session(req: SessionRequest, request: Request):
     return {"session_id": session_id, "profile_id": profile_id}
 
 
-@router.post("/api/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest, request: Request):
+async def _chat_impl(req: ChatRequest, request: Request, metrics: TurnMetrics):
     app_state = request.app.state
     character = requested_character(req.character_id)
+    metrics.character_id = character.character_id
+    metrics.values["prompt_fingerprint"] = prompt_fingerprint(character)
     if req.client_turn_id and not (req.session_id or req.profile_id):
         raise ChatError("SESSION_REQUIRED", "먼저 대화 세션을 생성해 주세요.", 422)
     if getattr(request.state, "remote_owner", None):
         if not req.client_turn_id:
             raise ChatError("TURN_ID_REQUIRED", "요청 식별자가 필요합니다.", 422)
+        identity_started = time.monotonic()
         session_id, profile_id = await run_in_threadpool(
             app_state.repository.resolve_owned, request.state.remote_owner, req.session_id, req.profile_id,
             character.character_id, character.initial_relationship)
+        metrics.elapsed("identity_ms", identity_started)
     else:
+        identity_started = time.monotonic()
         session_id, profile_id = await run_in_threadpool(
             app_state.repository.resolve, req.session_id, req.profile_id, character.character_id,
             character.initial_relationship)
+        metrics.elapsed("identity_ms", identity_started)
     turn_id = req.client_turn_id or uuid.uuid4().hex  # Legacy clients remain one-shot only.
     digest = payload_digest(req.message, req.comfy_on)
     service = service_for_character(app_state.llm_service, character)
@@ -170,15 +178,26 @@ async def chat(req: ChatRequest, request: Request):
     async def execute_turn(cancelled):
         repository = app_state.repository
         # Revoke queued requests from tabs whose room was closed before execution.
+        ownership_started = time.monotonic()
         await conversation_identity(request, session_id, profile_id, character)
+        metrics.elapsed("ownership_check_ms", ownership_started)
+        replay_started = time.monotonic()
         cached = await run_in_threadpool(repository.replay, profile_id, character.character_id, turn_id, digest)
+        metrics.elapsed("replay_lookup_ms", replay_started)
         if cached is not None:
+            metrics.values["replayed"] = True
             emit("replay", response=cached)
             return cached
         if app_state.guest_limits:
+            quota_started = time.monotonic()
             await run_in_threadpool(partial(app_state.guest_limits.admit, request.state.remote_owner, charge=True))
+            metrics.elapsed("quota_ms", quota_started)
+        load_started = time.monotonic()
         before = await run_in_threadpool(repository.load, profile_id, character.character_id)
+        metrics.elapsed("repository_load_ms", load_started)
+        recall_started = time.monotonic()
         notes = await run_in_threadpool(repository.recall, profile_id, character.character_id, req.message, before.history)
+        metrics.elapsed("recall_ms", recall_started)
         emit("context_selected", selected_memories=[dict(note) for note in notes], history_messages=len(before.history),
              summary=before.summary, relationship=before.values.model_dump())
         generated = await run_in_threadpool(partial(
@@ -187,14 +206,17 @@ async def chat(req: ChatRequest, request: Request):
             relationship={"values": before.values.model_dump(), "stage": stage(before.values)},
             memories=[{"content": note["content"], "kind": note["kind"]} for note in notes],
         ))
+        metrics.observe_generation(generated)
         decision = LLMDecision.model_validate(generated.decision.model_dump())
         decision.flags_set = [flag for flag in decision.flags_set if flag in character.allowed_flags]
         result = calculate(before.values, decision.interaction, before.recent, character.relationship_matrix)
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499, True)
+        image_started = time.monotonic()
         comfy = await app_state.comfy_service.maybe_generate(
             comfy_on=req.comfy_on, session_id=session_id, turn_index=before.turn_count + 1,
             face=decision.face, tags=decision.emotion_tags, reply=decision.reply)
+        metrics.elapsed("image_ms", image_started)
         flags = sorted(set(before.flags) | set(decision.flags_set))
         response = ChatResponse(
             session_id=session_id, profile_id=profile_id, turn_id=turn_id,
@@ -212,10 +234,13 @@ async def chat(req: ChatRequest, request: Request):
         ).model_dump()
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499, True)
-        return await run_in_threadpool(partial(
+        commit_started = time.monotonic()
+        committed = await run_in_threadpool(partial(
             repository.commit, profile_id=profile_id, character_id=character.character_id, turn_id=turn_id,
             payload_hash=digest, before=before, decision=decision, result=result, message=req.message,
             response=response, flags=flags))
+        metrics.elapsed("commit_ms", commit_started)
+        return committed
 
     async def execute(cancelled):
         with capture(repository_database, settings.debug_trace, profile_id, character.character_id, turn_id):
@@ -226,7 +251,40 @@ async def chat(req: ChatRequest, request: Request):
             return result
 
     repository_database = app_state.repository.path
-    return await app_state.coordinator.submit(execute)
+    return await app_state.coordinator.submit(execute, on_start=metrics.queue_started)
+
+
+@router.post("/api/chat", response_model=ChatResponse)
+async def chat(req: ChatRequest, request: Request):
+    metrics = TurnMetrics(req.character_id or settings.character_id)
+    outcome, error_code = "success", None
+    try:
+        return await _chat_impl(req, request, metrics)
+    except asyncio.CancelledError:
+        outcome, error_code = "cancelled", "CLIENT_CANCELLED"
+        raise
+    except ChatError as exc:
+        outcome = "cancelled" if exc.code == "TURN_CANCELLED" else ("rejected" if exc.status < 500 else "failed")
+        error_code = exc.code
+        raise
+    except LLMOutputError as exc:
+        outcome, error_code = "failed", "LLM_INVALID_OUTPUT"
+        metrics.observe_failure(exc)
+        raise
+    except LLMTransportError as exc:
+        outcome, error_code = "failed", "LLM_UNAVAILABLE"
+        metrics.observe_failure(exc)
+        raise
+    except (sqlite3.Error, SQLAlchemyError):
+        outcome, error_code = "failed", "PERSISTENCE_FAILURE"
+        raise
+    except Exception:
+        outcome, error_code = "failed", "INTERNAL_ERROR"
+        raise
+    finally:
+        record = metrics.finish(outcome, error_code)
+        if record:
+            request.app.state.metrics_sink.emit(record)
 
 
 @router.get("/api/image/status", response_model=ImageStatusResponse)
@@ -249,7 +307,7 @@ async def image_status(request: Request, session_id: str, face: FaceType,
 
 
 def create_app(*, llm_service=None, session_store=None, repository=None, comfy_service=None, llm_probe=None,
-               remote_config=None, access_verifier=None) -> FastAPI:
+               remote_config=None, access_verifier=None, metrics_sink=None) -> FastAPI:
     """Inject dependencies for offline tests without adding a public fake mode."""
 
     @asynccontextmanager
@@ -263,12 +321,15 @@ def create_app(*, llm_service=None, session_store=None, repository=None, comfy_s
                     await run_in_threadpool(store.upgrade)
             except (SQLAlchemyError, OSError):
                 logging.getLogger(__name__).warning("database_startup_unavailable")
+            characters = [load_character_config(path.stem) for path in sorted(CHARACTER_DIR.glob("*.json"))]
+            application.state.metrics_sink.emit(runtime_manifest(settings, remote_config, characters))
             yield
         finally:
             await application.state.coordinator.close()
             await store.close()
             if llm_service is None:
                 await run_in_threadpool(application.state.llm_service.client.close)
+            application.state.metrics_sink.close()
 
     remote_config = remote_config or RemoteConfig.from_env()
     remote_config.validate()
@@ -310,6 +371,7 @@ def create_app(*, llm_service=None, session_store=None, repository=None, comfy_s
     application.state.coordinator = TurnCoordinator(settings.queue_capacity, settings.queue_wait_sec)
     application.state.comfy_service = ComfyService() if comfy_service is None else comfy_service
     application.state.llm_probe = check_llm if llm_probe is None else llm_probe
+    application.state.metrics_sink = metrics_sink if metrics_sink is not None else create_metrics_sink(settings)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=[remote_config.origin] if remote else settings.cors_origins,

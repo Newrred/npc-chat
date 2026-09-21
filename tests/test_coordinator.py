@@ -62,3 +62,26 @@ def test_queue_timeout_does_not_run_later():
         await gate.close()
         assert ran == []
     asyncio.run(run())
+
+
+def test_queue_start_observer_receives_wait_and_depth():
+    async def run():
+        gate = TurnCoordinator(capacity=2, wait_seconds=1)
+        started, release = asyncio.Event(), asyncio.Event()
+        observed = []
+        async def first(_cancelled):
+            started.set()
+            await release.wait()
+        async def second(_cancelled):
+            return "ok"
+        active = asyncio.create_task(gate.submit(first))
+        await started.wait()
+        waiting = asyncio.create_task(gate.submit(
+            second, on_start=lambda wait_ms, depth: observed.append((wait_ms, depth))))
+        await asyncio.sleep(0)
+        release.set()
+        assert await waiting == "ok"
+        await active
+        await gate.close()
+        assert len(observed) == 1 and observed[0][0] >= 0 and observed[0][1] == 1
+    asyncio.run(run())

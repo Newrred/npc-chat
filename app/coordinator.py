@@ -1,6 +1,7 @@
 """One inference at a time, finite waiting queue, cancellation without partial commits."""
 import asyncio
 from dataclasses import dataclass
+import time
 
 from app.errors import ChatError
 
@@ -11,6 +12,9 @@ class Job:
     future: asyncio.Future
     started: asyncio.Event
     cancelled: bool = False
+    queued_at: float = 0.0
+    queued_ahead: int = 0
+    on_start: object | None = None
 
 
 class TurnCoordinator:
@@ -23,7 +27,7 @@ class TurnCoordinator:
         self.closing = False
         self.active = None
 
-    async def submit(self, function):
+    async def submit(self, function, *, on_start=None):
         if self.closing:
             raise ChatError("SHUTTING_DOWN", "서버가 종료 중입니다.", 503, True)
         if self.worker is None:
@@ -31,7 +35,9 @@ class TurnCoordinator:
         future = asyncio.get_running_loop().create_future()
         # Retrieve exceptions even if the HTTP caller disconnects.
         future.add_done_callback(lambda f: f.exception() if not f.cancelled() else None)
-        job = Job(function, future, asyncio.Event())
+        queued_ahead = self.queue.qsize() + (1 if self.active is not None else 0)
+        job = Job(function, future, asyncio.Event(), queued_at=time.monotonic(),
+                  queued_ahead=queued_ahead, on_start=on_start)
         try:
             self.queue.put_nowait(job)
         except asyncio.QueueFull:
@@ -57,6 +63,8 @@ class TurnCoordinator:
                 if job is None:
                     return
                 job.started.set()
+                if job.on_start:
+                    job.on_start((time.monotonic() - job.queued_at) * 1000, job.queued_ahead)
                 if job.cancelled:
                     job.future.cancel()
                     continue

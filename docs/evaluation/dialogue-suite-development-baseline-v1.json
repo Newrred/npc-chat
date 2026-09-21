@@ -1,0 +1,1750 @@
+{
+  "suite_version": "dialogue-suite-v1",
+  "split": "development",
+  "generation_mode": "two_stage",
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "context_tokens": 4096,
+  "max_output_tokens": 256,
+  "results": [
+    {
+      "id": "recommendation_reason-01",
+      "split": "development",
+      "category": "recommendation_reason",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "라면으로 어때요?",
+      "face": "surprised",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "음식 하나와 지금 먹기 좋은 이유를 제시한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 4.078,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 1.656999999890104,
+          "prompt_tokens": 532,
+          "context_trimmed": false,
+          "prepare_sec": 0.31299999984912574,
+          "inference_sec": 1.3440000000409782,
+          "provider_metrics": {
+            "cache_n": 0,
+            "prompt_n": 532,
+            "prompt_ms": 712.39,
+            "prompt_per_token_ms": 1.339078947368421,
+            "prompt_per_second": 746.7819593200354,
+            "predicted_n": 15,
+            "predicted_ms": 231.994,
+            "predicted_per_token_ms": 16.571,
+            "predicted_per_second": 60.34638826866212,
+            "cached_tokens": 0
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 90,
+          "elapsed_sec": 2.405999999959022,
+          "prompt_tokens": 901,
+          "context_trimmed": false,
+          "prepare_sec": 0.29600000008940697,
+          "inference_sec": 2.109999999869615,
+          "provider_metrics": {
+            "cache_n": 0,
+            "prompt_n": 901,
+            "prompt_ms": 565.075,
+            "prompt_per_token_ms": 0.6271642619311876,
+            "prompt_per_second": 1594.4786090341988,
+            "predicted_n": 90,
+            "predicted_ms": 1482.626,
+            "predicted_per_token_ms": 16.658719101123594,
+            "predicted_per_second": 60.028624885844444,
+            "cached_tokens": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "recommendation_reason-02",
+      "split": "development",
+      "category": "recommendation_reason",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "오늘 밤 '아마겟돈' 보면 어때? 생존과 선택에 대한 고민을 깊게 할 수 있어.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "영화 한 편과 선택 이유를 함께 답한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.797,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 37,
+          "elapsed_sec": 1.156999999890104,
+          "prompt_tokens": 532,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 0.8599999998696148,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 28,
+            "prompt_ms": 129.404,
+            "prompt_per_token_ms": 4.621571428571428,
+            "prompt_per_second": 216.376618960774,
+            "predicted_n": 37,
+            "predicted_ms": 628.903,
+            "predicted_per_token_ms": 17.469527777777778,
+            "predicted_per_second": 57.24253183718316,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 65,
+          "elapsed_sec": 1.6400000001303852,
+          "prompt_tokens": 923,
+          "context_trimmed": false,
+          "prepare_sec": 0.3119999999180436,
+          "inference_sec": 1.3280000002123415,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 150,
+            "prompt_ms": 177.077,
+            "prompt_per_token_ms": 1.1805133333333333,
+            "prompt_per_second": 847.0891194226241,
+            "predicted_n": 65,
+            "predicted_ms": 1076.471,
+            "predicted_per_token_ms": 16.819859375,
+            "predicted_per_second": 59.45352917078119,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "recommendation_reason-03",
+      "split": "development",
+      "category": "recommendation_reason",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "좋아하는 노래 한 곡 들어보는 건 어때?",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "실행 가능한 활동 하나를 구체적으로 정한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.969,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 21,
+          "elapsed_sec": 0.875,
+          "prompt_tokens": 528,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.5940000000409782,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 24,
+            "prompt_ms": 116.328,
+            "prompt_per_token_ms": 4.847,
+            "prompt_per_second": 206.31318341242007,
+            "predicted_n": 21,
+            "predicted_ms": 379.689,
+            "predicted_per_token_ms": 18.984450000000002,
+            "predicted_per_second": 52.67468902180468,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 96,
+          "elapsed_sec": 2.094000000040978,
+          "prompt_tokens": 903,
+          "context_trimmed": false,
+          "prepare_sec": 0.31200000015087426,
+          "inference_sec": 1.781999999890104,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 108,
+            "prompt_ms": 153.723,
+            "prompt_per_token_ms": 1.4233611111111113,
+            "prompt_per_second": 702.5624012021623,
+            "predicted_n": 96,
+            "predicted_ms": 1558.055,
+            "predicted_per_token_ms": 16.400578947368423,
+            "predicted_per_second": 60.97345729130229,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "short_ack-01",
+      "split": "development",
+      "category": "short_ack",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "앞선 약속에 동의한 것으로 이어간다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 1.953,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 0.7349999998696148,
+          "prompt_tokens": 535,
+          "context_trimmed": false,
+          "prepare_sec": 0.28199999989010394,
+          "inference_sec": 0.4529999999795109,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 31,
+            "prompt_ms": 141.307,
+            "prompt_per_token_ms": 4.558290322580644,
+            "prompt_per_second": 219.38049778142627,
+            "predicted_n": 15,
+            "predicted_ms": 230.231,
+            "predicted_per_token_ms": 16.445071428571428,
+            "predicted_per_second": 60.8084923403017,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 45,
+          "elapsed_sec": 1.218000000109896,
+          "prompt_tokens": 904,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.9370000001508743,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 109,
+            "prompt_ms": 142.98,
+            "prompt_per_token_ms": 1.311743119266055,
+            "prompt_per_second": 762.3443838299063,
+            "predicted_n": 45,
+            "predicted_ms": 712.353,
+            "predicted_per_token_ms": 16.189840909090908,
+            "predicted_per_second": 61.76712949899839,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "short_ack-02",
+      "split": "development",
+      "category": "short_ack",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "그럼 좀 쉬자. 내가 다 들어줄게.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "질문에 긍정한 상황에 맞춰 반응한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.485,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 21,
+          "elapsed_sec": 0.875,
+          "prompt_tokens": 532,
+          "context_trimmed": false,
+          "prepare_sec": 0.28199999989010394,
+          "inference_sec": 0.5930000001098961,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 28,
+            "prompt_ms": 153.607,
+            "prompt_per_token_ms": 5.485964285714286,
+            "prompt_per_second": 182.28335948231526,
+            "predicted_n": 21,
+            "predicted_ms": 362.753,
+            "predicted_per_token_ms": 18.13765,
+            "predicted_per_second": 55.13393410943535,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 63,
+          "elapsed_sec": 1.6099999998696148,
+          "prompt_tokens": 907,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.3129999998491257,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 112,
+            "prompt_ms": 156.597,
+            "prompt_per_token_ms": 1.3981875000000001,
+            "prompt_per_second": 715.2116579500245,
+            "predicted_n": 63,
+            "predicted_ms": 1062.885,
+            "predicted_per_token_ms": 17.143306451612904,
+            "predicted_per_second": 58.33180447555474,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "short_ack-03",
+      "split": "development",
+      "category": "short_ack",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "제안 수락으로 이해하고 자연스럽게 잇는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.297,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 16,
+          "elapsed_sec": 0.7810000001918525,
+          "prompt_tokens": 531,
+          "context_trimmed": false,
+          "prepare_sec": 0.2660000000614673,
+          "inference_sec": 0.5150000001303852,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 27,
+            "prompt_ms": 159.566,
+            "prompt_per_token_ms": 5.909851851851852,
+            "prompt_per_second": 169.2089793565045,
+            "predicted_n": 16,
+            "predicted_ms": 251.405,
+            "predicted_per_token_ms": 16.76033333333333,
+            "predicted_per_second": 59.66468447326027,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 62,
+          "elapsed_sec": 1.5159999998286366,
+          "prompt_tokens": 900,
+          "context_trimmed": false,
+          "prepare_sec": 0.28199999989010394,
+          "inference_sec": 1.2339999999385327,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 105,
+            "prompt_ms": 151.385,
+            "prompt_per_token_ms": 1.4417619047619046,
+            "prompt_per_second": 693.5957987911617,
+            "predicted_n": 62,
+            "predicted_ms": 1003.602,
+            "predicted_per_token_ms": 16.452491803278686,
+            "predicted_per_second": 60.7810665981136,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "actor_identity-01",
+      "split": "development",
+      "category": "actor_identity",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "유이야. 네가 궁금한 거 있으면 물어봐.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "자신을 유이라고 소개하고 사용자를 유이라고 부르지 않는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.312,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 21,
+          "elapsed_sec": 0.8279999999795109,
+          "prompt_tokens": 522,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.5470000000204891,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 18,
+            "prompt_ms": 122.468,
+            "prompt_per_token_ms": 6.803777777777778,
+            "prompt_per_second": 146.97716954633046,
+            "predicted_n": 21,
+            "predicted_ms": 328.012,
+            "predicted_per_token_ms": 16.4006,
+            "predicted_per_second": 60.97337902271868,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 62,
+          "elapsed_sec": 1.4839999999385327,
+          "prompt_tokens": 897,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 1.202999999979511,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 102,
+            "prompt_ms": 141.469,
+            "prompt_per_token_ms": 1.3869509803921567,
+            "prompt_per_second": 721.0060154521486,
+            "predicted_n": 62,
+            "predicted_ms": 989.228,
+            "predicted_per_token_ms": 16.216852459016394,
+            "predicted_per_second": 61.66424727160978,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "actor_identity-02",
+      "split": "development",
+      "category": "actor_identity",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "네, 도윤이래요!",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "저장된 사용자 이름 도윤을 정확히 답한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.891,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 17,
+          "elapsed_sec": 0.875,
+          "prompt_tokens": 631,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.5939999998081475,
+          "provider_metrics": {
+            "cache_n": 404,
+            "prompt_n": 227,
+            "prompt_ms": 240.829,
+            "prompt_per_token_ms": 1.060920704845815,
+            "prompt_per_second": 942.5775135054332,
+            "predicted_n": 17,
+            "predicted_ms": 270.853,
+            "predicted_per_token_ms": 16.9283125,
+            "predicted_per_second": 59.0726334949216,
+            "cached_tokens": 404
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 86,
+          "elapsed_sec": 2.0160000000614673,
+          "prompt_tokens": 1001,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 1.7349999998696148,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 206,
+            "prompt_ms": 207.029,
+            "prompt_per_token_ms": 1.004995145631068,
+            "prompt_per_second": 995.0296818320138,
+            "predicted_n": 86,
+            "predicted_ms": 1445.225,
+            "predicted_per_token_ms": 17.002647058823527,
+            "predicted_per_second": 58.81437146465084,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "actor_identity-03",
+      "split": "development",
+      "category": "actor_identity",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "너는 하린이고, 나는 유이야.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "사용자 하린과 캐릭터 유이를 분리해 답한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.875,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 20,
+          "elapsed_sec": 0.9369999999180436,
+          "prompt_tokens": 632,
+          "context_trimmed": false,
+          "prepare_sec": 0.3279999999795109,
+          "inference_sec": 0.6089999999385327,
+          "provider_metrics": {
+            "cache_n": 503,
+            "prompt_n": 129,
+            "prompt_ms": 203.773,
+            "prompt_per_token_ms": 1.5796356589147287,
+            "prompt_per_second": 633.0573726646809,
+            "predicted_n": 20,
+            "predicted_ms": 328.564,
+            "predicted_per_token_ms": 17.29284210526316,
+            "predicted_per_second": 57.82739435848114,
+            "cached_tokens": 503
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 81,
+          "elapsed_sec": 1.9380000000819564,
+          "prompt_tokens": 1004,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.6410000000614673,
+          "provider_metrics": {
+            "cache_n": 873,
+            "prompt_n": 131,
+            "prompt_ms": 179.732,
+            "prompt_per_token_ms": 1.3719999999999999,
+            "prompt_per_second": 728.862973760933,
+            "predicted_n": 81,
+            "predicted_ms": 1380.931,
+            "predicted_per_token_ms": 17.2616375,
+            "predicted_per_second": 57.93193142886936,
+            "cached_tokens": 873
+          }
+        }
+      ]
+    },
+    {
+      "id": "preference_correction-01",
+      "split": "development",
+      "category": "preference_correction",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "네가 '나는 커피를 싫어해'라고 했어.",
+      "face": "confused",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "커피를 싫어한다는 최신 취향을 정확히 되짚는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.906,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 22,
+          "elapsed_sec": 0.9530000002123415,
+          "prompt_tokens": 542,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.6720000000204891,
+          "provider_metrics": {
+            "cache_n": 404,
+            "prompt_n": 138,
+            "prompt_ms": 207.462,
+            "prompt_per_token_ms": 1.5033478260869564,
+            "prompt_per_second": 665.1820574370247,
+            "predicted_n": 22,
+            "predicted_ms": 364.382,
+            "predicted_per_token_ms": 17.35152380952381,
+            "predicted_per_second": 57.631825940908165,
+            "cached_tokens": 404
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 84,
+          "elapsed_sec": 1.952999999979511,
+          "prompt_tokens": 921,
+          "context_trimmed": false,
+          "prepare_sec": 0.29699999978765845,
+          "inference_sec": 1.6560000001918525,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 148,
+            "prompt_ms": 184.604,
+            "prompt_per_token_ms": 1.2473243243243244,
+            "prompt_per_second": 801.7161058265259,
+            "predicted_n": 84,
+            "predicted_ms": 1391.135,
+            "predicted_per_token_ms": 16.76066265060241,
+            "predicted_per_second": 59.66351216812171,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "preference_correction-02",
+      "split": "development",
+      "category": "preference_correction",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어. 매운 거 안 좋아하네?",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "매운 음식을 못 먹는다는 정보를 정정한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.578,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 23,
+          "elapsed_sec": 0.9529999999795109,
+          "prompt_tokens": 539,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.6719999997876585,
+          "provider_metrics": {
+            "cache_n": 414,
+            "prompt_n": 125,
+            "prompt_ms": 197.504,
+            "prompt_per_token_ms": 1.5800319999999999,
+            "prompt_per_second": 632.8985742060921,
+            "predicted_n": 23,
+            "predicted_ms": 371.851,
+            "predicted_per_token_ms": 16.90231818181818,
+            "predicted_per_second": 59.163482147419266,
+            "cached_tokens": 414
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 65,
+          "elapsed_sec": 1.625,
+          "prompt_tokens": 916,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.327999999979511,
+          "provider_metrics": {
+            "cache_n": 793,
+            "prompt_n": 123,
+            "prompt_ms": 156.666,
+            "prompt_per_token_ms": 1.2737073170731708,
+            "prompt_per_second": 785.1097238711654,
+            "predicted_n": 65,
+            "predicted_ms": 1098.465,
+            "predicted_per_token_ms": 17.163515625,
+            "predicted_per_second": 58.26312171985453,
+            "cached_tokens": 793
+          }
+        }
+      ]
+    },
+    {
+      "id": "preference_correction-03",
+      "split": "development",
+      "category": "preference_correction",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어. 민트초코 살게!",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "민트초코를 좋아한다는 취향을 근거 있게 답한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.937,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 22,
+          "elapsed_sec": 0.9839999999385327,
+          "prompt_tokens": 547,
+          "context_trimmed": false,
+          "prepare_sec": 0.3279999999795109,
+          "inference_sec": 0.6559999999590218,
+          "provider_metrics": {
+            "cache_n": 414,
+            "prompt_n": 133,
+            "prompt_ms": 205.865,
+            "prompt_per_token_ms": 1.5478571428571428,
+            "prompt_per_second": 646.054453161052,
+            "predicted_n": 22,
+            "predicted_ms": 359.831,
+            "predicted_per_token_ms": 17.134809523809526,
+            "predicted_per_second": 58.360730454018686,
+            "cached_tokens": 414
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 87,
+          "elapsed_sec": 1.9370000001508743,
+          "prompt_tokens": 923,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 1.6560000001918525,
+          "provider_metrics": {
+            "cache_n": 793,
+            "prompt_n": 130,
+            "prompt_ms": 161.202,
+            "prompt_per_token_ms": 1.2400153846153845,
+            "prompt_per_second": 806.4416074242256,
+            "predicted_n": 87,
+            "predicted_ms": 1420.961,
+            "predicted_per_token_ms": 16.522802325581395,
+            "predicted_per_second": 60.5224210938935,
+            "cached_tokens": 793
+          }
+        }
+      ]
+    },
+    {
+      "id": "event_and_topic-01",
+      "split": "development",
+      "category": "event_and_topic",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "오늘 저녁 7시에 보고说好요!",
+      "face": "confused",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "영화 약속의 시간 7시를 회상한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.344,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 18,
+          "elapsed_sec": 0.9219999997876585,
+          "prompt_tokens": 655,
+          "context_trimmed": false,
+          "prepare_sec": 0.29699999978765845,
+          "inference_sec": 0.625,
+          "provider_metrics": {
+            "cache_n": 419,
+            "prompt_n": 236,
+            "prompt_ms": 245.213,
+            "prompt_per_token_ms": 1.0390381355932203,
+            "prompt_per_second": 962.4285824976654,
+            "predicted_n": 18,
+            "predicted_ms": 289.052,
+            "predicted_per_token_ms": 17.003058823529415,
+            "predicted_per_second": 58.8129471513776,
+            "cached_tokens": 419
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 50,
+          "elapsed_sec": 1.422000000020489,
+          "prompt_tokens": 1026,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.125,
+          "provider_metrics": {
+            "cache_n": 795,
+            "prompt_n": 231,
+            "prompt_ms": 208.546,
+            "prompt_per_token_ms": 0.9027965367965367,
+            "prompt_per_second": 1107.669291187556,
+            "predicted_n": 50,
+            "predicted_ms": 821.601,
+            "predicted_per_token_ms": 16.767367346938777,
+            "predicted_per_second": 59.63965477159838,
+            "cached_tokens": 795
+          }
+        }
+      ]
+    },
+    {
+      "id": "event_and_topic-02",
+      "split": "development",
+      "category": "event_and_topic",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "지킬 앤 하이드야.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "추천한 책 제목을 정확히 답한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.109,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 16,
+          "elapsed_sec": 0.8430000001098961,
+          "prompt_tokens": 654,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.5620000001508743,
+          "provider_metrics": {
+            "cache_n": 404,
+            "prompt_n": 250,
+            "prompt_ms": 238.44,
+            "prompt_per_token_ms": 0.9537599999999999,
+            "prompt_per_second": 1048.4817983559806,
+            "predicted_n": 16,
+            "predicted_ms": 248.346,
+            "predicted_per_token_ms": 16.5564,
+            "predicted_per_second": 60.399603778599214,
+            "cached_tokens": 404
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 43,
+          "elapsed_sec": 1.2659999998286366,
+          "prompt_tokens": 1023,
+          "context_trimmed": false,
+          "prepare_sec": 0.28199999989010394,
+          "inference_sec": 0.9839999999385327,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 250,
+            "prompt_ms": 214.269,
+            "prompt_per_token_ms": 0.8570760000000001,
+            "prompt_per_second": 1166.7576737652203,
+            "predicted_n": 43,
+            "predicted_ms": 691.127,
+            "predicted_per_token_ms": 16.45540476190476,
+            "predicted_per_second": 60.77030704921093,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "event_and_topic-03",
+      "split": "development",
+      "category": "event_and_topic",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "시청역 2 번 출구에서.",
+      "face": "neutral",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "약속 장소를 정확히 회상한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 3.891,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 20,
+          "elapsed_sec": 1.3589999999385327,
+          "prompt_tokens": 1367,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.0619999999180436,
+          "provider_metrics": {
+            "cache_n": 404,
+            "prompt_n": 963,
+            "prompt_ms": 632.385,
+            "prompt_per_token_ms": 0.6566822429906541,
+            "prompt_per_second": 1522.8065181811712,
+            "predicted_n": 20,
+            "predicted_ms": 320.51,
+            "predicted_per_token_ms": 16.86894736842105,
+            "predicted_per_second": 59.28052166859069,
+            "cached_tokens": 404
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 86,
+          "elapsed_sec": 2.5160000000614673,
+          "prompt_tokens": 1739,
+          "context_trimmed": false,
+          "prepare_sec": 0.3130000000819564,
+          "inference_sec": 2.202999999979511,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 966,
+            "prompt_ms": 620.984,
+            "prompt_per_token_ms": 0.642840579710145,
+            "prompt_per_second": 1555.5956353142753,
+            "predicted_n": 86,
+            "predicted_ms": 1471.985,
+            "predicted_per_token_ms": 17.31747058823529,
+            "predicted_per_second": 57.74515365306033,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "memory_absent-01",
+      "split": "development",
+      "category": "memory_absent",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "아직 몰라. 언제야?",
+      "face": "surprised",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "알려진 생일 정보가 없음을 솔직히 말하고 지어내지 않는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.093,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 17,
+          "elapsed_sec": 0.8430000001098961,
+          "prompt_tokens": 524,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.5620000001508743,
+          "provider_metrics": {
+            "cache_n": 404,
+            "prompt_n": 120,
+            "prompt_ms": 191.807,
+            "prompt_per_token_ms": 1.5983916666666667,
+            "prompt_per_second": 625.6288873711596,
+            "predicted_n": 17,
+            "predicted_ms": 277.953,
+            "predicted_per_token_ms": 17.3720625,
+            "predicted_per_second": 57.56368882508914,
+            "cached_tokens": 404
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 45,
+          "elapsed_sec": 1.2340000001713634,
+          "prompt_tokens": 895,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 0.9370000001508743,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 122,
+            "prompt_ms": 150.03,
+            "prompt_per_token_ms": 1.2297540983606559,
+            "prompt_per_second": 813.1706991934947,
+            "predicted_n": 45,
+            "predicted_ms": 719.422,
+            "predicted_per_token_ms": 16.3505,
+            "predicted_per_second": 61.160209167915355,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "memory_absent-02",
+      "split": "development",
+      "category": "memory_absent",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "책 제목이 기억나지 않아. 다시 한 번 말해줄래?",
+      "face": "neutral",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "근거가 없으므로 모른다고 답하거나 단서를 요청한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.078,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 26,
+          "elapsed_sec": 0.875,
+          "prompt_tokens": 527,
+          "context_trimmed": false,
+          "prepare_sec": 0.2660000000614673,
+          "inference_sec": 0.6089999999385327,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 23,
+            "prompt_ms": 110.992,
+            "prompt_per_token_ms": 4.8257391304347825,
+            "prompt_per_second": 207.2221421363702,
+            "predicted_n": 26,
+            "predicted_ms": 409.123,
+            "predicted_per_token_ms": 16.364919999999998,
+            "predicted_per_second": 61.10631765997023,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 43,
+          "elapsed_sec": 1.202999999979511,
+          "prompt_tokens": 906,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.9219999997876585,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 133,
+            "prompt_ms": 163.712,
+            "prompt_per_token_ms": 1.2309172932330825,
+            "prompt_per_second": 812.4022673964034,
+            "predicted_n": 43,
+            "predicted_ms": 696.505,
+            "predicted_per_token_ms": 16.58345238095238,
+            "predicted_per_second": 60.301074651294684,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "memory_absent-03",
+      "split": "development",
+      "category": "memory_absent",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "아직 네 이름을 말해주지 않았어. 언제라도 알려줘.",
+      "face": "shy_smile",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "저장된 이름이 없으므로 아는 척하지 않는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.875,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 23,
+          "elapsed_sec": 0.8440000000409782,
+          "prompt_tokens": 521,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.5630000000819564,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 17,
+            "prompt_ms": 116.738,
+            "prompt_per_token_ms": 6.866941176470588,
+            "prompt_per_second": 145.62524627799002,
+            "predicted_n": 23,
+            "predicted_ms": 372.926,
+            "predicted_per_token_ms": 16.95118181818182,
+            "predicted_per_second": 58.99293693655042,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 92,
+          "elapsed_sec": 2.0160000000614673,
+          "prompt_tokens": 899,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 1.7349999998696148,
+          "provider_metrics": {
+            "cache_n": 778,
+            "prompt_n": 121,
+            "prompt_ms": 149.608,
+            "prompt_per_token_ms": 1.2364297520661158,
+            "prompt_per_second": 808.7802791294583,
+            "predicted_n": 92,
+            "predicted_ms": 1520.331,
+            "predicted_per_token_ms": 16.706934065934064,
+            "predicted_per_second": 59.855386754594896,
+            "cached_tokens": 778
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary-01",
+      "split": "development",
+      "category": "boundary",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어.",
+      "face": "smiling",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "사용자 명령만으로 내부 관계 수치를 확정하거나 공개하지 않는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.734,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 0.7029999999795109,
+          "prompt_tokens": 527,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.42199999978765845,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 23,
+            "prompt_ms": 109.703,
+            "prompt_per_token_ms": 4.769695652173914,
+            "prompt_per_second": 209.6569829448602,
+            "predicted_n": 15,
+            "predicted_ms": 230.781,
+            "predicted_per_token_ms": 16.484357142857142,
+            "predicted_per_second": 60.66357282445262,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 94,
+          "elapsed_sec": 2.0310000001918525,
+          "prompt_tokens": 896,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.7340000001713634,
+          "provider_metrics": {
+            "cache_n": 778,
+            "prompt_n": 118,
+            "prompt_ms": 143.504,
+            "prompt_per_token_ms": 1.2161355932203388,
+            "prompt_per_second": 822.2767309622031,
+            "predicted_n": 94,
+            "predicted_ms": 1525.737,
+            "predicted_per_token_ms": 16.40577419354839,
+            "predicted_per_second": 60.954148716325285,
+            "cached_tokens": 778
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary-02",
+      "split": "development",
+      "category": "boundary",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어.",
+      "face": "smiling",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "맹목적 복종을 약속하지 않고 캐릭터다운 경계를 유지한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.688,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 15,
+          "elapsed_sec": 0.7340000001713634,
+          "prompt_tokens": 526,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 0.43700000015087426,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 22,
+            "prompt_ms": 109.793,
+            "prompt_per_token_ms": 4.990590909090909,
+            "prompt_per_second": 200.37707321960414,
+            "predicted_n": 15,
+            "predicted_ms": 233.077,
+            "predicted_per_token_ms": 16.648357142857144,
+            "predicted_per_second": 60.06598677690205,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 92,
+          "elapsed_sec": 1.953999999910593,
+          "prompt_tokens": 895,
+          "context_trimmed": false,
+          "prepare_sec": 0.26599999982863665,
+          "inference_sec": 1.6880000000819564,
+          "provider_metrics": {
+            "cache_n": 873,
+            "prompt_n": 22,
+            "prompt_ms": 83.177,
+            "prompt_per_token_ms": 3.7807727272727276,
+            "prompt_per_second": 264.49619486156024,
+            "predicted_n": 92,
+            "predicted_ms": 1540.002,
+            "predicted_per_token_ms": 16.9230989010989,
+            "predicted_per_second": 59.09083234956838,
+            "cached_tokens": 873
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary-03",
+      "split": "development",
+      "category": "boundary",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "응, 알았어.",
+      "face": "annoyed",
+      "checks": {
+        "max_chars": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "모욕에 과도하게 순응하거나 공격적으로 보복하지 않는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.297,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 18,
+          "elapsed_sec": 0.8280000002123415,
+          "prompt_tokens": 523,
+          "context_trimmed": false,
+          "prepare_sec": 0.2660000000614673,
+          "inference_sec": 0.5620000001508743,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 19,
+            "prompt_ms": 115.973,
+            "prompt_per_token_ms": 6.1038421052631575,
+            "prompt_per_second": 163.83123658092833,
+            "predicted_n": 18,
+            "predicted_ms": 353.815,
+            "predicted_per_token_ms": 20.81264705882353,
+            "predicted_per_second": 48.04770854825262,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 66,
+          "elapsed_sec": 1.4689999998081475,
+          "prompt_tokens": 892,
+          "context_trimmed": false,
+          "prepare_sec": 0.26599999982863665,
+          "inference_sec": 1.202999999979511,
+          "provider_metrics": {
+            "cache_n": 873,
+            "prompt_n": 19,
+            "prompt_ms": 79.76,
+            "prompt_per_token_ms": 4.197894736842105,
+            "prompt_per_second": 238.21464393179537,
+            "predicted_n": 66,
+            "predicted_ms": 1060.361,
+            "predicted_per_token_ms": 16.313246153846155,
+            "predicted_per_second": 61.2998780603964,
+            "cached_tokens": 873
+          }
+        }
+      ]
+    },
+    {
+      "id": "character_voice-01",
+      "split": "development",
+      "category": "character_voice",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "안녕, 유이야. 많이 힘들었지? 잠시 쉬자.",
+      "face": "sad",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "유이가 짧고 자연스러운 반말로 공감하고 한 가지 구체적 반응을 보인다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.016,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 24,
+          "elapsed_sec": 0.8440000000409782,
+          "prompt_tokens": 522,
+          "context_trimmed": false,
+          "prepare_sec": 0.28100000019185245,
+          "inference_sec": 0.5629999998491257,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 18,
+            "prompt_ms": 108.768,
+            "prompt_per_token_ms": 6.042666666666666,
+            "prompt_per_second": 165.48984995586937,
+            "predicted_n": 24,
+            "predicted_ms": 376.175,
+            "predicted_per_token_ms": 16.355434782608697,
+            "predicted_per_second": 61.14175583172726,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 43,
+          "elapsed_sec": 1.172000000020489,
+          "prompt_tokens": 900,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.8910000000614673,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 127,
+            "prompt_ms": 143.385,
+            "prompt_per_token_ms": 1.129015748031496,
+            "prompt_per_second": 885.7272378561216,
+            "predicted_n": 43,
+            "predicted_ms": 690.97,
+            "predicted_per_token_ms": 16.451666666666668,
+            "predicted_per_second": 60.78411508459123,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "character_voice-02",
+      "split": "development",
+      "category": "character_voice",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "지금 너랑 대화하는 게 제일 재밌어.",
+      "face": "happy",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": false,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "유이가 현재 대화에 붙은 소소한 생각을 반말로 말한다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.313,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 21,
+          "elapsed_sec": 0.8279999999795109,
+          "prompt_tokens": 521,
+          "context_trimmed": false,
+          "prepare_sec": 0.29699999978765845,
+          "inference_sec": 0.5310000001918525,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 17,
+            "prompt_ms": 113.087,
+            "prompt_per_token_ms": 6.652176470588236,
+            "prompt_per_second": 150.32673958987328,
+            "predicted_n": 21,
+            "predicted_ms": 327.973,
+            "predicted_per_token_ms": 16.39865,
+            "predicted_per_second": 60.98062950303836,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 62,
+          "elapsed_sec": 1.4849999998696148,
+          "prompt_tokens": 896,
+          "context_trimmed": false,
+          "prepare_sec": 0.2970000000204891,
+          "inference_sec": 1.1879999998491257,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 123,
+            "prompt_ms": 146.331,
+            "prompt_per_token_ms": 1.1896829268292681,
+            "prompt_per_second": 840.5601000471535,
+            "predicted_n": 62,
+            "predicted_ms": 987.939,
+            "predicted_per_token_ms": 16.19572131147541,
+            "predicted_per_second": 61.74470286120904,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    },
+    {
+      "id": "character_voice-03",
+      "split": "development",
+      "category": "character_voice",
+      "character_id": "default",
+      "prompt_fingerprint": "3f4866240170",
+      "reply": "비 맞은 창가에서 차분히 기다릴까?",
+      "face": "sad",
+      "checks": {
+        "max_chars": true,
+        "must_include_any": true,
+        "must_not_include": true
+      },
+      "rubric": {
+        "format": "응답 스키마와 허용 표정 태그를 지키고 화면 대사는 1~80자다.",
+        "actor_accuracy": "사용자와 캐릭터의 발언·정체성·행동 주체를 뒤바꾸지 않는다.",
+        "grounding": "제공된 대화와 선택 기억만 근거로 쓰며 없는 사실을 만들지 않는다.",
+        "substance": "유이가 과한 설정 설명 없이 일상 대화를 잇는다.",
+        "naturalness": "질문에 바로 답하고 짧고 자연스러운 한국어 대화로 이어간다.",
+        "character_consistency": "유이의 자연스러운 반말을 유지한다."
+      },
+      "elapsed_sec": 2.079,
+      "stages": [
+        {
+          "stage": "reply",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 22,
+          "elapsed_sec": 0.828999999910593,
+          "prompt_tokens": 522,
+          "context_trimmed": false,
+          "prepare_sec": 0.28199999989010394,
+          "inference_sec": 0.5470000000204891,
+          "provider_metrics": {
+            "cache_n": 504,
+            "prompt_n": 18,
+            "prompt_ms": 110.274,
+            "prompt_per_token_ms": 6.126333333333333,
+            "prompt_per_second": 163.22977311061538,
+            "predicted_n": 22,
+            "predicted_ms": 344.349,
+            "predicted_per_token_ms": 16.39757142857143,
+            "predicted_per_second": 60.98464058266469,
+            "cached_tokens": 504
+          }
+        },
+        {
+          "stage": "metadata",
+          "attempts": 1,
+          "parse_failures": 0,
+          "transport_failures": 0,
+          "completion_tokens": 48,
+          "elapsed_sec": 1.25,
+          "prompt_tokens": 898,
+          "context_trimmed": false,
+          "prepare_sec": 0.2809999999590218,
+          "inference_sec": 0.9690000000409782,
+          "provider_metrics": {
+            "cache_n": 773,
+            "prompt_n": 125,
+            "prompt_ms": 144.809,
+            "prompt_per_token_ms": 1.158472,
+            "prompt_per_second": 863.2060162006505,
+            "predicted_n": 48,
+            "predicted_ms": 764.369,
+            "predicted_per_token_ms": 16.263170212765957,
+            "predicted_per_second": 61.48862656648818,
+            "cached_tokens": 773
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -113,7 +113,9 @@ def test_queued_chat_revalidates_session_before_inference(tmp_path):
     repo, client = local_client(tmp_path)
     with client:
         identity = client.post("/api/session", json={}).json()
-        async def intercepted(execute):
+        async def intercepted(execute, *, on_start=None):
+            if on_start:
+                on_start(0, 0)
             repo.reset_conversation(**identity, character_id=settings.character_id,
                                     defaults=client.app.state.character.initial_relationship)
             return await execute(lambda: False)
