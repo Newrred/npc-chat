@@ -88,6 +88,23 @@ def test_metadata_sees_grounded_final_reply_instead_of_generated_guess():
         adapter.client.close()
 
 
+@pytest.mark.parametrize(('character_id', 'expected'), [
+    ('default', "네가 '나는 커피를 싫어해'라고 했어."),
+    ('cartethyia', "전에 '나는 커피를 싫어해'라고 했어요."),
+])
+def test_grounded_recall_uses_character_voice_and_metadata_sees_same_reply(character_id, expected):
+    adapter, calls = two_stage([{'reply':'커피를 좋아한다고 했어요.'}, metadata()])
+    adapter.character = load_character_config(character_id)
+    try:
+        result = adapter.decide(message='커피는 내가 좋아하는 거였어?',
+            memories=[{'kind':'preference','content':'나는 커피를 싫어해.'}])
+        assert result.decision.reply == expected and len(expected) <= 80
+        assert expected in calls[1]['messages'][0]['content']
+        assert '커피를 좋아한다고 했어요.' not in str(calls[1]['messages'])
+    finally:
+        adapter.client.close()
+
+
 def test_metadata_retry_never_regenerates_reply_or_accepts_replacement():
     adapter, calls = two_stage([{'reply':'원래 대사'}, metadata(reply='바꾸려는 대사'), metadata(flags_set=['known','bad'])])
     try:

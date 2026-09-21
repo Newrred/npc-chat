@@ -74,3 +74,5 @@ def test_cartethyia_prompt_has_distinct_identity_and_dialogue_rules():
     assert "설정어·비유를 끼워 넣지 마" in cartethyia.dialogue_prompt
     assert "검 대신" not in cartethyia.system_prompt
     assert "기사담" not in cartethyia.system_prompt
+    assert yui.grounded_recall_template.endswith("라고 했어.")
+    assert cartethyia.grounded_recall_template.endswith("라고 했어요.")

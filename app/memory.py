@@ -192,7 +192,7 @@ def retrieve(rows, query, history=None, audit=None):
     return finish([row for row, _ in matches[:3]])
 
 
-def grounded_preference_reply(query, memories):
+def grounded_preference_reply(query, memories, template="네가 '{quote}'라고 했어."):
     """Quote known user preferences for explicit recall questions, without inventing a paraphrase."""
     if not re.search(r"좋아|싫어|취향|기억", query) or not re.search(r"내가|나는|내\s|기억|했지|였지|였어", query):
         return None
@@ -212,7 +212,7 @@ def grounded_preference_reply(query, memories):
     quotes = []
     for item in choices[:2]:
         quoted = item["content"].strip().rstrip(".")
-        candidate = "네가 '" + " / ".join([*quotes, quoted]) + "'라고 했어."
+        candidate = template.format(quote=" / ".join([*quotes, quoted]))
         if len(candidate) <= 80:
             quotes.append(quoted)
-    return "네가 '" + " / ".join(quotes) + "'라고 했어." if quotes else None
+    return template.format(quote=" / ".join(quotes)) if quotes else None

@@ -18,17 +18,29 @@ _CANCELLATION = re.compile(r"약속.*취소|취소.*약속")
 _CANCELLATION_NEGATION = re.compile(
     r"안\s*취소|취소(?:는|를)?\s*(?:안|못)|취소(?:를\s*)?하지(?:는)?\s*(?:않|말)")
 _REPORTED_SPEECH = re.compile(r"['‘“\"].*['’”\"].*(?:라고|이라며)|(?:라고|이라며)\s*(?:말|했|한)")
+_CANCELLATION_BOUNDARY = re.compile(
+    r"취소(?:하고(?:는)?|한\s*(?:뒤|다음)|야|할게|하자|했어|됐어|할래)?")
 _GENERIC_PROMISE_TERMS = {
     "약속", "약속만", "취소", "취소할게", "할게", "갈게", "가자", "만나자", "만나요",
     "보러", "좋아", "그래", "알았어", "우리",
 }
 
 
-def _is_cancellation_statement(utterance):
-    return bool(_CANCELLATION.search(utterance)
-                and not re.search(r"[?？]", utterance)
-                and not _CANCELLATION_NEGATION.search(utterance)
-                and not _REPORTED_SPEECH.search(utterance))
+def _cancellation_boundary(utterance):
+    if (not _CANCELLATION.search(utterance)
+            or re.search(r"[?？]", utterance)
+            or _CANCELLATION_NEGATION.search(utterance)
+            or _REPORTED_SPEECH.search(utterance)):
+        return None
+    return _CANCELLATION_BOUNDARY.search(utterance)
+
+
+def _is_proposal_statement(utterance):
+    return bool((not _CANCELLATION.search(utterance) and re.search(
+        r"할게|갈게|줄게|가자|만나자|빌려볼까|끓여줄게", utterance)) or (
+        re.search(r"오늘|내일|모레|\d+\s*시", utterance)
+        and re.search(r"(?:보러\s*)?갈까|만나(?:요|자)|보러\s*가자", utterance)
+        and not re.search(r"안\s*만나|못\s*만나|취소|않", utterance)))
 
 
 def _promise_markers(utterance):
@@ -58,9 +70,7 @@ def _active_user_context(history):
             continue
         text = item.get("content", "").strip()
         boundaries = list(_TOPIC_BOUNDARY.finditer(text))
-        cancellation = None
-        if "취소" in text and not re.search(r"[?？]|취소\s*(?:안|하지\s*않|못)", text):
-            cancellation = re.search(r"취소(?:야|할게|하자|했어|됐어|할래)?", text)
+        cancellation = _cancellation_boundary(text)
         boundary = cancellation or (boundaries[-1] if boundaries else None)
         if boundary:
             active = []
@@ -124,14 +134,17 @@ def dialogue_events(message, reply, turn_id):
             result.append({"type": "recommendation", "actor": actor,
                 "topic": "movie" if re.search(r"영화", message + reply) else "book" if re.search(r"책|소설|읽", message + reply) else "recommendation",
                 "value": titles[0], "quote": utterance, "source_turn": turn_id})
-        elif _is_cancellation_statement(utterance):
+            continue
+        cancellation = _cancellation_boundary(utterance)
+        if cancellation:
             result.append({"type": "cancellation_statement", "actor": actor,
-                "topic": "promise", "quote": utterance, "source_turn": turn_id})
-        elif (not _CANCELLATION.search(utterance) and re.search(
-                r"할게|갈게|줄게|가자|만나자|빌려볼까|끓여줄게", utterance)) or (
-                re.search(r"오늘|내일|모레|\d+\s*시", utterance)
-                and re.search(r"(?:보러\s*)?갈까|만나(?:요|자)|보러\s*가자", utterance)
-                and not re.search(r"안\s*만나|못\s*만나|취소|않", utterance)):
+                "topic": "promise", "quote": utterance[:cancellation.end()].strip(),
+                "source_turn": turn_id})
+            tail = utterance[cancellation.end():].strip(" .,!?？")
+            if _is_proposal_statement(tail):
+                result.append({"type": "proposal_or_promise_statement", "actor": actor,
+                    "topic": "promise", "quote": tail, "source_turn": turn_id})
+        elif _is_proposal_statement(utterance):
             result.append({"type": "proposal_or_promise_statement", "actor": actor,
                 "topic": "promise", "quote": utterance, "source_turn": turn_id})
     return result

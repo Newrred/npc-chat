@@ -21,6 +21,7 @@ class CharacterConfig:
     dialogue_prompt: str | None = None
     identity_prompt: str | None = None
     display_name: str = ""
+    grounded_recall_template: str = "네가 '{quote}'라고 했어."
 
 
 def _render_prompt_sections(sections: dict[str, list[str]]) -> str:
@@ -70,6 +71,14 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
         for values in matrix.values()
     ):
         raise ValueError("Character relationship matrix must define bounded five-stat vectors")
+    grounded_recall_template = str(raw.get(
+        "grounded_recall_template", "네가 '{quote}'라고 했어.")).strip()
+    if grounded_recall_template.count("{quote}") != 1:
+        raise ValueError("Character grounded_recall_template must contain one {quote} placeholder")
+    try:
+        grounded_recall_template.format(quote="기억")
+    except (KeyError, ValueError):
+        raise ValueError("Character grounded_recall_template contains an invalid placeholder") from None
     return CharacterConfig(
         character_id=configured_id,
         display_name=str(raw.get("display_name", configured_id)).strip() or configured_id,
@@ -82,4 +91,5 @@ def load_character_config(character_id: str | None = None) -> CharacterConfig:
             if key not in {"EXAMPLES", "JSON", "OUTPUT REQUIREMENT"}}),
         identity_prompt=_render_prompt_sections({key: value for key, value in normalized_sections.items()
             if key == "IDENTITY"}),
+        grounded_recall_template=grounded_recall_template,
     )

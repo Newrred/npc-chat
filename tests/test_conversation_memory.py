@@ -81,6 +81,35 @@ def test_cancellation_ignores_negation_questions_and_reported_quotes():
     assert dialogue_events("친구가 '약속 취소할게'라고 말했어.", "그렇구나.", "reported") == []
 
 
+@pytest.mark.parametrize("statement", [
+    "약속은 안 취소할게.",
+    "약속은 취소하지 말자.",
+    "약속 취소할까?",
+    "친구가 '약속 취소할게'라고 말했어.",
+])
+def test_non_cancellation_does_not_clear_active_promise_context(statement):
+    rows = [raw(0, "오늘 8시에 영화 보러 가자.", "좋아."), raw(1, statement, "알았어.")]
+    history = [{"role": role, "content": content} for row in rows
+               for role, content in (("user", row["user_message"]),
+                                     ("assistant", row["decision"]["reply"]))]
+    selected = [json.loads(note["content"]) for note in source_views(rows, "어딜?", history)
+                if note["kind"] == "episode"]
+    assert any(event["source_turn"] == "0" for event in selected)
+
+
+def test_cancellation_followed_by_new_proposal_preserves_only_new_event():
+    rows = [raw(0, "오늘 8시에 영화관에서 만나자.", "좋아."),
+            raw(1, "오늘 영화 약속은 취소하고 내일 6시에 공원에서 만나자.", "그래.")]
+    history = [{"role": role, "content": content} for row in rows
+               for role, content in (("user", row["user_message"]),
+                                     ("assistant", row["decision"]["reply"]))]
+    selected = [json.loads(note["content"]) for note in source_views(rows, "어딜?", history)
+                if note["kind"] == "episode"]
+    proposals = [event for event in selected if event["type"] == "proposal_or_promise_statement"]
+    assert len(proposals) == 1
+    assert proposals[0]["source_turn"] == "1" and "공원" in proposals[0]["quote"]
+
+
 def test_targeted_cancellation_keeps_unrelated_promise_evidence():
     rows = [raw(0, "내일 도서관에서 만나자.", "알았어."),
             raw(1, "모레 공원에서 만나자.", "알았어."),
