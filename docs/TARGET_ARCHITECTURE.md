@@ -47,7 +47,7 @@ Chat Orchestrator
 Persistence
   SQLite (local file): profile, session mapping, relationship, turns, memories, processed turns
   App memory: bounded queue, per-profile/character locks, disposable cache
-  Redis: transitional dependency until Phase 03; optional shared coordination later
+  Redis: optional legacy import/export or future shared coordination only
 ```
 
 ## 3. 책임 경계
@@ -157,7 +157,7 @@ app/
   repositories/
     profile_store.py        # protocol/interface
     sqlalchemy_profile_store.py
-  session_store.py          # current Redis adapter; retained during migration
+  session_store.py          # compatibility adapter for legacy Redis migration
   characters/
     default.json
   db/
@@ -242,7 +242,7 @@ image job cache
 - 관계·기억을 TTL과 분리한다.
 - schema migration을 명시적으로 관리할 수 있다.
 
-Redis 없는 경로를 개발용 임시 fallback이 아닌 기본 로컬/소규모 배포 경로로 검증한다. 현재 Redis는 Phase 03 전환 게이트 전까지 유지한다. Redis가 중단됐다는 이유로 런타임 저장 방식을 자동 전환하지 않는다.
+Redis 없는 경로는 개발용 임시 fallback이 아니라 검증을 마친 기본 로컬/소규모 배포 경로다. 과거 Redis 자료는 명시적인 migration 도구로만 다루며 런타임 저장 방식을 자동 전환하지 않는다.
 
 동시성과 내구성 조건:
 
@@ -251,10 +251,10 @@ Redis 없는 경로를 개발용 임시 fallback이 아닌 기본 로컬/소규�
 - LLM 응답을 기다리는 동안 SQLite 쓰기 transaction을 열어 두지 않는다. 짧은 commit에서 상태와 처리된 turn을 함께 저장한다.
 - DB 고유 제약과 transaction으로 `client_turn_id` 재처리를 방지한다. 동일 ID/동일 요청은 저장된 결과를 재사용하고 다른 요청 본문으로 ID를 재사용하면 거부한다.
 - 큐는 영속 작업 큐가 아니다. 재시작으로 미완료 요청이 끊겨도 같은 turn ID로 재시도할 수 있어야 하며 commit된 요청은 중복 적용되지 않아야 한다.
-- migration/rollback/restart/concurrent duplicate 테스트를 통과한 후에만 Redis를 기본 의존성에서 제외한다. 기존 Redis 데이터는 전환 과정에서 삭제하지 않는다.
+- migration/rollback/restart/concurrent duplicate 테스트를 통과해 Redis를 기본 의존성에서 제외했다. 기존 Redis 데이터는 전환 과정에서 삭제하지 않는다.
 - 기본 프로파일에서 다중 worker/인스턴스를 지원한다고 주장하지 않는다. 관리 실행기는 중복 기동을 막고, 확장 시 공유 잠금/큐/요청 제한 및 저장소를 다시 검증한다.
 
-readiness도 단계에 맞춰 변경한다. Phase 01~02에는 Redis+LLM, Phase 03 전환 후에는 SQLite+LLM을 필수로 확인한다. 비활성 Redis와 Comfy는 필수 의존성에서 제외한다.
+현재 readiness는 SQLite와 LLM을 필수로 확인한다. 비활성 Redis와 Comfy는 필수 의존성에서 제외한다.
 
 ## 7. LLM runtime profile
 

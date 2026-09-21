@@ -1,6 +1,6 @@
 # NPC Chat
 
-기본 원격 배포는 [로그인 없는 공개 링크](docs/PUBLIC_LINK_DEPLOYMENT.md)다. 익명 쿠키로 대화를 분리하고 활동 이용자 수와 일일 한도를 적용한다. Cloudflare Access 이메일 로그인은 선택 모드이며 실제 외부 공개는 아직 하지 않았다.
+기본 원격 배포는 [로그인 없는 공개 링크](docs/PUBLIC_LINK_DEPLOYMENT.md)다. 익명 쿠키로 대화를 분리하고 활동 이용자 수와 일일 한도를 적용한다. Cloudflare Access 이메일 로그인은 선택 모드다. 현재 도메인 없는 Quick Tunnel로 임시 외부 테스트 중이며, 고정 주소와 운영 게이트를 갖춘 실제 운영 배포는 아직 완료하지 않았다.
 
 원격 배포 준비: [운영 런북](docs/REMOTE_DEPLOYMENT_RUNBOOK.md). 현재 로컬 모드는 유지하며, 원격 모드는 추가 인증 의존성과 별도 개인 배포 설정이 필요하다. 도메인 연결/실제 외부 검증 및 보관·삭제/운영 복구 게이트 전에는 공개 배포 완료로 취급하지 않는다.
 
@@ -9,6 +9,8 @@
 **`Newrred/npc-chat`이 유일한 개발 기준 저장소이며 `npc-chat/frontend`가 프런트 원본이다.** `Newrred/heroine`은 레거시 배포 복사본이다. 그 저장소에서 병행 기능 개발을 하지 않는다.
 
 현재 **Phase 04 신뢰성 구현·모델 평가 완료**: FastAPI 한 주소에서 화면/API를 제공하고 다섯 관계 수치와 기억을 SQLite에 저장한다. 기본 실행에는 Redis가 필요 없다. [현재 상태](docs/PROJECT_STATUS.md), [로컬 실행](docs/LOCAL_DEVELOPMENT_RUNBOOK.md), [백업/복구](docs/DATABASE_OPERATIONS.md)를 참고한다.
+
+저장소 링크를 외부 AI에 전달해 다음 발전 방향을 검토할 때는 [GPT Pro 프로젝트 검토 브리프](docs/GPT_PRO_PROJECT_REVIEW_BRIEF.md)를 먼저 읽게 한다. `docs/handoff-package/`는 2026-09-03 당시의 역사적 스냅샷이다.
 
 ## 구성과 포트
 
@@ -46,7 +48,7 @@ COMFY_CONNECT=false
 
 `NPC_MODEL`은 실제 `/v1/models`에 있는 ID나 서버 alias와 일치시킨다. `NPC_API_KEY`는 해당 로컬 서버 설정에 맞춘다. vLLM이 필요하면 `NPC_LLM_BACKEND=vllm`, 해당 버전에서 지원하는 `NPC_JSON_MODE` (`guided_json` 또는 `json`/`text`)와 모델 ID를 명시한다. `NPC_CHARACTER_ID` 기본값은 `default`다.
 
-현재 개발 장비는 RTX 3060 Ti 8 GB / RAM 약 32 GB다. 2026-09-08 사용자 요청으로 Aggressive 9B Q4_K_M / 문맥 4096 / GPU layers auto를 비교 테스트 중이다. 응답 최대 256, 동시 처리 1, thinking OFF, batch/ubatch 128이다. 빠른 4B Q4_K_M / 문맥 8192 / GPU all 설정과 기존 9B Q6_K는 보존한다. 저장된 최근 12개 메시지를 토큰 예산 안에서 전달한다. 9B의 대화 품질 우위는 아직 확정하지 않았다. 14B Q4는 추후 검증한다.
+현재 개발 장비는 RTX 3060 Ti 8 GB / RAM 약 32 GB다. 2026-09-08 사용자 요청으로 Aggressive 9B Q4_K_M / 문맥 4096 / GPU layers auto를 비교 테스트 중이다. 응답 최대 256, 동시 처리 1, thinking OFF, batch/ubatch 128이다. 빠른 4B Q4_K_M / 문맥 8192 / GPU all 설정과 기존 9B Q6_K는 보존한다. 최근 확정 대화는 고정 개수가 아니라 출력 여유를 제외한 실제 토큰 예산 안에서 뒤에서부터 전달한다. 9B의 대화 품질 우위는 아직 확정하지 않았다. 14B Q4는 추후 검증한다.
 
 ## 로컬 실행
 
@@ -69,7 +71,7 @@ COMFY_CONNECT=false
 ./scripts/stop-local.ps1
 ```
 
-모델만 실행/종료하려면 `start-llm.ps1` / `stop-llm.ps1`을 사용한다. 도구는 자신의 PID와 생성 시간/실행 파일/인자를 확인한 프로세스만 종료한다. 외부 모델을 사용하려면 `--reuse-llm`을 명시하며 해당 모델과 Redis는 종료하지 않는다. 실패하면 그 호출이 시작한 프로세스만 정리한다. 설정을 바꾼 뒤에는 stop/start한다.
+모델만 실행/종료하려면 `start-llm.ps1` / `stop-llm.ps1`을 사용한다. 도구는 자신의 PID와 생성 시간/실행 파일/인자를 확인한 프로세스만 종료한다. 외부 모델을 사용하려면 `--reuse-llm`을 명시하며 해당 모델 프로세스는 종료하지 않는다. 실패하면 그 호출이 시작한 프로세스만 정리한다. 설정을 바꾼 뒤에는 stop/start한다.
 
 수동 웹앱 실행도 가능하다: `./venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000`. 프런트 서버는 필요하지 않다.
 
@@ -89,9 +91,9 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/chat -ContentType 
 - `/api/live`와 기존 `/api/health`: 프로세스 응답 확인, 200 `{"status":"ok"}`.
 - `/api/ready`: SQLite 스키마/읽기와 LLM `/models`를 병렬 확인. 모두 정상이면 200, 장애면 503. 각 의존성은 `ok`, `unavailable`, `timeout`으로 표시한다. URL·키·예외 본문은 반환하지 않는다.
 - `HEALTH_TIMEOUT_SEC`는 의존성별 기본 2초이며 0.1~10초로 제한한다. Comfy는 확인하지 않는다. LLM 모델 목록 확인은 모델 ID 일치·추론 성공·VRAM 적합성까지 보장하지 않는다.
-- 의존성이 중단돼도 서버가 시작되어 live/ready를 확인할 수 있다. 채팅에는 정상 Redis와 LLM이 필요하다.
-- 기존 채팅/이미지 응답 필드와 빈 메시지의 422 검증 응답은 유지한다. `shy smile` 입력은 `shy_smile`로 정규화한다. canonical 모드는 관계 엔진 구현 전까지 affection_delta=0으로 기존 총점·메모를 보존한다. `history` 필드는 호환을 위해 받지만 내용은 사용하지 않는다. 서버 이력만 모델에 전달한다.
-- 전송 중 입력과 버튼을 잠근다. 자동 재시도는 없으며 서버 idempotency는 후속 단계다. canonical 모델의 전송 실패는 503, 응답 검증 실패는 502로 분류한다. 전체 오류 규격과 request ID는 후속 단계다.
+- 의존성이 중단돼도 서버가 시작되어 live/ready를 확인할 수 있다. 채팅에는 정상 SQLite 저장소와 LLM이 필요하며 기본 실행에는 Redis가 필요 없다.
+- 기존 채팅/이미지 응답 필드와 빈 메시지의 422 검증 응답은 유지한다. `shy smile` 입력은 `shy_smile`로 정규화한다. 모델은 상호작용을 분류하고 서버의 결정론 규칙이 다섯 관계 수치의 변화를 계산한다. `history` 필드는 호환을 위해 받지만 내용은 사용하지 않는다. 서버 이력만 모델에 전달한다.
+- 전송 중 입력과 버튼을 잠그고 자동 재시도는 하지 않는다. `client_turn_id`가 같은 동일 요청은 저장된 응답을 재사용하며, 같은 ID에 다른 내용을 보내면 409로 거부한다. 모델 연결 실패와 응답 검증 실패는 구조화된 오류로 구분한다.
 - Comfy OFF의 API 값은 `comfy_status=disabled`, `image_source=none`, `image_url=null`이다. 프런트가 자체 정적 이미지를 표시한다.
 
 ## 검증
@@ -114,7 +116,7 @@ pytest는 로컬 `.env`를 읽지 않고 fake 모델/세션 및 모의 HTTP 응�
 ./venv/Scripts/python.exe -m tests.smoke_local
 ```
 
-일시적인 loopback 포트에 가짜 OpenAI-compatible 서버와 실제 FastAPI/Uvicorn을 띄운다. 실제 LLM 어댑터 호출, 준비 상태의 장애·복구, 정적 파일을 확인하고 종료한다. 세션은 메모리 fake store라 기존 Redis 데이터를 쓰지 않는다. 이것은 모델 성능 검증이 아니다.
+일시적인 loopback 포트에 가짜 OpenAI-compatible 서버와 실제 FastAPI/Uvicorn을 띄운다. 실제 LLM 어댑터 호출, 준비 상태의 장애·복구, 정적 파일을 확인하고 종료한다. 격리된 fake 저장소를 사용해 로컬 운영 DB와 과거 Redis 자료를 건드리지 않는다. 이것은 모델 성능 검증이 아니다.
 
 브라우저 수동 검증용으로만 합성 응답 서버를 잠시 유지하려면:
 
@@ -134,7 +136,7 @@ pytest는 로컬 `.env`를 읽지 않고 fake 모델/세션 및 모의 HTTP 응�
 
 ## 저장과 배포 경계
 
-이번 단계의 데이터 migration은 없다. 기존 Redis 키와 TTL 설정을 유지한다. TTL 만료 뒤 브라우저 history로 대화를 복원하지 않으며 영속 기억은 Phase 03에서 구현한다.
+현재 기본 저장소는 SQLite이며 대화·관계·기억·중복 요청 상태를 재시작 뒤에도 유지한다. 과거 Redis 자료는 명시적인 export/import 도구로만 이전하고, 기본 실행에서 Redis에 조용히 의존하거나 자동 전환하지 않는다.
 
 GitHub Pages Action은 계속 `frontend/`만 배포한다. 로컬 기본 주소를 배포한 페이지는 원격 백엔드 배포 완료를 의미하지 않는다. 원격 사용 전 고정 주소, 접근 통제, 정확한 CORS, 요청 제한과 보존 정책 등 [보안 게이트](docs/DEPLOYMENT_AND_SCALING_GATES.md)를 충족해야 한다. LLM 포트를 직접 외부에 공개하지 않는다.
 
