@@ -1,5 +1,9 @@
 # Project Status
 
+## 2026-09-22 Task31 모바일 답변 후 키보드 자동 재등장 방지 — 완료
+
+대화 요청이 끝날 때 모든 환경에서 입력창을 자동 포커스하던 동작을 포인터 환경에 맞게 제한했다. 모바일처럼 hover가 없고 coarse pointer를 사용하는 환경에서는 답변 성공·실패 후 입력창을 자동 포커스하지 않아 내려간 가상 키보드가 다시 열리지 않는다. hover 가능한 fine pointer 데스크톱은 기존처럼 바로 다음 메시지를 입력할 수 있으며, 사용자가 `내용 수정`을 직접 누른 경우의 명시적 포커스도 유지한다. 전체 629 Python tests, 프런트·검사창29 tests와 정적 검사가 통과했고 공개 정적 파일에도 즉시 반영된 것을 확인했다. API·서버·모델·저장 데이터 변경은 없다. Task31 참고.
+
 ## 2026-09-22 Task30/EXP22 TokenCounter 연결 재사용 — 완료·적용
 
 GPT Pro 원문의 TokenCounter 제안을 확인하고, 정확한 llama.cpp apply-template/tokenize 검증을 유지한 채 HTTP client를 서비스 생명주기 동안 재사용하도록 바꿨다. 한 최상위 생성 요청 안의 완전히 같은 messages만 SHA-256 키로 재사용하고 종료 시 지우며, 정상 reply/metadata의 서로 다른 입력은 계속 각각 검증한다. 앱 종료와 평가 스크립트가 모델 client와 tokenizer client를 함께 닫고, 비개인 계측에 cache hit 수를 추가했다.

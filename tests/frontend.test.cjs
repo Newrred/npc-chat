@@ -21,7 +21,7 @@ function mount(fetch, configured = true, options = {}) {
       addEventListener(name, fn) { this.listeners[name] = fn; },
       removeAttribute(name) { delete this[name]; },
       setAttribute(name, value) { this[name] = value; },
-      focus() {},
+      focus() { this.focusCalls = (this.focusCalls || 0) + 1; },
       showModal() { this.open = true; },
       close() { this.open = false; },
       querySelectorAll() { return this.children.filter(child => child.className?.startsWith("message-row")).map(child => ({remove: () => {this.children = this.children.filter(item => item !== child);}})); },
@@ -30,7 +30,9 @@ function mount(fetch, configured = true, options = {}) {
     return nodes.get(id);
   }
   const context = vm.createContext({
-    window: { location: { hash: options.hash || "" }, ...(configured ? { NPC_API_BASE_URL: "http://127.0.0.1:8000" } : {}), ...options.config, addEventListener: (name, fn) => { events[name] = fn; } },
+    window: { location: { hash: options.hash || "" }, ...(configured ? { NPC_API_BASE_URL: "http://127.0.0.1:8000" } : {}), ...options.config,
+      matchMedia: query => ({ matches: query.includes("pointer: fine") ? options.finePointer !== false : false }),
+      addEventListener: (name, fn) => { events[name] = fn; } },
     navigator: network,
     document: { getElementById: node, createElement: () => node(Symbol()) },
     localStorage: { getItem: (key) => stored.get(key), setItem: (key, value) => stored.set(key, value), removeItem: (key) => stored.delete(key) },
@@ -168,8 +170,10 @@ test("non retryable error offers explicit edit and preserves last character repl
   assert.equal(ui.node("chatForm").dataset.state, "non_retryable_error");
   assert.equal(ui.node("reply").textContent, "이전 대사");
   assert.equal(ui.node("editButton").hidden, false);
+  const focusBeforeEdit = ui.node("messageInput").focusCalls || 0;
   ui.node("editButton").listeners.click();
   assert.equal(ui.node("messageInput").readOnly, false);
+  assert.equal(ui.node("messageInput").focusCalls, focusBeforeEdit + 1);
   assert.equal(ui.stored.has("npc_pending_turn"), false);
 });
 
@@ -290,6 +294,33 @@ test("room deep link opens chat and portrait failure is not shown as connected",
   ui.node("heroine").listeners.error();
   assert.equal(ui.node("videoStatus").textContent, "화면을 불러오지 못했어요");
   assert.equal(ui.node("chatRoom").hidden, false);
+});
+
+test("mobile reply does not reopen the keyboard while desktop keeps composer focus", async () => {
+  const response = async () => ({ ok: true, json: async () => ({
+    reply: "응, 계속 이야기하자.", face: "neutral", comfy_status: "disabled",
+  }) });
+  const mobile = mount(response, true, { hash: "#chat/yui", finePointer: false });
+  const mobileInput = mobile.node("messageInput");
+  const mobileFocusBefore = mobileInput.focusCalls || 0;
+  mobileInput.value = "모바일 테스트";
+  await mobile.submit();
+  assert.equal(mobileInput.focusCalls || 0, mobileFocusBefore);
+
+  const mobileError = mount(async () => ({ ok: false, status: 503, text: async () => "Unavailable" }),
+    true, { hash: "#chat/yui", finePointer: false });
+  const mobileErrorInput = mobileError.node("messageInput");
+  const mobileErrorFocusBefore = mobileErrorInput.focusCalls || 0;
+  mobileErrorInput.value = "오류 테스트";
+  await mobileError.submit();
+  assert.equal(mobileErrorInput.focusCalls || 0, mobileErrorFocusBefore);
+
+  const desktop = mount(response, true, { hash: "#chat/yui", finePointer: true });
+  const desktopInput = desktop.node("messageInput");
+  const desktopFocusBefore = desktopInput.focusCalls || 0;
+  desktopInput.value = "데스크톱 테스트";
+  await desktop.submit();
+  assert.equal(desktopInput.focusCalls, desktopFocusBefore + 1);
 });
 
 test("Cartethyia room uses its own portrait, identity, request, and browser session", async () => {

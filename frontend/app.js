@@ -473,7 +473,9 @@ async function sendTurn() {
     clearTimeout(timeout);
     clearTimeout(waiting);
     historyControls();
-    if (!chatRoom.hidden) input.focus();
+    // Reopening a mobile virtual keyboard after every delayed reply is disruptive.
+    const desktopPointer = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
+    if (!chatRoom.hidden && desktopPointer) input.focus();
   }
 }
 
