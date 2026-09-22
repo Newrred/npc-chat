@@ -90,7 +90,7 @@ def main():
     finally:
         done.set()
         monitor.join(timeout=12)
-        adapter.client.close()
+        adapter.close()
         report["gpu_after"] = gpu_info()
         report["gpu_peak_used_mib"] = max(item["total_mib"] - item["free_mib"] for item in samples)
         output.write_text(json.dumps(report, indent=2), encoding="utf-8")

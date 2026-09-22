@@ -1,6 +1,10 @@
 """Bound prompt context before inference; current input and character rules are never truncated."""
+from contextlib import contextmanager
+from contextvars import ContextVar
+import hashlib
 import json
 import math
+from threading import Lock
 from urllib.parse import urlsplit, urlunsplit
 
 import httpx
@@ -39,27 +43,64 @@ class TokenCounter:
     def __init__(self, config):
         self.config = config
         self.request_count = 0
+        self.cache_hits = 0
+        self._client = None
+        self._client_lock = Lock()
+        self._request_cache = ContextVar(f"npc_token_cache_{id(self)}", default=None)
         if config.token_count_mode not in ("estimate", "llama_cpp"):
             raise ValueError("NPC_TOKEN_COUNT_MODE must be estimate or llama_cpp")
+
+    @contextmanager
+    def request_scope(self):
+        """Cache exact counts only inside one top-level generation request."""
+        if self._request_cache.get() is not None:
+            yield
+            return
+        token = self._request_cache.set({})
+        try:
+            yield
+        finally:
+            self._request_cache.reset(token)
+
+    def _http_client(self, root):
+        with self._client_lock:
+            if self._client is None:
+                self._client = httpx.Client(base_url=root + "/", timeout=5, trust_env=False,
+                    headers={"Authorization": "Bearer " + self.config.llm_api_key})
+            return self._client
+
+    def close(self):
+        with self._client_lock:
+            if self._client is not None:
+                self._client.close()
+                self._client = None
 
     def __call__(self, messages):
         if self.config.token_count_mode == "estimate":
             # Explicit portability fallback, not a tokenizer-accurate guarantee.
             return 32 + sum(12 + math.ceil(len(item["content"].encode("utf-8")) / 3) for item in messages)
+        cache = self._request_cache.get()
+        cache_key = hashlib.sha256(json.dumps(
+            messages, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).digest()
+        if cache is not None and cache_key in cache:
+            self.cache_hits += 1
+            return cache[cache_key]
         url = urlsplit(self.config.llm_base_url)
         root = urlunsplit((url.scheme, url.netloc, url.path.removesuffix("/").removesuffix("/v1"), "", ""))
         try:
-            with httpx.Client(base_url=root + "/", timeout=5, trust_env=False,
-                              headers={"Authorization": "Bearer " + self.config.llm_api_key}) as client:
-                self.request_count += 1
-                applied = client.post("apply-template", json={"messages": messages,
-                    "chat_template_kwargs": {"enable_thinking": False}, "add_generation_prompt": True})
-                applied.raise_for_status()
-                prompt = applied.json()["prompt"]
-                self.request_count += 1
-                tokenized = client.post("tokenize", json={"content": prompt, "add_special": True, "parse_special": True})
-                tokenized.raise_for_status()
-                return len(tokenized.json()["tokens"])
+            client = self._http_client(root)
+            self.request_count += 1
+            applied = client.post("apply-template", json={"messages": messages,
+                "chat_template_kwargs": {"enable_thinking": False}, "add_generation_prompt": True})
+            applied.raise_for_status()
+            prompt = applied.json()["prompt"]
+            self.request_count += 1
+            tokenized = client.post("tokenize", json={"content": prompt, "add_special": True, "parse_special": True})
+            tokenized.raise_for_status()
+            result = len(tokenized.json()["tokens"])
+            if cache is not None:
+                cache[cache_key] = result
+            return result
         except (httpx.HTTPError, ValueError, KeyError, TypeError):
             raise ChatError("TOKENIZER_UNAVAILABLE", "모델의 문맥 길이를 확인하지 못했습니다. 잠시 후 다시 시도해 주세요.", 503, True) from None
 

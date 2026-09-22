@@ -83,6 +83,7 @@ def test_two_requests_same_model_fixed_reply_and_metrics():
         assert [m.stage for m in result.stages] == ['reply','metadata']
         assert result.attempts == 2 and result.completion_tokens == 200
         assert result.prompt_tokens == sum(m.prompt_tokens for m in result.stages)
+        assert result.tokenizer_cache_hits == 0
         assert all(m.prepare_sec >= 0 and m.inference_sec >= 0 for m in result.stages)
     finally:
         adapter.client.close()

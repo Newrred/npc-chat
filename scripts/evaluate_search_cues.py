@@ -74,7 +74,7 @@ def main():
                     args.output.write_text(json.dumps(report,ensure_ascii=False,indent=2,
                         default=lambda value: value.model_dump()),encoding='utf-8')
     finally:
-        service.client.close()
+        service.close()
 
 
 if __name__=='__main__':

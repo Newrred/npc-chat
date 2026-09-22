@@ -328,7 +328,7 @@ def create_app(*, llm_service=None, session_store=None, repository=None, comfy_s
             await application.state.coordinator.close()
             await store.close()
             if llm_service is None:
-                await run_in_threadpool(application.state.llm_service.client.close)
+                await run_in_threadpool(application.state.llm_service.close)
             application.state.metrics_sink.close()
 
     remote_config = remote_config or RemoteConfig.from_env()

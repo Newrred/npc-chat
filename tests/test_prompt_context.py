@@ -96,6 +96,50 @@ def test_exact_counter_applies_template_before_tokenizing(monkeypatch):
     assert counter.request_count == 2
 
 
+def test_exact_counter_reuses_connection_and_caches_only_inside_request_scope(monkeypatch):
+    clients = []
+    class FakeClient:
+        def __init__(self, **_kwargs):
+            self.closed = False
+            clients.append(self)
+        def post(self, path, *, json):
+            return httpx.Response(200, request=httpx.Request("POST", "http://test"),
+                json={"prompt": "formatted"} if path == "apply-template" else {"tokens": [1, 2, 3]})
+        def close(self):
+            self.closed = True
+    monkeypatch.setattr("app.prompt_context.httpx.Client", FakeClient)
+    counter = TokenCounter(replace(Settings(), token_count_mode="llama_cpp"))
+    messages = [{"role": "user", "content": "합성 입력"}]
+    with counter.request_scope():
+        assert counter(messages) == counter(messages) == 3
+        assert counter.request_count == 2 and counter.cache_hits == 1
+    assert counter._request_cache.get() is None
+    assert counter(messages) == 3
+    assert counter.request_count == 4 and len(clients) == 1
+    counter.close()
+    assert clients[0].closed
+    assert counter(messages) == 3 and len(clients) == 2
+    counter.close()
+
+
+def test_request_cache_never_merges_different_message_content(monkeypatch):
+    calls = []
+    def response(self, path, *, json):
+        calls.append((path, json))
+        return httpx.Response(200, request=httpx.Request("POST", "http://test"),
+            json={"prompt": json["messages"][0]["content"]} if path == "apply-template"
+            else {"tokens": list(range(len(json["content"])))})
+    monkeypatch.setattr(httpx.Client, "post", response)
+    counter = TokenCounter(replace(Settings(), token_count_mode="llama_cpp"))
+    try:
+        with counter.request_scope():
+            first = counter([{"role": "user", "content": "a"}])
+            second = counter([{"role": "user", "content": "different"}])
+        assert first != second and len(calls) == 4 and counter.cache_hits == 0
+    finally:
+        counter.close()
+
+
 def test_superseded_preference_pair_is_removed_from_prompt_only():
     history = [{"role": "user", "content": "나는 커피를 좋아해."}, {"role": "assistant", "content": "그렇구나."},
                {"role": "user", "content": "나는 커피를 싫어해."}, {"role": "assistant", "content": "응."}]

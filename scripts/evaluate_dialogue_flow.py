@@ -37,7 +37,7 @@ def main():
             rows.append(row)
             print(json.dumps(row, ensure_ascii=True), flush=True)
     finally:
-        adapter.client.close()
+        adapter.close()
         Path(args.output).write_text(json.dumps({'model': args.model, 'context': args.context, 'rows': rows},
                                                ensure_ascii=False, indent=2), encoding='utf-8')
 

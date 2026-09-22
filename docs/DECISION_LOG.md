@@ -1,5 +1,9 @@
 # Decision Log
 
+## 2026-09-22 exact tokenizer 연결을 재사용하고 캐시는 요청 범위로 제한
+
+llama.cpp의 apply-template/tokenize 최종 검증과 장애 시 명시적 실패는 유지한다. TokenCounter의 HTTP client는 서비스 생명주기 동안 재사용하고 종료 때 닫는다. token 결과 캐시는 한 최상위 생성 요청 안의 완전히 같은 messages에만 적용하며 SHA-256 키만 남기고 범위 종료 시 폐기한다. 서로 다른 reply/metadata 입력은 계속 각각 검증한다. 개발 세트에서 prepare p50은 줄었지만 전체 생성 시간은 개선되지 않았으므로 입력 준비 최적화로만 채택한다. Task30/EXP22 참고.
+
 ## 2026-09-22 metadata compact 문맥은 운영 미채택
 
 같은 9B와 고정 reply로 full/compact metadata 문맥을 비교했으나 짧은 개발 사례의 중앙 입력은 3.5 token만 줄고 중앙 지연은 개선되지 않았다. 긴 24쌍 이력 한 건에서는 유의미한 절감이 있었지만 짧은 수락·기억 질문·자기 공개 interaction 분류가 compact에서 더 자주 어긋났다. 따라서 기본과 공개 시험은 `NPC_METADATA_CONTEXT_MODE=full`을 유지한다. compact는 명시적 실험 옵션으로만 보존하고 API·DB·모델 호출 구조는 바꾸지 않는다. Task29/EXP21 참고.

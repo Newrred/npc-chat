@@ -1,4 +1,5 @@
 """Injectable canonical adapter with explicit capability and bounded retry policy."""
+from contextlib import nullcontext
 from dataclasses import dataclass, field
 import json
 import logging
@@ -20,17 +21,19 @@ logger = logging.getLogger(__name__)
 
 
 class LLMOutputError(RuntimeError):
-    def __init__(self, message, *, stages=(), tokenizer_requests=None):
+    def __init__(self, message, *, stages=(), tokenizer_requests=None, tokenizer_cache_hits=None):
         super().__init__(message)
         self.stages = tuple(stages)
         self.tokenizer_requests = tokenizer_requests
+        self.tokenizer_cache_hits = tokenizer_cache_hits
 
 
 class LLMTransportError(RuntimeError):
-    def __init__(self, message, *, stages=(), tokenizer_requests=None):
+    def __init__(self, message, *, stages=(), tokenizer_requests=None, tokenizer_cache_hits=None):
         super().__init__(message)
         self.stages = tuple(stages)
         self.tokenizer_requests = tokenizer_requests
+        self.tokenizer_cache_hits = tokenizer_cache_hits
 
 
 @dataclass(frozen=True)
@@ -62,6 +65,7 @@ class DecisionResult:
     stages: tuple[StageMetrics, ...] = ()
     search_cues: tuple[dict, ...] = ()
     tokenizer_requests: int | None = None
+    tokenizer_cache_hits: int | None = None
 
 
 class DecisionService:
@@ -79,9 +83,18 @@ class DecisionService:
         if self.config.metadata_context_mode not in {"full", "compact"}:
             raise ValueError("NPC_METADATA_CONTEXT_MODE must be full or compact")
 
-    def decide(self, *, message, history=None, memory_1line="", flags=None, relationship=None, memories=None):
+    def _token_scope(self):
+        factory = getattr(self.count_tokens, "request_scope", None)
+        return factory() if factory else nullcontext()
+
+    def decide(self, **kwargs):
+        with self._token_scope():
+            return self._decide(**kwargs)
+
+    def _decide(self, *, message, history=None, memory_1line="", flags=None, relationship=None, memories=None):
         start = time.monotonic()
         tokenizer_start = getattr(self.count_tokens, "request_count", None)
+        cache_hit_start = getattr(self.count_tokens, "cache_hits", None)
         context = dict(message=message, history=history, memory_1line=memory_1line, flags=flags,
                        relationship=relationship, memories=memories)
         server_rules = "\nAllowed flags: " + json.dumps(self.character.allowed_flags)
@@ -106,7 +119,7 @@ class DecisionService:
                     character_prompt=reply_prompt,
                     retry_prompt="설명 없이 reply 하나만 있는 JSON 객체로 다시 답해. reply는 1~80글자야.", deadline=deadline)
             except (LLMOutputError, LLMTransportError) as exc:
-                self._attach_failure_metrics(exc, (), tokenizer_start)
+                self._attach_failure_metrics(exc, (), tokenizer_start, cache_hit_start)
                 raise
             reply_stages = [reply_metrics]
             if quality_enabled and not grounded and not is_short_ack(message):
@@ -128,7 +141,7 @@ class DecisionService:
                 metadata, metadata_metrics, cues = self.analyze_metadata(
                     assistant_reply=final_reply, deadline=deadline, **context)
             except (LLMOutputError, LLMTransportError) as exc:
-                self._attach_failure_metrics(exc, tuple(reply_stages), tokenizer_start)
+                self._attach_failure_metrics(exc, tuple(reply_stages), tokenizer_start, cache_hit_start)
                 raise
             decision = LLMDecision(reply=final_reply, **metadata.model_dump(exclude={'search_cues'}))
             stages = (*reply_stages, metadata_metrics)
@@ -138,7 +151,7 @@ class DecisionService:
                     character_prompt=self.character.system_prompt + server_rules,
                     retry_prompt=self.character.retry_user_prompt)
             except (LLMOutputError, LLMTransportError) as exc:
-                self._attach_failure_metrics(exc, (), tokenizer_start)
+                self._attach_failure_metrics(exc, (), tokenizer_start, cache_hit_start)
                 raise
             if grounded:
                 decision = decision.model_copy(update={"reply": grounded})
@@ -152,13 +165,21 @@ class DecisionService:
         tokenizer_end = getattr(self.count_tokens, "request_count", None)
         tokenizer_requests = (tokenizer_end - tokenizer_start
                               if tokenizer_start is not None and tokenizer_end is not None else None)
+        cache_hit_end = getattr(self.count_tokens, "cache_hits", None)
+        tokenizer_cache_hits = (cache_hit_end - cache_hit_start
+                                if cache_hit_start is not None and cache_hit_end is not None else None)
         return DecisionResult(decision, sum(s.attempts for s in stages), sum(s.parse_failures for s in stages),
             sum(s.transport_failures for s in stages), sum(s.completion_tokens for s in stages),
             time.monotonic()-start, sum(s.prompt_tokens for s in stages),
-            any(s.context_trimmed for s in stages), bool(grounded), stages, cues, tokenizer_requests)
+            any(s.context_trimmed for s in stages), bool(grounded), stages, cues,
+            tokenizer_requests, tokenizer_cache_hits)
 
-    def analyze_metadata(self, *, message, assistant_reply, history=None, memory_1line="", flags=None,
-                         relationship=None, memories=None, context_mode=None, deadline=None):
+    def analyze_metadata(self, **kwargs):
+        with self._token_scope():
+            return self._analyze_metadata(**kwargs)
+
+    def _analyze_metadata(self, *, message, assistant_reply, history=None, memory_1line="", flags=None,
+                          relationship=None, memories=None, context_mode=None, deadline=None):
         """Analyze one frozen reply without regenerating it; used by two-stage generation and A/B evaluation."""
         mode = context_mode or self.config.metadata_context_mode
         if mode not in {"full", "compact"}:
@@ -196,11 +217,20 @@ class DecisionService:
                 if getattr(self, "search_cue_experiment", False) else ())
         return metadata, metrics, cues
 
-    def _attach_failure_metrics(self, exc, completed, tokenizer_start):
+    def close(self):
+        self.client.close()
+        close_counter = getattr(self.count_tokens, "close", None)
+        if close_counter:
+            close_counter()
+
+    def _attach_failure_metrics(self, exc, completed, tokenizer_start, cache_hit_start):
         exc.stages = (*completed, *getattr(exc, "stages", ()))
         tokenizer_end = getattr(self.count_tokens, "request_count", None)
         if tokenizer_start is not None and tokenizer_end is not None:
             exc.tokenizer_requests = tokenizer_end - tokenizer_start
+        cache_hit_end = getattr(self.count_tokens, "cache_hits", None)
+        if cache_hit_start is not None and cache_hit_end is not None:
+            exc.tokenizer_cache_hits = cache_hit_end - cache_hit_start
 
     def _generate(self, *, output_model, stage, character_prompt, retry_prompt, message, history,
                   memory_1line, flags, relationship, memories, assistant_reply=None, deadline=None):

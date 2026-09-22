@@ -55,7 +55,7 @@ def main():
             print(json.dumps(row, ensure_ascii=True), flush=True)
     finally:
         if adapter:
-            adapter.client.close()
+            adapter.close()
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps({"cases": results, "before_matches": sum(r["before_match"] for r in results),
             "after_matches": sum(r["after_match"] for r in results)}, ensure_ascii=False, indent=2), encoding="utf-8")

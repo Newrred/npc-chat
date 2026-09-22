@@ -107,7 +107,7 @@ def main():
         report['complete'] = True
     finally:
         save()
-        service.client.close()
+        service.close()
     return 0 if all(row['valid'] for row in report['rows']) else 1
 
 

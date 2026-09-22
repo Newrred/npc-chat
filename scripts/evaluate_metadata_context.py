@@ -62,7 +62,7 @@ def run(*, suite_path, baseline_path, env_file, output):
                 })
     finally:
         for service in services.values():
-            service.client.close()
+            service.close()
     artifact = {
         "experiment": "EXP-21", "suite_version": suite["version"],
         "baseline": str(Path(baseline_path).name), "model": config.llm_model,

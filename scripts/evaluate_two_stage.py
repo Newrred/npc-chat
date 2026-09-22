@@ -54,7 +54,7 @@ def main():
         report['complete']=True
     finally:
         save()
-        service.client.close()
+        service.close()
     return 0 if all(row['success'] for row in report['rows']) else 1
 
 

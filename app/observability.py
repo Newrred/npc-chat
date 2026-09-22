@@ -113,6 +113,7 @@ class TurnMetrics:
     def observe_generation(self, generated):
         stages = tuple(getattr(generated, "stages", ()) or ())
         self.values["tokenizer_requests"] = getattr(generated, "tokenizer_requests", None)
+        self.values["tokenizer_cache_hits"] = getattr(generated, "tokenizer_cache_hits", None)
         self.values["attempts"] = getattr(generated, "attempts", None)
         self.values["parse_failures"] = getattr(generated, "parse_failures", None)
         self.values["transport_failures"] = getattr(generated, "transport_failures", None)
@@ -125,6 +126,7 @@ class TurnMetrics:
     def observe_failure(self, error):
         stages = tuple(getattr(error, "stages", ()) or ())
         self.values["tokenizer_requests"] = getattr(error, "tokenizer_requests", None)
+        self.values["tokenizer_cache_hits"] = getattr(error, "tokenizer_cache_hits", None)
         self.values["attempts"] = sum(stage.attempts for stage in stages)
         self.values["parse_failures"] = sum(stage.parse_failures for stage in stages)
         self.values["transport_failures"] = sum(stage.transport_failures for stage in stages)

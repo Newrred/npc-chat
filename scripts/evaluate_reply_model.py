@@ -68,7 +68,7 @@ def main():
                 args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2,
                                                    default=json_default), encoding="utf-8")
     finally:
-        service.client.close()
+        service.close()
 
 
 if __name__ == "__main__":

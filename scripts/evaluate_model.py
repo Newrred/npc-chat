@@ -80,7 +80,7 @@ def main():
     finally:
         stopped.set()
         thread.join(timeout=12)
-        adapter.client.close()
+        adapter.close()
         report["summary"] = summarize(report["rows"])
         successful = [row for row in report["rows"] if row["success"]]
         lengths = [row["reply_chars"] for row in successful]

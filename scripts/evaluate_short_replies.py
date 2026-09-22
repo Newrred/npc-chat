@@ -37,7 +37,7 @@ def main():
                 history.extend([{'role': 'user', 'content': message},
                                 {'role': 'assistant', 'content': result.decision.reply}])
     finally:
-        service.client.close()
+        service.close()
     report = {'rows': rows, 'exact_repeats': sum(row['exact_repeat'] for row in rows),
               'cases': len(rows), 'context': service.config.llm_context}
     Path(args.output).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')

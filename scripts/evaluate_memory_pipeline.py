@@ -63,7 +63,7 @@ def main():
             print(json.dumps({"case": label, "reply": generated.decision.reply,
                 "stages": result["stages"]}, ensure_ascii=True), flush=True)
     finally:
-        service.client.close()
+        service.close()
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 

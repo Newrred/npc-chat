@@ -65,7 +65,7 @@ def main():
                     args.output.parent.mkdir(parents=True,exist_ok=True)
                     args.output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     finally:
-        service.client.close()
+        service.close()
 
 
 if __name__=='__main__':

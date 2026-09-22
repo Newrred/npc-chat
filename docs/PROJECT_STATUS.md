@@ -1,5 +1,13 @@
 # Project Status
 
+## 2026-09-22 Task30/EXP22 TokenCounter 연결 재사용 — 완료·적용
+
+GPT Pro 원문의 TokenCounter 제안을 확인하고, 정확한 llama.cpp apply-template/tokenize 검증을 유지한 채 HTTP client를 서비스 생명주기 동안 재사용하도록 바꿨다. 한 최상위 생성 요청 안의 완전히 같은 messages만 SHA-256 키로 재사용하고 종료 시 지우며, 정상 reply/metadata의 서로 다른 입력은 계속 각각 검증한다. 앱 종료와 평가 스크립트가 모델 client와 tokenizer client를 함께 닫고, 비개인 계측에 cache hit 수를 추가했다.
+
+합성 동일 입력은 client40→1·HTTP80→40·12.003→0.582초, 서로 다른 정상 입력 모사는 client40→1·HTTP80 유지·11.744→0.388초였고 token 결과가 같았다. 실제 9B development24개는 형식24/24·parse/transport0을 유지하며 prepare p50 0.578→0.297초였지만 모델 생성 변동으로 전체 p50은2.531→3.546초였다. 따라서 입력 준비 최적화로만 채택하고 전체 응답 속도 개선을 주장하지 않는다.
+
+최종 629 Python tests, 프런트·검사창28 tests, Ruff/compileall/JavaScript/diff 검사가 통과했다. 재시작한 공개 full/two-stage 구성에서 화면/live와 합성 chat2회/reset이 모두200이었고, 두 번째 턴 reply/metadata prepare가0.000/0.015초였다. 공개 quota2회를 사용했고 합성 대화는 즉시 삭제했다. DB migration·API·프롬프트·모델 호출 수 변화는 없다. [상세](TOKEN_COUNTER_REUSE.md), Task30 참고.
+
 ## 2026-09-22 Task29/EXP21 metadata 전용 문맥 A/B — 완료, compact 미채택
 
 reply 입력과 확정 대사를 고정한 채 metadata에 전체 문맥을 주는 full과 최근 완전2쌍·source-backed 근거만 주는 compact를 비교했다. 전체 two-stage 사전 비교는 확률적 reply 차이로 오염되어 최종 판정에서 제외하고, EXP20의 같은 합성 reply 24개로 조건 순서를 교대한 48 metadata 호출을 사용했다. 양쪽 모두 최초 형식24/24, parse·transport 실패0이었다. compact는 prompt 중앙903.5→900, 평균956.9→925.4였고 metadata 전체 중앙2.062→2.094초로 일반적 개선이 없었다. 긴24쌍 이력 한 건은659 token·약0.36초 줄었다. interaction 차이7건에서 compact 비열화가 확인돼 공개/default는 full을 유지한다. 원시 기억 후보는 양쪽 모두 많았으나 서버 원문 검증 후 실제 수용은0건이었다. holdout과 사용자DB는 사용하지 않았다.

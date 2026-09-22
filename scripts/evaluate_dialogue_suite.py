@@ -119,7 +119,7 @@ def run_suite(payload, *, split, env_file, output, metadata_context_mode=None):
             result = service.decide(message=case["message"], history=expanded_history(case),
                 memories=case.get("memories", []), flags=[], relationship={"values": {}, "stage": "evaluation"})
         finally:
-            service.client.close()
+            service.close()
         reply = result.decision.reply
         results.append({
             "id": case["id"], "split": case["split"], "category": case["category"],
@@ -130,6 +130,7 @@ def run_suite(payload, *, split, env_file, output, metadata_context_mode=None):
             "rubric": case["expected"]["rubric"],
             "elapsed_sec": round(time.monotonic() - started, 3),
             "tokenizer_requests": result.tokenizer_requests,
+            "tokenizer_cache_hits": result.tokenizer_cache_hits,
             "stages": [asdict(stage) for stage in result.stages],
         })
     artifact = {

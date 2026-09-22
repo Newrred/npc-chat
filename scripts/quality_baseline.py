@@ -50,7 +50,7 @@ def main():
                                            ensure_ascii=False, indent=2), encoding="utf-8")
                 print(case["id"], index, "OK" if "reply" in row else "ERROR", flush=True)
     finally:
-        service.client.close()
+        service.close()
     return 0 if all("reply" in row for row in rows) else 1
 
 
