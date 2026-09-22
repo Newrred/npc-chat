@@ -17,6 +17,24 @@ def compact_schema(value):
     return value
 
 
+def compact_metadata_context(context, *, recent_pairs=2):
+    """Keep only metadata-relevant context; current input and frozen reply are supplied separately."""
+    history = list(context.get("history") or [])
+    complete_pairs = []
+    for index in range(len(history) - 1):
+        if history[index].get("role") == "user" and history[index + 1].get("role") == "assistant":
+            complete_pairs.append((history[index], history[index + 1]))
+    recent = [dict(turn) for pair in complete_pairs[-recent_pairs:] for turn in pair]
+    evidence = [dict(item) for item in context.get("memories") or []
+                if item.get("kind") in {"profile", "episode"}]
+    return {
+        **context,
+        "history": recent,
+        "memory_1line": "",
+        "memories": evidence,
+    }
+
+
 class TokenCounter:
     def __init__(self, config):
         self.config = config

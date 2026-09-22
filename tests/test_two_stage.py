@@ -100,6 +100,52 @@ def test_metadata_sees_grounded_final_reply_instead_of_generated_guess():
         adapter.client.close()
 
 
+def test_compact_metadata_context_does_not_change_reply_input_and_bounds_analysis_input():
+    adapter, calls = two_stage([{'reply':'확정 대사'}, metadata()])
+    adapter.config = replace(adapter.config, metadata_context_mode='compact')
+    history = [{"role": role, "content": f"{role}-{number}"}
+               for number in range(3) for role in ("user", "assistant")]
+    memories = [
+        {"kind": "preference", "content": "나는 커피를 좋아해."},
+        {"kind": "profile", "content": '{"field":"name","value":"도윤"}'},
+    ]
+    try:
+        result = adapter.decide(message='현재 발언', history=history,
+            memory_1line='사용자 발화: 오래된 요약', memories=memories,
+            flags=['known'], relationship={'stage':'friend'})
+        assert calls[0]['messages'][1:-1] == history
+        assert calls[1]['messages'][1:-1] == history[-4:]
+        metadata_system = calls[1]['messages'][0]['content']
+        assert '확정 대사' in metadata_system and '도윤' in metadata_system
+        assert '오래된 요약' not in metadata_system and '커피를 좋아해' not in metadata_system
+        assert calls[1]['messages'][-1] == {'role':'user','content':'현재 발언'}
+        assert result.decision.reply == '확정 대사'
+    finally:
+        adapter.client.close()
+
+
+def test_frozen_metadata_analysis_makes_one_call_without_reply_generation():
+    adapter, calls = two_stage([metadata()])
+    try:
+        output, metrics, cues = adapter.analyze_metadata(
+            message='현재 발언', assistant_reply='이미 확정된 대사', context_mode='compact')
+        assert len(calls) == 1 and calls[0]['messages'][-1]['content'] == '현재 발언'
+        assert '이미 확정된 대사' in calls[0]['messages'][0]['content']
+        assert output.face == 'shy_smile' and metrics.stage == 'metadata' and cues == ()
+    finally:
+        adapter.client.close()
+
+
+def test_invalid_metadata_context_mode_is_rejected():
+    adapter, _ = two_stage([])
+    try:
+        adapter.config = replace(adapter.config, metadata_context_mode='unknown')
+        with pytest.raises(ValueError, match='NPC_METADATA_CONTEXT_MODE'):
+            DecisionService(client=adapter.client, config=adapter.config)
+    finally:
+        adapter.client.close()
+
+
 @pytest.mark.parametrize(('character_id', 'expected'), [
     ('default', "네가 '나는 커피를 싫어해'라고 했어."),
     ('cartethyia', "전에 '나는 커피를 싫어해'라고 했어요."),

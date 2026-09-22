@@ -1,5 +1,11 @@
 # Project Status
 
+## 2026-09-22 Task29/EXP21 metadata 전용 문맥 A/B — 완료, compact 미채택
+
+reply 입력과 확정 대사를 고정한 채 metadata에 전체 문맥을 주는 full과 최근 완전2쌍·source-backed 근거만 주는 compact를 비교했다. 전체 two-stage 사전 비교는 확률적 reply 차이로 오염되어 최종 판정에서 제외하고, EXP20의 같은 합성 reply 24개로 조건 순서를 교대한 48 metadata 호출을 사용했다. 양쪽 모두 최초 형식24/24, parse·transport 실패0이었다. compact는 prompt 중앙903.5→900, 평균956.9→925.4였고 metadata 전체 중앙2.062→2.094초로 일반적 개선이 없었다. 긴24쌍 이력 한 건은659 token·약0.36초 줄었다. interaction 차이7건에서 compact 비열화가 확인돼 공개/default는 full을 유지한다. 원시 기억 후보는 양쪽 모두 많았으나 서버 원문 검증 후 실제 수용은0건이었다. holdout과 사용자DB는 사용하지 않았다.
+
+최종 전체627 Python tests, 프런트·검사창28 tests와 Ruff/compileall/JavaScript/diff 검사가 통과했다. 공개 설정에 full을 명시하고 재시작해 화면/live/합성 chat/reset 200, manifest full·two_stage 및 reply/metadata 두 단계를 확인했다. 공개 smoke가 quota1회를 사용했고 합성 대화는 즉시 삭제했다. DB migration과 API 응답 변경은 없다. [상세](METADATA_CONTEXT_AB.md), Task29 참고.
+
 ## 2026-09-21 Task28 비개인 운영 계측·독립 평가 기준선 — 구현 및 개발 세트 완료
 
 비밀값과 대화 원문을 제외한 유효 설정 manifest, 채팅의 queue/load/recall/reply/metadata/commit/total 단계 지연, token·재시도·실패·취소·replay를 하나의 익명 schema로 기록하는 회전 JSONL과 p50/p95 오프라인 집계를 추가했다. 현재 llama.cpp가 실제 반환하는 `cache_n`, `cached_tokens`, timing만 허용 목록으로 보존하며 없는 값은 추정하지 않는다. 기본 설정은 OFF다.

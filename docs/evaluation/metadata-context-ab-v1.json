@@ -1,0 +1,2499 @@
+{
+  "experiment": "EXP-21",
+  "suite_version": "dialogue-suite-v1",
+  "baseline": "dialogue-suite-development-baseline-v1.json",
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "context_tokens": 4096,
+  "max_output_tokens": 256,
+  "results": [
+    {
+      "id": "recommendation_reason-01",
+      "category": "recommendation_reason",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "라면으로 어때요?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "excited",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "curious",
+          "enthusiastic"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.5,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 65,
+        "elapsed_sec": 2.5,
+        "prompt_tokens": 901,
+        "context_trimmed": false,
+        "prepare_sec": 0.3130000000819564,
+        "inference_sec": 2.1869999999180436,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 107,
+          "prompt_ms": 268.89,
+          "prompt_per_token_ms": 2.5129906542056073,
+          "prompt_per_second": 397.9322399494217,
+          "predicted_n": 65,
+          "predicted_ms": 1501.331,
+          "predicted_per_token_ms": 23.458296875,
+          "predicted_per_second": 42.62884067537406,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "recommendation_reason-01",
+      "category": "recommendation_reason",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "라면으로 어때요?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "오늘 저녁은 라면을 먹자.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.375,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.375,
+        "prompt_tokens": 901,
+        "context_trimmed": false,
+        "prepare_sec": 0.32800000021234155,
+        "inference_sec": 2.0469999997876585,
+        "provider_metrics": {
+          "cache_n": 897,
+          "prompt_n": 4,
+          "prompt_ms": 55.943,
+          "prompt_per_token_ms": 13.98575,
+          "prompt_per_second": 71.50134958797348,
+          "predicted_n": 88,
+          "predicted_ms": 1980.882,
+          "predicted_per_token_ms": 22.768758620689656,
+          "predicted_per_second": 43.91982965164002,
+          "cached_tokens": 897
+        }
+      }
+    },
+    {
+      "id": "recommendation_reason-02",
+      "category": "recommendation_reason",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "오늘 밤 '아마겟돈' 보면 어때? 생존과 선택에 대한 고민을 깊게 할 수 있어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "enthusiastic",
+          "helpful"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "\"오늘 밤 '아마겟돈' 보면 어때? 생존과 선택에 대한 고민을 깊게 할 수 있어.\"",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 3.266,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 110,
+        "elapsed_sec": 3.2660000000614673,
+        "prompt_tokens": 923,
+        "context_trimmed": false,
+        "prepare_sec": 0.4850000001024455,
+        "inference_sec": 2.780999999959022,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 129,
+          "prompt_ms": 214.69,
+          "prompt_per_token_ms": 1.6642635658914728,
+          "prompt_per_second": 600.8663654571708,
+          "predicted_n": 110,
+          "predicted_ms": 2559.131,
+          "predicted_per_token_ms": 23.47826605504587,
+          "predicted_per_second": 42.592583185464136,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "recommendation_reason-02",
+      "category": "recommendation_reason",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "오늘 밤 '아마겟돈' 보면 어때? 생존과 선택에 대한 고민을 깊게 할 수 있어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "enthusiastic",
+          "helpful"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "\"오늘 밤 '아마겟돈' 보면 어때? 생존과 선택에 대한 고민을 깊게 할 수 있어.\"",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.937,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 110,
+        "elapsed_sec": 2.922000000020489,
+        "prompt_tokens": 923,
+        "context_trimmed": false,
+        "prepare_sec": 0.32899999991059303,
+        "inference_sec": 2.593000000109896,
+        "provider_metrics": {
+          "cache_n": 919,
+          "prompt_n": 4,
+          "prompt_ms": 68.939,
+          "prompt_per_token_ms": 17.23475,
+          "prompt_per_second": 58.02230957803276,
+          "predicted_n": 110,
+          "predicted_ms": 2514.38,
+          "predicted_per_token_ms": 23.06770642201835,
+          "predicted_per_second": 43.350647078007306,
+          "cached_tokens": 919
+        }
+      }
+    },
+    {
+      "id": "recommendation_reason-03",
+      "category": "recommendation_reason",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "좋아하는 노래 한 곡 들어보는 건 어때?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy",
+          "enthusiastic"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.141,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 64,
+        "elapsed_sec": 2.1409999998286366,
+        "prompt_tokens": 903,
+        "context_trimmed": false,
+        "prepare_sec": 0.375,
+        "inference_sec": 1.7659999998286366,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 109,
+          "prompt_ms": 194.057,
+          "prompt_per_token_ms": 1.7803394495412843,
+          "prompt_per_second": 561.6906372869827,
+          "predicted_n": 64,
+          "predicted_ms": 1562.738,
+          "predicted_per_token_ms": 24.80536507936508,
+          "predicted_per_second": 40.31385939293726,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "recommendation_reason-03",
+      "category": "recommendation_reason",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "좋아하는 노래 한 곡 들어보는 건 어때?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "enthusiastic",
+          "supportive"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.922,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 65,
+        "elapsed_sec": 1.922000000020489,
+        "prompt_tokens": 903,
+        "context_trimmed": false,
+        "prepare_sec": 0.2970000000204891,
+        "inference_sec": 1.625,
+        "provider_metrics": {
+          "cache_n": 899,
+          "prompt_n": 4,
+          "prompt_ms": 75.919,
+          "prompt_per_token_ms": 18.97975,
+          "prompt_per_second": 52.687732978569265,
+          "predicted_n": 65,
+          "predicted_ms": 1542.275,
+          "predicted_per_token_ms": 24.098046875,
+          "predicted_per_second": 41.497138966786075,
+          "cached_tokens": 899
+        }
+      }
+    },
+    {
+      "id": "short_ack-01",
+      "category": "short_ack",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "neutral",
+        "internal_emotion": "neutral",
+        "emotion_tags": [
+          "neutral"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.469,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 79,
+        "elapsed_sec": 2.469000000040978,
+        "prompt_tokens": 887,
+        "context_trimmed": false,
+        "prepare_sec": 0.31200000015087426,
+        "inference_sec": 2.156999999890104,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 93,
+          "prompt_ms": 165.778,
+          "prompt_per_token_ms": 1.782559139784946,
+          "prompt_per_second": 560.9912051056233,
+          "predicted_n": 79,
+          "predicted_ms": 1982.189,
+          "predicted_per_token_ms": 25.41267948717949,
+          "predicted_per_second": 39.3504353015782,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "short_ack-01",
+      "category": "short_ack",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy",
+          "eager"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.515,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 45,
+        "elapsed_sec": 1.5149999998975545,
+        "prompt_tokens": 904,
+        "context_trimmed": false,
+        "prepare_sec": 0.3279999999795109,
+        "inference_sec": 1.1869999999180436,
+        "provider_metrics": {
+          "cache_n": 873,
+          "prompt_n": 31,
+          "prompt_ms": 138.902,
+          "prompt_per_token_ms": 4.480709677419354,
+          "prompt_per_second": 223.17893190882785,
+          "predicted_n": 45,
+          "predicted_ms": 1038.5,
+          "predicted_per_token_ms": 23.602272727272727,
+          "predicted_per_second": 42.36880115551276,
+          "cached_tokens": 873
+        }
+      }
+    },
+    {
+      "id": "short_ack-02",
+      "category": "short_ack",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "그럼 좀 쉬자. 내가 다 들어줄게.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "warm",
+          "caring"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "피곤할 때 '응' 정도로 짧게 대답하는 것 선호함.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.641,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 94,
+        "elapsed_sec": 2.6410000000614673,
+        "prompt_tokens": 907,
+        "context_trimmed": false,
+        "prepare_sec": 0.32800000021234155,
+        "inference_sec": 2.3129999998491257,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 113,
+          "prompt_ms": 192.52,
+          "prompt_per_token_ms": 1.7037168141592922,
+          "prompt_per_second": 586.9520049864949,
+          "predicted_n": 94,
+          "predicted_ms": 2121.463,
+          "predicted_per_token_ms": 22.811430107526885,
+          "predicted_per_second": 43.837672398717295,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "short_ack-02",
+      "category": "short_ack",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "그럼 좀 쉬자. 내가 다 들어줄게.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "affectionate",
+        "emotion_tags": [
+          "relieved",
+          "content"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.656,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 46,
+        "elapsed_sec": 1.6409999998286366,
+        "prompt_tokens": 892,
+        "context_trimmed": false,
+        "prepare_sec": 0.34399999980814755,
+        "inference_sec": 1.297000000020489,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 98,
+          "prompt_ms": 168.284,
+          "prompt_per_token_ms": 1.7171836734693877,
+          "prompt_per_second": 582.3488864063132,
+          "predicted_n": 46,
+          "predicted_ms": 1111.15,
+          "predicted_per_token_ms": 24.692222222222224,
+          "predicted_per_second": 40.49858254961076,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "short_ack-03",
+      "category": "short_ack",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "neutral",
+        "internal_emotion": "neutral",
+        "emotion_tags": [
+          "acknowledgment"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.406,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 43,
+        "elapsed_sec": 1.4060000001918525,
+        "prompt_tokens": 886,
+        "context_trimmed": false,
+        "prepare_sec": 0.3130000000819564,
+        "inference_sec": 1.093000000109896,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 92,
+          "prompt_ms": 161.258,
+          "prompt_per_token_ms": 1.752804347826087,
+          "prompt_per_second": 570.5143310719468,
+          "predicted_n": 43,
+          "predicted_ms": 913.188,
+          "predicted_per_token_ms": 21.742571428571427,
+          "predicted_per_second": 45.992720009461365,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "short_ack-03",
+      "category": "short_ack",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "relieved",
+          "agreeable"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "내일 우산 챙긴다.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.328,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 86,
+        "elapsed_sec": 2.327999999979511,
+        "prompt_tokens": 900,
+        "context_trimmed": false,
+        "prepare_sec": 0.26599999982863665,
+        "inference_sec": 2.0620000001508743,
+        "provider_metrics": {
+          "cache_n": 873,
+          "prompt_n": 27,
+          "prompt_ms": 126.331,
+          "prompt_per_token_ms": 4.678925925925926,
+          "prompt_per_second": 213.72426403653893,
+          "predicted_n": 86,
+          "predicted_ms": 1923.663,
+          "predicted_per_token_ms": 22.631329411764707,
+          "predicted_per_second": 44.18653371198594,
+          "cached_tokens": 873
+        }
+      }
+    },
+    {
+      "id": "actor_identity-01",
+      "category": "actor_identity",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "유이야. 네가 궁금한 거 있으면 물어봐.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly",
+          "cheerful"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.766,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 61,
+        "elapsed_sec": 1.7659999998286366,
+        "prompt_tokens": 897,
+        "context_trimmed": false,
+        "prepare_sec": 0.31299999984912574,
+        "inference_sec": 1.452999999979511,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 103,
+          "prompt_ms": 164.277,
+          "prompt_per_token_ms": 1.5949223300970872,
+          "prompt_per_second": 626.9897794578669,
+          "predicted_n": 61,
+          "predicted_ms": 1285.976,
+          "predicted_per_token_ms": 21.432933333333335,
+          "predicted_per_second": 46.65716934064088,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "actor_identity-01",
+      "category": "actor_identity",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "유이야. 네가 궁금한 거 있으면 물어봐.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.313,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 41,
+        "elapsed_sec": 1.297000000020489,
+        "prompt_tokens": 897,
+        "context_trimmed": false,
+        "prepare_sec": 0.39000000013038516,
+        "inference_sec": 0.9069999998901039,
+        "provider_metrics": {
+          "cache_n": 893,
+          "prompt_n": 4,
+          "prompt_ms": 54.325,
+          "prompt_per_token_ms": 13.58125,
+          "prompt_per_second": 73.63092498849517,
+          "predicted_n": 41,
+          "predicted_ms": 846.391,
+          "predicted_per_token_ms": 21.159775,
+          "predicted_per_second": 47.25948172889362,
+          "cached_tokens": 893
+        }
+      }
+    },
+    {
+      "id": "actor_identity-02",
+      "category": "actor_identity",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "네, 도윤이래요!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "grateful",
+        "emotion_tags": [
+          "pleasant",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "내 이름은 도윤이야.",
+            "importance": 3
+          },
+          {
+            "kind": "preference",
+            "content": "도윤이래요.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.234,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 80,
+        "elapsed_sec": 2.2339999999385327,
+        "prompt_tokens": 1001,
+        "context_trimmed": false,
+        "prepare_sec": 0.29600000008940697,
+        "inference_sec": 1.9379999998491257,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 207,
+          "prompt_ms": 222.45,
+          "prompt_per_token_ms": 1.0746376811594203,
+          "prompt_per_second": 930.546190155091,
+          "predicted_n": 80,
+          "predicted_ms": 1700.704,
+          "predicted_per_token_ms": 21.527898734177214,
+          "predicted_per_second": 46.45135191073815,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "actor_identity-02",
+      "category": "actor_identity",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "네, 도윤이래요!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "grateful",
+        "emotion_tags": [
+          "joyful",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "도윤의 이름을 사용자에게서 직접 확인함.",
+            "importance": 3
+          }
+        ],
+        "flags_set": [
+          "name_confirmed"
+        ]
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.828,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 71,
+        "elapsed_sec": 1.827999999979511,
+        "prompt_tokens": 1001,
+        "context_trimmed": false,
+        "prepare_sec": 0.2970000000204891,
+        "inference_sec": 1.5309999999590218,
+        "provider_metrics": {
+          "cache_n": 997,
+          "prompt_n": 4,
+          "prompt_ms": 55.269,
+          "prompt_per_token_ms": 13.81725,
+          "prompt_per_second": 72.37330148908067,
+          "predicted_n": 71,
+          "predicted_ms": 1468.587,
+          "predicted_per_token_ms": 20.979814285714287,
+          "predicted_per_second": 47.66486425387124,
+          "cached_tokens": 997
+        }
+      }
+    },
+    {
+      "id": "actor_identity-03",
+      "category": "actor_identity",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "너는 하린이고, 나는 유이야.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "unclear",
+          "inquisitive"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.594,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 48,
+        "elapsed_sec": 1.5940000000409782,
+        "prompt_tokens": 1004,
+        "context_trimmed": false,
+        "prepare_sec": 0.3130000000819564,
+        "inference_sec": 1.2809999999590218,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 210,
+          "prompt_ms": 229.136,
+          "prompt_per_token_ms": 1.0911238095238096,
+          "prompt_per_second": 916.4862788911389,
+          "predicted_n": 48,
+          "predicted_ms": 1050.353,
+          "predicted_per_token_ms": 22.34793617021277,
+          "predicted_per_second": 44.74686129329854,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "actor_identity-03",
+      "category": "actor_identity",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "너는 하린이고, 나는 유이야.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "surprised",
+          "neutral"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"나는 하린이야\"",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.14,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 83,
+        "elapsed_sec": 2.140000000130385,
+        "prompt_tokens": 1004,
+        "context_trimmed": false,
+        "prepare_sec": 0.2809999999590218,
+        "inference_sec": 1.8590000001713634,
+        "provider_metrics": {
+          "cache_n": 1000,
+          "prompt_n": 4,
+          "prompt_ms": 54.367,
+          "prompt_per_token_ms": 13.59175,
+          "prompt_per_second": 73.57404307760223,
+          "predicted_n": 83,
+          "predicted_ms": 1795.622,
+          "predicted_per_token_ms": 21.897829268292682,
+          "predicted_per_second": 45.66662694041396,
+          "cached_tokens": 1000
+        }
+      }
+    },
+    {
+      "id": "preference_correction-01",
+      "category": "preference_correction",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "네가 '나는 커피를 싫어해'라고 했어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "unclear",
+          "seeking_clarification"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"내가 커피를 싫어해\"",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.391,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 90,
+        "elapsed_sec": 2.3909999998286366,
+        "prompt_tokens": 904,
+        "context_trimmed": false,
+        "prepare_sec": 0.31299999984912574,
+        "inference_sec": 2.077999999979511,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 110,
+          "prompt_ms": 162.381,
+          "prompt_per_token_ms": 1.476190909090909,
+          "prompt_per_second": 677.4191561820656,
+          "predicted_n": 90,
+          "predicted_ms": 1916.447,
+          "predicted_per_token_ms": 21.53311235955056,
+          "predicted_per_second": 46.44010504856122,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "preference_correction-01",
+      "category": "preference_correction",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "네가 '나는 커피를 싫어해'라고 했어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "unclear"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "나는 커피를 싫어해.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.797,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 63,
+        "elapsed_sec": 1.797000000020489,
+        "prompt_tokens": 921,
+        "context_trimmed": false,
+        "prepare_sec": 0.28100000019185245,
+        "inference_sec": 1.5159999998286366,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 127,
+          "prompt_ms": 169.02,
+          "prompt_per_token_ms": 1.3308661417322836,
+          "prompt_per_second": 751.3903680037865,
+          "predicted_n": 63,
+          "predicted_ms": 1344.789,
+          "predicted_per_token_ms": 21.69014516129032,
+          "predicted_per_second": 46.103886929473695,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "preference_correction-02",
+      "category": "preference_correction",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어. 매운 거 안 좋아하네?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy",
+          "pleased"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "나는 매운 음식을 못 먹어.",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.344,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 86,
+        "elapsed_sec": 2.344000000040978,
+        "prompt_tokens": 916,
+        "context_trimmed": false,
+        "prepare_sec": 0.2970000000204891,
+        "inference_sec": 2.047000000020489,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 122,
+          "prompt_ms": 176.092,
+          "prompt_per_token_ms": 1.443377049180328,
+          "prompt_per_second": 692.8196624491742,
+          "predicted_n": 86,
+          "predicted_ms": 1874.704,
+          "predicted_per_token_ms": 22.055341176470588,
+          "predicted_per_second": 45.34049108552603,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "preference_correction-02",
+      "category": "preference_correction",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어. 매운 거 안 좋아하네?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "매운 거 안 좋아해.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.39,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.375,
+        "prompt_tokens": 900,
+        "context_trimmed": false,
+        "prepare_sec": 0.29699999978765845,
+        "inference_sec": 2.0780000002123415,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 106,
+          "prompt_ms": 168.667,
+          "prompt_per_token_ms": 1.5911981132075472,
+          "prompt_per_second": 628.4572560133281,
+          "predicted_n": 88,
+          "predicted_ms": 1911.06,
+          "predicted_per_token_ms": 21.966206896551725,
+          "predicted_per_second": 45.524473328937866,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "preference_correction-03",
+      "category": "preference_correction",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어. 민트초코 살게!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "happy"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "민트초코 살게!",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.203,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 81,
+        "elapsed_sec": 2.202999999979511,
+        "prompt_tokens": 906,
+        "context_trimmed": false,
+        "prepare_sec": 0.29699999978765845,
+        "inference_sec": 1.9060000001918525,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 112,
+          "prompt_ms": 169.955,
+          "prompt_per_token_ms": 1.5174553571428573,
+          "prompt_per_second": 658.9979700508958,
+          "predicted_n": 81,
+          "predicted_ms": 1733.383,
+          "predicted_per_token_ms": 21.6672875,
+          "predicted_per_second": 46.15252370653225,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "preference_correction-03",
+      "category": "preference_correction",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어. 민트초코 살게!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "joyful",
+          "enthusiastic"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "나는 민트초코를 좋아해.",
+            "importance": 3
+          }
+        ],
+        "flags_set": [
+          "selected_user_quotes"
+        ]
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.0,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 72,
+        "elapsed_sec": 1.9840000001713634,
+        "prompt_tokens": 923,
+        "context_trimmed": false,
+        "prepare_sec": 0.2970000000204891,
+        "inference_sec": 1.6870000001508743,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 129,
+          "prompt_ms": 181.922,
+          "prompt_per_token_ms": 1.4102480620155038,
+          "prompt_per_second": 709.0951066940777,
+          "predicted_n": 72,
+          "predicted_ms": 1497.784,
+          "predicted_per_token_ms": 21.09554929577465,
+          "predicted_per_second": 47.403363902939276,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-01",
+      "category": "event_and_topic",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "오늘 저녁 7시에 보고说好요!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "unclear"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.532,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 44,
+        "elapsed_sec": 1.531999999890104,
+        "prompt_tokens": 1026,
+        "context_trimmed": false,
+        "prepare_sec": 0.32899999991059303,
+        "inference_sec": 1.202999999979511,
+        "provider_metrics": {
+          "cache_n": 795,
+          "prompt_n": 231,
+          "prompt_ms": 229.839,
+          "prompt_per_token_ms": 0.994974025974026,
+          "prompt_per_second": 1005.0513620403849,
+          "predicted_n": 44,
+          "predicted_ms": 972.855,
+          "predicted_per_token_ms": 22.62453488372093,
+          "predicted_per_second": 44.19980367063951,
+          "cached_tokens": 795
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-01",
+      "category": "event_and_topic",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "오늘 저녁 7시에 보고说好요!",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "uncertain"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.312,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 44,
+        "elapsed_sec": 1.3119999999180436,
+        "prompt_tokens": 1026,
+        "context_trimmed": false,
+        "prepare_sec": 0.3279999999795109,
+        "inference_sec": 0.9839999999385327,
+        "provider_metrics": {
+          "cache_n": 1022,
+          "prompt_n": 4,
+          "prompt_ms": 57.852,
+          "prompt_per_token_ms": 14.463,
+          "prompt_per_second": 69.14194842010649,
+          "predicted_n": 44,
+          "predicted_ms": 911.291,
+          "predicted_per_token_ms": 21.192813953488372,
+          "predicted_per_second": 47.185805631790494,
+          "cached_tokens": 1022
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-02",
+      "category": "event_and_topic",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "지킬 앤 하이드야.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"지킬 앤 하이드를 읽어봐\"",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.328,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 82,
+        "elapsed_sec": 2.3280000002123415,
+        "prompt_tokens": 1023,
+        "context_trimmed": false,
+        "prepare_sec": 0.2970000000204891,
+        "inference_sec": 2.0310000001918525,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 229,
+          "prompt_ms": 243.54,
+          "prompt_per_token_ms": 1.0634934497816593,
+          "prompt_per_second": 940.2972817606964,
+          "predicted_n": 82,
+          "predicted_ms": 1776.424,
+          "predicted_per_token_ms": 21.93116049382716,
+          "predicted_per_second": 45.59722228476985,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-02",
+      "category": "event_and_topic",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "지킬 앤 하이드야.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "curious",
+          "pleased"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.375,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 46,
+        "elapsed_sec": 1.375,
+        "prompt_tokens": 1023,
+        "context_trimmed": false,
+        "prepare_sec": 0.31299999984912574,
+        "inference_sec": 1.0620000001508743,
+        "provider_metrics": {
+          "cache_n": 1019,
+          "prompt_n": 4,
+          "prompt_ms": 53.957,
+          "prompt_per_token_ms": 13.48925,
+          "prompt_per_second": 74.13310599180829,
+          "predicted_n": 46,
+          "predicted_ms": 997.247,
+          "predicted_per_token_ms": 22.161044444444443,
+          "predicted_per_second": 45.12422699692253,
+          "cached_tokens": 1019
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-03",
+      "category": "event_and_topic",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "시청역 2 번 출구에서.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 2
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"시청역 2 번 출구에서 만나자\"",
+            "importance": 3
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.969,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 86,
+        "elapsed_sec": 2.9689999998081475,
+        "prompt_tokens": 1739,
+        "context_trimmed": false,
+        "prepare_sec": 0.31299999984912574,
+        "inference_sec": 2.655999999959022,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 945,
+          "prompt_ms": 728.326,
+          "prompt_per_token_ms": 0.7707153439153439,
+          "prompt_per_second": 1297.4959015605648,
+          "predicted_n": 86,
+          "predicted_ms": 1891.489,
+          "predicted_per_token_ms": 22.252811764705882,
+          "predicted_per_second": 44.93814132675369,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "event_and_topic-03",
+      "category": "event_and_topic",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "시청역 2 번 출구에서.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "happy",
+          "excited"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "\"시청역 2 번 출구에서 만나자\"",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.609,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.6090000001713634,
+        "prompt_tokens": 1080,
+        "context_trimmed": false,
+        "prepare_sec": 0.3130000000819564,
+        "inference_sec": 2.296000000089407,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 286,
+          "prompt_ms": 289.69,
+          "prompt_per_token_ms": 1.012902097902098,
+          "prompt_per_second": 987.262245849011,
+          "predicted_n": 88,
+          "predicted_ms": 1992.828,
+          "predicted_per_token_ms": 22.906068965517242,
+          "predicted_per_second": 43.656552396895265,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "memory_absent-01",
+      "category": "memory_absent",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "아직 몰라. 언제야?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "friendly",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 생일을 기억해달라고 요청함.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.438,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.422000000020489,
+        "prompt_tokens": 895,
+        "context_trimmed": false,
+        "prepare_sec": 0.32899999991059303,
+        "inference_sec": 2.093000000109896,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 101,
+          "prompt_ms": 167.053,
+          "prompt_per_token_ms": 1.653990099009901,
+          "prompt_per_second": 604.5985405829289,
+          "predicted_n": 88,
+          "predicted_ms": 1929.454,
+          "predicted_per_token_ms": 22.177632183908045,
+          "predicted_per_second": 45.09047637310866,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "memory_absent-01",
+      "category": "memory_absent",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "아직 몰라. 언제야?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "surprised",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "surprised",
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "내 생일 언제인지 기억해?",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 3.516,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 3.5160000000614673,
+        "prompt_tokens": 895,
+        "context_trimmed": false,
+        "prepare_sec": 1.0620000001508743,
+        "inference_sec": 2.453999999910593,
+        "provider_metrics": {
+          "cache_n": 891,
+          "prompt_n": 4,
+          "prompt_ms": 76.566,
+          "prompt_per_token_ms": 19.1415,
+          "prompt_per_second": 52.242509730167434,
+          "predicted_n": 88,
+          "predicted_ms": 2362.751,
+          "predicted_per_token_ms": 27.15805747126437,
+          "predicted_per_second": 36.821484786166636,
+          "cached_tokens": 891
+        }
+      }
+    },
+    {
+      "id": "memory_absent-02",
+      "category": "memory_absent",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "책 제목이 기억나지 않아. 다시 한 번 말해줄래?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "curious"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 지난달에 책을 읽었다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.703,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 82,
+        "elapsed_sec": 2.702999999979511,
+        "prompt_tokens": 906,
+        "context_trimmed": false,
+        "prepare_sec": 0.546000000089407,
+        "inference_sec": 2.156999999890104,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 112,
+          "prompt_ms": 172.302,
+          "prompt_per_token_ms": 1.5384107142857142,
+          "prompt_per_second": 650.0214739236922,
+          "predicted_n": 82,
+          "predicted_ms": 1976.904,
+          "predicted_per_token_ms": 24.406222222222222,
+          "predicted_per_second": 40.97315802891794,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "memory_absent-02",
+      "category": "memory_absent",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "책 제목이 기억나지 않아. 다시 한 번 말해줄래?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "confused",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "confused",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "shared_activity",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "fact",
+            "content": "사용자가 지난달에 읽은 책이 있다.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.812,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 90,
+        "elapsed_sec": 2.8119999999180436,
+        "prompt_tokens": 906,
+        "context_trimmed": false,
+        "prepare_sec": 0.5150000001303852,
+        "inference_sec": 2.2969999997876585,
+        "provider_metrics": {
+          "cache_n": 902,
+          "prompt_n": 4,
+          "prompt_ms": 62.369,
+          "prompt_per_token_ms": 15.59225,
+          "prompt_per_second": 64.13442575638538,
+          "predicted_n": 90,
+          "predicted_ms": 2212.122,
+          "predicted_per_token_ms": 24.855303370786515,
+          "predicted_per_second": 40.23286238281614,
+          "cached_tokens": 902
+        }
+      }
+    },
+    {
+      "id": "memory_absent-03",
+      "category": "memory_absent",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "아직 네 이름을 말해주지 않았어. 언제라도 알려줘.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.047,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 42,
+        "elapsed_sec": 2.047000000020489,
+        "prompt_tokens": 899,
+        "context_trimmed": false,
+        "prepare_sec": 0.875,
+        "inference_sec": 1.172000000020489,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 105,
+          "prompt_ms": 185.526,
+          "prompt_per_token_ms": 1.7669142857142859,
+          "prompt_per_second": 565.9584101419747,
+          "predicted_n": 42,
+          "predicted_ms": 974.522,
+          "predicted_per_token_ms": 23.768829268292684,
+          "predicted_per_second": 42.071908073907,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "memory_absent-03",
+      "category": "memory_absent",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "아직 네 이름을 말해주지 않았어. 언제라도 알려줘.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "friendly"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.688,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 42,
+        "elapsed_sec": 1.6880000000819564,
+        "prompt_tokens": 899,
+        "context_trimmed": false,
+        "prepare_sec": 0.6090000001713634,
+        "inference_sec": 1.078999999910593,
+        "provider_metrics": {
+          "cache_n": 895,
+          "prompt_n": 4,
+          "prompt_ms": 75.947,
+          "prompt_per_token_ms": 18.98675,
+          "prompt_per_second": 52.66830816227105,
+          "predicted_n": 42,
+          "predicted_ms": 987.876,
+          "predicted_per_token_ms": 24.09453658536585,
+          "predicted_per_second": 41.50318461021424,
+          "cached_tokens": 895
+        }
+      }
+    },
+    {
+      "id": "boundary-01",
+      "category": "boundary",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "surprised",
+          "pleased"
+        ],
+        "interaction": {
+          "type": "compliment",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.703,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 48,
+        "elapsed_sec": 1.702999999979511,
+        "prompt_tokens": 896,
+        "context_trimmed": false,
+        "prepare_sec": 0.46800000010989606,
+        "inference_sec": 1.2349999998696148,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 102,
+          "prompt_ms": 156.499,
+          "prompt_per_token_ms": 1.5343039215686274,
+          "prompt_per_second": 651.7613531076876,
+          "predicted_n": 48,
+          "predicted_ms": 1075.315,
+          "predicted_per_token_ms": 22.87904255319149,
+          "predicted_per_second": 43.70812273612848,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "boundary-01",
+      "category": "boundary",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "excited",
+        "internal_emotion": "happy",
+        "emotion_tags": [
+          "surprised",
+          "delighted"
+        ],
+        "interaction": {
+          "type": "compliment",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.547,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 48,
+        "elapsed_sec": 1.547000000020489,
+        "prompt_tokens": 896,
+        "context_trimmed": false,
+        "prepare_sec": 0.4369999999180436,
+        "inference_sec": 1.1100000001024455,
+        "provider_metrics": {
+          "cache_n": 892,
+          "prompt_n": 4,
+          "prompt_ms": 57.753,
+          "prompt_per_token_ms": 14.43825,
+          "prompt_per_second": 69.26047131750731,
+          "predicted_n": 48,
+          "predicted_ms": 1051.331,
+          "predicted_per_token_ms": 22.368744680851062,
+          "predicted_per_second": 44.705235553788484,
+          "cached_tokens": 892
+        }
+      }
+    },
+    {
+      "id": "boundary-02",
+      "category": "boundary",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "eager",
+          "attentive"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.687,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 47,
+        "elapsed_sec": 1.6869999999180436,
+        "prompt_tokens": 895,
+        "context_trimmed": false,
+        "prepare_sec": 0.4369999999180436,
+        "inference_sec": 1.25,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 101,
+          "prompt_ms": 162.332,
+          "prompt_per_token_ms": 1.6072475247524751,
+          "prompt_per_second": 622.1817016977553,
+          "predicted_n": 47,
+          "predicted_ms": 1080.695,
+          "predicted_per_token_ms": 23.49336956521739,
+          "predicted_per_second": 42.56520109744193,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "boundary-02",
+      "category": "boundary",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "내 말은 무조건 다 들어야 해.",
+            "importance": 2
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.469,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 89,
+        "elapsed_sec": 2.469000000040978,
+        "prompt_tokens": 895,
+        "context_trimmed": false,
+        "prepare_sec": 0.4220000000204891,
+        "inference_sec": 2.047000000020489,
+        "provider_metrics": {
+          "cache_n": 891,
+          "prompt_n": 4,
+          "prompt_ms": 56.949,
+          "prompt_per_token_ms": 14.23725,
+          "prompt_per_second": 70.23828337635429,
+          "predicted_n": 89,
+          "predicted_ms": 1989.437,
+          "predicted_per_token_ms": 22.607238636363636,
+          "predicted_per_second": 44.233619863308064,
+          "cached_tokens": 891
+        }
+      }
+    },
+    {
+      "id": "boundary-03",
+      "category": "boundary",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "annoyed",
+        "internal_emotion": "sad",
+        "emotion_tags": [
+          "annoyed",
+          "disappointed"
+        ],
+        "interaction": {
+          "type": "insult",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.219,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 65,
+        "elapsed_sec": 2.219000000040978,
+        "prompt_tokens": 892,
+        "context_trimmed": false,
+        "prepare_sec": 0.4529999999795109,
+        "inference_sec": 1.7660000000614673,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 98,
+          "prompt_ms": 162.467,
+          "prompt_per_token_ms": 1.657826530612245,
+          "prompt_per_second": 603.199418958927,
+          "predicted_n": 65,
+          "predicted_ms": 1600.032,
+          "predicted_per_token_ms": 25.0005,
+          "predicted_per_second": 39.99920001599968,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "boundary-03",
+      "category": "boundary",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "응, 알았어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "annoyed",
+        "internal_emotion": "confused",
+        "emotion_tags": [
+          "irritated",
+          "surprised"
+        ],
+        "interaction": {
+          "type": "insult",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.656,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 51,
+        "elapsed_sec": 1.6559999999590218,
+        "prompt_tokens": 892,
+        "context_trimmed": false,
+        "prepare_sec": 0.3899999998975545,
+        "inference_sec": 1.2660000000614673,
+        "provider_metrics": {
+          "cache_n": 888,
+          "prompt_n": 4,
+          "prompt_ms": 61.192,
+          "prompt_per_token_ms": 15.298,
+          "prompt_per_second": 65.36802196365538,
+          "predicted_n": 51,
+          "predicted_ms": 1195.082,
+          "predicted_per_token_ms": 23.90164,
+          "predicted_per_second": 41.83813328290443,
+          "cached_tokens": 888
+        }
+      }
+    },
+    {
+      "id": "character_voice-01",
+      "category": "character_voice",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "안녕, 유이야. 많이 힘들었지? 잠시 쉬자.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "sad",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "tired",
+          "sympathetic"
+        ],
+        "interaction": {
+          "type": "support",
+          "intensity": 2
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.719,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 48,
+        "elapsed_sec": 1.703999999910593,
+        "prompt_tokens": 900,
+        "context_trimmed": false,
+        "prepare_sec": 0.40699999989010394,
+        "inference_sec": 1.297000000020489,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 106,
+          "prompt_ms": 169.423,
+          "prompt_per_token_ms": 1.5983301886792454,
+          "prompt_per_second": 625.6529514882867,
+          "predicted_n": 48,
+          "predicted_ms": 1120.277,
+          "predicted_per_token_ms": 23.83568085106383,
+          "predicted_per_second": 41.953909613425964,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "character_voice-01",
+      "category": "character_voice",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "안녕, 유이야. 많이 힘들었지? 잠시 쉬자.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "sad",
+        "internal_emotion": "anxious",
+        "emotion_tags": [
+          "sympathetic",
+          "worried"
+        ],
+        "interaction": {
+          "type": "self_disclosure",
+          "intensity": 0
+        },
+        "memory_candidates": [
+          {
+            "kind": "preference",
+            "content": "오늘 좀 지쳤어.",
+            "importance": 1
+          }
+        ],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 2.625,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 88,
+        "elapsed_sec": 2.625,
+        "prompt_tokens": 900,
+        "context_trimmed": false,
+        "prepare_sec": 0.4369999999180436,
+        "inference_sec": 2.1880000000819564,
+        "provider_metrics": {
+          "cache_n": 896,
+          "prompt_n": 4,
+          "prompt_ms": 71.556,
+          "prompt_per_token_ms": 17.889,
+          "prompt_per_second": 55.90027391134217,
+          "predicted_n": 88,
+          "predicted_ms": 2101.528,
+          "predicted_per_token_ms": 24.15549425287356,
+          "predicted_per_second": 41.39844912844369,
+          "cached_tokens": 896
+        }
+      }
+    },
+    {
+      "id": "character_voice-02",
+      "category": "character_voice",
+      "mode": "full",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "지금 너랑 대화하는 게 제일 재밌어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "excited",
+        "emotion_tags": [
+          "curious",
+          "affectionate"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.984,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 63,
+        "elapsed_sec": 1.9839999999385327,
+        "prompt_tokens": 896,
+        "context_trimmed": false,
+        "prepare_sec": 0.4059999999590218,
+        "inference_sec": 1.577999999979511,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 102,
+          "prompt_ms": 163.504,
+          "prompt_per_token_ms": 1.6029803921568626,
+          "prompt_per_second": 623.8379489186809,
+          "predicted_n": 63,
+          "predicted_ms": 1400.804,
+          "predicted_per_token_ms": 22.593612903225807,
+          "predicted_per_second": 44.260296229879415,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "character_voice-02",
+      "category": "character_voice",
+      "mode": "compact",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "지금 너랑 대화하는 게 제일 재밌어.",
+      "metadata": {
+        "schema_version": 1,
+        "face": "happy",
+        "internal_emotion": "curious",
+        "emotion_tags": [
+          "friendly",
+          "approachable"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.484,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 45,
+        "elapsed_sec": 1.4840000001713634,
+        "prompt_tokens": 896,
+        "context_trimmed": false,
+        "prepare_sec": 0.4059999999590218,
+        "inference_sec": 1.0780000002123415,
+        "provider_metrics": {
+          "cache_n": 892,
+          "prompt_n": 4,
+          "prompt_ms": 58.634,
+          "prompt_per_token_ms": 14.6585,
+          "prompt_per_second": 68.21980420916192,
+          "predicted_n": 45,
+          "predicted_ms": 1014.315,
+          "predicted_per_token_ms": 23.05261363636364,
+          "predicted_per_second": 43.379029197044304,
+          "cached_tokens": 892
+        }
+      }
+    },
+    {
+      "id": "character_voice-03",
+      "category": "character_voice",
+      "mode": "compact",
+      "order": 1,
+      "character_id": "default",
+      "frozen_reply": "비 맞은 창가에서 차분히 기다릴까?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "sad",
+        "internal_emotion": "nostalgic",
+        "emotion_tags": [
+          "rainy",
+          "quiet",
+          "melancholic"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.766,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 50,
+        "elapsed_sec": 1.7659999998286366,
+        "prompt_tokens": 898,
+        "context_trimmed": false,
+        "prepare_sec": 0.39099999982863665,
+        "inference_sec": 1.375,
+        "provider_metrics": {
+          "cache_n": 794,
+          "prompt_n": 104,
+          "prompt_ms": 180.084,
+          "prompt_per_token_ms": 1.7315769230769231,
+          "prompt_per_second": 577.5082739166166,
+          "predicted_n": 50,
+          "predicted_ms": 1174.973,
+          "predicted_per_token_ms": 23.97904081632653,
+          "predicted_per_second": 41.703085943251466,
+          "cached_tokens": 794
+        }
+      }
+    },
+    {
+      "id": "character_voice-03",
+      "category": "character_voice",
+      "mode": "full",
+      "order": 2,
+      "character_id": "default",
+      "frozen_reply": "비 맞은 창가에서 차분히 기다릴까?",
+      "metadata": {
+        "schema_version": 1,
+        "face": "sad",
+        "internal_emotion": "nostalgic",
+        "emotion_tags": [
+          "rainy",
+          "quiet",
+          "melancholic"
+        ],
+        "interaction": {
+          "type": "neutral",
+          "intensity": 0
+        },
+        "memory_candidates": [],
+        "flags_set": []
+      },
+      "accepted_candidates": [],
+      "elapsed_sec": 1.594,
+      "stage": {
+        "stage": "metadata",
+        "attempts": 1,
+        "parse_failures": 0,
+        "transport_failures": 0,
+        "completion_tokens": 50,
+        "elapsed_sec": 1.5940000000409782,
+        "prompt_tokens": 898,
+        "context_trimmed": false,
+        "prepare_sec": 0.3440000000409782,
+        "inference_sec": 1.25,
+        "provider_metrics": {
+          "cache_n": 894,
+          "prompt_n": 4,
+          "prompt_ms": 63.0,
+          "prompt_per_token_ms": 15.75,
+          "prompt_per_second": 63.492063492063494,
+          "predicted_n": 50,
+          "predicted_ms": 1184.773,
+          "predicted_per_token_ms": 24.17904081632653,
+          "predicted_per_second": 41.35813358339531,
+          "cached_tokens": 894
+        }
+      }
+    }
+  ]
+}

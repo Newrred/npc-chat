@@ -96,10 +96,12 @@ def automatic_checks(reply, expected):
     return checks
 
 
-def run_suite(payload, *, split, env_file, output):
+def run_suite(payload, *, split, env_file, output, metadata_context_mode=None):
     for key, value in dotenv_values(env_file, interpolate=False).items():
         if value is not None:
             os.environ[key] = value
+    if metadata_context_mode:
+        os.environ["NPC_METADATA_CONTEXT_MODE"] = metadata_context_mode
     from app.character_config import load_character_config
     from app.config import Settings
     from app.observability import prompt_fingerprint
@@ -123,6 +125,7 @@ def run_suite(payload, *, split, env_file, output):
             "id": case["id"], "split": case["split"], "category": case["category"],
             "character_id": case["character_id"], "prompt_fingerprint": prompt_fingerprint(character),
             "reply": reply, "face": result.decision.face,
+            "metadata": result.decision.model_dump(exclude={"reply"}),
             "checks": automatic_checks(reply, case["expected"]),
             "rubric": case["expected"]["rubric"],
             "elapsed_sec": round(time.monotonic() - started, 3),
@@ -132,6 +135,7 @@ def run_suite(payload, *, split, env_file, output):
     artifact = {
         "suite_version": payload["version"], "split": split,
         "generation_mode": config.llm_generation_mode, "model": config.llm_model,
+        "metadata_context_mode": config.metadata_context_mode,
         "context_tokens": config.llm_context, "max_output_tokens": config.llm_max_tokens,
         "results": results,
     }
@@ -148,6 +152,7 @@ def main():
                         help="Required before evaluating holdout/all after development choices are frozen")
     parser.add_argument("--env-file")
     parser.add_argument("--output")
+    parser.add_argument("--metadata-context-mode", choices=("full", "compact"))
     args = parser.parse_args()
     payload = load_suite(args.suite)
     counts = {split: sum(case["split"] == split for case in payload["cases"])
@@ -160,7 +165,8 @@ def main():
         parser.error("--env-file and --output are required unless --validate-only is used")
     if args.split in {"holdout", "all"} and not args.unlock_holdout:
         parser.error("--unlock-holdout is required for holdout/all")
-    run_suite(payload, split=args.split, env_file=args.env_file, output=args.output)
+    run_suite(payload, split=args.split, env_file=args.env_file, output=args.output,
+              metadata_context_mode=args.metadata_context_mode)
 
 
 if __name__ == "__main__":

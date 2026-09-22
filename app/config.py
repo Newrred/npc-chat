@@ -21,6 +21,7 @@ class Settings:
     llm_backend: str = os.getenv("NPC_LLM_BACKEND", "llama_cpp")
     llm_output_contract: str = os.getenv("NPC_OUTPUT_CONTRACT", "canonical")
     llm_generation_mode: str = os.getenv("NPC_GENERATION_MODE", "single_pass")
+    metadata_context_mode: str = os.getenv("NPC_METADATA_CONTEXT_MODE", "full")
     llm_json_mode: str = os.getenv("NPC_JSON_MODE", "schema")
     database_path: str = os.getenv("NPC_DATABASE_PATH", ".runtime/data/npc-chat.sqlite3")
     queue_capacity: int = int(os.getenv("NPC_QUEUE_CAPACITY", "8"))

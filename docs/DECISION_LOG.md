@@ -1,5 +1,9 @@
 # Decision Log
 
+## 2026-09-22 metadata compact 문맥은 운영 미채택
+
+같은 9B와 고정 reply로 full/compact metadata 문맥을 비교했으나 짧은 개발 사례의 중앙 입력은 3.5 token만 줄고 중앙 지연은 개선되지 않았다. 긴 24쌍 이력 한 건에서는 유의미한 절감이 있었지만 짧은 수락·기억 질문·자기 공개 interaction 분류가 compact에서 더 자주 어긋났다. 따라서 기본과 공개 시험은 `NPC_METADATA_CONTEXT_MODE=full`을 유지한다. compact는 명시적 실험 옵션으로만 보존하고 API·DB·모델 호출 구조는 바꾸지 않는다. Task29/EXP21 참고.
+
 ## 2026-09-21 운영 계측은 비개인 회전 JSONL, 품질 평가는 개발/holdout 합성 세트
 
 대화 원문·답변·기억 내용·사용자/세션/turn ID·주소·키·경로는 운영 지표에 남기지 않는다. 유효 설정은 허용 목록과 캐릭터 프롬프트 지문으로 기록하고, 채팅은 익명 계측 ID 아래 queue/load/recall/reply/metadata/commit/total 시간, token·재시도·실패·상태와 provider가 실제 제공한 수치만 기록한다. 기본은 OFF이며 현재 로컬 공개 시험 구성에서만 회전 JSONL을 활성화한다. 품질 비교는 실제 사용자 대화가 아닌 48개 합성 세트를 development 24/holdout 24로 나누며, 자동 문자열 검사를 사람 평가 점수로 취급하지 않는다. API·DB schema·모델 호출 수는 변경하지 않는다. Task28/EXP20 참고.

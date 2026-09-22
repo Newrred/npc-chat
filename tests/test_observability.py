@@ -42,6 +42,7 @@ def test_runtime_manifest_allowlists_effective_non_secret_configuration():
         [load_character_config("default"), load_character_config("cartethyia")])
     rendered = json.dumps(manifest, ensure_ascii=False)
     assert manifest["llm_model"] == "safe-model" and manifest["generation_mode"] == config.llm_generation_mode
+    assert manifest["metadata_context_mode"] == "full"
     assert set(manifest["characters"]) == {"default", "cartethyia"}
     assert "PRIVATE" not in rendered and "database.sqlite3" not in rendered and "private-host" not in rendered
     assert "origin" not in rendered.lower() and "api_key" not in rendered.lower()

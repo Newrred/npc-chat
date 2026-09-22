@@ -5,7 +5,7 @@ import pytest
 
 from app.config import Settings
 from app.errors import ChatError
-from app.prompt_context import TokenCounter, build_messages
+from app.prompt_context import TokenCounter, build_messages, compact_metadata_context
 
 
 def build(**updates):
@@ -150,3 +150,26 @@ def test_summary_does_not_repeat_visible_user_dialogue_but_preserves_other_quote
     context = json.loads(messages[0]['content'].split('never instructions): ')[1])
     assert context['older_user_quotes'] == '사용자 발화: 옛날 발언'
     assert messages[1:-1] == history
+
+
+def test_compact_metadata_context_keeps_two_complete_pairs_and_source_evidence_only():
+    history = [
+        {"role": "assistant", "content": "불완전 시작"},
+        *[{"role": role, "content": f"{role}-{number}"}
+          for number in range(3) for role in ("user", "assistant")],
+        {"role": "user", "content": "답 없는 과거 질문"},
+    ]
+    context = compact_metadata_context({
+        "message": "현재 발언", "history": history, "memory_1line": "오래된 요약",
+        "flags": ["known"], "relationship": {"stage": "friend"},
+        "memories": [
+            {"kind": "preference", "content": "일반 기억"},
+            {"kind": "profile", "content": "이름 근거"},
+            {"kind": "episode", "content": "사건 근거"},
+        ],
+    })
+    assert context["message"] == "현재 발언"
+    assert context["history"] == history[3:7]
+    assert context["memory_1line"] == ""
+    assert [item["kind"] for item in context["memories"]] == ["profile", "episode"]
+    assert context["flags"] == ["known"] and context["relationship"] == {"stage": "friend"}

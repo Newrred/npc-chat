@@ -34,6 +34,7 @@ def runtime_manifest(config, remote_config, characters):
         "app_version": "0.5.0",
         "access_mode": remote_config.mode,
         "generation_mode": config.llm_generation_mode,
+        "metadata_context_mode": config.metadata_context_mode,
         "llm_backend": config.llm_backend,
         "llm_model": config.llm_model,
         "json_mode": config.llm_json_mode,
