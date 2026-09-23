@@ -1,9 +1,13 @@
 # GPT Pro 프로젝트 검토 브리프
 
-검토 기준일: **2026-09-21 (KST)**  
+검토 기준일: **2026-09-23 (KST)**  
 기준 저장소: **`Newrred/npc-chat`의 `main`**
 
 이 문서는 저장소 링크를 외부 AI 검토에 전달할 때 현재 구현과 과거 계획을 혼동하지 않도록 만든 진입점이다. `docs/handoff-package/`는 2026-09-03 당시의 역사적 스냅샷이며 현재 상태를 설명하는 문서가 아니다.
+
+애니 시청 기록 서비스에 이 기능을 통합하는 논의에는 먼저 [`GPT_PRO_ANIME_INTEGRATION_BRIEF.md`](GPT_PRO_ANIME_INTEGRATION_BRIEF.md)를 읽는다. 이 문서는 일반 프로젝트 검토 배경으로 유지한다.
+
+2026-09-23 현재 전체 629 Python tests와 프런트·검사창 29 tests가 통과한다. 비개인 단계별 metrics와 development/holdout 합성 평가 세트를 추가했고, metadata compact 문맥은 분류 비열화로 미채택해 full을 유지한다. exact tokenizer 연결 재사용은 입력 준비 최적화로 적용했지만 전체 모델 생성 시간 개선으로 판단하지 않는다. 모바일 답변 도착 후 가상 키보드가 다시 열리는 동작도 수정했다. 자세한 최신 변경은 `PROJECT_STATUS.md` 상단을 따른다.
 
 ## 1. 지금 구현되어 있는 제품
 
@@ -101,13 +105,14 @@
 
 ## 8. 권장 읽기 순서
 
-1. 이 문서
-2. [`PRODUCT_AND_TECHNICAL_DIRECTION.md`](PRODUCT_AND_TECHNICAL_DIRECTION.md)
-3. [`PROJECT_STATUS.md`](PROJECT_STATUS.md)의 최신 날짜 항목
-4. [`TARGET_ARCHITECTURE.md`](TARGET_ARCHITECTURE.md)
-5. [`MEMORY_PIPELINE.md`](MEMORY_PIPELINE.md)와 [`ACTIVE_TOPIC_RETRIEVAL.md`](ACTIVE_TOPIC_RETRIEVAL.md)
-6. [`TWO_STAGE_GENERATION.md`](TWO_STAGE_GENERATION.md)
-7. [`EXPERIMENT_LINEAGE.md`](EXPERIMENT_LINEAGE.md)
-8. [`DEPLOYMENT_AND_SCALING_GATES.md`](DEPLOYMENT_AND_SCALING_GATES.md)
+1. 애니 서비스 통합 논의라면 [`GPT_PRO_ANIME_INTEGRATION_BRIEF.md`](GPT_PRO_ANIME_INTEGRATION_BRIEF.md)
+2. 이 문서
+3. [`PRODUCT_AND_TECHNICAL_DIRECTION.md`](PRODUCT_AND_TECHNICAL_DIRECTION.md)
+4. [`PROJECT_STATUS.md`](PROJECT_STATUS.md)의 최신 날짜 항목
+5. [`TARGET_ARCHITECTURE.md`](TARGET_ARCHITECTURE.md)
+6. [`MEMORY_PIPELINE.md`](MEMORY_PIPELINE.md)와 [`ACTIVE_TOPIC_RETRIEVAL.md`](ACTIVE_TOPIC_RETRIEVAL.md)
+7. [`TWO_STAGE_GENERATION.md`](TWO_STAGE_GENERATION.md)
+8. [`EXPERIMENT_LINEAGE.md`](EXPERIMENT_LINEAGE.md)
+9. [`DEPLOYMENT_AND_SCALING_GATES.md`](DEPLOYMENT_AND_SCALING_GATES.md)
 
 `PROJECT_STATUS.md`는 누적 작업 기록이라 오래된 항목의 “현재”, “다음 작업”, “미커밋” 표현은 그 당시 상태를 뜻한다. 최신 구현 판단에는 파일 상단의 최근 항목과 현재 코드를 우선한다.
