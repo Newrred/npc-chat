@@ -1,5 +1,7 @@
 # NPC Chat
 
+2026-09-28 제품 검토: [로컬 맞춤 캐릭터 패키지 상품화 리서치 자료](docs/product-review/README.md), [실제 생성 답변 48건](docs/product-review/DIALOGUE_EVIDENCE.md), [GPT Pro 전달 요청문](docs/product-review/PRO_REQUEST.md). 현재 구현과 미구현 상품 요구를 구분한 검토 자료다.
+
 기본 원격 배포는 [로그인 없는 공개 링크](docs/PUBLIC_LINK_DEPLOYMENT.md)다. 익명 쿠키로 대화를 분리하고 활동 이용자 수와 일일 한도를 적용한다. Cloudflare Access 이메일 로그인은 선택 모드다. 현재 도메인 없는 Quick Tunnel로 임시 외부 테스트 중이며, 고정 주소와 운영 게이트를 갖춘 실제 운영 배포는 아직 완료하지 않았다.
 
 원격 배포 준비: [운영 런북](docs/REMOTE_DEPLOYMENT_RUNBOOK.md). 현재 로컬 모드는 유지하며, 원격 모드는 추가 인증 의존성과 별도 개인 배포 설정이 필요하다. 도메인 연결/실제 외부 검증 및 보관·삭제/운영 복구 게이트 전에는 공개 배포 완료로 취급하지 않는다.
