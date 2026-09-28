@@ -24,6 +24,7 @@ from app.services.decision_service import LLMOutputError, LLMTransportError
 from app.services.llm_service_factory import create_llm_service
 from app.repository import SQLiteRepository, payload_digest
 from app.relationship import calculate, stage
+from app.interaction_policy import reward_guard
 from app.character_config import CHARACTER_DIR, load_character_config
 from app.coordinator import TurnCoordinator
 from app.decision import LLMDecision
@@ -209,7 +210,14 @@ async def _chat_impl(req: ChatRequest, request: Request, metrics: TurnMetrics):
         metrics.observe_generation(generated)
         decision = LLMDecision.model_validate(generated.decision.model_dump())
         decision.flags_set = [flag for flag in decision.flags_set if flag in character.allowed_flags]
+        raw_interaction = decision.interaction
+        decision.interaction, guard_reason = reward_guard(req.message, raw_interaction)
+        if guard_reason:
+            emit("interaction_policy", model_interaction=raw_interaction.model_dump(),
+                 applied_interaction=decision.interaction.model_dump(), reason=guard_reason)
         result = calculate(before.values, decision.interaction, before.recent, character.relationship_matrix)
+        if guard_reason:
+            result = result.model_copy(update={"reason_codes": [*result.reason_codes, guard_reason]})
         if cancelled():
             raise ChatError("TURN_CANCELLED", "취소된 요청입니다.", 499, True)
         image_started = time.monotonic()

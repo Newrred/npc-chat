@@ -1,5 +1,19 @@
 # Project Status
 
+## 2026-09-28 Task35 원본 계열 모델 비교 — 완료, 교체 미채택
+
+직전 Task34 전체670 tests 통과 상태를 유지한다. 원본 계열9B Q4_K_M과 기존 Aggressive를 고정 조건 development24로 비교한다. Task35/EXP24 참조. 서비스 설정/DB/Task34 변경은 보존한다. 시작 전 프로젝트 모델/웹/관리/터널 소유 프로세스는 모두 중지였다.
+
+완료: seed42, 동일 앱 입력24개씩 모두 성공/각48회 생성/형식·전송실패0. 원본 계열에서 매운 음식 정정/없는 책/장소 확인 분류 일부 개선, 민트초코 행동 주체 오류 및 위로 분류 오류는 잔존, 복종/강한 호감/말투 문제가 있어 교체 미채택. A/B 중앙12.328/14.328초는 GPU 여유/auto offload 및 테스트 부하 차이 때문에 속도 우열로 해석하지 않는다. 내장 chat template도 달라 순수 가중치 비교가 아니다. [보고서](BASE_MODEL_COMPARISON.md), 전체 답변/원자료/출처 hash 보존. 전체671 tests 및 lint/compile 통과. 모델 프로세스 종료, 기존 설정/DB 유지. 다음은 고정 대사 metadata 지침/대조 예시 비교다.
+
+## 2026-09-28 Task34 관계 보상 검증 — 완료
+
+상품화 리뷰의 boundary-01/02 기록을 현재 코드와 대조했다. HEAD ddad67b와 초기 기준선 이후의 구조 변경을 확인했으며 이를 보존한다. 수정 전 `./venv/Scripts/python.exe -m pytest -q`: 629 passed. 모델의 긍정 분류를 무조건 신뢰하는 경계에 좁은 서버 검증을 추가한다. 대사·분석 프롬프트·모델·기존 DB는 변경하지 않고, 명확한 단독 점수 변경/무조건 복종 명령의 긍정 분류만 neutral/0으로 보정한다. Task34 참조.
+
+`app/interaction_policy.py`의 전체 문장 일치 규칙을 `main.py`에서 관계 계산/저장 전에 적용한다. 원래 분류는 opt-in trace의 `interaction_policy.model_interaction`, 보정은 `applied_interaction`과 버전 있는 reason으로 구분한다. 응답 relationship.reason_codes에도 이유가 남으며 recent에는 보정 분류가 저장되어 재전송과 반복 감쇠 계산이 일관된다. 일반 칭찬/지지 및 부정·인용·질문은 보존한다. 복합문·새 표현 등은 놓칠 수 있으며 범용 분류 해결이 아니다. schema/DB migration/모델 추가 호출 없음. 실행 중 서비스 재시작과 실모델 비교는 하지 않았다.
+
+검증: 신규41 tests 통과, 전체 `./venv/Scripts/python.exe -m pytest -q` 670 passed; `./venv/Scripts/python.exe -m ruff check app tests scripts`, `./venv/Scripts/python.exe -m compileall -q app scripts`, `git diff --check` 통과. 첫 신규 API 테스트는 테스트 작성 시 turn_id/client_turn_id 및 세션 선행 조건을 잘못 사용해 실패했으며 기존 계약에 맞춰 수정 후 통과했다. 기본 `./venv/Scripts/python.exe -m tests.smoke_local`은 기본 2048/추정 카운트의 입력 예산 부족(INPUT_TOO_LONG)으로 이번 guard 도달 전에 실패했다. `$env:LLAMA_CONTEXT='8192'; ./venv/Scripts/python.exe -m tests.smoke_local`은 실제 HTTP/fake 모델/장애 복구/종료 통과. 이 값은 smoke 프로세스 전용이며 실제 4096 프로파일을 변경하지 않았다. 다음은 원본/변형 모델 동일 조건 비교다.
+
 ## 2026-09-28 Task33 로컬 캐릭터 패키지 상품화 리서치 인계
 
 사용자의 새 검토 방향인 로컬 동봉·맞춤 LoRA·코드 보호·데스크톱 위젯·정적 표정·선택 cloud API를 현재 구현과 대조했다. product-review에 개발 계보/강점/한계/미구현 요구/리서치 질문을 정리하고, 합성 development24개에 대한 9/21·9/22 실제 생성48건을 입력 후보 history·선택 기억·metadata·지표·원본 hash와 함께 묶었다. 개인 DB/inspector 대화는 포함하지 않았다. 이번 작업은 새 시장 조사나 상품 구현이 아니며 모델 재실행도 하지 않았다. 직전629 Python/29 UI 테스트는 기존 검증 이력이며 이번 검사는 문서 링크·원자료 일치·민감정보 제외·ZIP 포함 범위에 집중한다. [자료](product-review/README.md).
