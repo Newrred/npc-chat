@@ -11,6 +11,7 @@ function mount(fetch, configured = true, options = {}) {
   const stored = options.stored || new Map();
   const network = { onLine: options.online !== false };
   const events = {};
+  const sentEvents = [];
   function node(id) {
     if (!nodes.has(id)) nodes.set(id, {
       style: {}, dataset: {}, listeners: {}, value: "", checked: false, disabled: false,
@@ -32,7 +33,9 @@ function mount(fetch, configured = true, options = {}) {
   const context = vm.createContext({
     window: { location: { hash: options.hash || "" }, ...(configured ? { NPC_API_BASE_URL: "http://127.0.0.1:8000" } : {}), ...options.config,
       matchMedia: query => ({ matches: query.includes("pointer: fine") ? options.finePointer !== false : false }),
-      addEventListener: (name, fn) => { events[name] = fn; } },
+      addEventListener: (name, fn) => { events[name] = fn; },
+      dispatchEvent: event => { sentEvents.push(event); } },
+    CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
     navigator: network,
     document: { getElementById: node, createElement: () => node(Symbol()) },
     localStorage: { getItem: (key) => stored.get(key), setItem: (key, value) => stored.set(key, value), removeItem: (key) => stored.delete(key) },
@@ -40,8 +43,32 @@ function mount(fetch, configured = true, options = {}) {
     fetch: (url, opts) => url.includes("/api/conversation?") && !options.realHistory ? Promise.resolve({ok: true, json: async () => ({items: [], before: null})}) : url.endsWith("/api/session") && !options.realSession ? Promise.resolve({ok: true, json: async () => ({session_id: "session-one", profile_id: "profile-one"})}) : fetch(url, opts), AbortController, setTimeout, clearTimeout,
   });
   vm.runInContext(source, context);
-  return { node, stored, network, events, submit: () => node("chatForm").listeners.submit({ preventDefault() {} }) };
+  return { node, stored, network, events, sentEvents, submit: () => node("chatForm").listeners.submit({ preventDefault() {} }) };
 }
+
+test("reply notification carries identity only and is absent on failure", async () => {
+  const success = mount(async () => ({ok: true, json: async () => ({reply: "private reply", face: "neutral"})}));
+  success.node("messageInput").value = "private input";
+  await success.submit();
+  assert.equal(success.sentEvents.length, 1);
+  assert.equal(success.sentEvents[0].type, "npc-reply-committed");
+  assert.equal(success.sentEvents[0].detail.character, "default");
+  assert.equal(typeof success.sentEvents[0].detail.turn, "string");
+  assert.equal(JSON.stringify(success.sentEvents).includes("private"), false);
+  const failure = mount(async () => { throw new Error("offline"); });
+  failure.node("messageInput").value = "input";
+  await failure.submit();
+  assert.equal(failure.sentEvents.length, 0);
+});
+
+test("restored history does not generate a reply notification", async () => {
+  const stored = new Map([["npc_session_id", "old-session"], ["npc_profile_id", "old-profile"]]);
+  const ui = mount(async () => ({ok: true, json: async () => ({items: [{turn_id: "old", user_message: "hi", reply: "old reply"}], before: null})}), true,
+    {stored, realHistory: true, hash: "#chat/yui"});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(ui.sentEvents.length, 0);
+  assert.ok(ui.node("chatThread").children.some(row => row.className === "message-row assistant"));
+});
 
 test("neutral portrait loads and missing faces eventually show a placeholder", () => {
   const ui = mount(() => { throw Error("Unexpected network"); });

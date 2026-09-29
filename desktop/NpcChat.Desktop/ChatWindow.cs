@@ -15,6 +15,8 @@ internal sealed class ChatWindow : Window
     public readonly WebView2 Browser = new();
     private readonly App owner;
     private bool releasing;
+    private readonly HashSet<string> notified = new();
+    private readonly Queue<string> notificationOrder = new();
     public const string Origin = "http://127.0.0.1:8003";
     public ChatWindow(App app)
     {
@@ -22,6 +24,7 @@ internal sealed class ChatWindow : Window
         Width = 440; Height = 740; MinWidth = 360; MinHeight = 480;
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         Content = Browser;
+        Activated += (_, _) => owner.ChatViewed();
         Closing += (_, e) => { if (!owner.Exiting && !releasing) { e.Cancel = true; Hide(); } };
     }
     public void Release() { releasing = true; Browser.Dispose(); Close(); }
@@ -60,6 +63,17 @@ internal sealed class ChatWindow : Window
             try {
                 using var doc = JsonDocument.Parse(e.WebMessageAsJson);
                 var data = doc.RootElement;
+                if (data.TryGetProperty("kind", out var kind) && kind.GetString() == "reply") {
+                    var character = data.GetProperty("character").GetString();
+                    var turn = data.GetProperty("turn").GetString();
+                    if (character is not ("default" or "cartethyia") || !Guid.TryParse(turn, out var parsedTurn)) return;
+                    var key = character + ":" + turn;
+                    if (!notified.Add(key)) return;
+                    notificationOrder.Enqueue(key);
+                    if (notificationOrder.Count > 256) notified.Remove(notificationOrder.Dequeue());
+                    if (!IsVisible || WindowState == WindowState.Minimized) owner.NotifyReply(character);
+                    return;
+                }
                 var face = data.GetProperty("face").GetString() ?? "";
                 if (!Regex.IsMatch(face, @"^/(faces|characters/cartethyia/faces)/[a-z_]+\.png$")) return;
                 var name = face.StartsWith("/characters/") ? "띳띠" : "유이";
@@ -81,6 +95,9 @@ internal sealed class ChatWindow : Window
               new MutationObserver(send).observe(document.body, {subtree:true, attributes:true, attributeFilter:['src','hidden']});
               send();
             });
+            window.addEventListener('npc-reply-committed', event => {
+              window.chrome.webview.postMessage({kind:'reply', character:event.detail.character, turn:event.detail.turn});
+            });
             """);
         var loaded = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         web.NavigationCompleted += (_, e) => {
@@ -92,4 +109,9 @@ internal sealed class ChatWindow : Window
     }
     private static bool Local(string url) => Uri.TryCreate(url, UriKind.Absolute, out var uri)
         && uri.GetLeftPart(UriPartial.Authority) == Origin;
+    public void OpenCharacter(string character)
+    {
+        var route = character == "cartethyia" ? "cartethyia" : "yui";
+        _ = Browser.CoreWebView2.ExecuteScriptAsync("window.location.hash = '#chat/" + route + "'");
+    }
 }

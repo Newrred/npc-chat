@@ -445,6 +445,11 @@ async function sendTurn() {
     const face = faceToSlug(data.face);
     replyEl.textContent = data.reply;
     appendMessage("assistant", data.reply, pendingTurn.client_turn_id);
+    if (typeof window.dispatchEvent === "function" && typeof CustomEvent === "function") {
+      window.dispatchEvent(new CustomEvent("npc-reply-committed", {
+        detail: { character: activeCharacter.id, turn: pendingTurn.client_turn_id },
+      }));
+    }
     faceChip.textContent = `face: ${face}`;
     setMeta(data, Date.now() - began);
     showBaseFace(face);

@@ -36,8 +36,8 @@ public partial class App : Application
     {
         base.OnStartup(e);
         var verifyReal = e.Args.Contains("--verify-real");
-        smoke = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-real") || verifyReal;
-        fake = e.Args.Contains("--smoke") || e.Args.Contains("--fake") || e.Args.Contains("--smoke-retry");
+        smoke = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-widget") || e.Args.Contains("--smoke-real") || verifyReal;
+        fake = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-widget") || e.Args.Contains("--fake") || e.Args.Contains("--smoke-retry");
         Root = Option(e.Args, "--root") ?? FindRoot();
         DataDirectory = Option(e.Args, "--data-dir") ?? Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NpcChatDesktop");
@@ -65,7 +65,7 @@ public partial class App : Application
                     CaptureWidget();
                     await File.WriteAllTextAsync(Path.Combine(DataDirectory, "real-ready.json"), "{\"ready\":true,\"webview\":true}");
                     await Quit();
-                } else await Smoke();
+                } else await Smoke(e.Args.Contains("--smoke-widget"));
             } catch (Exception ex) {
                 await File.WriteAllTextAsync(Path.Combine(DataDirectory, "smoke-error.txt"), ex.ToString());
                 await Quit(1);
@@ -133,7 +133,20 @@ public partial class App : Application
     public void ShowChat()
     {
         if (!available || chat == null) return;
+        if (Widget?.PendingCharacter is string character) chat.OpenCharacter(character);
+        ChatViewed();
         chat.Show(); chat.WindowState = WindowState.Normal; chat.Activate();
+    }
+    public void ChatViewed()
+    {
+        if (!available) return;
+        Widget?.ClearReply();
+        if (tray != null) tray.Text = "NPC Chat · 실행 중";
+    }
+    public void NotifyReply(string character)
+    {
+        Widget?.NotifyReply(character);
+        if (tray != null) tray.Text = "NPC Chat · 새 답장이 도착했어요";
     }
     public async Task Quit(int code = 0)
     {
@@ -144,8 +157,14 @@ public partial class App : Application
         chat?.Release(); diagnostics?.Close(); Widget?.Close();
         tray?.Dispose(); singleton?.Dispose(); Shutdown(code);
     }
-    private async Task Smoke()
+    private async Task Smoke(bool widgetTest = false)
     {
+        var restored = Widget!.Preferences;
+        if (widgetTest) {
+            Widget.SetPreferences(1.3, true, false);
+            var saved = WidgetState.Load(Path.Combine(DataDirectory, "widget.json"));
+            if (saved.Scale != 1.3 || !saved.Compact || saved.Topmost) throw new Exception("Widget preferences not persisted");
+        }
         ShowChat();
         using var http = new HttpClient(new HttpClientHandler { UseProxy = false });
         if ((int)(await http.GetAsync(ChatWindow.Origin + "/api/live")).StatusCode != 403)
@@ -153,6 +172,8 @@ public partial class App : Application
         await Task.Delay(1000); // Allow initial history restoration before measuring the new turn.
         var before = int.Parse(await chat!.Browser.CoreWebView2.ExecuteScriptAsync(
             "document.querySelectorAll('#chatThread .message-row.assistant:not(.typing-row)').length"));
+        if (Widget.PendingCharacter != null) throw new Exception("Restored history must not notify");
+        if (widgetTest) chat.Hide();
         // Exercise actual WebView2 fetch + native face update with synthetic input.
         await chat!.Browser.CoreWebView2.ExecuteScriptAsync("""
             (async () => {
@@ -169,6 +190,15 @@ public partial class App : Application
         }
         if (!complete) throw new Exception("Chat UI failed");
         await Task.Delay(300);
+        if (widgetTest) {
+            if (Widget.PendingCharacter != "default") throw new Exception("Hidden chat reply did not notify");
+            CaptureWidget("widget-unread.png");
+            ShowChat();
+            if (Widget.PendingCharacter != null) throw new Exception("Opening chat must clear unread");
+            await File.WriteAllTextAsync(Path.Combine(DataDirectory, "widget-smoke.json"), JsonSerializer.Serialize(new {
+                restored, saved = Widget.Preferences, hiddenReply = true, clearedOnOpen = true, historyDidNotNotify = true
+            }));
+        }
         CaptureWidget();
         using (var capture = File.Create(Path.Combine(DataDirectory, "chat.png")))
             await chat.Browser.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, capture);
@@ -182,12 +212,12 @@ public partial class App : Application
         }));
         await Quit();
     }
-    private void CaptureWidget()
+    private void CaptureWidget(string filename = "widget.png")
     {
         var bitmap = new RenderTargetBitmap((int)Widget!.ActualWidth, (int)Widget.ActualHeight, 96, 96, PixelFormats.Pbgra32);
         bitmap.Render(Widget);
         var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
-        using var output = File.Create(Path.Combine(DataDirectory, "widget.png")); encoder.Save(output);
+        using var output = File.Create(Path.Combine(DataDirectory, filename)); encoder.Save(output);
     }
     private async Task RetrySmoke()
     {

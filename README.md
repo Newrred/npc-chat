@@ -1,5 +1,7 @@
 # NPC Chat
 
+Windows 위젯1.2.0: [크기 조절·얼굴 보기·위치 저장·새 답장 알림](docs/WIDGET_USABILITY.md), [실행 상태·문제 해결](docs/DESKTOP_DIAGNOSTICS.md).
+
 2026-09-29 폴더 패키지: [Python·모델·WebView2 동봉 내부 검증본](docs/PORTABLE_DESKTOP.md). 저장소 밖에서 실제9B 채팅을 검증했으며 다른 PC/판매 배포 검증은 남아 있다.
 
 2026-09-29 Windows 앱: [네이티브 바탕화면 위젯 시제품 사용법](docs/DESKTOP_APP.md). C#/WPF/.NET10 창·트레이와 WebView2 채팅을 제공한다. 현재 개발 PC용이며 모델/Python을 모두 동봉한 설치본은 후속이다.

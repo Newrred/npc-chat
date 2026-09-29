@@ -1,6 +1,9 @@
 <Window x:Class="NpcChat.Desktop.WidgetWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- Title="NPC Chat 위젯" Width="190" Height="282" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" Topmost="True" ShowInTaskbar="False">
- <Border Margin="8" CornerRadius="26" Background="#FFF9F2" BorderBrush="#E5D6C7" BorderThickness="1">
+ Title="NPC Chat 위젯" Width="190" Height="282" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" Topmost="True" ShowInTaskbar="False" MouseRightButtonUp="RightMenu">
+ <Grid>
+ <Viewbox Stretch="Uniform">
+ <Grid x:Name="WidgetCanvas" Width="190" Height="282">
+ <Border x:Name="FullCard" Margin="8" CornerRadius="26" Background="#FFF9F2" BorderBrush="#E5D6C7" BorderThickness="1">
   <Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="28"/><RowDefinition Height="132"/><RowDefinition Height="25"/><RowDefinition Height="22"/><RowDefinition Height="*"/></Grid.RowDefinitions>
    <Grid MouseLeftButtonDown="DragHeader"><TextBlock Text="함께 있는 시간" FontSize="10" Foreground="#94735F" VerticalAlignment="Center"/>
     <Button HorizontalAlignment="Right" Content="⋯" Padding="5,0" Background="Transparent" BorderThickness="0" Click="OpenMenu" ToolTip="위젯 메뉴"/>
@@ -13,4 +16,16 @@
    <Button x:Name="ChatButton" Grid.Row="4" Content="대화하기  ↗" Click="OpenChat" IsEnabled="False" Background="#5D7167" Foreground="White" BorderThickness="0" Margin="0,4,0,0"/>
   </Grid>
  </Border>
+ <Grid x:Name="CompactCard" Visibility="Collapsed" ToolTip="클릭: 채팅 · 드래그: 이동 · 오른쪽 클릭: 메뉴">
+  <Border Width="130" Height="130" CornerRadius="65" Background="#FFF9F2" VerticalAlignment="Top" Margin="10">
+   <Image Source="{Binding ElementName=Portrait, Path=Source}" Stretch="UniformToFill" MouseLeftButtonDown="FaceDown" MouseMove="FaceMove" MouseLeftButtonUp="FaceUp"><Image.Clip><EllipseGeometry Center="65,65" RadiusX="65" RadiusY="65"/></Image.Clip></Image>
+  </Border>
+  <Button x:Name="CompactReply" Content="새 답장  ↗" Click="OpenChat" VerticalAlignment="Bottom" Margin="12,0,12,5" Background="#5D7167" Foreground="White" BorderThickness="0" Visibility="Collapsed"/>
+ </Grid>
+ <Border x:Name="ReplyBadge" Width="16" Height="16" CornerRadius="8" Background="#DB725F" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,42,20,0" Visibility="Collapsed" IsHitTestVisible="False"/>
+ </Grid></Viewbox>
+ <Thumb Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,7,7" Cursor="SizeNWSE" DragDelta="ResizeWidget" DragCompleted="ResizeCompleted" ToolTip="드래그해서 크기 조절">
+  <Thumb.Template><ControlTemplate><TextBlock Text="◢" Foreground="#94735F" Background="Transparent" FontSize="16"/></ControlTemplate></Thumb.Template>
+ </Thumb>
+ </Grid>
 </Window>
