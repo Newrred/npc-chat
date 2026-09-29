@@ -37,14 +37,51 @@ function mount(fetch, configured = true, options = {}) {
       dispatchEvent: event => { sentEvents.push(event); } },
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
     navigator: network,
-    document: { getElementById: node, createElement: () => node(Symbol()) },
+    document: { getElementById: node, createElement: () => node(Symbol()), hasFocus: () => options.documentFocused !== false },
     localStorage: { getItem: (key) => stored.get(key), setItem: (key, value) => stored.set(key, value), removeItem: (key) => stored.delete(key) },
     crypto: require("node:crypto").webcrypto,
     fetch: (url, opts) => url.includes("/api/conversation?") && !options.realHistory ? Promise.resolve({ok: true, json: async () => ({items: [], before: null})}) : url.endsWith("/api/session") && !options.realSession ? Promise.resolve({ok: true, json: async () => ({session_id: "session-one", profile_id: "profile-one"})}) : fetch(url, opts), AbortController, setTimeout, clearTimeout,
   });
   vm.runInContext(source, context);
-  return { node, stored, network, events, sentEvents, submit: () => node("chatForm").listeners.submit({ preventDefault() {} }) };
+  return { node, stored, network, events, sentEvents, desktopSend: context.window.npcDesktopSend,
+    submit: () => node("chatForm").listeners.submit({ preventDefault() {} }) };
 }
+
+test("native quick reply shares session and refuses duplicates, draft overwrite and invalid input", async () => {
+  let release;
+  const requests = [];
+  const ui = mount((url, opts) => { requests.push(JSON.parse(opts.body)); return new Promise(resolve => {release = resolve;}); }, true,
+    {hash: "#chat/yui", config: {chrome: {webview: {}}}});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(ui.desktopSend(""), "invalid");
+  assert.equal(ui.desktopSend("x".repeat(1001)), "invalid");
+  ui.node("messageInput").value = "existing draft";
+  assert.equal(ui.desktopSend("overwrite"), "blocked");
+  assert.equal(ui.node("messageInput").value, "existing draft");
+  ui.node("messageInput").value = "";
+  assert.equal(ui.desktopSend("위젯에서 안녕"), "sent");
+  assert.equal(ui.desktopSend("duplicate"), "blocked");
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].session_id, "session-one");
+  release({ok:true, json:async () => ({reply:"반가워",face:"neutral"})});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(ui.sentEvents[0].detail.reply,"반가워");
+  assert.equal(mount(() => {}).desktopSend, undefined);
+});
+
+test("native failed quick reply retains retry identity and blocks a new message", async () => {
+  const ui = mount(async () => {throw new Error("connection lost");}, true,
+    {hash:"#chat/yui",config:{chrome:{webview:{}}}});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(ui.desktopSend("keep me"),"sent");
+  await new Promise(resolve => setImmediate(resolve));
+  const pending=ui.stored.get("npc_pending_turn");
+  assert.ok(pending.includes("keep me"));
+  assert.equal(ui.desktopSend("new message"),"blocked");
+  assert.equal(ui.stored.get("npc_pending_turn"),pending);
+  assert.equal(ui.sentEvents.length,0);
+});
 
 test("reply notification carries identity only and is absent on failure", async () => {
   const success = mount(async () => ({ok: true, json: async () => ({reply: "private reply", face: "neutral"})}));

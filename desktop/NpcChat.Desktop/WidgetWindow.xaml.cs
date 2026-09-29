@@ -6,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Microsoft.Win32;
 
@@ -18,6 +19,8 @@ public partial class WidgetWindow : Window
     private readonly DispatcherTimer saveTimer = new() { Interval = TimeSpan.FromMilliseconds(350) };
     private bool placed;
     private bool faceDragged;
+    private bool sending;
+    private readonly DispatcherTimer previewTimer = new() { Interval = TimeSpan.FromSeconds(18) };
     private Point faceStart;
     public string? PendingCharacter { get; private set; }
     public WidgetState Preferences => state;
@@ -33,9 +36,11 @@ public partial class WidgetWindow : Window
         };
         LocationChanged += (_, _) => ScheduleSave();
         saveTimer.Tick += (_, _) => { saveTimer.Stop(); SavePreferences(); };
+        previewTimer.Tick += (_, _) => HidePreview();
+        IsVisibleChanged += (_, _) => { if (!IsVisible) HidePreview(); };
         SystemEvents.DisplaySettingsChanged += DisplaysChanged;
         Closing += (_, e) => { if (!app.Exiting) { e.Cancel = true; Hide(); } };
-        Closed += (_, _) => { saveTimer.Stop(); SavePreferences(); SystemEvents.DisplaySettingsChanged -= DisplaysChanged; };
+        Closed += (_, _) => { saveTimer.Stop(); previewTimer.Stop(); SavePreferences(); SystemEvents.DisplaySettingsChanged -= DisplaysChanged; };
     }
     private void DisplaysChanged(object? sender, EventArgs e) => Dispatcher.BeginInvoke(() => {
         WidgetPlacement.Restore(this, state); ScheduleSave();
@@ -48,17 +53,24 @@ public partial class WidgetWindow : Window
     private void ApplySize()
     {
         state = state.Validated();
-        WidgetCanvas.Width = state.Compact ? 150 : 190;
-        WidgetCanvas.Height = state.Compact ? 180 : 282;
+        WidgetCanvas.Width = state.Compact ? 150 : 310;
+        WidgetCanvas.Height = state.Compact ? 180 : state.TextOnly ? 288 : 430;
         Width = WidgetCanvas.Width * state.Scale; Height = WidgetCanvas.Height * state.Scale;
         FullCard.Visibility = state.Compact ? Visibility.Collapsed : Visibility.Visible;
         CompactCard.Visibility = state.Compact ? Visibility.Visible : Visibility.Collapsed;
-        Topmost = state.Topmost;
+        PortraitRow.Height = new GridLength(state.TextOnly ? 0 : 142);
+        PortraitPanel.Visibility = state.TextOnly ? Visibility.Collapsed : Visibility.Visible;
+        Topmost = state.Topmost && !owner.SuppressTopmost;
     }
     public void SetPreferences(double scale, bool compact, bool topmost)
     {
         state = WidgetPlacement.Capture(this, state) with { Scale = scale, Compact = compact, Topmost = topmost };
         ApplySize(); UpdateLayout(); WidgetPlacement.Restore(this, state); SavePreferences();
+    }
+    public void SetTextMode(bool textOnly)
+    {
+        state = state with { TextOnly = textOnly };
+        SetPreferences(state.Scale, false, state.Topmost); HidePreview();
     }
     private void ScheduleSave() { if (!placed) return; saveTimer.Stop(); saveTimer.Start(); }
     public void SavePreferences()
@@ -75,15 +87,44 @@ public partial class WidgetWindow : Window
         image.UriSource = new Uri(path); image.EndInit(); image.Freeze(); Portrait.Source = image;
         CharacterName.Text = name;
     }
-    public void NotifyReply(string character)
+    public void NotifyReply(string character, string reply = "")
     {
         PendingCharacter = character; ReplyBadge.Visibility = Visibility.Visible;
         CompactReply.Visibility = Visibility.Visible; ChatButton.Content = "새 답장 확인  ↗";
+        if (state.PreviewReplies && IsVisible && !state.Compact && !string.IsNullOrWhiteSpace(reply)) {
+            Speech.Text = reply.Length > 1200 ? reply[..1200] + "…" : reply;
+            if (SystemParameters.ClientAreaAnimation)
+                SpeechPanel.BeginAnimation(OpacityProperty, new DoubleAnimation(.35, 1, TimeSpan.FromMilliseconds(220)));
+            previewTimer.Stop(); previewTimer.Start();
+        }
     }
     public void ClearReply()
     {
         PendingCharacter = null; ReplyBadge.Visibility = Visibility.Collapsed;
-        CompactReply.Visibility = Visibility.Collapsed; ChatButton.Content = "대화하기  ↗";
+        CompactReply.Visibility = Visibility.Collapsed; ChatButton.Content = "대화 전체 보기  ↗";
+        HidePreview();
+    }
+    private void HidePreview()
+    {
+        previewTimer.Stop();
+        Speech.Text = "잠깐의 안부도 좋아요.\n여기서 바로 말을 걸어보세요.";
+    }
+    private async void SendQuick(object sender, RoutedEventArgs e)
+    {
+        if (sending || string.IsNullOrWhiteSpace(QuickInput.Text)) return;
+        sending = true;
+        var draft = QuickInput.Text;
+        try {
+            var result = await owner.SendQuick(draft);
+            if (result == "sent") { if (QuickInput.Text == draft) QuickInput.Clear(); Status.Text = "답장을 기다리고 있어요…"; }
+            else Status.Text = "대화창에서 대기 중인 입력이나 연결 상태를 확인해주세요.";
+        } catch (Exception) { Status.Text = "전송하지 못했어요. 대화창에서 확인해주세요."; }
+        finally { sending = false; }
+    }
+    private void QuickKeyDown(object sender, KeyEventArgs e)
+    {
+        // IME commits use ImeProcessed; only an ordinary Enter submits.
+        if (e.Key == Key.Enter && Keyboard.Modifiers == ModifierKeys.None) { e.Handled = true; SendQuick(sender, e); }
     }
     private void DragHeader(object sender, MouseButtonEventArgs e)
     {
@@ -121,8 +162,13 @@ public partial class WidgetWindow : Window
         Add("실행 상태 / 문제 해결", owner.ShowDiagnostics);
         foreach (var size in new[] { ("작게", .8), ("보통", 1.0), ("크게", 1.3) })
             Add("크기 · " + size.Item1, () => SetPreferences(size.Item2, state.Compact, state.Topmost));
-        var compact = new MenuItem { Header = "얼굴만 보기", IsCheckable = true, IsChecked = state.Compact };
-        compact.Click += (_, _) => SetPreferences(state.Scale, compact.IsChecked, state.Topmost); menu.Items.Add(compact);
+        foreach (var mode in new[] { ("얼굴 + 대화", false, false), ("텍스트만", false, true), ("작은 얼굴", true, false) }) {
+            var item = new MenuItem { Header = mode.Item1, IsCheckable = true, IsChecked = state.Compact == mode.Item2 && state.TextOnly == mode.Item3 };
+            item.Click += (_, _) => { state = state with { TextOnly = mode.Item3 }; SetPreferences(state.Scale, mode.Item2, state.Topmost); HidePreview(); };
+            menu.Items.Add(item);
+        }
+        var preview = new MenuItem { Header = "새 답변 미리보기 (18초)", IsCheckable = true, IsChecked = state.PreviewReplies };
+        preview.Click += (_, _) => { state = state with { PreviewReplies = preview.IsChecked }; HidePreview(); SavePreferences(); }; menu.Items.Add(preview);
         var pin = new MenuItem { Header = "항상 위에 표시", IsCheckable = true, IsChecked = state.Topmost };
         pin.Click += (_, _) => SetPreferences(state.Scale, state.Compact, pin.IsChecked); menu.Items.Add(pin);
         Add("위젯 숨기기 (트레이에서 복원)", Hide);

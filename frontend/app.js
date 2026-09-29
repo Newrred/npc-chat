@@ -447,7 +447,8 @@ async function sendTurn() {
     appendMessage("assistant", data.reply, pendingTurn.client_turn_id);
     if (typeof window.dispatchEvent === "function" && typeof CustomEvent === "function") {
       window.dispatchEvent(new CustomEvent("npc-reply-committed", {
-        detail: { character: activeCharacter.id, turn: pendingTurn.client_turn_id },
+        detail: { character: activeCharacter.id, turn: pendingTurn.client_turn_id,
+          ...(window.chrome?.webview ? { reply: data.reply } : {}) },
       }));
     }
     faceChip.textContent = `face: ${face}`;
@@ -480,10 +481,20 @@ async function sendTurn() {
     historyControls();
     // Reopening a mobile virtual keyboard after every delayed reply is disruptive.
     const desktopPointer = window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
-    if (!chatRoom.hidden && desktopPointer) input.focus();
+    if (!chatRoom.hidden && desktopPointer && (!window.chrome?.webview || document.hasFocus())) input.focus();
   }
 }
 
+// Native widget shares this exact session, queue and retry identity with the web composer.
+function desktopSend(message) {
+  if (typeof message !== "string" || !message.trim() || message.length > 1000) return "invalid";
+  if (busy || historyLoading || resetLoading || historyFailed || storageError || pendingTurn || input.value.trim()
+      || chatRoom.hidden || navigator.onLine === false) return "blocked";
+  input.value = message;
+  void sendTurn();
+  return "sent";
+}
+if (window.chrome?.webview) window.npcDesktopSend = desktopSend;
 form.addEventListener("submit", (event) => { event.preventDefault(); return sendTurn(); });
 retryButton.addEventListener("click", () => sendTurn());
 editButton.addEventListener("click", () => {

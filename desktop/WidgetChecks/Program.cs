@@ -18,6 +18,11 @@ try {
     var expected = new WidgetState(Scale: 1.3, Compact: true, Topmost: false, Monitor: "left", X: .3, Y: .6);
     expected.Save(path);
     Check(WidgetState.Load(path) == expected, "settings roundtrip");
+    var textMode = expected with { Compact = false, TextOnly = true, PreviewReplies = false };
+    textMode.Save(path);
+    Check(WidgetState.Load(path) == textMode, "text mode and privacy preference roundtrip");
+    File.WriteAllText(path, "{\"Version\":1,\"Compact\":true}");
+    Check(WidgetState.Load(path).Compact && !WidgetState.Load(path).TextOnly, "old compact preference preserved");
     expected.Save(path);
     Check(!File.Exists(path + ".tmp"), "atomic replace leaves no temp");
     File.WriteAllText(path, "[200, 400]");

@@ -22,6 +22,7 @@ public partial class App : Application
     public string DataDirectory { get; private set; } = "";
     public WidgetWindow? Widget { get; private set; }
     public bool Exiting { get; private set; }
+    public bool SuppressTopmost { get; private set; }
     private ChatWindow? chat;
     private Forms.NotifyIcon? tray;
     private Mutex? singleton;
@@ -38,6 +39,7 @@ public partial class App : Application
         var verifyReal = e.Args.Contains("--verify-real");
         smoke = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-widget") || e.Args.Contains("--smoke-real") || verifyReal;
         fake = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-widget") || e.Args.Contains("--fake") || e.Args.Contains("--smoke-retry");
+        SuppressTopmost = smoke || fake || e.Args.Contains("--no-topmost");
         Root = Option(e.Args, "--root") ?? FindRoot();
         DataDirectory = Option(e.Args, "--data-dir") ?? Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NpcChatDesktop");
@@ -143,9 +145,14 @@ public partial class App : Application
         Widget?.ClearReply();
         if (tray != null) tray.Text = "NPC Chat · 실행 중";
     }
-    public void NotifyReply(string character)
+    public async Task<string> SendQuick(string message)
     {
-        Widget?.NotifyReply(character);
+        if (!available || chat == null) return "unavailable";
+        return await chat.SendQuick(message);
+    }
+    public void NotifyReply(string character, string reply = "")
+    {
+        Widget?.NotifyReply(character, reply);
         if (tray != null) tray.Text = "NPC Chat · 새 답장이 도착했어요";
     }
     public async Task Quit(int code = 0)
@@ -159,6 +166,7 @@ public partial class App : Application
     }
     private async Task Smoke(bool widgetTest = false)
     {
+        if (Widget!.Topmost) throw new Exception("Verification window must not be topmost");
         var restored = Widget!.Preferences;
         if (widgetTest) {
             Widget.SetPreferences(1.3, true, false);
@@ -166,6 +174,28 @@ public partial class App : Application
             if (saved.Scale != 1.3 || !saved.Compact || saved.Topmost) throw new Exception("Widget preferences not persisted");
         }
         ShowChat();
+        if (widgetTest) {
+            chat!.Shell.MinimizeButton.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+            await Task.Delay(200);
+            if (chat.WindowState != WindowState.Minimized) throw new Exception("Titlebar minimize failed");
+            ShowChat();
+            chat.Shell.MaximizeButton.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+            await Task.Delay(200);
+            if (chat.WindowState != WindowState.Maximized) throw new Exception("Titlebar maximize failed");
+            chat.Shell.MaximizeButton.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+            await Task.Delay(200);
+            if (chat.WindowState != WindowState.Normal) throw new Exception("Titlebar restore failed");
+            chat.Width = 480; chat.Height = 760; chat.UpdateLayout();
+            if (chat.Browser.ActualWidth < 400 || chat.Browser.ActualHeight < 600) throw new Exception("Browser layout did not resize");
+            chat.Shell.HideButton.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+            if (chat.IsVisible || Exiting) throw new Exception("Titlebar close must hide only");
+            ShowChat();
+            var header = chat.Shell.TitleBar;
+            var headerImage = new RenderTargetBitmap((int)header.ActualWidth, (int)header.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            headerImage.Render(header);
+            var headerEncoder = new PngBitmapEncoder(); headerEncoder.Frames.Add(BitmapFrame.Create(headerImage));
+            using var headerFile = File.Create(Path.Combine(DataDirectory, "chat-titlebar.png")); headerEncoder.Save(headerFile);
+        }
         using var http = new HttpClient(new HttpClientHandler { UseProxy = false });
         if ((int)(await http.GetAsync(ChatWindow.Origin + "/api/live")).StatusCode != 403)
             throw new Exception("Unauthenticated request was accepted");
@@ -173,9 +203,23 @@ public partial class App : Application
         var before = int.Parse(await chat!.Browser.CoreWebView2.ExecuteScriptAsync(
             "document.querySelectorAll('#chatThread .message-row.assistant:not(.typing-row)').length"));
         if (Widget.PendingCharacter != null) throw new Exception("Restored history must not notify");
-        if (widgetTest) chat.Hide();
+        if (widgetTest) {
+            await chat.Browser.CoreWebView2.ExecuteScriptAsync("document.getElementById('leaveDialog').showModal(); document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}))");
+            await Task.Delay(100);
+            if (!chat.IsVisible) throw new Exception("Escape hid chat during confirmation");
+            await chat.Browser.CoreWebView2.ExecuteScriptAsync("document.getElementById('leaveDialog').close(); document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',isComposing:true}))");
+            await Task.Delay(100);
+            if (!chat.IsVisible) throw new Exception("Escape hid chat during composition");
+            await chat.Browser.CoreWebView2.ExecuteScriptAsync("document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}))");
+            await Task.Delay(200);
+            if (chat.IsVisible) throw new Exception("Escape did not hide chat");
+            Widget.SetTextMode(true);
+            if (!WidgetState.Load(Path.Combine(DataDirectory, "widget.json")).TextOnly) throw new Exception("Text mode not persisted");
+            var accepted = await SendQuick("안녕");
+            if (accepted != "sent") throw new Exception("Native quick reply rejected: " + accepted);
+        }
         // Exercise actual WebView2 fetch + native face update with synthetic input.
-        await chat!.Browser.CoreWebView2.ExecuteScriptAsync("""
+        if (!widgetTest) await chat!.Browser.CoreWebView2.ExecuteScriptAsync("""
             (async () => {
               const input = document.getElementById('messageInput');
               input.value = '안녕'; document.getElementById('chatForm').requestSubmit();
@@ -192,7 +236,12 @@ public partial class App : Application
         await Task.Delay(300);
         if (widgetTest) {
             if (Widget.PendingCharacter != "default") throw new Exception("Hidden chat reply did not notify");
+            if (Widget.Speech.Text.Contains("잠깐의 안부")) throw new Exception("Reply preview missing");
             CaptureWidget("widget-unread.png");
+            await Task.Delay(18500);
+            if (!Widget.Speech.Text.Contains("잠깐의 안부")) throw new Exception("Reply preview did not expire");
+            Widget.SetTextMode(false); Widget.NotifyReply("default", "좋아, 잠깐 이야기하자. 오늘은 어떻게 보냈어?");
+            await Task.Delay(250); CaptureWidget("widget-face-preview.png");
             ShowChat();
             if (Widget.PendingCharacter != null) throw new Exception("Opening chat must clear unread");
             await File.WriteAllTextAsync(Path.Combine(DataDirectory, "widget-smoke.json"), JsonSerializer.Serialize(new {

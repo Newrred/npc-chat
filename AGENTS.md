@@ -60,6 +60,8 @@ If repository HEAD differs from the reviewed baseline:
 
 ## Engineering constraints
 
+- 2026-09-29 user preference: during development/UI verification, always disable topmost before showing test windows. Desktop smoke/fake modes enforce this; use `--no-topmost` for other manual verification launches. Do not change the user's normal saved preference to accomplish testing.
+
 - Prefer incremental refactoring over a rewrite.
 - Keep each PR/commit phase-scoped and reversible.
 - Preserve current API behavior until a compatibility path and tests exist.

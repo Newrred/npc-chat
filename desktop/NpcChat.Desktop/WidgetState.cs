@@ -8,7 +8,8 @@ namespace NpcChat.Desktop;
 public record WorkArea(string Id, int X, int Y, int Width, int Height);
 public record WidgetState(int Version = 1, double Scale = 1, bool Compact = false, bool Topmost = true,
                           string Monitor = "", double X = 1, double Y = 1,
-                          double? LegacyLeft = null, double? LegacyTop = null)
+                          double? LegacyLeft = null, double? LegacyTop = null,
+                          bool TextOnly = false, bool PreviewReplies = true)
 {
     public WidgetState Validated() => this with {
         Version = 1, Scale = double.IsFinite(Scale) ? Math.Clamp(Scale, .75, 1.6) : 1,

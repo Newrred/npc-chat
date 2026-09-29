@@ -1,5 +1,7 @@
 # Product and Technical Direction
 
+2026-09-29 Task40: 동봉 폴더형 패키지와 실행 진단/위젯 개선 이후, [배포 의존성 현황](DESKTOP_DEPENDENCIES.md)과 [설치 수명주기 설계](DESKTOP_INSTALLATION_PLAN.md)를 작성했다. 다음은 고지·출처를 기록하는 빌드 게이트와 사용자별 오프라인 설치/수동 업데이트 구현이다. 사용자 데이터는 기존 AppData에 보존하며 판매 배포 권리와 새 PC 검증은 미완료다.
+
 2026-09-29 사용자 결정: 품질/LoRA 실험과 병행해 Windows 네이티브 위젯을 먼저 개발한다. C#/WPF/.NET10과 채팅용 WebView2를 사용하며 기존 FastAPI/llama.cpp를 보존한다. 현재 PC 시제품이 완료되었고 오프라인 동봉 상품 패키지는 후속이다. [데스크톱 실행과 범위](DESKTOP_APP.md).
 
 2026-09-08 사용자 결정: 당분간 동일 모델에 대사와 부가 정보를 두 번 순차 처리한다. 현재 9B 시험에 적용했으며 두 번째 모델은 추가하지 않는다. 화면은 두 단계 완료 후 응답한다. [현재 구현과 품질 한계](TWO_STAGE_GENERATION.md).
