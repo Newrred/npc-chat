@@ -1,0 +1,18 @@
+{
+  "NPC_MODEL": "local-model",
+  "NPC_GENERATION_MODE": "two_stage",
+  "NPC_METADATA_CONTEXT_MODE": "full",
+  "NPC_TOKEN_COUNT_MODE": "llama_cpp",
+  "NPC_OUTPUT_CONTRACT": "canonical",
+  "NPC_JSON_MODE": "schema",
+  "NPC_TEMP": "0.4",
+  "NPC_TOP_P": "1.0",
+  "NPC_TOP_K": "20",
+  "NPC_PRESENCE_PENALTY": "0.5",
+  "NPC_FREQUENCY_PENALTY": "0.3",
+  "NPC_REPETITION_PENALTY": "1.08",
+  "NPC_MAX_TOKENS": "256",
+  "NPC_TIMEOUT": "120",
+  "LLAMA_CONTEXT": "4096",
+  "LLAMA_GPU_LAYERS": "auto"
+}

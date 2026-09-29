@@ -1,5 +1,9 @@
 # NPC Chat
 
+2026-09-29 폴더 패키지: [Python·모델·WebView2 동봉 내부 검증본](docs/PORTABLE_DESKTOP.md). 저장소 밖에서 실제9B 채팅을 검증했으며 다른 PC/판매 배포 검증은 남아 있다.
+
+2026-09-29 Windows 앱: [네이티브 바탕화면 위젯 시제품 사용법](docs/DESKTOP_APP.md). C#/WPF/.NET10 창·트레이와 WebView2 채팅을 제공한다. 현재 개발 PC용이며 모델/Python을 모두 동봉한 설치본은 후속이다.
+
 2026-09-28 제품 검토: [로컬 맞춤 캐릭터 패키지 상품화 리서치 자료](docs/product-review/README.md), [실제 생성 답변 48건](docs/product-review/DIALOGUE_EVIDENCE.md), [GPT Pro 전달 요청문](docs/product-review/PRO_REQUEST.md). 현재 구현과 미구현 상품 요구를 구분한 검토 자료다.
 
 기본 원격 배포는 [로그인 없는 공개 링크](docs/PUBLIC_LINK_DEPLOYMENT.md)다. 익명 쿠키로 대화를 분리하고 활동 이용자 수와 일일 한도를 적용한다. Cloudflare Access 이메일 로그인은 선택 모드다. 현재 도메인 없는 Quick Tunnel로 임시 외부 테스트 중이며, 고정 주소와 운영 게이트를 갖춘 실제 운영 배포는 아직 완료하지 않았다.

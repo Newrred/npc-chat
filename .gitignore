@@ -43,3 +43,6 @@ app/static/generated/
 
 # Local inspector signing key (never commit)
 *.inspector.key
+desktop/**/bin/
+desktop/**/obj/
+desktop/node_modules/
