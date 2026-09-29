@@ -1,0 +1,408 @@
+{
+  "format": 1,
+  "checked": "2026-09-29",
+  "app_version": "1.2.0",
+  "scope": "Python wheel metadata and actual notice files only; not a complete SBOM or redistribution approval",
+  "python_packages": [
+    {
+      "name": "alembic",
+      "version": "1.19.2",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/alembic-1.19.2.dist-info/licenses/LICENSE",
+          "sha256": "6e68d94a03a0e3e327ddf3e86d1ebedc14eece3922022618fc246a36296fd0cc"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.4",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/annotated_doc-0.0.4.dist-info/licenses/LICENSE",
+          "sha256": "fff170779a6acbf65abdb405c087f1cee1786691e4a96a4034517e4a504a0cdf"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.7.0",
+      "declared_license": "MIT License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/annotated_types-0.7.0.dist-info/licenses/LICENSE",
+          "sha256": "fe1049884b1a0d9342901e88e07f32925d24b3121d9972b6a6805fb9824b095d"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "anyio",
+      "version": "4.12.1",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/anyio-4.12.1.dist-info/licenses/LICENSE",
+          "sha256": "5361ac9dc58f2ef5fd2e9b09c68297c17f04950909bbc8023bdb82eacf22c2b0"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.1.4",
+      "declared_license": "Mozilla Public License 2.0 (MPL 2.0)",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/certifi-2026.1.4.dist-info/licenses/LICENSE",
+          "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.4.4",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/charset_normalizer-3.4.4.dist-info/licenses/LICENSE",
+          "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "click",
+      "version": "8.3.1",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/click-8.3.1.dist-info/licenses/LICENSE.txt",
+          "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "declared_license": "BSD License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/colorama-0.4.6.dist-info/licenses/LICENSE.txt",
+          "sha256": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0",
+      "declared_license": "Apache Software License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/distro-1.9.0.dist-info/LICENSE",
+          "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.135.1",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/fastapi-0.135.1.dist-info/licenses/LICENSE",
+          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "greenlet",
+      "version": "3.5.5",
+      "declared_license": "MIT AND PSF-2.0",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/greenlet-3.5.5.dist-info/licenses/LICENSE",
+          "sha256": "ab977b654605670319509481ece49198f405a129372ac38c96f51cd96c2f452e"
+        },
+        {
+          "path": "runtime/python/Lib/site-packages/greenlet-3.5.5.dist-info/licenses/LICENSE.PSF",
+          "sha256": "69efa689cc7aec7736236d3039c1d665e4b0c734a5bfea5abf633023abb2fff4"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "declared_license": "MIT License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/h11-0.16.0.dist-info/licenses/LICENSE.txt",
+          "sha256": "37db5bb85926db28a427a25867f10b1232003aea1be69ccb851138adb8e6f361"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+          "sha256": "fdcb59154c74cbaba16a11242f7740bea9f23d6feb5547917d8c5f94a80392a5"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "declared_license": "BSD License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md",
+          "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "idna",
+      "version": "3.11",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/idna-3.11.dist-info/licenses/LICENSE.md",
+          "sha256": "b7a336abf3b04e180ec065cdd16e705d079e1cc7a14f910aa6e9187f36b9cd87"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "jiter",
+      "version": "0.13.0",
+      "declared_license": "MIT License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/jiter-0.13.0.dist-info/licenses/LICENSE",
+          "sha256": "e65c152aa65deaaa52019855bf1bbce4a0d592a048cb523b6ca691965741241e"
+        },
+        {
+          "path": "runtime/python/Lib/site-packages/jiter-0.13.0.dist-info/licenses/LICENSE",
+          "sha256": "e65c152aa65deaaa52019855bf1bbce4a0d592a048cb523b6ca691965741241e"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "Mako",
+      "version": "1.4.1",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/mako-1.4.1.dist-info/licenses/LICENSE",
+          "sha256": "8c1d171bc5d341ad9cd33d5e2c39b96a82c7bd49b3ae89a470c37e5822232054"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.3",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/markupsafe-3.0.3.dist-info/licenses/LICENSE.txt",
+          "sha256": "4631ec0db5fd90a547e336817264c6798214338146f8ac94b4a57f96ee8c9ec4"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "openai",
+      "version": "2.21.0",
+      "declared_license": "Apache Software License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/openai-2.21.0.dist-info/licenses/LICENSE",
+          "sha256": "636eb7d79da9bb6d515a4b3fd417aa26679eb3cf16396ddab4bc55fa74e616e4"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "psutil",
+      "version": "7.2.2",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/psutil-7.2.2.dist-info/LICENSE",
+          "sha256": "c7adc4d5d1337a548b967421f1fbe258b93033a0417708fd6f4e38f8ecbceb80"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.12.5",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/pydantic-2.12.5.dist-info/licenses/LICENSE",
+          "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.41.5",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/pydantic_core-2.41.5.dist-info/licenses/LICENSE",
+          "sha256": "fbe7f615f18d135c07000e5a86325db27f42c7729699ef166ac1f7a3f4586bf4"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.2",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/python_dotenv-1.2.2.dist-info/licenses/LICENSE",
+          "sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "requests",
+      "version": "2.32.5",
+      "declared_license": "Apache Software License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/requests-2.32.5.dist-info/licenses/LICENSE",
+          "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "declared_license": "MIT License; Apache Software License",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/sniffio-1.3.1.dist-info/LICENSE",
+          "sha256": "652c878488d1456361e08c3f8607fd7ba59892a14103d15cce4ff93c85b5cc8b"
+        },
+        {
+          "path": "runtime/python/Lib/site-packages/sniffio-1.3.1.dist-info/LICENSE.APACHE2",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "runtime/python/Lib/site-packages/sniffio-1.3.1.dist-info/LICENSE.MIT",
+          "sha256": "3e6dae555eb92787fc82d1d48355677f454c7f65aeb38d3f9e72bf9a3daf034b"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "SQLAlchemy",
+      "version": "2.0.52",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/sqlalchemy-2.0.52.dist-info/licenses/LICENSE",
+          "sha256": "9bb754071e711cf75728b9051b170bfb8f9e3b879c08386c96a36989c42cd5f1"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "starlette",
+      "version": "0.52.1",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/starlette-0.52.1.dist-info/licenses/LICENSE.md",
+          "sha256": "dcb95677a02240243187e964f941847d19b17821cf99e5afae684fab328c19bf"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.67.3",
+      "declared_license": "MPL-2.0 AND MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/tqdm-4.67.3.dist-info/licenses/LICENCE",
+          "sha256": "fcff87c3a47ce8028a8512aa182d4fcf0ad1c90544ee75cf9b343684cac194de"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.2",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/typing_inspection-0.4.2.dist-info/licenses/LICENSE",
+          "sha256": "804b59b25f2c31bd278f9202a19ae49a3945aa2664387e2d0a128c7cacc61ec3"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.15.0",
+      "declared_license": "PSF-2.0",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+          "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.6.3",
+      "declared_license": "MIT",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/urllib3-2.6.3.dist-info/licenses/LICENSE.txt",
+          "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.41.0",
+      "declared_license": "BSD-3-Clause",
+      "notice_files": [
+        {
+          "path": "runtime/python/Lib/site-packages/uvicorn-0.41.0.dist-info/licenses/LICENSE.md",
+          "sha256": "efe1acf3e62fb99c288b0ec73e5a773b7268ef4320fe757ea994214e4b63c371"
+        }
+      ],
+      "review": "metadata-only; redistribution review pending"
+    }
+  ]
+}
