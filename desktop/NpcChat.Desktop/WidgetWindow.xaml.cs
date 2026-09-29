@@ -48,7 +48,8 @@ public partial class WidgetWindow : Window
         var pin = new MenuItem { Header = "항상 위에 표시", IsCheckable = true, IsChecked = Topmost }; pin.Click += (_, _) => Topmost = pin.IsChecked;
         var hide = new MenuItem { Header = "위젯 숨기기 (트레이에서 복원)" }; hide.Click += (_, _) => Hide();
         var quit = new MenuItem { Header = "완전히 종료" }; quit.Click += async (_, _) => await owner.Quit();
-        menu.Items.Add(chat); menu.Items.Add(pin); menu.Items.Add(hide); menu.Items.Add(new Separator()); menu.Items.Add(quit);
+        var status = new MenuItem { Header = "실행 상태 / 문제 해결" }; status.Click += (_, _) => owner.ShowDiagnostics();
+        menu.Items.Add(chat); menu.Items.Add(status); menu.Items.Add(pin); menu.Items.Add(hide); menu.Items.Add(new Separator()); menu.Items.Add(quit);
         menu.PlacementTarget = (Button)sender; menu.IsOpen = true;
     }
 }

@@ -191,13 +191,14 @@ class Runtime:
             raise
         return record
 
-    def stop(self, name):
+    def stop(self, name, *, quiet=False):
         record = self.state.get(name)
         if record:
             stop_owned(record)
             self.state.pop(name)
             self.save()
-        print(name + ": stopped or already absent", flush=True)
+        if not quiet:
+            print(name + ": stopped or already absent", flush=True)
 
     def stop_local(self):
         for name in ("admin", "web", "llm"):

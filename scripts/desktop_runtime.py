@@ -12,6 +12,22 @@ sys.path.insert(0, str(ROOT))
 from dotenv import load_dotenv  # noqa: E402
 from scripts.local_runtime import Runtime, free_port, matches, model_command, ready  # noqa: E402
 from scripts.desktop_config import load_package  # noqa: E402
+from scripts.desktop_diagnostics import error_code  # noqa: E402
+
+stage = "configuration"
+
+
+def progress(value):
+    global stage
+    stage = value
+    print(json.dumps({"desktop": "progress", "stage": stage}), flush=True)
+
+
+def stop_services(runtime):
+    # Windows closed pipes may raise OSError(EINVAL), not BrokenPipeError.
+    # Cleanup must not write to the parent's stdout at all.
+    for name in ("web", "llm"):
+        runtime.stop(name, quiet=True)
 
 
 def wait(record, url, token, stopped, alias=None, timeout=180):
@@ -28,6 +44,8 @@ def wait(record, url, token, stopped, alias=None, timeout=180):
 
 
 def main():
+    global stage
+    progress("configuration")
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", required=True)
     parser.add_argument("--fake", action="store_true")
@@ -55,9 +73,9 @@ def main():
     (directory / "data").mkdir(parents=True, exist_ok=True)
     with runtime.locked():
         # Only our previous registry is eligible for recovery, never another stack.
-        runtime.stop("web")
-        runtime.stop("llm")
+        stop_services(runtime)
         try:
+            progress("ports")
             free_port(8003)
             if not args.fake:
                 free_port(8001)
@@ -66,27 +84,33 @@ def main():
                     model=os.getenv("LLAMA_MODEL_PATH", ""), alias=os.getenv("NPC_MODEL", "local-model"),
                     context=int(os.getenv("LLAMA_CONTEXT", "4096")),
                     gpu_layers=os.getenv("LLAMA_GPU_LAYERS", "auto"), min_free_mib=2048)
-                record = runtime.launch("llm", model_command(model_args), env)
+                progress("model_check")
+                command = model_command(model_args)
+                progress("model_loading")
+                record = runtime.launch("llm", command, env)
                 wait(record, "http://127.0.0.1:8001/v1/models", token, stopped, model_args.alias)
             if stopped.is_set():
                 raise RuntimeError("START_CANCELLED")
+            progress("server_loading")
             record = runtime.launch("web", [sys.executable, "-m", "uvicorn", "scripts.desktop_server:create_desktop_app",
                                             "--factory", "--host", "127.0.0.1", "--port", "8003",
                                             "--no-access-log"], env)
             wait(record, "http://127.0.0.1:8003/api/ready", token, stopped)
+            stage = "ready"
             print(json.dumps({"desktop": "ready"}), flush=True)
             while not stopped.wait(.5):
                 if not matches(runtime.state.get("web")) or (not args.fake and not matches(runtime.state.get("llm"))):
                     raise RuntimeError("PROCESS_EXITED")
         finally:
-            runtime.stop("web")
-            runtime.stop("llm")
+            stop_services(runtime)
 
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as exc:
-        print(json.dumps({"desktop": "error", "type": type(exc).__name__,
-                          "message": str(exc) if type(exc) is RuntimeError else "START_FAILED"}), flush=True)
+        try:
+            print(json.dumps({"desktop": "error", "code": error_code(exc, stage)}), flush=True)
+        except OSError:
+            pass
         sys.exit(1)

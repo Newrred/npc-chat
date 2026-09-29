@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -24,7 +25,10 @@ public partial class App : Application
     private ChatWindow? chat;
     private Forms.NotifyIcon? tray;
     private Mutex? singleton;
-    private readonly RuntimeClient runtime = new();
+    private RuntimeClient runtime = new();
+    private DiagnosticsWindow? diagnostics;
+    private bool starting;
+    private bool fake;
     private bool available;
     private bool smoke;
 
@@ -33,6 +37,7 @@ public partial class App : Application
         base.OnStartup(e);
         var verifyReal = e.Args.Contains("--verify-real");
         smoke = e.Args.Contains("--smoke") || e.Args.Contains("--smoke-real") || verifyReal;
+        fake = e.Args.Contains("--smoke") || e.Args.Contains("--fake") || e.Args.Contains("--smoke-retry");
         Root = Option(e.Args, "--root") ?? FindRoot();
         DataDirectory = Option(e.Args, "--data-dir") ?? Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NpcChatDesktop");
@@ -40,44 +45,87 @@ public partial class App : Application
         var key = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(Path.GetFullPath(DataDirectory).ToUpperInvariant())));
         singleton = new Mutex(true, "Local\\NpcChatDesktop-" + key, out var first);
         if (!first) { MessageBox.Show("이미 실행 중입니다. 작업 표시줄의 트레이 아이콘에서 열어주세요."); Shutdown(); return; }
+        diagnostics = new DiagnosticsWindow(this, File.Exists(Path.Combine(Root, "desktop-package.json")));
         Widget = new WidgetWindow(this); Widget.Show();
         tray = new Forms.NotifyIcon { Icon = System.Drawing.SystemIcons.Application, Text = "NPC Chat · 준비 중", Visible = true };
         var menu = new Forms.ContextMenuStrip();
         menu.Items.Add("채팅 열기", null, (_, _) => Dispatcher.Invoke(ShowChat));
         menu.Items.Add("위젯 표시", null, (_, _) => Dispatcher.Invoke(() => { Widget.Show(); Widget.Activate(); }));
+        menu.Items.Add("실행 상태 / 문제 해결", null, (_, _) => Dispatcher.Invoke(ShowDiagnostics));
         menu.Items.Add("완전히 종료", null, async (_, _) => await Quit());
         tray.ContextMenuStrip = menu;
         tray.DoubleClick += (_, _) => Dispatcher.Invoke(() => { Widget.Show(); ShowChat(); });
         SessionEnding += (_, _) => { _ = runtime.Stop(); };
+        if (e.Args.Contains("--smoke-retry")) { await RetrySmoke(); return; }
+        await Retry();
+        if (smoke) {
+            if (!available) { diagnostics.Save(Path.Combine(DataDirectory, "diagnostics.json")); await Quit(1); return; }
+            try {
+                if (verifyReal) {
+                    CaptureWidget();
+                    await File.WriteAllTextAsync(Path.Combine(DataDirectory, "real-ready.json"), "{\"ready\":true,\"webview\":true}");
+                    await Quit();
+                } else await Smoke();
+            } catch (Exception ex) {
+                await File.WriteAllTextAsync(Path.Combine(DataDirectory, "smoke-error.txt"), ex.ToString());
+                await Quit(1);
+            }
+        }
+    }
+
+    public void ShowDiagnostics() { diagnostics?.Show(); diagnostics?.Activate(); }
+
+    private void Progress(string code)
+    {
+        if (Exiting) return;
+        diagnostics?.Update(code, false);
+        if (Widget != null) {
+            Widget.Status.Text = DiagnosticsWindow.Messages.GetValueOrDefault(code, "실행 상태 확인 중…");
+            Widget.Status.ToolTip = Widget.Status.Text;
+        }
+    }
+
+    public async Task Retry()
+    {
+        if (starting || available || Exiting) return;
+        starting = true;
+        var phase = "configuration";
+        string? failure = null;
+        await runtime.Stop();
+        chat?.Release(); chat = null;
+        runtime = new RuntimeClient();
+        runtime.Progress += code => Dispatcher.Invoke(() => { phase = code; Progress(code); });
         runtime.UnexpectedExit += () => Dispatcher.Invoke(() => {
+            if (starting || Exiting) return;
             available = false;
             if (Widget != null) { Widget.Status.Text = "서버가 종료됐어요"; Widget.ChatButton.IsEnabled = false; }
+            diagnostics?.Update("PROCESS_EXITED", true); ShowDiagnostics();
         });
         try {
-            await runtime.Start(Root, DataDirectory, e.Args.Contains("--smoke") || e.Args.Contains("--fake"));
+            Progress("configuration");
+            await runtime.Start(Root, DataDirectory, fake);
             if (Exiting) return;
-            Widget.Status.Text = "채팅을 준비하고 있어요…";
+            phase = "chat_loading"; Progress(phase);
             chat = new ChatWindow(this);
             // WebView2 needs a realized WPF window before EnsureCoreWebView2Async.
             chat.ShowActivated = false;
             chat.Show();
             await chat.Initialize(runtime.Token);
+            if (Exiting) return;
             chat.Hide();
-            available = true; Widget.ChatButton.IsEnabled = true; Widget.Status.Text = "여기 있어요";
-            tray.Text = "NPC Chat · 실행 중";
-            if (verifyReal) {
-                CaptureWidget();
-                await File.WriteAllTextAsync(Path.Combine(DataDirectory, "real-ready.json"), "{\"ready\":true,\"webview\":true}");
-                await Quit();
-            } else if (smoke) await Smoke();
+            available = true; Widget!.ChatButton.IsEnabled = true; Progress("ready");
+            tray!.Text = "NPC Chat · 실행 중";
         } catch (Exception ex) {
-            if (smoke) {
-                await File.WriteAllTextAsync(Path.Combine(DataDirectory, "smoke-error.txt"), ex.ToString());
-                await Quit(1);
-            } else if (!Exiting) {
-                Widget.Status.Text = "시작하지 못했어요";
-                MessageBox.Show("실행하지 못했습니다. 기존 서버가 켜져 있다면 먼저 종료해 주세요.\n\n" + ex.Message, "NPC Chat");
-                await Quit(1);
+            failure = phase == "chat_loading" ? "WEBVIEW_FAILED" :
+                DiagnosticsWindow.Messages.ContainsKey(ex.Message) ? ex.Message : "START_FAILED";
+            await runtime.Stop();
+            chat?.Release(); chat = null;
+        } finally {
+            starting = false;
+            if (failure != null && !Exiting) {
+                Widget!.Status.Text = "시작 실패 · 메뉴에서 확인"; Widget.ChatButton.IsEnabled = false;
+                diagnostics?.Update(failure, true);
+                if (!smoke) ShowDiagnostics();
             }
         }
     }
@@ -93,7 +141,7 @@ public partial class App : Application
         Exiting = true; available = false;
         if (Widget != null) { Widget.Status.Text = "모델과 서버 종료 중…"; Widget.ChatButton.IsEnabled = false; }
         await runtime.Stop();
-        chat?.Browser.Dispose(); chat?.Close(); Widget?.Close();
+        chat?.Release(); diagnostics?.Close(); Widget?.Close();
         tray?.Dispose(); singleton?.Dispose(); Shutdown(code);
     }
     private async Task Smoke()
@@ -141,6 +189,29 @@ public partial class App : Application
         var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
         using var output = File.Create(Path.Combine(DataDirectory, "widget.png")); encoder.Save(output);
     }
+    private async Task RetrySmoke()
+    {
+        var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 8003);
+        try {
+            listener.Start();
+            await Retry();
+            if (available || diagnostics!.LastCode != "PORT_BUSY") throw new Exception("Expected port conflict");
+            diagnostics.Save(Path.Combine(DataDirectory, "failure-diagnostics.json"));
+            await Task.Delay(200);
+            var bitmap = new RenderTargetBitmap((int)diagnostics.ActualWidth, (int)diagnostics.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(diagnostics);
+            var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
+            using (var capture = File.Create(Path.Combine(DataDirectory, "diagnostics.png"))) encoder.Save(capture);
+            listener.Stop();
+            await Task.WhenAll(Retry(), Retry()); // Repeated clicks must not launch two supervisors.
+            if (!available) throw new Exception("Retry did not recover");
+            diagnostics.Save(Path.Combine(DataDirectory, "recovered-diagnostics.json"));
+            await Smoke();
+        } catch (Exception ex) {
+            await File.WriteAllTextAsync(Path.Combine(DataDirectory, "smoke-error.txt"), ex.ToString());
+            await Quit(1);
+        } finally { listener.Stop(); }
+    }
     private static string? Option(string[] args, string key)
     {
         var index = Array.IndexOf(args, key);
@@ -150,7 +221,8 @@ public partial class App : Application
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory != null) {
-            if (File.Exists(Path.Combine(directory.FullName, "scripts/desktop_runtime.py"))) return directory.FullName;
+            if (File.Exists(Path.Combine(directory.FullName, "scripts/desktop_runtime.py")) ||
+                File.Exists(Path.Combine(directory.FullName, "desktop-package.json"))) return directory.FullName;
             directory = directory.Parent;
         }
         throw new InvalidOperationException("--root 옵션으로 프로젝트 위치를 지정해 주세요.");

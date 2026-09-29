@@ -14,6 +14,7 @@ internal sealed class ChatWindow : Window
 {
     public readonly WebView2 Browser = new();
     private readonly App owner;
+    private bool releasing;
     public const string Origin = "http://127.0.0.1:8003";
     public ChatWindow(App app)
     {
@@ -21,8 +22,9 @@ internal sealed class ChatWindow : Window
         Width = 440; Height = 740; MinWidth = 360; MinHeight = 480;
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         Content = Browser;
-        Closing += (_, e) => { if (!owner.Exiting) { e.Cancel = true; Hide(); } };
+        Closing += (_, e) => { if (!owner.Exiting && !releasing) { e.Cancel = true; Hide(); } };
     }
+    public void Release() { releasing = true; Browser.Dispose(); Close(); }
     public async Task Initialize(string token)
     {
         var packaged = File.Exists(Path.Combine(owner.Root, "desktop-package.json"));

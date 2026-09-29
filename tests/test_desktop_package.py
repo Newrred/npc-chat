@@ -49,7 +49,11 @@ def test_manifest_detects_modified_and_missing_files(tmp_path):
     one, two = tmp_path / "one", tmp_path / "two"
     one.write_text("original")
     two.write_text("keep")
+    cache = tmp_path / "__pycache__/runtime.pyc"
+    cache.parent.mkdir()
+    cache.write_bytes(b"generated cache")
     write_manifest(tmp_path)
+    cache.write_bytes(b"regenerated cache")
     assert verify(tmp_path) == []
     one.write_text("tampered")
     two.unlink()

@@ -27,7 +27,8 @@ def source_files(root):
     files += list((root / "frontend/faces").glob("*.png"))
     files += list((root / "frontend/characters").glob("*/faces/*.png"))
     files += [root / "scripts" / name for name in
-              ("desktop_runtime.py", "desktop_server.py", "desktop_config.py", "local_runtime.py", "verify_desktop_package.py")]
+              ("desktop_runtime.py", "desktop_server.py", "desktop_config.py", "desktop_diagnostics.py",
+               "local_runtime.py", "verify_desktop_package.py")]
     # Synthetic smoke fixture only; no test logs or personal traces.
     files += [root / "tests/__init__.py", root / "tests/fakes.py"]
     return sorted(set(p for p in files if p.is_file() and "__pycache__" not in p.parts))
@@ -41,7 +42,8 @@ def copy(source, target):
 def write_manifest(output):
     def record(path):
         return {"path": path.relative_to(output).as_posix(), "bytes": path.stat().st_size, "sha256": digest(path)}
-    files = sorted(p for p in output.rglob("*") if p.is_file() and p.name != "package-manifest.json")
+    files = sorted(p for p in output.rglob("*") if p.is_file() and p.name != "package-manifest.json"
+                   and "__pycache__" not in p.parts and p.suffix != ".pyc")
     with ThreadPoolExecutor(max_workers=4) as pool:
         records = list(pool.map(record, files))
     (output / "package-manifest.json").write_text(json.dumps({
