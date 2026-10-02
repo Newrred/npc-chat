@@ -1,5 +1,7 @@
 # Product and Technical Direction
 
+2026-09-30 Task42: 신규 설치는 C#/.NET 공통 설치기로 자동화한다. 다운로드형은 단일 EXE(실제 HTTPS 주소 대기), 오프라인형은 ZIP을 풀고 내부 EXE 실행 방식이다. 모델 동봉 대형 EXE는 실제 Windows 실행 실패로 채택하지 않았다. 업데이트/제거/복원은 후속이며 기존 AppData를 보존한다. [설치기 현황](UNIFIED_INSTALLER.md).
+
 2026-09-29 Task40: 동봉 폴더형 패키지와 실행 진단/위젯 개선 이후, [배포 의존성 현황](DESKTOP_DEPENDENCIES.md)과 [설치 수명주기 설계](DESKTOP_INSTALLATION_PLAN.md)를 작성했다. 다음은 고지·출처를 기록하는 빌드 게이트와 사용자별 오프라인 설치/수동 업데이트 구현이다. 사용자 데이터는 기존 AppData에 보존하며 판매 배포 권리와 새 PC 검증은 미완료다.
 
 2026-09-29 사용자 결정: 품질/LoRA 실험과 병행해 Windows 네이티브 위젯을 먼저 개발한다. C#/WPF/.NET10과 채팅용 WebView2를 사용하며 기존 FastAPI/llama.cpp를 보존한다. 현재 PC 시제품이 완료되었고 오프라인 동봉 상품 패키지는 후속이다. [데스크톱 실행과 범위](DESKTOP_APP.md).

@@ -1,6 +1,6 @@
 # Implementation Plan
 
-2026-09-29 데스크톱: Task36~39 시제품·독립 폴더 패키지·진단·위젯 개선 완료. Task40 의존성 목록과 설치 설계 완료. 다음은 Task41 고지/빌드 출처/배포 판정 → Task42 설치 트랜잭션 → Task43 설치·제거 UI → Task44 업데이트·복구 순서다. 이 Task41~44는 후속 계획이며 아직 구현 완료가 아니다. 다른 PC 검증은 병행한다. [수용 기준](DESKTOP_INSTALLATION_PLAN.md).
+2026-09-30 데스크톱: Task36~40 시제품·독립 패키지·진단·위젯·설치 설계 이후 Task41 고지 수집/내부판 빌드 게이트와 Task42 신규 설치 엔진/기초 UI를 구현했다. Task42의 실제 온라인 호스팅 검증 및 새 PC 설치 검증은 남아 있다. Task43 제거·등록/설치 UX, Task44 업데이트·복구로 이어간다. 권리 확정은 별도 게이트다. [현재 구현](UNIFIED_INSTALLER.md), [전체 수용 기준](DESKTOP_INSTALLATION_PLAN.md).
 
 2026-09-22 외부 검토 후속: Task27 정확성, Task28 비개인 계측·독립 세트 뒤 Task29의 metadata compact는 분류 비열화로 미채택했다. Task30에서 exact TokenCounter의 연결 재사용과 요청 범위 동일 입력 cache를 적용해 prepare p50을 0.578→0.297초로 줄였지만 전체 모델 생성 시간 개선은 확인하지 못했다. 기본/공개는 full을 유지한다. 다음은 테스터 확대 전 고정 주소·guest 지속성·두 DB 백업/복구·자동 복구/1→2→3→5명 부하 게이트다. 의미 검색은 검색 실패 단계를 분리한 뒤 shadow 비교로만 시작한다.
 

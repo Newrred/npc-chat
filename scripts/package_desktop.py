@@ -9,6 +9,10 @@ import subprocess
 import sys
 import zipfile
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.package_notices import collect, enforce_distribution, source_revision
+
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON_SHA256 = "4acbed6dd1c744b0376e3b1cf57ce906f9dc9e95e68824584c8099a63025a3c3"
 
@@ -56,6 +60,7 @@ def build(args):
     output = args.output.resolve()
     if output.exists():
         raise ValueError("Output already exists; choose a new folder")
+    enforce_distribution(getattr(args, "distribution", "internal"))
     for path in (args.python_zip, args.model, args.llama / "llama-server.exe",
                  args.webview / "msedgewebview2.exe", args.publish / "NpcChat.Desktop.exe"):
         if not path.is_file():
@@ -89,6 +94,7 @@ def build(args):
     for name in ("requirements-runtime.lock", "portable-settings.json"):
         copy(ROOT / "desktop" / name, output / "build-info" / name)
     copy(ROOT / "docs/PORTABLE_DESKTOP.md", output / "READ-ME.md")
+    collect(output, output / "licenses", ROOT / "desktop/requirements-runtime.lock", source_revision(ROOT))
     # File integrity records, no machine paths or developer environment values.
     records = write_manifest(output)
     print(json.dumps({"files": len(records), "bytes": sum(p["bytes"] for p in records)}))
@@ -96,6 +102,7 @@ def build(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--distribution", choices=("internal", "release"), default="internal")
     for name in ("output", "python-zip", "model", "llama", "webview", "publish"):
         parser.add_argument("--" + name, type=Path, required=True)
     build(parser.parse_args())
