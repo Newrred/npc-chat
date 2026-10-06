@@ -115,6 +115,9 @@ function applyCharacterUI() {
   roomPreview = document.getElementById(activeCharacter.id === "default" ? "roomPreview" : "cartethyiaRoomPreview");
   roomUnread = document.getElementById(activeCharacter.id === "default" ? "roomUnread" : "cartethyiaRoomUnread");
   document.getElementById("roomTitle").textContent = activeCharacter.name;
+  document.getElementById("companionName").textContent = activeCharacter.name;
+  document.getElementById("companionPortrait").alt = activeCharacter.name;
+  document.getElementById("companionPortrait").src = `${activeCharacter.faceBase}/neutral.png`;
   document.getElementById("videoCharacterName").textContent = activeCharacter.name;
   document.getElementById("chatIntro").textContent = `${activeCharacter.name}에게 편하게 말을 걸어보세요.`;
   document.getElementById("typingSpeaker").textContent = activeCharacter.name;
@@ -289,6 +292,7 @@ function getBaseFaceCandidates(face) {
 
 function showImage(url, { bustCache = false, kind = "base" } = {}) {
   if (!url) {
+    document.getElementById("companionPortrait").src = "./brand.svg";
     heroine.removeAttribute("src");
     heroine.dataset.kind = "none";
     heroine.style.display = "none";
@@ -304,6 +308,7 @@ function showImage(url, { bustCache = false, kind = "base" } = {}) {
   const finalUrl = bustCache ? `${url}${url.includes("?") ? "&" : "?"}_=${Date.now()}` : url;
   heroine.dataset.kind = kind;
   heroine.src = finalUrl;
+  document.getElementById("companionPortrait").src = finalUrl;
   heroine.style.display = "block";
   placeholder.style.display = "none";
 }
@@ -327,6 +332,7 @@ function showBaseFace(face) {
 }
 
 function setMeta(data, elapsedMs) {
+  renderRelationship(data.relationship?.values);
   const aff = Number.isFinite(Number(data.affection_total)) ? Number(data.affection_total) : 0;
   const face = data.face || "-";
   const internal = data.internal_emotion || "-";
@@ -383,7 +389,7 @@ heroine.addEventListener("error", () => {
 
   heroine.removeAttribute("src");
   heroine.dataset.kind = "none";
-  heroine.style.display = "none";
+    heroine.style.display = "none";
   placeholder.style.display = "block";
 });
 
@@ -555,6 +561,7 @@ async function loadHistory(older = false, signal) {
     let data;
     try { data = await readResponse(await fetch(`${API_BASE_URL}/api/conversation?${query}`, { signal: signal || controller.signal, cache: "no-store" })); }
     finally { if (timer) clearTimeout(timer); }
+    if (!older) renderRelationship(data.relationship);
     if (!Array.isArray(data.items)) throw Error("대화 기록을 확인하지 못했습니다.");
     const anchor = older ? chatThread.querySelector(".message-row") || typingIndicator : typingIndicator;
     const preview = roomPreview.textContent;
@@ -583,6 +590,7 @@ async function loadHistory(older = false, signal) {
     input.readOnly = Boolean(pendingTurn);
     if (!busy) setState(pendingTurn ? "retryable_error" : "idle", pendingTurn ? "완료를 확인하지 못한 메시지가 있습니다. 다시 보내 주세요." : "");
   } catch (error) {
+    if (!older) renderRelationship(null, "관계를 불러오지 못했어요.");
     historyFailed = true;
     historyStatus.textContent = error.name === "AbortError" ? "대화 기록 확인 시간이 초과됐어요." : error.message;
     reloadHistory.hidden = false;
@@ -591,6 +599,7 @@ async function loadHistory(older = false, signal) {
   } finally { historyLoading = false; historyControls(); }
 }
 function clearDisplayedHistory() {
+  renderRelationship(null);
   chatThread.querySelectorAll(".message-row:not(.typing-row)").forEach(row => row.remove());
   renderedMessages.clear();
   loadedSession = ""; historyBefore = null; historyFailed = false;
@@ -649,3 +658,47 @@ confirmLeave.addEventListener("click", async () => {
   } finally { clearTimeout(timer); resetLoading = false; confirmLeave.disabled = false; historyControls(); }
 });
 if (sessionId && profileId && !storageError) void loadHistory().catch(() => {});
+
+
+// Presentation only: server values are never sent back as authoritative state.
+function renderRelationship(values, emptyText = "대화를 시작하면 관계가 나타나요.") {
+  const panel = document.getElementById("relationshipPanel");
+  panel.hidden = window.NPC_RELATIONSHIP_DISPLAY === "hidden";
+  const stats = document.getElementById("relationshipStats");
+  const note = document.getElementById("relationshipStatus");
+  stats.textContent = "";
+  stats.hidden = true;
+  note.textContent = emptyText;
+  if (panel.hidden || !values) return;
+  const labels = {affection: "호감", trust: "신뢰", comfort: "편안함", interest: "관심", irritation: "짜증"};
+  if (!Object.keys(labels).every(key => Number.isInteger(values[key]) && values[key] >= 0 && values[key] <= 100)) {
+    note.textContent = "관계 정보를 확인하지 못했어요.";
+    return;
+  }
+  for (const [key, label] of Object.entries(labels)) {
+    const row = document.createElement("div"); row.className = "relationship-stat";
+    const title = document.createElement("label"); title.textContent = label;
+    const meter = document.createElement("progress"); meter.max = 100; meter.value = values[key];
+    meter.id = `relationship-${key}`; meter.setAttribute("aria-label", label); title.setAttribute("for", meter.id);
+    const value = document.createElement("output"); value.textContent = String(values[key]);
+    row.appendChild(title); row.appendChild(meter); row.appendChild(value); stats.appendChild(row);
+  }
+  stats.hidden = false; note.textContent = "";
+}
+renderRelationship(null);
+
+// Suggestions fill an empty draft. Sending always remains an explicit action.
+function suggestDraft(text) {
+  if (input.disabled || input.readOnly || input.value.trim() || pendingTurn) return;
+  input.value = text; input.focus();
+}
+document.getElementById("suggestToday").addEventListener("click", () => suggestDraft("오늘은 어떻게 보냈어?"));
+document.getElementById("suggestRest").addEventListener("click", () => suggestDraft("잠깐 쉬면서 이야기할래?"));
+const expandChat = document.getElementById("expandChat");
+expandChat.hidden = !window.chrome?.webview;
+expandChat.addEventListener("click", () => window.chrome?.webview?.postMessage?.({kind: "expand"}));
+window.npcSetExpanded = expanded => {
+  expandChat.setAttribute("aria-pressed", String(expanded));
+  expandChat.setAttribute("aria-label", expanded ? "작게 접기" : "넓게 펼치기");
+  expandChat.setAttribute("title", expanded ? "작게 접기" : "넓게 펼치기");
+};

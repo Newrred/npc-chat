@@ -1,5 +1,7 @@
 # API and Data Contracts
 
+2026-10-03: 인증된 `GET /api/conversation` 응답에 `relationship`(affection/trust/comfort/interest/irritation, 현재 서버 정수0~100)를 추가했다. 이전 페이지 요청도 현재 관계를 반환한다. 기존 `items`/`before` 계약과 서버 권한은 유지한다. UI의 `hidden` 설정은 관계 패널 표시를 끈다.
+
 2026-09-11 다중 캐릭터 선택: session/chat/conversation/reset/image-status에 선택적 `character_id`를 추가했다. 생략하면 환경의 기본 캐릭터(`default`)를 사용한다. 값은 소문자 영숫자로 시작하는 최대 64자의 소문자 영숫자/underscore/hyphen이며 서버에 같은 이름의 캐릭터 설정이 있어야 한다. 알 수 없는 캐릭터는 404 `CHARACTER_NOT_FOUND`, 잘못된 형식은 422다. session ID는 한 캐릭터에만 속하며 다른 캐릭터로 사용하면 기존 conflict/access 오류다. 외부 응답과 SQLite schema 0001은 유지한다.
 
 2026-09-09 로컬 관리자 전용 /api/test/{session,chat,reset,conversation} bridge 추가. guest 모드에서 고정 웹 API로만 연결하며 기존 소유권·한도·중복 처리를 유지한다. 공개 API 추가 없음. [로컬 검사 계약](LOCAL_INSPECTOR.md).

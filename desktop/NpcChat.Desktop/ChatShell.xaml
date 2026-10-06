@@ -5,24 +5,24 @@
  <UserControl.Resources>
   <Style x:Key="WindowButton" TargetType="Button">
    <Setter Property="Width" Value="42"/><Setter Property="Height" Value="34"/>
-   <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#66776E"/>
+   <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#716185"/>
    <Setter Property="shell:WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
    <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
     <Border x:Name="Surface" Background="{TemplateBinding Background}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
     <ControlTemplate.Triggers>
-     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Surface" Property="Background" Value="#E1E8E0"/></Trigger>
-     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Surface" Property="Background" Value="#D6E2D4"/></Trigger>
-     <Trigger Property="IsPressed" Value="True"><Setter TargetName="Surface" Property="Background" Value="#C8D8C5"/></Trigger>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Surface" Property="Background" Value="#EEE5FF"/></Trigger>
+     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Surface" Property="Background" Value="#E4D4FF"/></Trigger>
+     <Trigger Property="IsPressed" Value="True"><Setter TargetName="Surface" Property="Background" Value="#D4BCFA"/></Trigger>
     </ControlTemplate.Triggers>
    </ControlTemplate></Setter.Value></Setter>
   </Style>
  </UserControl.Resources>
- <Border BorderBrush="#D5DFD4" BorderThickness="1" Background="#F5F7F2">
+ <Border BorderBrush="#E7DFF1" BorderThickness="1" Background="#FAF7FF">
   <Grid><Grid.RowDefinitions><RowDefinition Height="34"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-   <Grid x:Name="TitleBar" Background="#F5F7F2">
+   <Grid x:Name="TitleBar" Background="#FAF7FF">
     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,130,0">
-     <Ellipse Fill="#759C80" Width="6" Height="6" Margin="0,0,8,0"/>
-     <TextBlock Text="NPC CHAT" FontSize="10" FontWeight="SemiBold" Foreground="#728275" VerticalAlignment="Center"/>
+     <Image Source="Assets/brand.png" Width="20" Height="20" Margin="0,0,8,0"/>
+     <TextBlock Text="NPC Chat" FontSize="10" FontWeight="SemiBold" Foreground="#604980" VerticalAlignment="Center"/>
     </StackPanel>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
      <Button x:Name="MinimizeButton" Style="{StaticResource WindowButton}" Click="Minimize" ToolTip="최소화" AutomationProperties.Name="최소화"><Path Data="M 0,5 L 10,5" Stroke="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1"/></Button>

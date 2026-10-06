@@ -29,7 +29,12 @@ internal sealed class ChatWindow : Window
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.CanResize;
-        Background = new SolidColorBrush(Color.FromRgb(245, 247, 242));
+        Background = System.Windows.Media.Brushes.White;
+        Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Assets/brand.png"));
+        SizeChanged += async (_, _) => {
+            if (Browser.CoreWebView2 != null)
+                await Browser.CoreWebView2.ExecuteScriptAsync("window.npcSetExpanded?.(" + (ActualWidth >= 760 ? "true" : "false") + ")");
+        };
         WindowChrome.SetWindowChrome(this, new WindowChrome {
             CaptionHeight = 35, ResizeBorderThickness = new Thickness(6),
             GlassFrameThickness = new Thickness(0), CornerRadius = new CornerRadius(0), UseAeroCaptionButtons = false
@@ -44,6 +49,15 @@ internal sealed class ChatWindow : Window
         PreviewKeyDown += (_, e) => { if (e.Key == Key.Escape && !Browser.IsKeyboardFocusWithin) { e.Handled = true; Hide(); } };
         Activated += (_, _) => owner.ChatViewed();
         Closing += (_, e) => { if (!owner.Exiting && !releasing) { e.Cancel = true; Hide(); } };
+    }
+    public void ToggleExpanded()
+    {
+        if (WindowState != WindowState.Normal) WindowState = WindowState.Normal;
+        var area = SystemParameters.WorkArea;
+        Width = ActualWidth >= 760 ? 440 : Math.Min(960, area.Width);
+        Height = Math.Min(760, area.Height);
+        Left = Math.Clamp(Left, area.Left, Math.Max(area.Left, area.Right - Width));
+        Top = Math.Clamp(Top, area.Top, Math.Max(area.Top, area.Bottom - Height));
     }
     public void Release() { releasing = true; Browser.Dispose(); Close(); }
     public async Task Initialize(string token)
@@ -81,6 +95,7 @@ internal sealed class ChatWindow : Window
             try {
                 using var doc = JsonDocument.Parse(e.WebMessageAsJson);
                 var data = doc.RootElement;
+                if (data.TryGetProperty("kind", out var layoutAction) && layoutAction.GetString() == "expand") { ToggleExpanded(); return; }
                 if (data.TryGetProperty("kind", out var action) && action.GetString() == "hide") { Hide(); return; }
                 if (data.TryGetProperty("kind", out var kind) && kind.GetString() == "reply") {
                     var character = data.GetProperty("character").GetString();

@@ -3,6 +3,7 @@ import pytest
 
 @pytest.mark.parametrize("path,kind", [
     ("/", "text/html"), ("/index.html", "text/html"), ("/app.js", "javascript"),
+    ("/brand.svg", "image/svg+xml"), ("/violet.css", "text/css"),
     ("/config.js", "javascript"), ("/styles.css", "text/css"), ("/faces/neutral.png", "image/png"),
     ("/characters/cartethyia/faces/neutral.png", "image/png"),
 ])

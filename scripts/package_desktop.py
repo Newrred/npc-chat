@@ -27,7 +27,7 @@ def source_files(root):
     files = list((root / "app").rglob("*.py"))
     files += list((root / "app/characters").glob("*.json"))
     files += list((root / "migrations").rglob("*.py"))
-    files += [root / "frontend" / name for name in ("index.html", "app.js", "styles.css", "config.js")]
+    files += [root / "frontend" / name for name in ("index.html", "app.js", "styles.css", "config.js", "violet.css", "brand.svg")]
     files += list((root / "frontend/faces").glob("*.png"))
     files += list((root / "frontend/characters").glob("*/faces/*.png"))
     files += [root / "scripts" / name for name in

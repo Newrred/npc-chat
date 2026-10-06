@@ -6,6 +6,49 @@ const vm = require("node:vm");
 
 const source = readFileSync(resolve(__dirname, "../frontend/app.js"), "utf8");
 
+const relationship = {affection: 12, trust: 31, comfort: 32, interest: 33, irritation: 1};
+
+test("relationship uses bounded server values and honors hidden mode", async () => {
+  for (const [values, hidden] of [[relationship, false], [{...relationship, trust: 101}, true], [{...relationship, trust: "31"}, true]]) {
+    const ui = mount(async () => ({ok:true, json:async () => ({reply:"반가워", relationship:{values, delta:{}}})}));
+    ui.node("messageInput").value="안녕"; await ui.submit();
+    assert.equal(ui.node("relationshipStats").hidden, hidden);
+    if (!hidden) assert.deepEqual(ui.node("relationshipStats").children.map(row => row.children[1].value), Object.values(relationship));
+  }
+  const ui = mount(async () => ({ok:true, json:async () => ({reply:"반가워", relationship:{values:relationship, delta:{}}})}), true,
+    {config:{NPC_RELATIONSHIP_DISPLAY:"hidden"}});
+  ui.node("messageInput").value="안녕"; await ui.submit();
+  assert.equal(ui.node("relationshipPanel").hidden,true);
+  assert.equal(ui.node("relationshipStats").children.length,0);
+});
+
+test("relationship restores from history and clears when changing character", async () => {
+  const ui = mount(async () => ({ok:true,json:async()=>({items:[],before:null,relationship})}), true,
+    {realHistory:true,stored:new Map([["npc_session_id","s"],["npc_profile_id","p"]])});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(ui.node("relationshipStats").hidden,false);
+  ui.node("openCartethyiaRoom").listeners.click();
+  assert.equal(ui.node("relationshipStats").hidden,true);
+  assert.equal(ui.node("companionName").textContent,"띳띠");
+});
+
+test("suggestions preserve drafts and failed pending requests; never auto-send", async () => {
+  let calls = 0;
+  const ui = mount(async () => {calls++;throw Error("offline");});
+  ui.node("suggestToday").listeners.click();
+  assert.equal(ui.node("messageInput").value,"오늘은 어떻게 보냈어?");
+  ui.node("suggestRest").listeners.click();
+  assert.equal(ui.node("messageInput").value,"오늘은 어떻게 보냈어?");
+  assert.equal(calls,0);
+  await ui.submit();
+  const pending = ui.stored.get("npc_pending_turn");
+  ui.node("messageInput").value="";
+  ui.node("suggestRest").listeners.click();
+  assert.equal(ui.node("messageInput").value,"");
+  assert.equal(ui.stored.get("npc_pending_turn"),pending);
+  assert.equal(calls,1);
+});
+
 function mount(fetch, configured = true, options = {}) {
   const nodes = new Map();
   const stored = options.stored || new Map();

@@ -11,6 +11,7 @@ def mount_frontend(application: FastAPI) -> None:
     for url, name in {
         "/": "index.html", "/index.html": "index.html", "/app.js": "app.js",
         "/config.js": "config.js", "/styles.css": "styles.css",
+        "/violet.css": "violet.css", "/brand.svg": "brand.svg",
     }.items():
         def handler_factory(filename):
             def serve():

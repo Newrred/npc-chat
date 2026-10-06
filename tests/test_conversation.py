@@ -25,6 +25,23 @@ def send(client, identity, turn="a", headers=None):
     return result.json()
 
 
+def test_history_relationship_is_current_server_state_and_isolated(tmp_path):
+    repo, client = local_client(tmp_path)
+    with client:
+        identity = client.post("/api/session", json={}).json()
+        other = client.post("/api/session", json={}).json()
+        first = send(client, identity, "first")
+        send(client, identity, "second")
+        expected = repo.load(identity["profile_id"], settings.character_id).values.model_dump()
+        assert client.get("/api/conversation", params=identity).json()["relationship"] == expected
+        assert client.get("/api/conversation", params={**identity, "before": "second"}).json()["relationship"] == expected
+        assert client.get("/api/conversation", params=other).json()["relationship"] == client.app.state.character.initial_relationship.model_dump()
+        assert first["relationship"]["values"]
+    _, restarted = local_client(tmp_path)
+    with restarted:
+        assert restarted.get("/api/conversation", params=identity).json()["relationship"] == expected
+
+
 def test_history_pages_ties_and_restart(tmp_path):
     repo, client = local_client(tmp_path)
     with client:

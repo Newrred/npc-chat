@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
-  <meta name="theme-color" content="#f6f8fa" />
-  <title>사이 · 대화</title>
+  <meta name="theme-color" content="#7434ff" />
+  <title>NPC Chat · 대화</title>
+  <link rel="icon" href="./brand.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./violet.css" />
 </head>
 <body>
   <main class="screen">
     <section id="conversationList" class="conversation-list" aria-label="대화 목록">
-      <header class="list-header"><div class="brand">사이<span class="brand-dot"></span></div><span class="brand-note">가까워지는 시간</span></header>
+      <header class="list-header"><div class="brand"><img src="./brand.svg" alt="" />NPC Chat</div><span class="brand-note">가까워지는 시간</span></header>
       <div class="list-heading"><p class="eyebrow">YOUR CONVERSATIONS</p><h1>대화</h1><p>반가운 얼굴, 이어지는 이야기.</p></div>
       <div class="list-section-label">나의 대화 <span>02</span></div>
       <button id="openYuiRoom" class="conversation-card" type="button" aria-label="유이 대화방 열기">
@@ -30,9 +32,11 @@
       <button id="backToList" class="icon-button back-button" type="button" aria-label="대화 목록으로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7" /></svg></button>
       <img id="headerAvatar" class="header-avatar" src="./faces/neutral.png" alt="" />
       <div class="room-heading"><h1 id="roomTitle">유이</h1><span id="roomPresence">메시지로 함께해요</span></div>
+      <button id="expandChat" class="icon-button expand-button" type="button" aria-label="넓게 펼치기" aria-pressed="false" title="넓게 펼치기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button>
       <button id="startVideo" class="icon-button video-button" type="button" aria-label="유이 캐릭터 영상 연결" aria-controls="videoStage"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="3"/><path d="m15 10 6-3v10l-6-3"/></svg></button>
     </header>
-    <div id="videoInvite" class="video-invite"><span><strong>표정까지, 더 가까이</strong><span>캐릭터 화면을 열고 대화해 보세요</span></span><button id="joinVideo" type="button">영상 연결</button></div>
+    <div class="chat-workspace"><div class="chat-main">
+    <div id="videoInvite" class="video-invite"><span><strong>오늘도, 함께 이야기해요</strong><span>캐릭터 화면을 열고 대화해 보세요</span></span><button id="joinVideo" type="button">표정 보기</button></div>
     <section id="videoStage" class="stage" hidden aria-label="캐릭터 영상">
       <div class="portrait-wrap">
         <img id="heroine" alt="유이의 현재 표정" />
@@ -56,11 +60,12 @@
       <div hidden id="reply"></div>
       <div id="chatStatus" role="status" aria-live="polite"></div>
       <div class="recovery-actions"><button hidden id="retryButton" type="button">다시 보내기</button><button hidden id="editButton" type="button">내용 수정</button></div>
+      <div class="suggestion-row" aria-label="대화 시작 문구"><button id="suggestToday" type="button">오늘 이야기</button><button id="suggestRest" type="button">잠깐 쉬기</button></div>
       <form id="chatForm" class="input-row">
         <input id="messageInput" aria-label="메시지" type="text" placeholder="유이에게 메시지…" autocomplete="off" maxlength="1000" />
         <button type="submit" aria-label="보내기">↑</button>
       </form>
-      <details class="chat-options"><summary>대화 설정</summary>
+      <details class="chat-options" id="chatOptions"><summary>대화 설정</summary>
         <button id="leaveRoom" type="button" class="leave-room">대화방 나가기</button>
         <p class="privacy-note">대화는 서버에 저장되며 테스트 개선을 위해 운영자가 확인할 수 있어요. 대화방 나가기로 기록·기억·관계를 초기화할 수 있어요.</p>
         <label class="comfy-toggle"><input id="comfyToggle" type="checkbox" /> 추가 이미지 생성</label>
@@ -68,6 +73,16 @@
         <div hidden id="meta" class="meta"></div>
       </details>
     </section>
+    </div>
+    <aside class="companion-panel" aria-label="캐릭터와 관계">
+      <div class="companion-profile"><img id="companionPortrait" src="./faces/neutral.png" alt="유이" /><h2 id="companionName">유이</h2><p>작은 이야기로 가까워지는 시간.</p></div>
+      <details id="relationshipPanel" class="relationship-panel" open><summary><span>♡</span> 우리 사이</summary>
+        <p id="relationshipStatus" class="relationship-note">관계를 불러오는 중이에요.</p>
+        <div id="relationshipStats" class="relationship-stats" hidden></div>
+      </details>
+      <div class="companion-footer"><img src="./brand.svg" alt=""/><p>한마디에서 시작되는<br/>우리 사이.</p></div>
+    </aside>
+    </div>
     </section>
   </main>
   <dialog id="leaveDialog"><h2>대화방을 나갈까요?</h2><p id="leaveDescription">유이와의 대화 기록, 기억과 관계가 초기화돼요.<br>목록으로 돌아가기만 하면 대화는 그대로 유지돼요.</p><p>사용한 일일 대화 한도는 초기화되지 않아요.</p><div class="dialog-actions"><button id="cancelLeave" type="button">취소</button><button id="confirmLeave" type="button" class="leave-room">기록 삭제하고 나가기</button></div><p id="leaveStatus" role="status"></p></dialog>

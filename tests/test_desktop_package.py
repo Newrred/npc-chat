@@ -29,12 +29,13 @@ def test_package_rejects_escaping_or_missing_files(tmp_path, value):
 
 def test_source_allowlist_does_not_ship_private_data(tmp_path):
     for name in [".env", ".runtime/chat.sqlite3", "app/__pycache__/secret.pyc", "app/static/generated/private.png",
-                 "frontend/private.json", "tests/private_trace.json", "app/main.py", "frontend/faces/neutral.png"]:
+                 "frontend/private.json", "tests/private_trace.json", "app/main.py", "frontend/faces/neutral.png",
+                 "frontend/brand.svg", "frontend/violet.css"]:
         path = tmp_path / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.touch()
     assert {p.relative_to(tmp_path).as_posix() for p in source_files(tmp_path)} == {
-        "app/main.py", "frontend/faces/neutral.png"}
+        "app/main.py", "frontend/faces/neutral.png", "frontend/brand.svg", "frontend/violet.css"}
 
 
 def test_builder_never_overwrites_existing_folder(tmp_path):

@@ -1,0 +1,97 @@
+/* NPC Chat identity. Layout changes never remount the conversation. */
+:root { --violet: #7434ff; --ink: #29223f; --muted: #766c8d; --line: #eee8f8; --soft: #f3edff; color: var(--ink); background: #f0edf6; }
+button { background: var(--violet); }
+button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #ab85ff; outline-offset: 3px; }
+.screen, .desktop-shell .screen { background: #fff; max-width: 1100px; }
+.brand { letter-spacing: -.04em; font-size: 22px; gap: 10px; }
+.brand img { width: 38px; height: 38px; }
+.conversation-list { background: #fcfaff; }
+.list-heading .eyebrow, .room-tag { color: #6834c5; }
+.room-tag { background: var(--soft); }
+.conversation-card:hover { border-color: #bfa2fa; box-shadow: 0 8px 24px #7434ff10; }
+.avatar-mark, .unread-dot { background: var(--violet); }
+.footer-orbit { color: #b391ed; }
+.chat-workspace { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.chat-main { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; }
+.topbar, .desktop-shell .topbar { background: var(--violet); color: white; border: 0; padding: 18px 14px 20px 8px; gap: 9px; }
+.room-heading h1, .desktop-shell .room-heading h1 { color: white; font-size: 19px; margin-bottom: 5px; }
+.room-heading > span, .desktop-shell .room-heading > span { color: #eee4ff; font-size: 11px; }
+.header-avatar, .desktop-shell .header-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid #ffffffbd; }
+.topbar .icon-button { color: white; border-radius: 14px; }
+.topbar .icon-button:hover { background: #ffffff22; }
+.video-button { background: #ffffff19; }
+.video-invite, .desktop-shell .video-invite { background: #faf7ff; border: 1px solid var(--line); border-radius: 16px; margin: 14px 18px 0; padding: 12px 14px; }
+.video-invite strong { color: #544073; }
+.video-invite > span > span { color: var(--muted); }
+.video-invite button { background: var(--soft); color: #6530cf; box-shadow: none; }
+.dialogue, .desktop-shell .dialogue { background: white; }
+.chat-thread, .desktop-shell .chat-thread { padding: 24px 20px 12px; }
+.chat-intro { color: var(--muted); font-size: 12px; margin: 6px 0 24px; }
+.speaker { color: var(--muted); font-size: 11px; margin-bottom: 1px; }
+.message-row { margin-bottom: 22px; }
+.bubble, .desktop-shell .bubble { color: var(--ink); background: var(--soft); border: 0; box-shadow: none; border-radius: 19px 19px 19px 5px; padding: 13px 16px; line-height: 1.7; }
+.user .bubble, .desktop-shell .user .bubble { color: white; background: var(--violet); border-radius: 19px 19px 5px 19px; }
+.typing-bubble span { background: #9562f1; }
+.suggestion-row { display: flex; flex: none; gap: 8px; padding: 5px 18px; }
+.suggestion-row button { background: #faf8ff; color: #665182; border: 1px solid #e9dffb; font-size: 11px; min-height: 34px; padding: 7px 14px; }
+.suggestion-row button:hover { background: var(--soft); }
+.input-row, .desktop-shell .input-row { border-radius: 28px; border: 1px solid #e4d9f6; margin: 7px 18px 0; padding: 5px; }
+.input-row:focus-within { outline-color: #af89ff; }
+input[type="text"] { color: var(--ink); }
+input[type="text"]::placeholder { color: #9286a6; font-size: 13px; }
+.input-row button, .desktop-shell .input-row button { border-radius: 50%; background: var(--violet); }
+.chat-options, .desktop-shell .chat-options { color: var(--muted); padding: 5px 24px 9px; font-size: 11px; max-height: 145px; }
+.privacy-note { color: var(--muted); }
+.history-controls { color: var(--muted); padding-top: 6px; }
+.history-controls button { background: var(--soft); color: #6530cf; }
+.companion-panel { flex: none; background: #fff; border-top: 1px solid var(--line); max-height: 160px; overflow: auto; }
+.companion-profile, .companion-footer { display: none; }
+.relationship-panel { padding: 13px 22px 17px; }
+.relationship-panel summary { cursor: pointer; color: #4a385f; font-weight: 650; font-size: 12px; }
+.relationship-panel summary span { color: var(--violet); margin-right: 6px; }
+.relationship-note { color: var(--muted); font-size: 11px; margin: 10px 0 0; line-height: 1.6; }
+.relationship-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 14px; }
+.relationship-stat { min-width: 0; font-size: 10px; color: #736582; }
+.relationship-stat label { display: block; margin-bottom: 7px; white-space: nowrap; }
+.relationship-stat progress { display: block; appearance: none; width: 100%; height: 5px; border: 0; border-radius: 5px; overflow: hidden; background: #eee7fb; accent-color: var(--violet); }
+.relationship-stat progress::-webkit-progress-bar { background: #eee7fb; }
+.relationship-stat progress::-webkit-progress-value { background: var(--violet); border-radius: 5px; }
+.relationship-stat output { display: block; margin-top: 6px; color: #55436c; }
+.stage .portrait-wrap { background: #eee7fc; }
+.stage { padding-top: 10px; }
+dialog { color: var(--ink); }
+dialog::backdrop { background: #24153d88; }
+@media (min-width: 760px) {
+  .topbar, .desktop-shell .topbar { background: white; border-bottom: 1px solid var(--line); padding: 20px 24px 20px 14px; }
+  .room-heading h1, .desktop-shell .room-heading h1 { color: var(--ink); }
+  .room-heading > span, .desktop-shell .room-heading > span { color: var(--muted); }
+  .topbar .icon-button { color: #725590; }
+  .topbar .icon-button:hover, .video-button { background: var(--soft); }
+  .header-avatar, .desktop-shell .header-avatar { border-color: #ece2fc; }
+  .chat-workspace { flex-direction: row; }
+  .companion-panel { width: 248px; max-height: none; border-top: 0; border-left: 1px solid var(--line); background: #fdfbff; padding: 22px 10px; }
+  .companion-profile { display: block; text-align: center; }
+  .companion-profile img { height: 132px; width: 132px; object-fit: cover; object-position: center 25%; border-radius: 50%; background: var(--soft); border: 6px solid #efe5ff; }
+  .companion-profile h2 { font-size: 20px; margin: 15px 0 8px; }
+  .companion-profile p { font-size: 11px; line-height: 1.7; color: var(--muted); }
+  .relationship-panel { padding: 24px 16px; }
+  .relationship-stats { grid-template-columns: 1fr; gap: 15px; }
+  .relationship-stat { display: grid; grid-template-columns: 50px 1fr 25px; align-items: center; gap: 8px; font-size: 11px; }
+  .relationship-stat label, .relationship-stat output { margin: 0; }
+  .relationship-stat output { text-align: right; }
+  .companion-footer { display: flex; align-items: center; gap: 12px; margin: 10px 14px; padding: 18px 12px; background: var(--soft); border-radius: 16px; }
+  .companion-footer img { width: 32px; height: 32px; }
+  .companion-footer p { font-size: 11px; line-height: 1.7; color: #796294; margin: 0; }
+  .chat-thread, .desktop-shell .chat-thread { padding: 28px; }
+}
+@media (max-height: 620px) {
+  .stage { height: 100px; }
+  .chat-options[open] { max-height: 100px; }
+  .topbar, .desktop-shell .topbar { padding-top: 8px; padding-bottom: 8px; }
+  .video-invite, .desktop-shell .video-invite { margin-top: 6px; padding: 6px 12px; }
+  .video-invite > span > span { display: none; }
+  .suggestion-row { display: none; }
+  .relationship-panel { padding-top: 8px; padding-bottom: 8px; }
+  .relationship-stats { margin-top: 8px; }
+  .companion-profile img { width: 90px; height: 90px; }
+}

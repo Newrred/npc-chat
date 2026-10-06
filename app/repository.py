@@ -105,8 +105,11 @@ class SQLiteRepository:
                     (turns.c.created == cursor.created) & (turns.c.client_turn_id < before)))
             rows = connection.execute(select(turns).where(where).order_by(
                 turns.c.created.desc(), turns.c.client_turn_id.desc()).limit(limit + 1)).mappings().all()
+            relationship = connection.execute(select(relationships).where(
+                self._where(relationships, profile_id, character_id))).mappings().one()
         page = rows[:limit]
-        return {"items": [{"turn_id": row["client_turn_id"], "user_message": row["user_message"],
+        return {"relationship": {key: relationship[key] for key in DIMENSIONS},
+                "items": [{"turn_id": row["client_turn_id"], "user_message": row["user_message"],
                            "reply": row["response"]["reply"], "face": row["response"].get("face", "neutral"),
                            "created": row["created"]} for row in reversed(page)],
                 "before": page[-1]["client_turn_id"] if len(rows) > limit else None}

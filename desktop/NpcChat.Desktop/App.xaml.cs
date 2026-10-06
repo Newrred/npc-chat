@@ -49,7 +49,8 @@ public partial class App : Application
         if (!first) { MessageBox.Show("이미 실행 중입니다. 작업 표시줄의 트레이 아이콘에서 열어주세요."); Shutdown(); return; }
         diagnostics = new DiagnosticsWindow(this, File.Exists(Path.Combine(Root, "desktop-package.json")));
         Widget = new WidgetWindow(this); Widget.Show();
-        tray = new Forms.NotifyIcon { Icon = System.Drawing.SystemIcons.Application, Text = "NPC Chat · 준비 중", Visible = true };
+        using var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Assets/brand.ico")).Stream;
+        tray = new Forms.NotifyIcon { Icon = new System.Drawing.Icon(iconStream), Text = "NPC Chat · 준비 중", Visible = true };
         var menu = new Forms.ContextMenuStrip();
         menu.Items.Add("채팅 열기", null, (_, _) => Dispatcher.Invoke(ShowChat));
         menu.Items.Add("위젯 표시", null, (_, _) => Dispatcher.Invoke(() => { Widget.Show(); Widget.Activate(); }));
@@ -251,6 +252,7 @@ public partial class App : Application
         CaptureWidget();
         using (var capture = File.Create(Path.Combine(DataDirectory, "chat.png")))
             await chat.Browser.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, capture);
+        if (widgetTest) await VerifyIdentityUi();
         chat.Close();
         if (chat.IsVisible || !Widget!.IsVisible) throw new Exception("Close must hide chat");
         ShowChat();
