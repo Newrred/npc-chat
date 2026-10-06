@@ -8,6 +8,7 @@ import subprocess
 import sys
 import zipfile
 from urllib.parse import urlsplit
+import re
 
 if __package__ in (None, ''):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -15,6 +16,20 @@ from scripts.package_notices import collect, enforce_distribution
 from scripts.verify_desktop_package import verify
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def download_url(url):
+    """Normalize public Drive share URLs; never persist temporary query tokens."""
+    parsed = urlsplit(url)
+    if parsed.scheme != 'https' or not parsed.netloc or parsed.username or parsed.password or parsed.fragment:
+        raise ValueError('Use stable public HTTPS payload URLs without credentials or query tokens')
+    if parsed.netloc == 'drive.google.com':
+        match = re.fullmatch(r'/file/d/([A-Za-z0-9_-]+)/view', parsed.path)
+        if match and parsed.query in ('', 'usp=sharing', 'usp=drive_link'):
+            return 'https://drive.usercontent.google.com/download?id=' + match[1] + '&export=download&confirm=t'
+    if parsed.query:
+        raise ValueError('Use stable public HTTPS payload URLs without credentials or query tokens')
+    return url
 
 
 def digest(path):
@@ -29,11 +44,8 @@ def build(args):
         raise ValueError('Choose a new output folder')
     if bool(args.app_url) != bool(args.model_url):
         raise ValueError('Both HTTPS payload URLs are required for a download installer')
-    for url in (args.app_url, args.model_url):
-        if url:
-            parsed = urlsplit(url)
-            if parsed.scheme != 'https' or not parsed.netloc or parsed.username or parsed.password or parsed.fragment or parsed.query:
-                raise ValueError('Use stable public HTTPS payload URLs without credentials or query tokens')
+    app_url = download_url(args.app_url) if args.app_url else None
+    model_url = download_url(args.model_url) if args.model_url else None
     package = args.package.resolve()
     errors = verify(package)
     if errors:
@@ -63,14 +75,15 @@ def build(args):
     model = mapping.pop('models/model.gguf')
     mapping['package-manifest.json'] = manifest_path
     app_zip = output / 'app.zip'
-    # No compression for already-compressed runtime/assets; ZIP64 handles large payloads.
-    with zipfile.ZipFile(app_zip, 'x', compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
+    # DLLs and source compress well. Deflate is supported by the Windows installer.
+    # Model bytes remain unchanged; avoid a second compression pass over app.zip.
+    with zipfile.ZipFile(app_zip, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=6, allowZip64=True) as archive:
         for name, path in sorted(mapping.items()):
             archive.write(path, name)
     model_target = output / 'model.gguf'
     shutil.copyfile(model, model_target)
     payloads = [{'name': name, 'bytes': path.stat().st_size, 'sha256': digest(path), 'url': url}
-                for name, path, url in [('app.zip', app_zip, args.app_url), ('model.gguf', model_target, args.model_url)]]
+                for name, path, url in [('app.zip', app_zip, app_url), ('model.gguf', model_target, model_url)]]
     release = {'format': 1, 'id': args.release_id, 'expandedBytes': sum(p.stat().st_size for p in mapping.values()),
                'distribution': 'internal-test-only', 'manifestSha256': digest(manifest_path), 'payloads': payloads}
     config = output / 'release.json'
@@ -83,7 +96,7 @@ def build(args):
     # Windows rejected the measured 7.9GB EXE overlay. Use ZIP64 for offline transport.
     offline = output / 'NPCChatSetup-offline.zip'
     with zipfile.ZipFile(offline, 'x', compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
-        archive.write(base, 'NPCChatSetup.exe')
+        archive.write(base, 'NPCChatSetup.exe', compress_type=zipfile.ZIP_DEFLATED, compresslevel=6)
         for p in payloads:
             archive.write(output / p['name'], 'payloads/' + p['name'])
     if args.app_url:

@@ -1,0 +1,18 @@
+<Window x:Class="NpcChat.Setup.UninstallWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+ Title="NPC Chat 제거" Width="700" Height="610" WindowStyle="None" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="White" Foreground="#302440" Topmost="False" Icon="Assets/brand.png" FontFamily="Segoe UI, Malgun Gothic">
+ <shell:WindowChrome.WindowChrome><shell:WindowChrome CaptionHeight="42" ResizeBorderThickness="0" GlassFrameThickness="0" UseAeroCaptionButtons="False"/></shell:WindowChrome.WindowChrome>
+ <Window.Resources><Style TargetType="Button"><Setter Property="Padding" Value="20,12"/><Setter Property="Margin" Value="8,0,0,0"/><Setter Property="Background" Value="#F1EAFF"/><Setter Property="Foreground" Value="#674394"/><Setter Property="BorderThickness" Value="0"/></Style></Window.Resources>
+ <Grid><Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition/><RowDefinition Height="76"/></Grid.RowDefinitions>
+  <Border Background="#FAF7FF"><DockPanel Margin="16,0,8,0"><Button DockPanel.Dock="Right" Content="✕" Click="CloseWindow" shell:WindowChrome.IsHitTestVisibleInChrome="True"/><TextBlock Text="NPC Chat · 제거" VerticalAlignment="Center"/></DockPanel></Border>
+  <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"><StackPanel Margin="32,24">
+   <DockPanel><Image Source="Assets/brand.png" Width="56" Height="56" Margin="0,0,14,0"/><StackPanel><TextBlock x:Name="Heading" Text="남길 항목을 선택해 주세요" FontSize="25" FontWeight="Bold"/><TextBlock Text="앱을 제거해도 원하는 파일은 보관할 수 있어요." Margin="0,8,0,0" Foreground="#80708E"/></StackPanel></DockPanel>
+   <TextBlock x:Name="Location" TextWrapping="Wrap" Margin="0,24,0,20" FontSize="12"/>
+   <CheckBox x:Name="KeepData" IsChecked="True" Content="대화 기록과 설정 보존" FontSize="16"/>
+   <TextBlock Text="대화·기억·관계, 브라우저 식별 정보, 위젯 설정과 백업을 남깁니다.&#10;이 PC의 다른 NPC Chat 설치에서도 사용하는 데이터입니다." TextWrapping="Wrap" Foreground="#80708E" Margin="24,8,0,22"/>
+   <CheckBox x:Name="KeepModel" IsChecked="True" Content="다운로드한 모델 보존" FontSize="16"/>
+   <TextBlock Text="설치 폴더의 retained-models에 남깁니다. 약 5.63GB입니다." TextWrapping="Wrap" Foreground="#80708E" Margin="24,8,0,20"/>
+   <TextBlock x:Name="Status" TextWrapping="Wrap" Foreground="#674394"/>
+  </StackPanel></ScrollViewer>
+  <Border Grid.Row="2" Background="#FAF7FF"><StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0"><Button x:Name="CloseButton" Content="취소" Click="CloseWindow"/><Button x:Name="RemoveButton" Content="선택한 내용으로 제거" Background="#753BFF" Foreground="White" Click="RemoveClick"/></StackPanel></Border>
+ </Grid>
+</Window>

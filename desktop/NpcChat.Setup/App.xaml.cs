@@ -17,6 +17,30 @@ public partial class App : Application
             using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("release.json") ?? throw new InvalidDataException("설치 payload가 설정되지 않은 개발 빌드입니다.");
             using var reader = new StreamReader(resource);
             var release = Installer.ReadRelease(await reader.ReadToEndAsync());
+            var removalChecks = Array.IndexOf(e.Args, "--uninstall-ui-checks");
+            if (removalChecks >= 0) { ShutdownMode = ShutdownMode.OnExplicitShutdown; await UninstallUiChecks.Run(Path.GetFullPath(e.Args[removalChecks+1])); Shutdown(0); return; }
+            var uninstall = Array.IndexOf(e.Args, "--uninstall");
+            var worker = Array.IndexOf(e.Args, "--uninstall-worker");
+            if (uninstall >= 0 || worker >= 0) {
+                if (worker >= 0) Exit += (_, _) => UninstallHost.CleanupOnExit();
+                var index = Math.Max(uninstall, worker);
+                var uninstallRoot = Path.GetFullPath(e.Args[index + 1]);
+                WindowsInstall.Read(uninstallRoot, release);
+                var smokeIndex = Array.IndexOf(e.Args, "--uninstall-smoke");
+                var smokeOutput = smokeIndex >= 0 ? Path.GetFullPath(e.Args[smokeIndex + 1]) : null;
+                if (worker < 0) { UninstallHost.Detach(uninstallRoot, smokeOutput); Shutdown(0); return; }
+                var removal = new UninstallWindow(uninstallRoot, release, smokeOutput == null ? null : WindowsScope.Current with {Data = Path.Combine(smokeOutput, "data")}); MainWindow = removal;
+                if (smokeOutput != null) { ShutdownMode = ShutdownMode.OnExplicitShutdown; await removal.Smoke(smokeOutput); Shutdown(0); }
+                else removal.Show();
+                return;
+            }
+            var registerTest = Array.IndexOf(e.Args, "--register-test");
+            if (registerTest >= 0) {
+                var registerRoot = Path.GetFullPath(e.Args[registerTest + 1]);
+                await Installer.VerifyInstalled(WindowsInstall.AppPath(registerRoot, release), CancellationToken.None, release.ManifestSha256);
+                WindowsInstall.Register(registerRoot, release, Environment.ProcessPath!, false, WindowsScope.Current);
+                Shutdown(0); return;
+            }
             var payloadRoot = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath!)!, "payloads");
             var offline = Directory.Exists(payloadRoot);
             var http = new System.Net.Http.HttpClient(new System.Net.Http.HttpClientHandler { AllowAutoRedirect = false }) { Timeout = Timeout.InfiniteTimeSpan };
@@ -32,59 +56,28 @@ public partial class App : Application
                 File.WriteAllText(Path.Combine(root, "install-test.json"), JsonSerializer.Serialize(new { success = true, id = release.Id, executable = File.Exists(Path.Combine(result, "NpcChat.Desktop.exe")) }));
                 http.Dispose(); Shutdown(0); return;
             }
-            var window = new Window { Title = "NPC Chat 설치 · 내부 테스트", Width = 510, Height = 390, ResizeMode = ResizeMode.NoResize, WindowStartupLocation = WindowStartupLocation.CenterScreen, Topmost = false, Background = new SolidColorBrush(Color.FromRgb(245,247,242)) };
+            var uiTest = Array.IndexOf(e.Args, "--ui-test");
+            var testDirectory = uiTest >= 0 && e.Args.Length > uiTest + 1 ? Path.GetFullPath(e.Args[uiTest + 1]) : null;
+            if (uiTest >= 0 && (testDirectory == null || Directory.Exists(testDirectory))) throw new IOException("UI 검증에는 새 폴더를 지정하세요.");
+            Acquire local = (p, d, progress, ct) => LocalPayload.Copy(payloadRoot, p, d, progress, ct);
+            Acquire online = (p, d, progress, ct) => Installer.Download(http, p, d, progress, ct);
+            var window = new SetupWindow(release, payloadRoot, local, online);
             MainWindow = window;
             window.Closed += (_, _) => http.Dispose();
-            var panel = new StackPanel { Margin = new Thickness(28) }; window.Content = panel;
-            panel.Children.Add(new TextBlock { Text = "나만의 대화 공간", FontSize = 25, FontWeight = FontWeights.SemiBold, Margin = new Thickness(0,0,0,12) });
-            panel.Children.Add(new TextBlock { Text = offline ? "앱과 모델이 포함된 오프라인 설치본입니다." : "앱과 모델을 다운로드하고 설치합니다.", FontSize = 14 });
-            panel.Children.Add(new TextBlock { Text = "Windows x64 · NVIDIA GPU 권장 VRAM 8GB 이상\n기존 대화와 기억은 그대로 보존합니다.\n내부 테스트용 · 판매 배포 승인본이 아닙니다.", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,12,0,12), Foreground = Brushes.DimGray });
-            var status = new TextBlock { Text = "설치를 누르면 준비를 시작합니다.", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,0,0,12) }; panel.Children.Add(status);
-            var bar = new ProgressBar { Height = 6, Margin = new Thickness(0,0,0,18), Minimum = 0, Maximum = 100 }; panel.Children.Add(bar);
-            var actions = new StackPanel { Orientation = Orientation.Horizontal }; panel.Children.Add(actions);
-            var install = new Button { Content = "설치", Padding = new Thickness(22,8,22,8) }; actions.Children.Add(install);
-            var cancel = new Button { Content = "취소", Padding = new Thickness(18,8,18,8), Margin = new Thickness(10,0,0,0), IsEnabled = false }; actions.Children.Add(cancel);
-            CancellationTokenSource? source = null; bool running = false; string? installed = null;
-            cancel.Click += (_, _) => source?.Cancel();
-            window.Closing += (_, ev) => { if (running) { ev.Cancel = true; source?.Cancel(); status.Text = "현재 파일 작업을 안전하게 멈추고 있어요…"; } };
-            install.Click += async (_, _) => {
-                if (installed != null) {
-                    Process.Start(new ProcessStartInfo(Path.Combine(installed, "NpcChat.Desktop.exe")) { UseShellExecute = true, WorkingDirectory = installed }); window.Close(); return;
-                }
-                if (running) return;
-                running = true; install.IsEnabled = false; cancel.IsEnabled = true; source = new();
-                try {
-                    if (!Environment.Is64BitOperatingSystem) throw new InvalidOperationException("64비트 Windows가 필요합니다.");
-                    var progress = new Progress<InstallProgress>(p => { status.Text = p.Stage; bar.IsIndeterminate = p.Total == 0; if (p.Total > 0) bar.Value = 100d * p.Done / p.Total; });
-                    installed = await Task.Run(() => Installer.Install(release, root, acquire, progress, source.Token));
-                    try { Shortcut(installed); status.Text = "설치 완료. 바탕화면에 NPC Chat 바로가기를 만들었습니다."; }
-                    catch { status.Text = "설치는 완료됐지만 바로가기를 만들지 못했습니다. 아래 버튼으로 실행할 수 있어요."; }
-                    install.Content = "앱 실행"; bar.IsIndeterminate = false; bar.Value = 100;
-                } catch (OperationCanceledException) { status.Text = "설치를 멈췄습니다. 다시 시도하면 준비된 파일을 재사용합니다."; install.Content = "다시 시도"; }
-                catch (Exception ex) { status.Text = "설치하지 못했어요. " + ex.Message; install.Content = "다시 시도"; }
-                finally { running = false; install.IsEnabled = true; cancel.IsEnabled = false; bar.IsIndeterminate = false; source.Dispose(); source = null; }
-            };
+            if (testDirectory != null) { await SetupUiChecks.Run(release, payloadRoot, local, online, testDirectory); http.Dispose(); Shutdown(0); return; }
             window.Show();
             var preview = Array.IndexOf(e.Args, "--preview");
             if (preview >= 0 && e.Args.Length > preview + 1) {
                 await Task.Delay(250); window.UpdateLayout();
-                var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)window.ActualWidth, (int)window.ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                bitmap.Render(window);
-                var png = new System.Windows.Media.Imaging.PngBitmapEncoder(); png.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
-                using var file = new FileStream(e.Args[preview + 1], FileMode.CreateNew); png.Save(file);
+                window.Capture(e.Args[preview + 1]);
                 window.Close();
             }
         } catch (Exception ex) {
-            if (!e.Args.Contains("--install-test")) MessageBox.Show(ex.Message, "NPC Chat 설치");
+            if (e.Args.Contains("--uninstall-ui-checks")) { var i = Array.IndexOf(e.Args, "--uninstall-ui-checks"); if (e.Args.Length > i + 1) { Directory.CreateDirectory(e.Args[i+1]); File.WriteAllText(Path.Combine(e.Args[i+1], "error.txt"), ex.ToString()); } }
+            if (e.Args.Contains("--uninstall-smoke")) { var i = Array.IndexOf(e.Args, "--uninstall-smoke"); if (e.Args.Length > i + 1) { Directory.CreateDirectory(e.Args[i+1]); File.WriteAllText(Path.Combine(e.Args[i+1], "error.txt"), ex.ToString()); } }
+            if (e.Args.Contains("--ui-test")) { var i = Array.IndexOf(e.Args, "--ui-test"); if (e.Args.Length > i + 1) { Directory.CreateDirectory(e.Args[i+1]); File.WriteAllText(Path.Combine(e.Args[i+1], "error.txt"), ex.ToString()); } }
+            if (!e.Args.Contains("--install-test") && !e.Args.Contains("--ui-test") && !e.Args.Contains("--uninstall-smoke") && !e.Args.Contains("--uninstall-ui-checks")) MessageBox.Show(ex.Message, "NPC Chat 설치");
             Shutdown(1);
         }
-    }
-    static void Shortcut(string installed)
-    {
-        var type = Type.GetTypeFromProgID("WScript.Shell") ?? throw new InvalidOperationException();
-        dynamic shell = Activator.CreateInstance(type)!;
-        dynamic link = shell.CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "NPC Chat.lnk"));
-        link.TargetPath = Path.Combine(installed, "NpcChat.Desktop.exe"); link.WorkingDirectory = installed;
-        link.Description = "NPC Chat"; link.Save();
     }
 }
